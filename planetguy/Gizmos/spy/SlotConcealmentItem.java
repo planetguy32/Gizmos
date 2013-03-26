@@ -1,5 +1,6 @@
 package planetguy.Gizmos.spy;
 
+import planetguy.Gizmos.ConfigHolder;
 import planetguy.Gizmos.ContentLoader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -25,7 +26,7 @@ public class SlotConcealmentItem extends Slot{
 		if(type==TYPE_TOOL_IN||type==TYPE_TOOL_OUT){
 			return i.getMaxStackSize()==1;
 		}else{
-			return i.stackSize==1;
+			return ConfigHolder.nerfHiding ? i.stackSize==1 : true;
 		}
 	}
 	
@@ -62,8 +63,10 @@ public class SlotConcealmentItem extends Slot{
 				if(storingItem!=null&&inventory.getStackInSlot(2)==null){
 					NBTTagCompound tag=storingItem.getTagCompound();
 					int id=tag.getShort("id");
-					int meta=tag.getShort("damage");
-					inventory.setInventorySlotContents(2, new ItemStack(id,1,meta));
+					int count=tag.getByte("Count");
+					int meta=tag.getShort("Damage");
+					ItemStack a=new ItemStack(id,count,meta);
+					inventory.setInventorySlotContents(2,a);
 					storingItem.setTagCompound(null);
 				}
 			}catch(NullPointerException npe){

@@ -2,9 +2,9 @@
 {
 	"modid": "Planetguy_Gizmos",
 	"name": "Gizmos",
-	"description": "Random stuff I added, most of which will kill you",
-	"version": "0.3",
-	"credits": "Wuppy29, the Forge wiki people",
+	"description": "Random stuff I added, much of which will kill you.",
+	"version": "0.4",
+	"credits": "Wuppy29, the Forge wiki people, Lesothos and Markarthian",
 	"authors": :["Planetguy"],
 	"logoFile": "",
 	"url": "No url, sorry",

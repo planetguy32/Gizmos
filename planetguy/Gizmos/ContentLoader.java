@@ -79,6 +79,8 @@ public class ContentLoader{
 		ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
 		ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
 		ConfigHolder.lensID = config.getItem("Spy lens ID", 8102).getInt();
+		ConfigHolder.serverSafeMode = config.get("general", "Safe server mode",false).getBoolean(false);
+		ConfigHolder.nerfHiding = config.get("general", "Limit stack size to hide",false).getBoolean(false);
 		config.save();
 	}
 
@@ -104,7 +106,7 @@ public class ContentLoader{
 		ItemStack chest=new ItemStack(Block.chest);
 
 		//Fire module
-		if(allowFire){
+		if(allowFire&&!(ConfigHolder.serverSafeMode)){
 			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setIconIndex(0).setItemName("netherLighter");
 			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setIconIndex(3).setItemName("minersLighter");
 			doomFire = new BlockSuperFire(ConfigHolder.doomFireID, 31).setBlockName("doomFire").setHardness(0.0F).setLightValue(1.0F);
@@ -134,7 +136,7 @@ public class ContentLoader{
 		}
 		
 		//Explosives module
-		if(allowGravityBombs){
+		if(allowGravityBombs&&!(ConfigHolder.serverSafeMode)){
 			graviBomb = new BlockGraviBomb( ConfigHolder.explosivesID, 0).setBlockName("graviBomb").setHardness(0.0F).setResistance(0.0F);
 			Item.itemsList[ ConfigHolder.explosivesID] = new ItemGraviBombs( ConfigHolder.explosivesID-256).setItemName("graviBomb");
 			graviBombPrimed = new EntityGravityBomb(null);

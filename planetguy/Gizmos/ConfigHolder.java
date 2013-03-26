@@ -9,6 +9,8 @@ public class ConfigHolder {
 	public static int WandID;
 	public static int spyLabID;
 	public static int lensID;
+	public static boolean serverSafeMode;
+	public static boolean nerfHiding=false;
 	
 
 }

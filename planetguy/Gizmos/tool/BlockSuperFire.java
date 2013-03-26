@@ -113,9 +113,9 @@ public class BlockSuperFire extends Block {
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
     	//meta=par1World.getBlockMetadata(par2, par3, par4);
-    	System.out.println(meta);
-        //if (par1World.func_82736_K().func_82766_b("doFireTick"))
-        //{
+    	//System.out.println(meta);
+        if (par1World.getGameRules().hasRule("doFireTick"))
+        {
             Block base = Block.blocksList[par1World.getBlockId(par2, par3 - 1, par4)];
             boolean var6 = (base != null && base.isFireSource(par1World, par2, par3 - 1, par4, par1World.getBlockMetadata(par2, par3 - 1, par4), UP));
 
@@ -211,7 +211,7 @@ public class BlockSuperFire extends Block {
                     }
                 }
             }
-        //}
+        }
     }
 
     private void tryToCatchBlockOnFire(World par1World, int par2, int par3, int par4, int par5, Random par6Random, int par7, ForgeDirection face)
