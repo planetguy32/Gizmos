@@ -40,7 +40,7 @@ public class EventWatcherBombUse {
 				w.newExplosion(player, player.posX, player.posY, player.posZ, 4, true, true);
 				player.destroyCurrentEquippedItem();
 				testSoFar=false;
-				player.attackEntityFrom(DamageSource.explosion, 20);
+				player.attackEntityFrom(DamageSource.magic, 20);
 					
 				//System.out.println("Surprise! >:)");
 			        //player.openGui(ContentLoader.cl, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);

@@ -102,7 +102,7 @@ public class InventorySpyLab implements IInventory {
         					new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
         		
                 if (item.hasTagCompound()) {
-                	entityItem.func_92014_d().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+                	//entityItem.getEntityData().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
                 }	
                 
                 float factor = 0.05F;
@@ -125,4 +125,16 @@ public class InventorySpyLab implements IInventory {
     public void onInventoryChanged() {
     	
     }
+
+	@Override
+	public boolean isInvNameLocalized() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

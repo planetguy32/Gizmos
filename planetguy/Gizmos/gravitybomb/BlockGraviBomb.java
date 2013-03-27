@@ -13,11 +13,14 @@ import planetguy.Gizmos.ConfigHolder;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 
 import net.minecraftforge.common.ForgeDirection;
 import static net.minecraftforge.common.ForgeDirection.*;
@@ -26,13 +29,28 @@ import static net.minecraftforge.common.ForgeDirection.*;
 /*    */ public class BlockGraviBomb extends Block
 /*    */ {
 	private int metadata;
+	private Icon topTex;
+	private Icon gBombTex;
+	private Icon tBombTex;
+	private Icon bottomTex;
 	
-/*    */   public BlockGraviBomb(int id, int texture)
+/*    */   public BlockGraviBomb(int id)
 /*    */   {
-/* 21 */     super(id, texture, Material.tnt);
+/* 21 */     super(id,  Material.tnt);
 /* 22 */     setCreativeTab(CreativeTabs.tabRedstone);
-			 this.setRequiresSelfNotify();
+			 //this.setRequiresSelfNotify();
 /*    */   }
+
+@Override
+@SideOnly(Side.CLIENT)
+public void registerIcons(IconRegister ir){
+	System.out.println("GraviBomb textures loading");
+	topTex=ir.registerIcon(ConfigHolder.modName+":"+"bombTop");
+	gBombTex=ir.registerIcon(ConfigHolder.modName+":"+"" +"gravityBomb");
+	tBombTex=ir.registerIcon(ConfigHolder.modName+":"+"excavatorBomb");
+	bottomTex=ir.registerIcon(ConfigHolder.modName+":"+"bombBottom");
+}
+
 @SideOnly(Side.CLIENT)
 public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
 {
@@ -55,24 +73,17 @@ public int idDropped(int par1, Random par2Random, int par3){
 /* 31 */     return 3;
 /*    */   }
 
-public int getBlockTextureFromSideAndMetadata(int par1, int par2) 
-{
-	//metadata=par2;
-switch (par1) 
-{
-case 0:
-return 2;
-case 1:
-return 1;
-default:{
-	if(par2==0){
-		return 18;
-	}else{
-		return 48;
+	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
+		if(par1==0){
+			return bottomTex;
+		}else if(par1==1){
+			return topTex;
+		}else if(par2==0){
+			return gBombTex;
+		}else{
+			return tBombTex;
+		}
 	}
-}
-}
-}
 
 
 /*    */ 
@@ -119,7 +130,7 @@ default:{
 /*    */       {
 /* 75 */         if (!par1World.isRemote)
 /*    */         {
-/* 77 */           par1World.setBlockWithNotify(par2, par3, par4, 0);
+/* 77 */           par1World.setBlock(par2, par3, par4, 0);
 				   switch(metadata){
 				   case 0:{
 					   FMLLog.log(Level.SEVERE, "A gravity bomb!","");

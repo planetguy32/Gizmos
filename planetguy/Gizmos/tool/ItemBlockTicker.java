@@ -1,5 +1,7 @@
 package planetguy.Gizmos.tool;
 
+import planetguy.Gizmos.GizmosItem;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemBlockTicker extends Item{
+public class ItemBlockTicker extends GizmosItem{
 
 	private final int TICKS_PER_MINUTE=20*60;
 	
@@ -35,5 +37,14 @@ public class ItemBlockTicker extends Item{
 			
 		}
 		return false;
+	}
+	
+	public void registerTexture(IconRegister ir){
+		System.out.println("Dislocator textures loading");
+		iconIndex=ir.registerIcon("Gizmos"+":"+"TemporalDislocator");
+	}
+	
+	public void updateIcons(IconRegister iconRegister) {
+		 iconIndex = iconRegister.registerIcon("Gizmos:TemporalDislocator");
 	}
 }

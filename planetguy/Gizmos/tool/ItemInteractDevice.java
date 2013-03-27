@@ -1,5 +1,6 @@
 package planetguy.Gizmos.tool;
 
+import planetguy.Gizmos.GizmosItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +10,7 @@ import net.minecraft.world.World;
 
 
 
-public abstract class ItemInteractDevice extends Item{
+public abstract class ItemInteractDevice extends GizmosItem{
 	
     public ItemInteractDevice(int par1) {
 		super(par1);

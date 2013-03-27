@@ -33,7 +33,7 @@ public class ItemGraviBombs extends ItemBlock{
 		}
 		default:name="idk";
 		}
-		return getItemName()+"."+name;
+		return getUnlocalizedName()+"."+name;
 		
 	}
 

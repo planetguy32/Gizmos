@@ -1,5 +1,7 @@
 package planetguy.Gizmos;
 
+import net.minecraftforge.common.Property;
+
 public class ConfigHolder {
 
 	public static int explosivesID;
@@ -9,8 +11,8 @@ public class ConfigHolder {
 	public static int WandID;
 	public static int spyLabID;
 	public static int lensID;
+	public static final String modName="Gizmos";
 	public static boolean serverSafeMode;
 	public static boolean nerfHiding=false;
-	
 
 }

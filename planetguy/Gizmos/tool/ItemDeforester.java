@@ -2,12 +2,12 @@ package planetguy.Gizmos.tool;
 
 import planetguy.Gizmos.ConfigHolder;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
 
 
 public class ItemDeforester extends ItemInteractDevice{
@@ -24,7 +24,7 @@ public class ItemDeforester extends ItemInteractDevice{
         if (id == 0)
         {
             theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            theWorld.setBlockAndMetadataWithNotify(posX, posY, posZ, ConfigHolder.doomFireID, 0);
+            theWorld.setBlock(posX, posY, posZ, ConfigHolder.doomFireID);
             BlockSuperFire.meta=0;
             me.damageItem(1, thePlayer);
             return true;
@@ -37,8 +37,11 @@ public class ItemDeforester extends ItemInteractDevice{
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-
+	
+	public void registerTexture(IconRegister ir){
+		System.out.println("Deforester textures loading");
+		iconIndex=ir.registerIcon("Gizmos"+":"+"NetherLighter");
+	}
 	
 
 	

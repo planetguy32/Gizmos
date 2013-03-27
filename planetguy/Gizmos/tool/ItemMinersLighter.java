@@ -2,6 +2,7 @@ package planetguy.Gizmos.tool;
 
 import planetguy.Gizmos.ConfigHolder;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -23,7 +24,7 @@ public class ItemMinersLighter extends ItemInteractDevice{
         if (id == 0)
         {
             theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            theWorld.setBlockAndMetadataWithNotify(posX, posY, posZ, ConfigHolder.doomFireID, 1);
+            theWorld.setBlock(posX, posY, posZ, ConfigHolder.doomFireID);
             BlockSuperFire.meta=1;
             me.damageItem(1, thePlayer);
             return true;
@@ -35,10 +36,6 @@ public class ItemMinersLighter extends ItemInteractDevice{
 	public boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
 		return true;
 	}
-
-
-	
-
 	
 }
 

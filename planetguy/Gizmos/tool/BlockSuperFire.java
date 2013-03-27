@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,7 +30,7 @@ import net.minecraft.world.WorldProviderEnd;
 import net.minecraftforge.common.ForgeDirection;
 import static net.minecraftforge.common.ForgeDirection.*;
 
-public class BlockSuperFire extends Block {
+public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();
 	
@@ -37,7 +39,7 @@ public class BlockSuperFire extends Block {
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
 	
 	public BlockSuperFire(int id, int texture) {
-		super(id, texture, Material.fire);
+		super(id);
 		//setCreativeTab(CreativeTabs.tabRedstone);
 	}
 	
@@ -57,40 +59,6 @@ public class BlockSuperFire extends Block {
 		}
 		
 	}
-
-    /**
-     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-     * cleared to be reused)
-     */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
-    {
-        return null;
-    }
-
-    /**
-     * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
-     * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
-     */
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
-
-    /**
-     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
-     */
-    public boolean renderAsNormalBlock()
-    {
-        return false;
-    }
-
-    /**
-     * The type of render function that is called for this block
-     */
-    public int getRenderType()
-    {
-        return 3;
-    }
     
     /*
     public String getTextureFile(){
@@ -110,99 +78,98 @@ public class BlockSuperFire extends Block {
     /**
      * Ticks the block if it's been scheduled
      */
+    @Override
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
-    	//meta=par1World.getBlockMetadata(par2, par3, par4);
-    	//System.out.println(meta);
-        if (par1World.getGameRules().hasRule("doFireTick"))
+        if (par1World.getGameRules().getGameRuleBooleanValue("doFireTick"))
         {
             Block base = Block.blocksList[par1World.getBlockId(par2, par3 - 1, par4)];
-            boolean var6 = (base != null && base.isFireSource(par1World, par2, par3 - 1, par4, par1World.getBlockMetadata(par2, par3 - 1, par4), UP));
+            boolean flag = (base != null && base.isFireSource(par1World, par2, par3 - 1, par4, par1World.getBlockMetadata(par2, par3 - 1, par4), UP));
 
             if (!this.canPlaceBlockAt(par1World, par2, par3, par4))
             {
-                par1World.setBlockWithNotify(par2, par3, par4, 0);
+                par1World.setBlockToAir(par2, par3, par4);
             }
 
-            if (!var6 && par1World.isRaining() && (par1World.canLightningStrikeAt(par2, par3, par4) || par1World.canLightningStrikeAt(par2 - 1, par3, par4) || par1World.canLightningStrikeAt(par2 + 1, par3, par4) || par1World.canLightningStrikeAt(par2, par3, par4 - 1) || par1World.canLightningStrikeAt(par2, par3, par4 + 1)))
+            if (!flag && par1World.isRaining() && (par1World.canLightningStrikeAt(par2, par3, par4) || par1World.canLightningStrikeAt(par2 - 1, par3, par4) || par1World.canLightningStrikeAt(par2 + 1, par3, par4) || par1World.canLightningStrikeAt(par2, par3, par4 - 1) || par1World.canLightningStrikeAt(par2, par3, par4 + 1)))
             {
-                par1World.setBlockWithNotify(par2, par3, par4, 0);
+                par1World.setBlockToAir(par2, par3, par4);
             }
             else
             {
-                int var7 = par1World.getBlockMetadata(par2, par3, par4);
+                int l = par1World.getBlockMetadata(par2, par3, par4);
 
-                if (var7 < 15)
+                if (l < 15)
                 {
-                    par1World.setBlockMetadata(par2, par3, par4, var7 + par5Random.nextInt(3) / 2);
+                    par1World.setBlockMetadataWithNotify(par2, par3, par4, l + par5Random.nextInt(3) / 2, 4);
                 }
 
-                par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate() + par5Random.nextInt(10));
+                par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World) + par5Random.nextInt(10));
 
-                if (!var6 && !this.canNeighborBurn(par1World, par2, par3, par4))
+                if (!flag && !this.canNeighborBurn(par1World, par2, par3, par4))
                 {
-                    if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) || var7 > 3)
+                    if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) || l > 3)
                     {
-                        par1World.setBlockWithNotify(par2, par3, par4, 0);
+                        par1World.setBlockToAir(par2, par3, par4);
                     }
                 }
-                else if (!var6 && !this.canBlockCatchFire(par1World, par2, par3 - 1, par4, UP) && var7 == 15 && par5Random.nextInt(4) == 0)
+                else if (!flag && !this.canBlockCatchFire(par1World, par2, par3 - 1, par4, UP) && l == 15 && par5Random.nextInt(4) == 0)
                 {
-                    par1World.setBlockWithNotify(par2, par3, par4, 0);
+                    par1World.setBlockToAir(par2, par3, par4);
                 }
                 else
                 {
-                    boolean var8 = par1World.isBlockHighHumidity(par2, par3, par4);
-                    byte var9 = 0;
+                    boolean flag1 = par1World.isBlockHighHumidity(par2, par3, par4);
+                    byte b0 = 0;
 
-                    if (var8)
+                    if (flag1)
                     {
-                        var9 = -50;
+                        b0 = -50;
                     }
 
-                    this.tryToCatchBlockOnFire(par1World, par2 + 1, par3, par4, 300 + var9, par5Random, var7, WEST );
-                    this.tryToCatchBlockOnFire(par1World, par2 - 1, par3, par4, 300 + var9, par5Random, var7, EAST );
-                    this.tryToCatchBlockOnFire(par1World, par2, par3 - 1, par4, 250 + var9, par5Random, var7, UP   );
-                    this.tryToCatchBlockOnFire(par1World, par2, par3 + 1, par4, 250 + var9, par5Random, var7, DOWN );
-                    this.tryToCatchBlockOnFire(par1World, par2, par3, par4 - 1, 300 + var9, par5Random, var7, SOUTH);
-                    this.tryToCatchBlockOnFire(par1World, par2, par3, par4 + 1, 300 + var9, par5Random, var7, NORTH);
+                    this.tryToCatchBlockOnFire(par1World, par2 + 1, par3, par4, 300 + b0, par5Random, l, WEST );
+                    this.tryToCatchBlockOnFire(par1World, par2 - 1, par3, par4, 300 + b0, par5Random, l, EAST );
+                    this.tryToCatchBlockOnFire(par1World, par2, par3 - 1, par4, 250 + b0, par5Random, l, UP   );
+                    this.tryToCatchBlockOnFire(par1World, par2, par3 + 1, par4, 250 + b0, par5Random, l, DOWN );
+                    this.tryToCatchBlockOnFire(par1World, par2, par3, par4 - 1, 300 + b0, par5Random, l, SOUTH);
+                    this.tryToCatchBlockOnFire(par1World, par2, par3, par4 + 1, 300 + b0, par5Random, l, NORTH);
 
-                    for (int var10 = par2 - 1; var10 <= par2 + 1; ++var10)
+                    for (int i1 = par2 - 1; i1 <= par2 + 1; ++i1)
                     {
-                        for (int var11 = par4 - 1; var11 <= par4 + 1; ++var11)
+                        for (int j1 = par4 - 1; j1 <= par4 + 1; ++j1)
                         {
-                            for (int var12 = par3 - 1; var12 <= par3 + 4; ++var12)
+                            for (int k1 = par3 - 1; k1 <= par3 + 4; ++k1)
                             {
-                                if (var10 != par2 || var12 != par3 || var11 != par4)
+                                if (i1 != par2 || k1 != par3 || j1 != par4)
                                 {
-                                    int var13 = 100;
+                                    int l1 = 100;
 
-                                    if (var12 > par3 + 1)
+                                    if (k1 > par3 + 1)
                                     {
-                                        var13 += (var12 - (par3 + 1)) * 100;
+                                        l1 += (k1 - (par3 + 1)) * 100;
                                     }
 
-                                    int var14 = this.getChanceOfNeighborsEncouragingFire(par1World, var10, var12, var11);
+                                    int i2 = this.getChanceOfNeighborsEncouragingFire(par1World, i1, k1, j1);
 
-                                    if (var14 > 0)
+                                    if (i2 > 0)
                                     {
-                                        int var15 = (var14 + 40 + par1World.difficultySetting * 7) / (var7 + 30);
+                                        int j2 = (i2 + 40 + par1World.difficultySetting * 7) / (l + 30);
 
-                                        if (var8)
+                                        if (flag1)
                                         {
-                                            var15 /= 2;
+                                            j2 /= 2;
                                         }
 
-                                        if (var15 > 0 && par5Random.nextInt(var13) <= var15 && (!par1World.isRaining() || !par1World.canLightningStrikeAt(var10, var12, var11)) && !par1World.canLightningStrikeAt(var10 - 1, var12, par4) && !par1World.canLightningStrikeAt(var10 + 1, var12, var11) && !par1World.canLightningStrikeAt(var10, var12, var11 - 1) && !par1World.canLightningStrikeAt(var10, var12, var11 + 1))
+                                        if (j2 > 0 && par5Random.nextInt(l1) <= j2 && (!par1World.isRaining() || !par1World.canLightningStrikeAt(i1, k1, j1)) && !par1World.canLightningStrikeAt(i1 - 1, k1, par4) && !par1World.canLightningStrikeAt(i1 + 1, k1, j1) && !par1World.canLightningStrikeAt(i1, k1, j1 - 1) && !par1World.canLightningStrikeAt(i1, k1, j1 + 1))
                                         {
-                                            int var16 = var7 + par5Random.nextInt(5) / 4;
+                                            int k2 = l + par5Random.nextInt(5) / 4;
 
-                                            if (var16 > 15)
+                                            if (k2 > 15)
                                             {
-                                                var16 = 15;
+                                                k2 = 15;
                                             }
 
-                                            par1World.setBlockAndMetadataWithNotify(var10, var12, var11, this.blockID, var16);
+                                            par1World.setBlock(i1, k1, j1, this.blockID, k2, 3);
                                         }
                                     }
                                 }
@@ -213,14 +180,20 @@ public class BlockSuperFire extends Block {
             }
         }
     }
-
+    
     private void tryToCatchBlockOnFire(World par1World, int par2, int par3, int par4, int par5, Random par6Random, int par7, ForgeDirection face)
     {
         int var8 = 0;
         int block = par1World.getBlockId(par2, par3, par4);
         if (canBurnBlock(block))
         {
-        	par1World.setBlockAndMetadataWithNotify(par2, par3, par4, this.blockID, 15);
+            int k1 = par7 + par6Random.nextInt(5) / 4;
+
+            if (k1 > 15)
+            {
+                k1 = 15;
+            }
+            par1World.setBlock(par2, par3, par4, this.blockID, k1, 3);
         } 
     }
     
@@ -263,18 +236,11 @@ public class BlockSuperFire extends Block {
     }
 
     /**
-     * Returns if this block is collidable (only used by Fire). Args: x, y, z
-     */
-    public boolean isCollidable()
-    {
-        return false;
-    }
-
-    /**
      * Checks the specified block coordinate to see if it can catch fire.  Args: blockAccess, x, y, z
      * Deprecated for a side-sensitive version
      */
     @Deprecated
+    @Override
     public boolean canBlockCatchFire(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         return canBlockCatchFire(par1IBlockAccess, par2, par3, par4, UP);
@@ -286,6 +252,7 @@ public class BlockSuperFire extends Block {
      * curChanceToEncourageFire
      * Deprecated for a side-sensitive version
      */
+    @Override
     @Deprecated
     public int getChanceToEncourageFire(World par1World, int par2, int par3, int par4, int par5)
     {
@@ -295,6 +262,8 @@ public class BlockSuperFire extends Block {
     /**
      * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
      */
+    
+    @Override
     public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
     {
         return par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) || this.canNeighborBurn(par1World, par2, par3, par4);
@@ -304,17 +273,21 @@ public class BlockSuperFire extends Block {
      * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
      * their own) Args: x, y, z, neighbor blockID
      */
+    
+    @Override
     public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
     {
         if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) && !this.canNeighborBurn(par1World, par2, par3, par4))
         {
-            par1World.setBlockWithNotify(par2, par3, par4, 0);
+            par1World.setBlock(par2, par3, par4, 0);
         }
     }
 
     /**
      * Called whenever the block is added into the world. Args: world, x, y, z
      */
+    
+    @Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
     	//this.meta=par1World.getBlockMetadata(par2, par3, par4);
@@ -322,7 +295,7 @@ public class BlockSuperFire extends Block {
         {
             if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) && !this.canNeighborBurn(par1World, par2, par3, par4))
             {
-                par1World.setBlockWithNotify(par2, par3, par4, 0);
+                par1World.setBlock(par2, par3, par4, 0);
             }
             else
             {
@@ -332,10 +305,7 @@ public class BlockSuperFire extends Block {
     }
 
     @SideOnly(Side.CLIENT)
-
-    /**
-     * A randomly called display update to be able to add particles or other items for display
-     */
+    @Override
     public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (par5Random.nextInt(24) == 0)
@@ -427,6 +397,8 @@ public class BlockSuperFire extends Block {
      * @param face The side the fire is coming from
      * @return True if the face can catch fire.
      */
+    
+    @Override
     public boolean canBlockCatchFire(IBlockAccess world, int x, int y, int z, ForgeDirection face)
     {
         int block = world.getBlockId(x, y, z);
@@ -445,6 +417,8 @@ public class BlockSuperFire extends Block {
      * @param face The side the fire is coming from
      * @return The chance of the block catching fire, or oldChance if it is higher
      */
+    
+    @Override
     public int getChanceToEncourageFire(World world, int x, int y, int z, int oldChance, ForgeDirection face)
     {
         int newChance = 0;

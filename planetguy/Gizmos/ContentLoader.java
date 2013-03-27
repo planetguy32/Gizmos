@@ -8,6 +8,7 @@ import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
 import planetguy.Gizmos.spy.BlockSpyLab;
 import planetguy.Gizmos.spy.EventWatcherBombUse;
 import planetguy.Gizmos.spy.GuiHandler;
+import planetguy.Gizmos.spy.ItemLens;
 import planetguy.Gizmos.tool.BlockSuperFire;
 import planetguy.Gizmos.tool.ItemBlockTicker;
 import planetguy.Gizmos.tool.ItemDeforester;
@@ -65,22 +66,28 @@ public class ContentLoader{
 	public static ContentLoader cl;
 	
 	@PreInit
-	public static void loadConfig(FMLPreInitializationEvent event){
+	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
-		allowGravityBombs=config.get("general", "Explosives allowed", true).getBoolean(true);
-		allowFire=config.get("general", "Extra fire allowed", true).getBoolean(true);
-		allowBombItems=config.get("general", "Spy bombs allowed",true).getBoolean(true);
-		allowDislocator=config.get("general", "Temporal Dislocator allowed", true).getBoolean(true);
-		ConfigHolder.explosivesID = config.getBlock("Explosives ID", 3981).getInt();
-		ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
-		ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
-		ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
-		ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
-		ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
-		ConfigHolder.lensID = config.getItem("Spy lens ID", 8102).getInt();
-		ConfigHolder.serverSafeMode = config.get("general", "Safe server mode",false).getBoolean(false);
-		ConfigHolder.nerfHiding = config.get("general", "Limit stack size to hide",false).getBoolean(false);
+		try{
+			allowGravityBombs=config.get("general", "Explosives allowed", true).getBoolean(true);
+			allowFire=config.get("general", "Extra fire allowed", true).getBoolean(true);
+			allowBombItems=config.get("general", "Spy bombs allowed",true).getBoolean(true);
+			allowDislocator=config.get("general", "Temporal Dislocator allowed", true).getBoolean(true);
+			ConfigHolder.explosivesID = config.getBlock("Explosives ID", 3981).getInt();
+			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
+			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
+			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
+			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
+			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
+			ConfigHolder.lensID = config.getItem("Spy lens ID", 8102).getInt();
+			ConfigHolder.serverSafeMode = config.get("general", "Safe server mode",false).getBoolean(false);
+			ConfigHolder.nerfHiding = config.get("general", "Limit stack size to hide",false).getBoolean(false);
+			//ConfigHolder.modName=config.get("general", "Mod zip file name", "Gizmos_v0.4").getString();
+		}catch (Exception e){
+			FMLLog.log(Level.SEVERE,e,"BAD GIZMOS CONFIG IS BAD! Try deleting it.");
+			throw e;
+		}
 		config.save();
 	}
 
@@ -107,9 +114,9 @@ public class ContentLoader{
 
 		//Fire module
 		if(allowFire&&!(ConfigHolder.serverSafeMode)){
-			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setIconIndex(0).setItemName("netherLighter");
-			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setIconIndex(3).setItemName("minersLighter");
-			doomFire = new BlockSuperFire(ConfigHolder.doomFireID, 31).setBlockName("doomFire").setHardness(0.0F).setLightValue(1.0F);
+			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setUnlocalizedName("netherLighter");
+			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setUnlocalizedName("minersLighter");
+			doomFire = new BlockSuperFire(ConfigHolder.doomFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
 			GameRegistry.registerBlock(doomFire);
 			ItemStack itemStackNetherLighter = new ItemStack(deforestator,1,0);
 			GameRegistry.addRecipe(itemStackNetherLighter, new Object[]{ "brb", "rfr", "brb",
@@ -127,7 +134,7 @@ public class ContentLoader{
 		
 		//Temporal dislocator module
 		if(allowDislocator){
-			dislocator = new ItemBlockTicker(ConfigHolder.WandID).setIconIndex(5).setItemName("dislocator");
+			dislocator = new ItemBlockTicker(ConfigHolder.WandID).setUnlocalizedName("dislocator");
 			ItemStack stackTicker=new ItemStack(dislocator,1,0); 
 			GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
 					Character.valueOf('c'),stackClock,
@@ -137,7 +144,7 @@ public class ContentLoader{
 		
 		//Explosives module
 		if(allowGravityBombs&&!(ConfigHolder.serverSafeMode)){
-			graviBomb = new BlockGraviBomb( ConfigHolder.explosivesID, 0).setBlockName("graviBomb").setHardness(0.0F).setResistance(0.0F);
+			graviBomb = new BlockGraviBomb( ConfigHolder.explosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
 			Item.itemsList[ ConfigHolder.explosivesID] = new ItemGraviBombs( ConfigHolder.explosivesID-256).setItemName("graviBomb");
 			graviBombPrimed = new EntityGravityBomb(null);
 			tunnelBombPrimed=new EntityTunnelBomb(null);
@@ -161,9 +168,9 @@ public class ContentLoader{
 		//Spy module
 		if(allowBombItems){
 			//this.bomb=new EnchantmentBomb(136);
-			spyDesk=new BlockSpyLab(ConfigHolder.spyLabID,6).setBlockName("spyLab");
+			spyDesk=new BlockSpyLab(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
 			GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
-			spyLens=new ItemInertComponent(ConfigHolder.lensID).setIconIndex(7).setCreativeTab(CreativeTabs.tabMaterials);
+			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
 			MinecraftForge.EVENT_BUS.register(new EventWatcherBombUse());
 	        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 			ItemStack lens=new ItemStack(spyLens);
