@@ -5,8 +5,9 @@ import planetguy.Gizmos.gravitybomb.BlockGraviBomb;
 import planetguy.Gizmos.gravitybomb.EntityGravityBomb;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
+import planetguy.Gizmos.other.BlockAccelerator;
 import planetguy.Gizmos.spy.BlockSpyLab;
-import planetguy.Gizmos.spy.EventWatcherBombUse;
+import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 import planetguy.Gizmos.spy.GuiHandler;
 import planetguy.Gizmos.spy.ItemLens;
 import planetguy.Gizmos.tool.BlockSuperFire;
@@ -17,8 +18,10 @@ import planetguy.Gizmos.tool.ItemMinersLighter;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -53,12 +56,13 @@ public class ContentLoader{
 	public static Entity graviBombPrimed;
 	public static EntityTunnelBomb tunnelBombPrimed;
 	public static Block doomFire;
+	public static Block particleAccelerator;
 	public static Item deforestator;
 	public static Item mlighter;
 	public static Item dislocator;
 	public static Item spyLens;
 	public static Enchantment bomb;
-	public static boolean allowGravityBombs, allowFire, allowDislocator, allowBombItems;
+	public static boolean allowGravityBombs, allowFire, allowDislocator, allowBombItems, allowAccelerator;
 	
 
 		
@@ -70,20 +74,28 @@ public class ContentLoader{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		try{
-			allowGravityBombs=config.get("general", "Explosives allowed", true).getBoolean(true);
-			allowFire=config.get("general", "Extra fire allowed", true).getBoolean(true);
-			allowBombItems=config.get("general", "Spy bombs allowed",true).getBoolean(true);
-			allowDislocator=config.get("general", "Temporal Dislocator allowed", true).getBoolean(true);
+			allowGravityBombs=config.get("Nerfs and bans", "Explosives allowed", true).getBoolean(true);
+			allowFire=config.get("Nerfs and bans", "Extra fire allowed", true).getBoolean(true);
+			allowBombItems=config.get("Nerfs and bans", "Spy bombs allowed",true).getBoolean(true);
+			allowDislocator=config.get("Nerfs and bans", "Temporal Dislocator allowed", true).getBoolean(true);
+			allowAccelerator=config.get("Nerfs and bans", "Allow accelerator block", true).getBoolean(true);
+			
+			ConfigHolder.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
+			ConfigHolder.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
+			ConfigHolder.nerfHiding = config.get("Nerfs and bans", "Limit stack size to hide",false).getBoolean(false);
+			
+			
 			ConfigHolder.explosivesID = config.getBlock("Explosives ID", 3981).getInt();
 			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
 			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
+			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
+		
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
 			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
 			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
 			ConfigHolder.lensID = config.getItem("Spy lens ID", 8102).getInt();
-			ConfigHolder.serverSafeMode = config.get("general", "Safe server mode",false).getBoolean(false);
-			ConfigHolder.nerfHiding = config.get("general", "Limit stack size to hide",false).getBoolean(false);
-			//ConfigHolder.modName=config.get("general", "Mod zip file name", "Gizmos_v0.4").getString();
+
+			//ConfigHolder.modName=config.get("Nerfs and bans", "Mod zip file name", "Gizmos_v0.4").getString();
 		}catch (Exception e){
 			FMLLog.log(Level.SEVERE,e,"BAD GIZMOS CONFIG IS BAD! Try deleting it.");
 			throw e;
@@ -171,7 +183,7 @@ public class ContentLoader{
 			spyDesk=new BlockSpyLab(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
 			GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
 			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
-			MinecraftForge.EVENT_BUS.register(new EventWatcherBombUse());
+			MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
 	        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 			ItemStack lens=new ItemStack(spyLens);
 			ItemStack itemSpyDesk=new ItemStack(spyDesk);
@@ -187,8 +199,19 @@ public class ContentLoader{
 	        		Character.valueOf('I'),blockIron,
 	        		Character.valueOf('B'),wood);
 		}
+		
+		if(allowAccelerator){
+			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID);
+			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "Accelerator");
+			LanguageRegistry.instance().addName(particleAccelerator, "Accelerator");
+		}
 
 	    //EntityRegistry.registerModEntity(EntityGravityBomb.class, "Lit Gravity Bomb", 222, planetguy.EvilToys.ContentLoader, 0, 0, false);
-
    }
+	
+	@PostInit
+	public final void loadAfterEverything(FMLPostInitializationEvent foo){
+		//System.out.println("PostInit called");
+		//SpyReflector.doStuff();
+	}
  }

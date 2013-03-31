@@ -14,5 +14,7 @@ public class ConfigHolder {
 	public static final String modName="Gizmos";
 	public static boolean serverSafeMode;
 	public static boolean nerfHiding=false;
+	public static int accelID;
+	public static float accelRate;
 
 }
