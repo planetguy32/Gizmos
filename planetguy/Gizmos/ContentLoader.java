@@ -5,7 +5,9 @@ import planetguy.Gizmos.gravitybomb.BlockGraviBomb;
 import planetguy.Gizmos.gravitybomb.EntityGravityBomb;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
-import planetguy.Gizmos.other.BlockAccelerator;
+import planetguy.Gizmos.mobcollider.BlockAccelerator;
+import planetguy.Gizmos.mobcollider.BlockColliderCore;
+import planetguy.Gizmos.mobcollider.ColliderRecipe;
 import planetguy.Gizmos.spy.BlockSpyLab;
 import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 import planetguy.Gizmos.spy.GuiHandler;
@@ -36,6 +38,7 @@ import net.minecraft.block.BlockFire;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
  import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityCow;
  import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -57,6 +60,7 @@ public class ContentLoader{
 	public static EntityTunnelBomb tunnelBombPrimed;
 	public static Block doomFire;
 	public static Block particleAccelerator;
+	public static Block colliderCore;
 	public static Item deforestator;
 	public static Item mlighter;
 	public static Item dislocator;
@@ -89,6 +93,7 @@ public class ContentLoader{
 			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
 			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
 			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
+			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
 		
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
 			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
@@ -202,8 +207,20 @@ public class ContentLoader{
 		
 		if(allowAccelerator){
 			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID);
-			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "Accelerator");
+			
+			BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
+			colliderCore=(Block) core;
+			
+			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "accelerator");
+			GameRegistry.registerBlock(colliderCore, ItemBlock.class, "colliderCore");
+			
+			ItemStack[] stacks={new ItemStack(334,64,0)};
+			ColliderRecipe cowCowHighSpeed=new ColliderRecipe(stacks, 1.0D, EntityCow.class, EntityCow.class);
+			core.addColliderRecipe(cowCowHighSpeed);
+
 			LanguageRegistry.instance().addName(particleAccelerator, "Accelerator");
+			LanguageRegistry.instance().addName(colliderCore, "Collider core");
+
 		}
 
 	    //EntityRegistry.registerModEntity(EntityGravityBomb.class, "Lit Gravity Bomb", 222, planetguy.EvilToys.ContentLoader, 0, 0, false);

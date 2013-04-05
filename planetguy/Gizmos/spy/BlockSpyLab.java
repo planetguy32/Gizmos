@@ -40,7 +40,7 @@ public class BlockSpyLab extends Block{
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir){
-    	System.out.println("Spy lab textures loading");
+    	//System.out.println("Spy lab textures loading");
     	top=ir.registerIcon("Gizmos:spyTop");
     	sides=ir.registerIcon("Gizmos:spySides");
     }

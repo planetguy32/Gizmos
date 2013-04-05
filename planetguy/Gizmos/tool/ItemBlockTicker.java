@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ItemBlockTicker extends GizmosItem{
 
@@ -19,12 +20,13 @@ public class ItemBlockTicker extends GizmosItem{
         this.maxStackSize = 1;
         this.setMaxDamage(64);
         this.setCreativeTab(CreativeTabs.tabTools);
+        //MinecraftForgeClient.preloadTexture("/mods/Gizmos/textures/items/dislocator.png");
 	}
-	
+	/*
 	public String getTextureFile(){
 		return "/planetguy/Gizmos/tex.png";
 	}
-	
+	*/
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
 		try{

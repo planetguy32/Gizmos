@@ -16,5 +16,6 @@ public class ConfigHolder {
 	public static boolean nerfHiding=false;
 	public static int accelID;
 	public static float accelRate;
+	public static int colliderID;
 
 }

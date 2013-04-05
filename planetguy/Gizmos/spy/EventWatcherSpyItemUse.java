@@ -20,8 +20,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class EventWatcherSpyItemUse {
 	
+
+	
 	@ForgeSubscribe
 	public void checkIfBombedItemShouldExplode(PlayerInteractEvent pie){
+		
 		EntityPlayer player=pie.entityPlayer;
 		ItemStack item=player.getHeldItem();
 		if(item==null){
