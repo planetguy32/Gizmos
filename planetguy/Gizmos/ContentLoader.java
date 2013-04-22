@@ -7,11 +7,15 @@ import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
 import planetguy.Gizmos.mobcollider.BlockAccelerator;
 import planetguy.Gizmos.mobcollider.BlockColliderCore;
+import planetguy.Gizmos.mobcollider.BlockLauncher;
 import planetguy.Gizmos.mobcollider.ColliderRecipe;
+import planetguy.Gizmos.other.CommonProxy;
 import planetguy.Gizmos.spy.BlockSpyLab;
 import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 import planetguy.Gizmos.spy.GuiHandler;
 import planetguy.Gizmos.spy.ItemLens;
+import planetguy.Gizmos.timebomb.BlockTimeBomb;
+import planetguy.Gizmos.timebomb.ItemTimeBomb;
 import planetguy.Gizmos.tool.BlockSuperFire;
 import planetguy.Gizmos.tool.ItemBlockTicker;
 import planetguy.Gizmos.tool.ItemDeforester;
@@ -47,31 +51,39 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.SidedProxy;
  
 
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="1.0")
+@Mod(modid="planetguy_Gizmos", name="Gizmos", version="0.6")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class ContentLoader{
 	
-	//@SidedProxy(clientSide="planetguy.Gizmos.ClientProxy", serverSide="planetguy.Gizmos.CommonProxy")
-	//private CommonProxy proxy;
+	@SidedProxy(clientSide="planetguy.Gizmos.ClientProxy", serverSide="planetguy.Gizmos.CommonProxy")
+	public static CommonProxy proxy;
 		   
 	public static Block graviBomb;
-	public static Block spyDesk;
 	public static Entity graviBombPrimed;
 	public static EntityTunnelBomb tunnelBombPrimed;
+	
+	public static Item dislocator;
+	
 	public static Block doomFire;
-	public static Block particleAccelerator;
-	public static Block colliderCore;
 	public static Item deforestator;
 	public static Item mlighter;
-	public static Item dislocator;
+	
+	public static Block spyDesk;
 	public static Item spyLens;
-	public static Enchantment bomb;
-	public static boolean allowGravityBombs, allowFire, allowDislocator, allowBombItems, allowAccelerator;
+	
+	public static ItemStack IStimeBomb;
+
+	public static Block particleAccelerator;
+	public static Block colliderCore;
+	public static Block launcher;
+	public static Block timeBomb;
+
+	public static boolean allowGravityBombs, allowFire, allowDislocator, allowBombItems, allowAccelerator,allowTimeBomb,allowForkBomb;
 	
 
 		
 	@Instance("planetguy_Gizmos")
-	public static ContentLoader cl;
+	public static ContentLoader instance;
 	
 	@PreInit
 	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
@@ -83,18 +95,22 @@ public class ContentLoader{
 			allowBombItems=config.get("Nerfs and bans", "Spy bombs allowed",true).getBoolean(true);
 			allowDislocator=config.get("Nerfs and bans", "Temporal Dislocator allowed", true).getBoolean(true);
 			allowAccelerator=config.get("Nerfs and bans", "Allow accelerator block", true).getBoolean(true);
-			
+			allowTimeBomb=config.get("Nerfs and bans", "Allow time bomb and fork bomb", true).getBoolean(true);
+
+			ConfigHolder.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
 			ConfigHolder.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
 			ConfigHolder.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
 			ConfigHolder.nerfHiding = config.get("Nerfs and bans", "Limit stack size to hide",false).getBoolean(false);
+			ConfigHolder.launcherPower=config.get("Nerfs and bans", "Mob launcher power", 10D).getDouble(10D);
 			
-			
-			ConfigHolder.explosivesID = config.getBlock("Explosives ID", 3981).getInt();
+			ConfigHolder.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
 			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
 			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
 			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
 			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
-		
+			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
+			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
+			
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
 			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
 			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
@@ -110,7 +126,7 @@ public class ContentLoader{
 
 	@Init
 	public final void load(FMLInitializationEvent ignored){
-		//proxy.registerRenderers();
+		proxy.registerRenderers();
 		
 		
 		//Get our Vanilla itemstacks ready for crafting
@@ -161,8 +177,8 @@ public class ContentLoader{
 		
 		//Explosives module
 		if(allowGravityBombs&&!(ConfigHolder.serverSafeMode)){
-			graviBomb = new BlockGraviBomb( ConfigHolder.explosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
-			Item.itemsList[ ConfigHolder.explosivesID] = new ItemGraviBombs( ConfigHolder.explosivesID-256).setItemName("graviBomb");
+			graviBomb = new BlockGraviBomb( ConfigHolder.gravityExplosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
+			Item.itemsList[ ConfigHolder.gravityExplosivesID] = new ItemGraviBombs( ConfigHolder.gravityExplosivesID-256).setItemName("graviBomb");
 			graviBombPrimed = new EntityGravityBomb(null);
 			tunnelBombPrimed=new EntityTunnelBomb(null);
 			//EntityRegistry.registerModEntity(EntityTunnelBeam.class, "Tunnel Beam", 199, this, 80, 3, true);
@@ -206,10 +222,14 @@ public class ContentLoader{
 		}
 		
 		if(allowAccelerator){
-			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID);
+			
+			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID).setUnlocalizedName("accelerator");
+			launcher=new BlockLauncher(ConfigHolder.launcherID).setUnlocalizedName("entityLauncher");
+			GameRegistry.registerBlock(launcher, ItemBlock.class, "launcher");
+
 			
 			BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
-			colliderCore=(Block) core;
+			colliderCore=(Block) core.setUnlocalizedName("colliderCore");
 			
 			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "accelerator");
 			GameRegistry.registerBlock(colliderCore, ItemBlock.class, "colliderCore");
@@ -218,10 +238,21 @@ public class ContentLoader{
 			ColliderRecipe cowCowHighSpeed=new ColliderRecipe(stacks, 1.0D, EntityCow.class, EntityCow.class);
 			core.addColliderRecipe(cowCowHighSpeed);
 
+			LanguageRegistry.instance().addName(launcher, "Launcher");
 			LanguageRegistry.instance().addName(particleAccelerator, "Accelerator");
 			LanguageRegistry.instance().addName(colliderCore, "Collider core");
 
 		}
+		if(allowTimeBomb){
+			timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
+			GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBomb");
+			Item.itemsList[ ConfigHolder.timeExplosivesID] = new ItemTimeBomb( ConfigHolder.timeExplosivesID-256).setItemName("timeBomb");
+
+			LanguageRegistry.instance().addStringLocalization("tile.timeBomb.timeBomb.name", "Time Bomb");
+			LanguageRegistry.instance().addStringLocalization("tile.timeBomb.forkBomb.name", "Fork Bomb");	
+
+		}
+		
 
 	    //EntityRegistry.registerModEntity(EntityGravityBomb.class, "Lit Gravity Bomb", 222, planetguy.EvilToys.ContentLoader, 0, 0, false);
    }
@@ -232,3 +263,4 @@ public class ContentLoader{
 		//SpyReflector.doStuff();
 	}
  }
+ 

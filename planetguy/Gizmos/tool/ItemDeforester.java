@@ -25,7 +25,7 @@ public class ItemDeforester extends ItemInteractDevice{
         {
             theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
             theWorld.setBlock(posX, posY, posZ, ConfigHolder.doomFireID);
-            BlockSuperFire.meta=0;
+            BlockSuperFire.globalMode=0;
             me.damageItem(1, thePlayer);
             return true;
         }
@@ -40,7 +40,7 @@ public class ItemDeforester extends ItemInteractDevice{
 	
 	public void registerTexture(IconRegister ir){
 		System.out.println("Deforester textures loading");
-		iconIndex=ir.registerIcon("Gizmos"+":"+"NetherLighter");
+		iconIndex=ir.registerIcon("Gizmos"+":"+"netherLighter");
 	}
 	
 

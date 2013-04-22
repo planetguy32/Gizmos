@@ -61,7 +61,7 @@ public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
 }
 
 public int idDropped(int par1, Random par2Random, int par3){
-		return ConfigHolder.explosivesID;
+		return ConfigHolder.gravityExplosivesID;
 }
 
 /*    */   public String getTextureFile(){
@@ -119,7 +119,7 @@ public int idDropped(int par1, Random par2Random, int par3){
 /*    */   public void updateTick(World par1World, int par2, int par3, int par4, Random randomThingy)
 /*    */   {
 	metadata=par1World.getBlockMetadata(par2, par3, par4);
-	 FMLLog.log(Level.SEVERE, "My metadata: "+metadata, "");
+	// FMLLog.log(Level.SEVERE, "My metadata: "+metadata, "");
 
 	
 /* 69 */     if ((canFallBelow(par1World, par2, par3 - 1, par4)) && (par3 >= 0))
@@ -133,7 +133,7 @@ public int idDropped(int par1, Random par2Random, int par3){
 /* 77 */           par1World.setBlock(par2, par3, par4, 0);
 				   switch(metadata){
 				   case 0:{
-					   FMLLog.log(Level.SEVERE, "A gravity bomb!","");
+					   //FMLLog.log(Level.SEVERE, "A gravity bomb!","");
 					   EntityGravityBomb bomb = new EntityGravityBomb(par1World, 
 						   /* 79 */             par2 + 0.5F, 
 						   /* 80 */             par3 + 0.5F, 
@@ -141,7 +141,7 @@ public int idDropped(int par1, Random par2Random, int par3){
 						   /* 82 */           par1World.spawnEntityInWorld(bomb);
 						   break;}
 				   case 1:{
-					   FMLLog.log(Level.SEVERE, "A tunnel bomb!","");
+					  // FMLLog.log(Level.SEVERE, "A tunnel bomb!","");
 					   EntityTunnelBomb bomb = new EntityTunnelBomb(par1World, 
 						   /* 79 */             par2 + 0.5F, 
 						   /* 80 */             par3 + 0.5F, 

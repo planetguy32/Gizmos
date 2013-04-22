@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 /*    */ public class CommonProxy
 /*    */   implements IGuiHandler
 /*    */ {
-/*  9 */   public static String BLOCK_PNG = "/planetguy/EvilToys/tex.png";
+/*  9 */   //public static String BLOCK_PNG = "/planetguy/EvilToys/tex.png";
 /*    */ 
 /*    */   public void registerRenderers() {
 /*    */   }

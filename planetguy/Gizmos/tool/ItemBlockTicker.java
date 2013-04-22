@@ -43,7 +43,7 @@ public class ItemBlockTicker extends GizmosItem{
 	
 	public void registerTexture(IconRegister ir){
 		System.out.println("Dislocator textures loading");
-		iconIndex=ir.registerIcon("Gizmos"+":"+"TemporalDislocator");
+		iconIndex=ir.registerIcon("Gizmos"+":"+"dislocator");
 	}
 	
 	public void updateIcons(IconRegister iconRegister) {

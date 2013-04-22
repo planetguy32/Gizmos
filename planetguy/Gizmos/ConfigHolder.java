@@ -4,7 +4,7 @@ import net.minecraftforge.common.Property;
 
 public class ConfigHolder {
 
-	public static int explosivesID;
+	public static int gravityExplosivesID;
 	public static int doomFireID;
 	public static int netherLighterID;
 	public static int minerLighterID;
@@ -17,5 +17,9 @@ public class ConfigHolder {
 	public static int accelID;
 	public static float accelRate;
 	public static int colliderID;
+	public static int launcherID;
+	public static double launcherPower;
+	public static int timeExplosivesID;
+	public static boolean allowFB;
 
 }

@@ -34,7 +34,7 @@ public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();
 	
-	public static int meta=4;
+	public static int globalMode=4; //very, VERY bad way to do this
 	private ImmutableList<Integer> treeBlocks=ImmutableList.of(17, 18, 31, 106);
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
 	
@@ -49,7 +49,7 @@ public class BlockSuperFire extends BlockFire{
 	}
 	
 	public boolean canBurnBlock(int id){
-		switch(this.meta){
+		switch(this.globalMode){
 		case 0:
 			return treeBlocks.contains(id);
 		case 1:
@@ -57,7 +57,6 @@ public class BlockSuperFire extends BlockFire{
 		default:
 			return true;
 		}
-		
 	}
     
     /*
@@ -235,29 +234,6 @@ public class BlockSuperFire extends BlockFire{
         }
     }
 
-    /**
-     * Checks the specified block coordinate to see if it can catch fire.  Args: blockAccess, x, y, z
-     * Deprecated for a side-sensitive version
-     */
-    @Deprecated
-    @Override
-    public boolean canBlockCatchFire(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-    {
-        return canBlockCatchFire(par1IBlockAccess, par2, par3, par4, UP);
-    }
-
-    /**
-     * Retrieves a specified block's chance to encourage their neighbors to burn and if the number is greater than the
-     * current number passed in it will return its number instead of the passed in one.  Args: world, x, y, z,
-     * curChanceToEncourageFire
-     * Deprecated for a side-sensitive version
-     */
-    @Override
-    @Deprecated
-    public int getChanceToEncourageFire(World par1World, int par2, int par3, int par4, int par5)
-    {
-        return getChanceToEncourageFire(par1World, par2, par3, par4, par5, UP);
-    }
 
     /**
      * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z

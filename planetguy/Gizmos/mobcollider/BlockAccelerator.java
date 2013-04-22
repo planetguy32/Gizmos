@@ -9,12 +9,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
 
-public class BlockAccelerator extends BlockIce{
+public class BlockAccelerator extends Block{
 	
 	public BlockAccelerator(int par1) {
-		super(par1);
+		super(par1,Material.glass);
 		this.slipperiness=ConfigHolder.accelRate;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void registerIcons(IconRegister ir){

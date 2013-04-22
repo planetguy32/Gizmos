@@ -25,7 +25,7 @@ public class ItemMinersLighter extends ItemInteractDevice{
         {
             theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
             theWorld.setBlock(posX, posY, posZ, ConfigHolder.doomFireID);
-            BlockSuperFire.meta=1;
+            BlockSuperFire.globalMode=1;
             me.damageItem(1, thePlayer);
             return true;
         }
