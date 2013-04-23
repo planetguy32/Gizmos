@@ -47,6 +47,6 @@ public class ItemBlockTicker extends GizmosItem{
 	}
 	
 	public void updateIcons(IconRegister iconRegister) {
-		 iconIndex = iconRegister.registerIcon("Gizmos:TemporalDislocator");
+		 iconIndex = iconRegister.registerIcon("Gizmos:dislocator");
 	}
 }

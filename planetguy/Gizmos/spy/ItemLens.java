@@ -20,4 +20,8 @@ public class ItemLens extends GizmosItem{
 	public void registerTexture(IconRegister ir){
 		iconIndex=ir.registerIcon("Gizmos:spyLens");
 	}
+	
+	public void updateIcons(IconRegister iconRegister) {
+		 iconIndex = iconRegister.registerIcon("Gizmos:spyLens");
+	}
 }

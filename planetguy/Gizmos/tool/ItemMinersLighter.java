@@ -37,6 +37,14 @@ public class ItemMinersLighter extends ItemInteractDevice{
 		return true;
 	}
 	
+	public void registerTexture(IconRegister ir){
+		System.out.println("Dislocator textures loading");
+		iconIndex=ir.registerIcon("Gizmos"+":"+"minersLighter");
+	}
+	
+	public void updateIcons(IconRegister iconRegister) {
+		 iconIndex = iconRegister.registerIcon("Gizmos:minersLighter");
+	}
 }
 
 
