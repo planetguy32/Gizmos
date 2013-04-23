@@ -19,7 +19,11 @@ public class ConfigHolder {
 	public static int colliderID;
 	public static int launcherID;
 	public static double launcherPower;
-	public static int timeExplosivesID;
+	public static int timeExplosivesID;	
+	public static int timeExplosivesFuse;
 	public static boolean allowFB;
+	public static int[] defuseableIDs;
+	public static int defuserID;
+
 
 }

@@ -18,6 +18,7 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class BlockTimeBomb extends Block{
@@ -25,16 +26,18 @@ public class BlockTimeBomb extends Block{
 	private Icon topTex;
 	private Icon bottomTex;
 	private Icon[] sideIcons=new Icon[16];
+	private final int fuse;
 
 	public BlockTimeBomb(int id) {
 		super(id, Material.tnt);
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
 		// TODO Auto-generated constructor stub
+        fuse=ConfigHolder.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
 	}
 	
 	public int tickRate(){
-		return 60;
+		return fuse; 
 	}
 	
 	public void registerIcons(IconRegister ir){
@@ -65,7 +68,6 @@ public class BlockTimeBomb extends Block{
 		if(side==0||side==1){
 			return topTex;
 		}
-		
         return sideIcons[meta];
     }
   
@@ -90,9 +92,7 @@ public class BlockTimeBomb extends Block{
     	}else{
     		w.setBlockMetadataWithNotify(x, y, z, curMeta, 0x02);
     		w.scheduleBlockUpdate(x,y,z,this.blockID, this.tickRate());
-    	}
-    	
-    	
+    	}    	
 	}    
 	
     public void onBlockDestroyedByPlayer(World w, int x, int y, int z, int meta) {
@@ -107,6 +107,16 @@ public class BlockTimeBomb extends Block{
     	fork(w,x,y,z);
     	return true;
     }
+    
+    public void onBlockDestroyedByExplosion(World par1World, int par2, int par3, int par4, Explosion par5Explosion)
+    {
+        if (!par1World.isRemote)
+        {
+            EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(par1World, (double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F), par5Explosion.func_94613_c());
+            entitytntprimed.fuse = par1World.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
+            par1World.spawnEntityInWorld(entitytntprimed);
+        }
+    }
 
     /** The fork method for the fork bomb variant of the time bomb. Moves the bomb to all available spaces 
      * around it, or if there isn't space leaves it where it is.
@@ -117,33 +127,23 @@ public class BlockTimeBomb extends Block{
     	if(meta%2!=1||!ConfigHolder.allowFB){
     		return;
     	}
-    	boolean hasReplaced=false;
     	if(w.getBlockMaterial(x+1, y, z)==Material.air){
     		w.setBlock(x+1, y, z, ConfigHolder.timeExplosivesID, meta, 0x02);
-    		hasReplaced=true;
     	}
     	if(w.getBlockMaterial(x-1, y, z)==Material.air){
     		w.setBlock(x-1, y, z, ConfigHolder.timeExplosivesID, meta, 0x02);
-    		hasReplaced=true;
     	}
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
     		w.setBlock(x, y+1, z, ConfigHolder.timeExplosivesID, meta, 0x02);
-    		hasReplaced=true;
     	}
     	if(w.getBlockMaterial(x, y-1, z)==Material.air){
     		w.setBlock(x, y-1, z, ConfigHolder.timeExplosivesID, meta, 0x02);
-    		hasReplaced=true;
     	}
     	if(w.getBlockMaterial(x, y, z+1)==Material.air){
     		w.setBlock(x, y, z+1, ConfigHolder.timeExplosivesID, meta, 0x02);
-    		hasReplaced=true;
     	}
     	if(w.getBlockMaterial(x, y, z-1)==Material.air){
     		w.setBlock(x, y, z-1, ConfigHolder.timeExplosivesID, meta, 0x02);
-    		hasReplaced=true;
-    	}
-    	if(hasReplaced){
-    		w.setBlockToAir(x, y, z);
     	}
     }
     	

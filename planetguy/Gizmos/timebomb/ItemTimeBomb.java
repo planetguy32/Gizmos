@@ -43,7 +43,6 @@ public class ItemTimeBomb extends ItemBlock {
 		default:name="idk";
 		}
 		return getUnlocalizedName()+"."+name;
-		
 	}
 
 	public Item setItemName(String string) {

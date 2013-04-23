@@ -22,10 +22,6 @@ public abstract class ItemInteractDevice extends GizmosItem{
     public abstract boolean doEffect(int posX, int posY,int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer);
     
     public abstract boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer);
-    
-    public String getTextureFile(){
-		return "/planetguy/Gizmos/tex.png";
-	}
 
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {

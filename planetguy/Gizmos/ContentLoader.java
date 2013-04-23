@@ -15,6 +15,7 @@ import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 import planetguy.Gizmos.spy.GuiHandler;
 import planetguy.Gizmos.spy.ItemLens;
 import planetguy.Gizmos.timebomb.BlockTimeBomb;
+import planetguy.Gizmos.timebomb.ItemBombDefuser;
 import planetguy.Gizmos.timebomb.ItemTimeBomb;
 import planetguy.Gizmos.tool.BlockSuperFire;
 import planetguy.Gizmos.tool.ItemBlockTicker;
@@ -63,7 +64,7 @@ public class ContentLoader{
 	public static EntityTunnelBomb tunnelBombPrimed;
 	
 	public static Item dislocator;
-	
+
 	public static Block doomFire;
 	public static Item deforestator;
 	public static Item mlighter;
@@ -76,8 +77,10 @@ public class ContentLoader{
 	public static Block particleAccelerator;
 	public static Block colliderCore;
 	public static Block launcher;
+	
 	public static Block timeBomb;
-
+	public static Item defuser;
+	
 	public static boolean allowGravityBombs, allowFire, allowDislocator, allowBombItems, allowAccelerator,allowTimeBomb,allowForkBomb;
 	
 
@@ -90,6 +93,21 @@ public class ContentLoader{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		try{
+
+			ConfigHolder.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
+			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
+			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
+			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
+			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
+			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
+			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
+			
+			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
+			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
+			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
+			ConfigHolder.lensID = config.getItem("Spy lens ID", 8103).getInt();
+			ConfigHolder.defuserID=config.getItem("Defuser ID", 8104).getInt();
+			
 			allowGravityBombs=config.get("Nerfs and bans", "Explosives allowed", true).getBoolean(true);
 			allowFire=config.get("Nerfs and bans", "Extra fire allowed", true).getBoolean(true);
 			allowBombItems=config.get("Nerfs and bans", "Spy bombs allowed",true).getBoolean(true);
@@ -102,19 +120,10 @@ public class ContentLoader{
 			ConfigHolder.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
 			ConfigHolder.nerfHiding = config.get("Nerfs and bans", "Limit stack size to hide",false).getBoolean(false);
 			ConfigHolder.launcherPower=config.get("Nerfs and bans", "Mob launcher power", 10D).getDouble(10D);
-			
-			ConfigHolder.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
-			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
-			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
-			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
-			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
-			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
-			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
-			
-			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
-			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
-			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
-			ConfigHolder.lensID = config.getItem("Spy lens ID", 8102).getInt();
+			int[] dangerous={46,ConfigHolder.gravityExplosivesID,ConfigHolder.timeExplosivesID};
+			ConfigHolder.defuseableIDs=config.get("Nerfs and bans", "IDs of defuseable", dangerous).getIntList();
+			ConfigHolder.timeExplosivesFuse=config.get("Nerfs and bans", "Time bomb fuse, seconds", 60).getInt(60);
+
 
 			//ConfigHolder.modName=config.get("Nerfs and bans", "Mod zip file name", "Gizmos_v0.4").getString();
 		}catch (Exception e){
@@ -144,7 +153,75 @@ public class ContentLoader{
 		ItemStack blockIron=new ItemStack(Block.blockSteel);
 		ItemStack crafter=new ItemStack(Block.workbench);
 		ItemStack chest=new ItemStack(Block.chest);
+		ItemStack endStone=new ItemStack(Block.whiteStone);
+		ItemStack shears=new ItemStack(Item.shears);
+		ItemStack stick=new ItemStack(Item.stick);
 
+		//First comes common crafting...
+		if(allowBombItems||allowTimeBomb){
+			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
+			ItemStack lens=new ItemStack(spyLens);
+			GameRegistry.addRecipe(lens, new Object[] { " i ", "igi", " i ", 
+					Character.valueOf('g'), glass,
+					Character.valueOf('i'), iron });
+			
+			//Might need lens for bomb items...
+			if(allowBombItems){
+				//this.bomb=new EnchantmentBomb(136);
+				spyDesk=new BlockSpyLab(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
+				GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
+				spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
+				MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
+		        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+
+				ItemStack itemSpyDesk=new ItemStack(spyDesk);
+		        LanguageRegistry.instance().addName(spyDesk, "Spy lab");
+		        LanguageRegistry.instance().addName(spyLens, "Spy lens");
+		        GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
+		        		Character.valueOf('L'),lens,
+		        		Character.valueOf('W'),crafter,
+		        		Character.valueOf('C'),chest,
+		        		Character.valueOf('I'),blockIron,
+		        		Character.valueOf('B'),wood});
+			}
+			
+			//Or time bombs
+			if(allowTimeBomb){
+				timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
+				GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBombs");
+				Item.itemsList[ ConfigHolder.timeExplosivesID] = new ItemTimeBomb( ConfigHolder.timeExplosivesID-256).setItemName("timeBombs");
+				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools);
+				
+				LanguageRegistry.addName(defuser, "Bomb defuser");
+				LanguageRegistry.instance().addStringLocalization("tile.timeBombs.timeBomb.name", "Time Bomb");
+				LanguageRegistry.instance().addStringLocalization("tile.timeBombs.forkBomb.name", "Fork Bomb");	
+				//A fat lot of good THAT did... Still need a way to tell time bombs from fork bombs.
+				
+				//LET'S CRAFT!!!
+				ItemStack itemStackTB=new ItemStack(timeBomb,1,0); 
+				ItemStack itemStackFB=new ItemStack(timeBomb,1,1);
+				ItemStack ISDefuser=new ItemStack(defuser);
+				
+				GameRegistry.addRecipe(ISDefuser, new Object[]{
+						" sl",
+						" ks",
+						"k  ",
+						Character.valueOf('s'),shears,
+						Character.valueOf('k'),stick,
+						Character.valueOf('l'),lens});
+				
+				GameRegistry.addShapelessRecipe(itemStackTB, Block.tnt, Item.pocketSundial);
+				
+				GameRegistry.addRecipe(itemStackFB, new Object[]{
+						"EEE","ETE","EEE", 
+						Character.valueOf('T'),itemStackTB,
+						Character.valueOf('E'),endStone});
+				
+
+			}
+			
+		}
+		
 		//Fire module
 		if(allowFire&&!(ConfigHolder.serverSafeMode)){
 			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setUnlocalizedName("netherLighter");
@@ -199,27 +276,7 @@ public class ContentLoader{
 		}
 		
 		//Spy module
-		if(allowBombItems){
-			//this.bomb=new EnchantmentBomb(136);
-			spyDesk=new BlockSpyLab(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
-			GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
-			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
-			MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
-	        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
-			ItemStack lens=new ItemStack(spyLens);
-			ItemStack itemSpyDesk=new ItemStack(spyDesk);
-			GameRegistry.addRecipe(lens, new Object[] { " i ", "igi", " i ", 
-					Character.valueOf('g'), glass,
-					Character.valueOf('i'), iron });
-	        LanguageRegistry.instance().addName(spyDesk, "Spy lab");
-	        LanguageRegistry.instance().addName(spyLens, "Spy lens");
-	        GameRegistry.addRecipe(itemSpyDesk, "LWC", "III","B B",
-	        		Character.valueOf('L'),lens,
-	        		Character.valueOf('W'),crafter,
-	        		Character.valueOf('C'),chest,
-	        		Character.valueOf('I'),blockIron,
-	        		Character.valueOf('B'),wood);
-		}
+
 		
 		if(allowAccelerator){
 			
@@ -241,17 +298,8 @@ public class ContentLoader{
 			LanguageRegistry.instance().addName(launcher, "Launcher");
 			LanguageRegistry.instance().addName(particleAccelerator, "Accelerator");
 			LanguageRegistry.instance().addName(colliderCore, "Collider core");
-
 		}
-		if(allowTimeBomb){
-			timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
-			GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBomb");
-			Item.itemsList[ ConfigHolder.timeExplosivesID] = new ItemTimeBomb( ConfigHolder.timeExplosivesID-256).setItemName("timeBomb");
 
-			LanguageRegistry.instance().addStringLocalization("tile.timeBomb.timeBomb.name", "Time Bomb");
-			LanguageRegistry.instance().addStringLocalization("tile.timeBomb.forkBomb.name", "Fork Bomb");	
-
-		}
 		
 
 	    //EntityRegistry.registerModEntity(EntityGravityBomb.class, "Lit Gravity Bomb", 222, planetguy.EvilToys.ContentLoader, 0, 0, false);
