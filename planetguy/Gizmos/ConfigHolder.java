@@ -3,6 +3,8 @@ package planetguy.Gizmos;
 import net.minecraftforge.common.Property;
 
 public class ConfigHolder {
+	
+	//Someone should sort this (hint hint Planetguy... Get to work!)
 
 	public static int gravityExplosivesID;
 	public static int doomFireID;
@@ -24,6 +26,7 @@ public class ConfigHolder {
 	public static boolean allowFB;
 	public static int[] defuseableIDs;
 	public static int defuserID;
+	public static int buildToolID;
 
 
 }

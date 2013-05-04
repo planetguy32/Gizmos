@@ -9,8 +9,7 @@ import planetguy.Gizmos.mobcollider.BlockAccelerator;
 import planetguy.Gizmos.mobcollider.BlockColliderCore;
 import planetguy.Gizmos.mobcollider.BlockLauncher;
 import planetguy.Gizmos.mobcollider.ColliderRecipe;
-import planetguy.Gizmos.other.CommonProxy;
-import planetguy.Gizmos.spy.BlockSpyLab;
+import planetguy.Gizmos.spy.BlockInserter;
 import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 import planetguy.Gizmos.spy.GuiHandler;
 import planetguy.Gizmos.spy.ItemLens;
@@ -18,6 +17,7 @@ import planetguy.Gizmos.timebomb.BlockTimeBomb;
 import planetguy.Gizmos.timebomb.ItemBombDefuser;
 import planetguy.Gizmos.timebomb.ItemTimeBomb;
 import planetguy.Gizmos.tool.BlockSuperFire;
+import planetguy.Gizmos.tool.ItemBuildTool;
 import planetguy.Gizmos.tool.ItemBlockTicker;
 import planetguy.Gizmos.tool.ItemDeforester;
 import planetguy.Gizmos.tool.ItemMinersLighter;
@@ -56,8 +56,8 @@ import cpw.mods.fml.common.SidedProxy;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class ContentLoader{
 	
-	@SidedProxy(clientSide="planetguy.Gizmos.ClientProxy", serverSide="planetguy.Gizmos.CommonProxy")
-	public static CommonProxy proxy;
+	//@SidedProxy(clientSide="planetguy.Gizmos.ClientProxy", serverSide="planetguy.Gizmos.CommonProxy")
+	//public static CommonProxy proxy;
 		   
 	public static Block graviBomb;
 	public static Entity graviBombPrimed;
@@ -80,8 +80,10 @@ public class ContentLoader{
 	
 	public static Block timeBomb;
 	public static Item defuser;
+	public static Item buildTool;
 	
-	public static boolean allowGravityBombs, allowFire, allowDislocator, allowBombItems, allowAccelerator,allowTimeBomb,allowForkBomb;
+	public static boolean allowGravityBombs, allowFire, allowDislocator,
+		allowBombItems, allowAccelerator,allowTimeBomb,allowForkBomb,allowBuildTool;
 	
 
 		
@@ -107,10 +109,11 @@ public class ContentLoader{
 			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
 			ConfigHolder.lensID = config.getItem("Spy lens ID", 8103).getInt();
 			ConfigHolder.defuserID=config.getItem("Defuser ID", 8104).getInt();
+			ConfigHolder.buildToolID=config.getItem("Build tool ID", 8105).getInt();
 			
-			allowGravityBombs=config.get("Nerfs and bans", "Explosives allowed", true).getBoolean(true);
-			allowFire=config.get("Nerfs and bans", "Extra fire allowed", true).getBoolean(true);
-			allowBombItems=config.get("Nerfs and bans", "Spy bombs allowed",true).getBoolean(true);
+			allowGravityBombs=config.get("Nerfs and bans", "Allow gravity explosives", true).getBoolean(true);
+			allowFire=config.get("Nerfs and bans", "Allow extra fire", true).getBoolean(true);
+			allowBombItems=config.get("Nerfs and bans", "Allow spy desk module",true).getBoolean(true);
 			allowDislocator=config.get("Nerfs and bans", "Temporal Dislocator allowed", true).getBoolean(true);
 			allowAccelerator=config.get("Nerfs and bans", "Allow accelerator block", true).getBoolean(true);
 			allowTimeBomb=config.get("Nerfs and bans", "Allow time bomb and fork bomb", true).getBoolean(true);
@@ -135,7 +138,7 @@ public class ContentLoader{
 
 	@Init
 	public final void load(FMLInitializationEvent ignored){
-		proxy.registerRenderers();
+		//proxy.registerRenderers();
 		
 		
 		//Get our Vanilla itemstacks ready for crafting
@@ -161,6 +164,7 @@ public class ContentLoader{
 		if(allowBombItems||allowTimeBomb){
 			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
 			ItemStack lens=new ItemStack(spyLens);
+	        LanguageRegistry.instance().addName(spyLens, "Spy lens");
 			GameRegistry.addRecipe(lens, new Object[] { " i ", "igi", " i ", 
 					Character.valueOf('g'), glass,
 					Character.valueOf('i'), iron });
@@ -168,21 +172,32 @@ public class ContentLoader{
 			//Might need lens for bomb items...
 			if(allowBombItems){
 				//this.bomb=new EnchantmentBomb(136);
-				spyDesk=new BlockSpyLab(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
+				spyDesk=new BlockInserter(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
+				buildTool=new ItemBuildTool(ConfigHolder.buildToolID).setUnlocalizedName("buildTool").setCreativeTab(CreativeTabs.tabTools);
 				GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
-				spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
+				
+		        LanguageRegistry.instance().addName(spyDesk, "Inserter");
+		        LanguageRegistry.instance().addName(buildTool, "Builder's Tool");
+				
 				MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
 		        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 
 				ItemStack itemSpyDesk=new ItemStack(spyDesk);
-		        LanguageRegistry.instance().addName(spyDesk, "Spy lab");
-		        LanguageRegistry.instance().addName(spyLens, "Spy lens");
 		        GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
 		        		Character.valueOf('L'),lens,
 		        		Character.valueOf('W'),crafter,
 		        		Character.valueOf('C'),chest,
 		        		Character.valueOf('I'),blockIron,
 		        		Character.valueOf('B'),wood});
+		        
+		        ItemStack itStkBuildTool=new ItemStack(buildTool);
+		        ItemStack iSDPcx=new ItemStack(Item.pickaxeDiamond);
+		        ItemStack iSPist=new ItemStack(Block.pistonBase);
+		        GameRegistry.addRecipe(itStkBuildTool, new Object[]{"  c"," p ","d  ", 
+		        		Character.valueOf('c'),chest,
+		        		Character.valueOf('p'),iSPist,
+		        		Character.valueOf('d'),iSDPcx});
+		        
 			}
 			
 			//Or time bombs

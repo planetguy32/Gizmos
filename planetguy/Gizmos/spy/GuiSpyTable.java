@@ -32,7 +32,7 @@ public class GuiSpyTable extends GuiContainer {
 		//draw your Gui here, only thing you need to change is the path
 		//int texture = mc.renderEngine.getTexture();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		System.out.println("Loading spy table GUI");
+		//System.out.println("Loading spy table GUI");
 		this.mc.renderEngine.bindTexture("/planetguy/Gizmos/spy/spyLab.png");// /planetguy/Gizmos/spy/spyLab.png
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;

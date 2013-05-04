@@ -1,4 +1,4 @@
-package planetguy.Gizmos.other;
+package planetguy.Gizmos.unused;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;

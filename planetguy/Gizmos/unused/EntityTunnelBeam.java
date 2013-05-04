@@ -1,4 +1,4 @@
-package planetguy.Gizmos.other;
+package planetguy.Gizmos.unused;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

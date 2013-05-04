@@ -1,4 +1,4 @@
-package planetguy.Gizmos.spy;
+package planetguy.Gizmos.unused;
 
 import net.minecraft.block.BlockCake;
 import net.minecraft.entity.player.EntityPlayer;

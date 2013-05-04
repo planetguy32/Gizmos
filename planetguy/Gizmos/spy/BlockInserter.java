@@ -23,12 +23,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-public class BlockSpyLab extends Block{
+public class BlockInserter extends Block{
 	
 	public Icon sides;
 	public Icon top;
 
-    public BlockSpyLab (int id, int texture) {
+    public BlockInserter (int id, int texture) {
         super(id, Material.iron);
         //System.out.println("New spy lab!");
         setHardness(2.0F);
