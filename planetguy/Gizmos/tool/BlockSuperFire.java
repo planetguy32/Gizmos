@@ -34,7 +34,7 @@ public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();
 	
-	public static int globalMode=4; //very, VERY bad way to do this
+	public static int globalMode=0; //very, VERY bad way to do this
 	private ImmutableList<Integer> treeBlocks=ImmutableList.of(17, 18, 31, 106);
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
 	
