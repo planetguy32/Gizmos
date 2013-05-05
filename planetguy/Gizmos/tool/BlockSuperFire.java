@@ -34,7 +34,8 @@ public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();
 	
-	public static int globalMode=0; //very, VERY bad way to do this
+	//TODO get rid of this stupid hack!
+	public static int globalMode=0;
 	private ImmutableList<Integer> treeBlocks=ImmutableList.of(17, 18, 31, 106);
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
 	
@@ -55,7 +56,7 @@ public class BlockSuperFire extends BlockFire{
 		case 1:
 			return earthBlocks.contains(id);
 		default:
-			return true;
+			return false;
 		}
 	}
     
