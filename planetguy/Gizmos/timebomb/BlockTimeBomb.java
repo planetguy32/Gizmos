@@ -32,7 +32,6 @@ public class BlockTimeBomb extends Block{
 		super(id, Material.tnt);
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
-		// TODO Auto-generated constructor stub
         fuse=ConfigHolder.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
 	}
 	
@@ -60,11 +59,13 @@ public class BlockTimeBomb extends Block{
 		sideIcons[13]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb7");
 		sideIcons[14]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb8");
 		sideIcons[15]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb8");
+		this.blockIcon=sideIcons[0];
 	}
-
+	
+	
 	
     @SideOnly(Side.CLIENT)
-    public Icon getBlockTextureFromSideAndMetadata(int side, int meta){
+    public Icon getIcon(int side, int meta){
 		if(side==0||side==1){
 			return topTex;
 		}
@@ -75,7 +76,7 @@ public class BlockTimeBomb extends Block{
     public void onBlockAdded(World par1World, int par2, int par3, int par4){
     	par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate());
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(int id, CreativeTabs par2CreativeTabs, List items){
     	items.add(new ItemStack(id, 1, 0));
@@ -118,9 +119,8 @@ public class BlockTimeBomb extends Block{
         }
     }
 
-    /** The fork method for the fork bomb variant of the time bomb. Moves the bomb to all available spaces 
-     * around it, or if there isn't space leaves it where it is.
-     * 
+    /* The fork method for the fork bomb variant of the time bomb. Copies the bomb to all available spaces 
+     * around it.
      */
     
     private void fork(World w, int x, int y, int z, int meta){

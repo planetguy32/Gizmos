@@ -12,7 +12,7 @@ public class GizmosItem extends Item {
 	
 	public void registerTexture(IconRegister ir){
 		System.out.println("Generic item textures loading");
-		iconIndex=ir.registerIcon(ConfigHolder.modName+":"+this.getUnlocalizedName());
+		itemIcon=ir.registerIcon(ConfigHolder.modName+":"+this.getUnlocalizedName());
 	}
 
 }

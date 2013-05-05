@@ -40,11 +40,11 @@ public class ItemDeforester extends ItemInteractDevice{
 	
 	public void registerTexture(IconRegister ir){
 		System.out.println("Deforester");
-		iconIndex=ir.registerIcon("Gizmos"+":"+"netherLighter");
+		itemIcon=ir.registerIcon("Gizmos"+":"+"netherLighter");
 	}
 	
 	public void updateIcons(IconRegister iconRegister) {
-		 iconIndex = iconRegister.registerIcon("Gizmos:netherLighter");
+		itemIcon = iconRegister.registerIcon("Gizmos:netherLighter");
 	}
 	
 

@@ -56,9 +56,4 @@ public class FlowerFix {
 		
 	}
 	
-	@Mod.PostInit
-	public final void load(FMLPostInitializationEvent e){
-		GizAPI g=new GizAPI();
-	}
-
 }

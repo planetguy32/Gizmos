@@ -20,12 +20,8 @@ public class ItemBuildTool extends ItemPickaxe{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void registerTexture(IconRegister ir){
-		iconIndex=ir.registerIcon("Gizmos"+":"+"buildTool");
-	}
-	
 	public void updateIcons(IconRegister iconRegister) {
-		 iconIndex = iconRegister.registerIcon("Gizmos:buildTool");
+		itemIcon = iconRegister.registerIcon("Gizmos:buildTool");
 	}
 	
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){
@@ -50,17 +46,18 @@ public class ItemBuildTool extends ItemPickaxe{
 				}
 				
 				if(!b){
-					theRealThis.setTagCompound(null);
-				}
-				
-			}else{
+					a=null;
+				}	
+			}
 				NBTTagCompound futureTag=new NBTTagCompound("Planetguy-spy");
-				a.writeToNBT(futureTag);
+				if(a!=null){
+					a.writeToNBT(futureTag);
+				}
 				NBTTagCompound oldTag=theRealThis.getTagCompound();
 				NBTTagCompound combinedTag=(NBTTagCompound) NBTTagCompound.newTag((byte) 10,"");
 				combinedTag.setCompoundTag("spydata", futureTag);
 				theRealThis.setTagCompound(futureTag);
-			}
+			
 		}catch(NullPointerException eitherHasNoHiddenOrIsUsedUp){
 			//System.out.println("NPE handling build tool - prob no big deal.");
 		}

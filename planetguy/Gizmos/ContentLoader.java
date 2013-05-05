@@ -145,7 +145,7 @@ public class ContentLoader{
 		ItemStack tnt = new ItemStack(Block.tnt);
 		ItemStack powder = new ItemStack(Item.blazePowder);
 		ItemStack iron = new ItemStack(Item.ingotIron);
-		ItemStack itemStackPick = new ItemStack(Item.pickaxeSteel);
+		ItemStack itemStackPick = new ItemStack(Item.pickaxeIron);
 		ItemStack itemStackFlintAndSteel= new ItemStack(Item.flintAndSteel);
 		ItemStack redstone = new ItemStack(Item.redstone);
 		ItemStack stackClock=new ItemStack(Item.pocketSundial);
@@ -153,7 +153,7 @@ public class ContentLoader{
 		ItemStack gravel=new ItemStack(Block.gravel);
 		ItemStack glass=new ItemStack(Block.glass);
 		ItemStack wood=new ItemStack(Block.planks);
-		ItemStack blockIron=new ItemStack(Block.blockSteel);
+		ItemStack blockIron=new ItemStack(Block.blocksList[42]);
 		ItemStack crafter=new ItemStack(Block.workbench);
 		ItemStack chest=new ItemStack(Block.chest);
 		ItemStack endStone=new ItemStack(Block.whiteStone);
@@ -193,10 +193,14 @@ public class ContentLoader{
 		        ItemStack itStkBuildTool=new ItemStack(buildTool);
 		        ItemStack iSDPcx=new ItemStack(Item.pickaxeDiamond);
 		        ItemStack iSPist=new ItemStack(Block.pistonBase);
+		        
+		        /*
+		         //Commented until I can fix the duping - after which it will be legitimately 
 		        GameRegistry.addRecipe(itStkBuildTool, new Object[]{"  c"," p ","d  ", 
 		        		Character.valueOf('c'),chest,
 		        		Character.valueOf('p'),iSPist,
 		        		Character.valueOf('d'),iSDPcx});
+		        */
 		        
 			}
 			
@@ -205,7 +209,7 @@ public class ContentLoader{
 				timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
 				GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBombs");
 				Item.itemsList[ ConfigHolder.timeExplosivesID] = new ItemTimeBomb( ConfigHolder.timeExplosivesID-256).setItemName("timeBombs");
-				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools);
+				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
 				
 				LanguageRegistry.addName(defuser, "Bomb defuser");
 				LanguageRegistry.instance().addStringLocalization("tile.timeBombs.timeBomb.name", "Time Bomb");
@@ -295,7 +299,7 @@ public class ContentLoader{
 		
 		if(allowAccelerator){
 			
-			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID).setUnlocalizedName("accelerator");
+			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID).setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
 			launcher=new BlockLauncher(ConfigHolder.launcherID).setUnlocalizedName("entityLauncher");
 			GameRegistry.registerBlock(launcher, ItemBlock.class, "launcher");
 

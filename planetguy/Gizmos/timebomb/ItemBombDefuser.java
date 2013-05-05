@@ -17,11 +17,11 @@ public class ItemBombDefuser extends Item{
 	}
 	
 	public void registerTexture(IconRegister ir){
-		iconIndex=ir.registerIcon("Gizmos"+":"+"defuser");
+		itemIcon=ir.registerIcon("Gizmos"+":"+"buildTool");
 	}
 	
 	public void updateIcons(IconRegister iconRegister) {
-		 iconIndex = iconRegister.registerIcon("Gizmos:defuser");
+		itemIcon = iconRegister.registerIcon("Gizmos:buildTool");
 	}
 	
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer thePlayer, World w, int x, int y, int z, int par7, float par8, float par9, float par10){

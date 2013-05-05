@@ -73,7 +73,7 @@ public int idDropped(int par1, Random par2Random, int par3){
 /* 31 */     return 3;
 /*    */   }
 
-	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
+	public Icon getIcon(int par1, int par2) {
 		if(par1==0){
 			return bottomTex;
 		}else if(par1==1){

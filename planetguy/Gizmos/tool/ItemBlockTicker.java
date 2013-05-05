@@ -50,10 +50,10 @@ public class ItemBlockTicker extends GizmosItem{
 	}
 	
 	public void registerTexture(IconRegister ir){
-		iconIndex=ir.registerIcon("Gizmos"+":"+"dislocator");
+		itemIcon=ir.registerIcon("Gizmos"+":"+"dislocator");
 	}
 	
 	public void updateIcons(IconRegister iconRegister) {
-		 iconIndex = iconRegister.registerIcon("Gizmos:dislocator");
+		itemIcon = iconRegister.registerIcon("Gizmos:dislocator");
 	}
 }

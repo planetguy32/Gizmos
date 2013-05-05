@@ -13,7 +13,7 @@ public class ItemSpyDisguise extends ItemArmor{
 	
 	public void registerTexture(IconRegister ir){
 		System.out.println("Spy disguise textures loading");
-		iconIndex=ir.registerIcon("Gizmos"+":"+"spyLens");
+		itemIcon=ir.registerIcon("Gizmos"+":"+"spyLens");
 	}
 
 }
