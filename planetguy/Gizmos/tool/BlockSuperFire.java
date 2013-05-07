@@ -34,13 +34,12 @@ public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();
 	
-	//TODO get rid of this stupid hack!
-	public static int globalMode=0;
-	private ImmutableList<Integer> treeBlocks=ImmutableList.of(17, 18, 31, 106);
+	protected ImmutableList<Integer> targetBlocks;
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
 	
 	public BlockSuperFire(int id, int texture) {
 		super(id);
+		targetBlocks=earthBlocks;
 		//setCreativeTab(CreativeTabs.tabRedstone);
 	}
 	
@@ -50,14 +49,7 @@ public class BlockSuperFire extends BlockFire{
 	}
 	
 	public boolean canBurnBlock(int id){
-		switch(this.globalMode){
-		case 0:
-			return treeBlocks.contains(id);
-		case 1:
-			return earthBlocks.contains(id);
-		default:
-			return false;
-		}
+		return targetBlocks.contains(id);
 	}
     
     /*

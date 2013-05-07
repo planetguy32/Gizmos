@@ -24,8 +24,7 @@ public class ItemMinersLighter extends ItemInteractDevice{
         if (id == 0)
         {
             theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            theWorld.setBlock(posX, posY, posZ, ConfigHolder.doomFireID);
-            BlockSuperFire.globalMode=1;
+            theWorld.setBlock(posX, posY, posZ, ConfigHolder.geoFireID);
             me.damageItem(1, thePlayer);
             return true;
         }
@@ -34,7 +33,7 @@ public class ItemMinersLighter extends ItemInteractDevice{
 
 	@Override
 	public boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
-		return true;
+		return theWorld.getBiomeGenForCoords(posX, posZ).biomeName!="Hell";
 	}
 	
 	public void registerTexture(IconRegister ir){

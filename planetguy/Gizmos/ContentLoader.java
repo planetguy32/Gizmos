@@ -16,6 +16,7 @@ import planetguy.Gizmos.spy.ItemLens;
 import planetguy.Gizmos.timebomb.BlockTimeBomb;
 import planetguy.Gizmos.timebomb.ItemBombDefuser;
 import planetguy.Gizmos.timebomb.ItemTimeBomb;
+import planetguy.Gizmos.tool.BlockForestFire;
 import planetguy.Gizmos.tool.BlockSuperFire;
 import planetguy.Gizmos.tool.ItemBuildTool;
 import planetguy.Gizmos.tool.ItemBlockTicker;
@@ -65,7 +66,7 @@ public class ContentLoader{
 	
 	public static Item dislocator;
 
-	public static Block doomFire;
+	public static Block geoFire,forestFire;
 	public static Item deforestator;
 	public static Item mlighter;
 	
@@ -97,12 +98,13 @@ public class ContentLoader{
 		try{
 
 			ConfigHolder.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
-			ConfigHolder.doomFireID = config.getBlock("Superfire ID", 3982).getInt();
+			ConfigHolder.geoFireID = config.getBlock("Superfire ID", 3982).getInt();
 			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
 			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
 			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
 			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
 			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
+			ConfigHolder.forestFireID = config.getBlock("Forest fire ID", 3988).getInt();
 			
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
 			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
@@ -245,8 +247,11 @@ public class ContentLoader{
 		if(allowFire&&!(ConfigHolder.serverSafeMode)){
 			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setUnlocalizedName("netherLighter");
 			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setUnlocalizedName("minersLighter");
-			doomFire = new BlockSuperFire(ConfigHolder.doomFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
-			GameRegistry.registerBlock(doomFire);
+			geoFire = new BlockSuperFire(ConfigHolder.geoFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
+			forestFire = new BlockForestFire(ConfigHolder.forestFireID, 31).setUnlocalizedName("woodFire").setHardness(0.0F).setLightValue(1.0F);
+
+			GameRegistry.registerBlock(geoFire, ItemBlock.class, "doomFire");
+			
 			ItemStack itemStackNetherLighter = new ItemStack(deforestator,1,0);
 			GameRegistry.addRecipe(itemStackNetherLighter, new Object[]{ "brb", "rfr", "brb",
 					'b',powder,

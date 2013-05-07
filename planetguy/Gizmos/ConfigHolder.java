@@ -7,7 +7,7 @@ public class ConfigHolder {
 	//Someone should sort this (hint hint Planetguy... Get to work!)
 
 	public static int gravityExplosivesID;
-	public static int doomFireID;
+	public static int geoFireID;
 	public static int netherLighterID;
 	public static int minerLighterID;
 	public static int WandID;
@@ -27,6 +27,7 @@ public class ConfigHolder {
 	public static int[] defuseableIDs;
 	public static int defuserID;
 	public static int buildToolID;
+	public static int forestFireID;
 
 
 }
