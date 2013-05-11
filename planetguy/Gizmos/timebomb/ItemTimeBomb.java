@@ -14,6 +14,7 @@ public class ItemTimeBomb extends ItemBlock {
 	public ItemTimeBomb(int par1) {
 		super(par1);
 		setHasSubtypes(true);
+		setIconIndex(10);
 	}
 	
 	public int getMetadata(int meta){
@@ -42,7 +43,7 @@ public class ItemTimeBomb extends ItemBlock {
 		}
 		default:name="idk";
 		}
-		return getUnlocalizedName()+"."+name;
+		return getItemName()+"."+name;
 	}
 
 	public Item setItemName(String string) {

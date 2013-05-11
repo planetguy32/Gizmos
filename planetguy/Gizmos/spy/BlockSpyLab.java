@@ -2,9 +2,6 @@ package planetguy.Gizmos.spy;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import planetguy.Gizmos.ContentLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -21,26 +18,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockInserter extends Block{
-	
+public class BlockSpyLab extends Block{
 
-    public BlockInserter (int id, int texture) {
-        super(id, Material.iron);
+    public BlockSpyLab (int id, int texture) {
+        super(id, texture, Material.iron);
         //System.out.println("New spy lab!");
         setHardness(2.0F);
         setResistance(5.0F);
         setBlockName("blockSpyLab");
         setCreativeTab(CreativeTabs.tabTools);
     }
-    
-	public int getBlockTextureFromSideAndMetadata(int par1, int par2) {
-		if(par1==1){
-			return 8;
-		}else{
-			return 6;
-		}
-	}
-	
 
     public boolean onBlockActivated(World world, int x, int y, int z,
                 EntityPlayer player, int idk, float what, float these, float are) {
@@ -57,5 +44,12 @@ public class BlockInserter extends Block{
 		  return "/planetguy/Gizmos/tex.png";
 	}
 	
+	public int getBlockTextureFromSideAndMetadata(int par1, int par2) {
+		if(par1==1){
+			return 8;
+		}else{
+			return 6;
+		}
+	}
 
 }

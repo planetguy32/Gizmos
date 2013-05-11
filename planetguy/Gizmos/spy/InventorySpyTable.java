@@ -1,29 +1,18 @@
 package planetguy.Gizmos.spy;
 
-import java.util.Random;
-
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-public class InventorySpyLab implements IInventory {
+public class InventorySpyTable extends TileEntity implements IInventory {
 
 
     private ItemStack[] inv;
-    
-    private World world;
-    private int x, y, z;
 
-    public InventorySpyLab(World w, int x, int y, int z){
-            inv = new ItemStack[4];
-            this.world=w;
-            this.x=x;
-            this.y=y;
-            this.z=z;
+    public InventorySpyTable(){
+            inv = new ItemStack[9];
     }
    
     @Override
@@ -83,48 +72,45 @@ public class InventorySpyLab implements IInventory {
     public void openChest() {}
 
     @Override
-    public void closeChest() {
-    	System.out.println("Closed");
-    	Random rand = new Random();
-
-        IInventory inventory = this;
-        
-        for (int i = 0; i < inventory.getSizeInventory(); i++) {
-        	ItemStack item = inventory.getStackInSlot(i);
-        	
-        	if (item != null && item.stackSize > 0) {
-        		float rx = rand.nextFloat() * 0.8F + 0.1F;
-        		float ry = rand.nextFloat() * 0.8F + 0.1F;
-        		float rz = rand.nextFloat() * 0.8F + 0.1F;
-        		
-        		EntityItem entityItem = new EntityItem(world,
-        					x + rx, y + ry, z + rz,
-        					new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
-        		
-                if (item.hasTagCompound()) {
-                	//entityItem.getEntityData().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-                }	
-                
-                float factor = 0.05F;
-                entityItem.motionX = rand.nextGaussian() * factor;
-                entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-                entityItem.motionZ = rand.nextGaussian() * factor;
-                world.spawnEntityInWorld(entityItem);
-                item.stackSize = 0;
-        	}
-        }
+    public void closeChest() {}
+   
+    public void readFromNBT(NBTTagCompound tagCompound) {
+                      
+            NBTTagList tagList = tagCompound.getTagList("Inventory");
+            for (int i = 0; i < tagList.tagCount(); i++) {
+                    NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+                    byte slot = tag.getByte("Slot");
+                    if (slot >= 0 && slot < inv.length) {
+                            inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+                    }
+            }
     }
-    		
-    
+
     @Override
-    public String getInvName() {
-    	return "planetguy.spyLab";
-    }
-    
-    @Override
-    public void onInventoryChanged() {
-    	
+    public void writeToNBT(NBTTagCompound tagCompound) {
+            super.writeToNBT(tagCompound);
+                           
+            NBTTagList itemList = new NBTTagList();
+            for (int i = 0; i < inv.length; i++) {
+                    ItemStack stack = inv[i];
+                    if (stack != null) {
+                            NBTTagCompound tag = new NBTTagCompound();
+                            tag.setByte("Slot", (byte) i);
+                            stack.writeToNBT(tag);
+                            itemList.appendTag(tag);
+                    }
+            }
+            tagCompound.setTag("Inventory", itemList);
     }
 
+            @Override
+            public String getInvName() {
+                    return "tco.tileentitytiny";
+            }
 
+			@Override
+			public void onInventoryChanged() {
+				// TODO Auto-generated method stub
+				
+			}
 }

@@ -2,7 +2,6 @@ package planetguy.Gizmos.tool;
 
 import planetguy.Gizmos.ConfigHolder;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,6 +13,7 @@ public class ItemDeforester extends ItemInteractDevice{
 
 	public ItemDeforester(int par1) {
 		super(par1);
+		setIconIndex(0);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -35,15 +35,6 @@ public class ItemDeforester extends ItemInteractDevice{
 	public boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
 		// TODO Auto-generated method stub
 		return true;
-	}
-	
-	public void registerTexture(IconRegister ir){
-		System.out.println("Deforester");
-		itemIcon=ir.registerIcon("Gizmos"+":"+"netherLighter");
-	}
-	
-	public void updateIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon("Gizmos:netherLighter");
 	}
 	
 

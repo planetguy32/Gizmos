@@ -6,7 +6,6 @@ import planetguy.Gizmos.gravitybomb.EntityGravityBomb;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
 import planetguy.Gizmos.mobcollider.BlockAccelerator;
-import planetguy.Gizmos.mobcollider.BlockColliderCore;
 import planetguy.Gizmos.mobcollider.BlockLauncher;
 import planetguy.Gizmos.mobcollider.ColliderRecipe;
 import planetguy.Gizmos.spy.BlockInserter;
@@ -22,6 +21,7 @@ import planetguy.Gizmos.tool.ItemBuildTool;
 import planetguy.Gizmos.tool.ItemBlockTicker;
 import planetguy.Gizmos.tool.ItemDeforester;
 import planetguy.Gizmos.tool.ItemMinersLighter;
+import planetguy.Gizmos.unused.BlockColliderCore;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -101,10 +101,11 @@ public class ContentLoader{
 			ConfigHolder.geoFireID = config.getBlock("Superfire ID", 3982).getInt();
 			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
 			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
-			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
+			ConfigHolder.forestFireID = config.getBlock("Forest fire ID", 3985).getInt();
+			//ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt(); Probably will never be implemented
 			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
 			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
-			ConfigHolder.forestFireID = config.getBlock("Forest fire ID", 3988).getInt();
+			
 			
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
 			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
@@ -147,7 +148,7 @@ public class ContentLoader{
 		ItemStack tnt = new ItemStack(Block.tnt);
 		ItemStack powder = new ItemStack(Item.blazePowder);
 		ItemStack iron = new ItemStack(Item.ingotIron);
-		ItemStack itemStackPick = new ItemStack(Item.pickaxeIron);
+		ItemStack itemStackPick = new ItemStack(Item.pickaxeSteel);
 		ItemStack itemStackFlintAndSteel= new ItemStack(Item.flintAndSteel);
 		ItemStack redstone = new ItemStack(Item.redstone);
 		ItemStack stackClock=new ItemStack(Item.pocketSundial);
@@ -174,14 +175,14 @@ public class ContentLoader{
 			//Might need lens for bomb items...
 			if(allowBombItems){
 				//this.bomb=new EnchantmentBomb(136);
-				spyDesk=new BlockInserter(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
-				buildTool=new ItemBuildTool(ConfigHolder.buildToolID).setUnlocalizedName("buildTool").setCreativeTab(CreativeTabs.tabTools);
+				spyDesk=new BlockInserter(ConfigHolder.spyLabID,6).setBlockName("spyLab");
+				buildTool=new ItemBuildTool(ConfigHolder.buildToolID).setItemName("buildTool").setCreativeTab(CreativeTabs.tabTools);
 				GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
 				
 		        LanguageRegistry.instance().addName(spyDesk, "Inserter");
 		        LanguageRegistry.instance().addName(buildTool, "Builder's Tool");
 				
-				MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
+				MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse()); //Cleared of all charges, have a nice day boss!
 		        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 
 				ItemStack itemSpyDesk=new ItemStack(spyDesk);
@@ -211,7 +212,7 @@ public class ContentLoader{
 				timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
 				GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBombs");
 				Item.itemsList[ ConfigHolder.timeExplosivesID] = new ItemTimeBomb( ConfigHolder.timeExplosivesID-256).setItemName("timeBombs");
-				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
+				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setItemName("defuser");
 				
 				LanguageRegistry.addName(defuser, "Bomb defuser");
 				LanguageRegistry.instance().addStringLocalization("tile.timeBombs.timeBomb.name", "Time Bomb");
@@ -245,10 +246,10 @@ public class ContentLoader{
 		
 		//Fire module
 		if(allowFire&&!(ConfigHolder.serverSafeMode)){
-			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setUnlocalizedName("netherLighter");
-			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setUnlocalizedName("minersLighter");
-			geoFire = new BlockSuperFire(ConfigHolder.geoFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
-			forestFire = new BlockForestFire(ConfigHolder.forestFireID, 31).setUnlocalizedName("woodFire").setHardness(0.0F).setLightValue(1.0F);
+			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setItemName("netherLighter");
+			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setItemName("minersLighter");
+			geoFire = new BlockSuperFire(ConfigHolder.geoFireID, 31).setBlockName("doomFire").setHardness(0.0F).setLightValue(1.0F);
+			forestFire = new BlockForestFire(ConfigHolder.forestFireID, 31).setBlockName("woodFire").setHardness(0.0F).setLightValue(1.0F);
 
 			GameRegistry.registerBlock(geoFire, ItemBlock.class, "doomFire");
 			
@@ -268,7 +269,7 @@ public class ContentLoader{
 		
 		//Temporal dislocator module
 		if(allowDislocator){
-			dislocator = new ItemBlockTicker(ConfigHolder.WandID).setUnlocalizedName("dislocator");
+			dislocator = new ItemBlockTicker(ConfigHolder.WandID).setItemName("dislocator");
 			ItemStack stackTicker=new ItemStack(dislocator,1,0); 
 			GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
 					Character.valueOf('c'),stackClock,
@@ -278,7 +279,7 @@ public class ContentLoader{
 		
 		//Explosives module
 		if(allowGravityBombs&&!(ConfigHolder.serverSafeMode)){
-			graviBomb = new BlockGraviBomb( ConfigHolder.gravityExplosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
+			graviBomb = new BlockGraviBomb( ConfigHolder.gravityExplosivesID, 1).setBlockName("graviBomb").setHardness(0.0F).setResistance(0.0F);
 			Item.itemsList[ ConfigHolder.gravityExplosivesID] = new ItemGraviBombs( ConfigHolder.gravityExplosivesID-256).setItemName("graviBomb");
 			graviBombPrimed = new EntityGravityBomb(null);
 			tunnelBombPrimed=new EntityTunnelBomb(null);
@@ -304,29 +305,34 @@ public class ContentLoader{
 		
 		if(allowAccelerator){
 			
-			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID).setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
-			launcher=new BlockLauncher(ConfigHolder.launcherID).setUnlocalizedName("entityLauncher");
+			
+			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID).setBlockName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
+			launcher=new BlockLauncher(ConfigHolder.launcherID).setBlockName("entityLauncher");
 			GameRegistry.registerBlock(launcher, ItemBlock.class, "launcher");
 
 			
-			BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
-			colliderCore=(Block) core.setUnlocalizedName("colliderCore");
+			//BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
+			//colliderCore=(Block) core.setUnlocalizedName("colliderCore");
 			
 			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "accelerator");
-			GameRegistry.registerBlock(colliderCore, ItemBlock.class, "colliderCore");
+			//GameRegistry.registerBlock(colliderCore, ItemBlock.class, "colliderCore");
+			
 			
 			ItemStack[] stacks={new ItemStack(334,64,0)};
-			ColliderRecipe cowCowHighSpeed=new ColliderRecipe(stacks, 1.0D, EntityCow.class, EntityCow.class);
-			core.addColliderRecipe(cowCowHighSpeed);
+			//ColliderRecipe cowCowHighSpeed=new ColliderRecipe(stacks, 1.0D, EntityCow.class, EntityCow.class);
+			//core.addColliderRecipe(cowCowHighSpeed);
 
 			LanguageRegistry.instance().addName(launcher, "Launcher");
 			LanguageRegistry.instance().addName(particleAccelerator, "Accelerator");
-			LanguageRegistry.instance().addName(colliderCore, "Collider core");
+			//LanguageRegistry.instance().addName(colliderCore, "Collider core");
+			 
 		}
 
 		
 
 	    //EntityRegistry.registerModEntity(EntityGravityBomb.class, "Lit Gravity Bomb", 222, planetguy.EvilToys.ContentLoader, 0, 0, false);
+	     
+	     
    }
 	
 	@PostInit

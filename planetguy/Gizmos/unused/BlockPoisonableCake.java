@@ -6,7 +6,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class BlockPoisonableCake extends BlockCake {
+public class BlockPoisonableCake{/* extends BlockCake {
 
 	private boolean isPoisoned=false;
 	
@@ -27,5 +27,5 @@ public class BlockPoisonableCake extends BlockCake {
 		System.out.println("Poison cake! Oh noes!");
 		player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 60, 1));
 	}
-
+*/
 }

@@ -10,22 +10,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class BlockTimeBomb extends Block{
 
-	private Icon topTex;
-	private Icon bottomTex;
-	private Icon[] sideIcons=new Icon[16];
 	private final int fuse;
 
 	public BlockTimeBomb(int id) {
@@ -35,42 +30,20 @@ public class BlockTimeBomb extends Block{
         fuse=ConfigHolder.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
 	}
 	
+	
+	
+	public int getBlockTextureFromSideAndMetadata(int par1, int par2) {
+		if(par1==0||par1==1){
+			return 1;
+		}else{
+			return 64+par2-par2%2;
+		}
+	}
+	
 	public int tickRate(){
 		return fuse; 
 	}
 	
-	public void registerIcons(IconRegister ir){
-		System.out.println("Time bomb textures loading");
-		topTex=ir.registerIcon(ConfigHolder.modName+":"+"bombTop");
-		bottomTex=ir.registerIcon(ConfigHolder.modName+":"+"bombBottom");
-		sideIcons[0] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb1");
-		sideIcons[1] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb1");
-		sideIcons[2] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb2");
-		sideIcons[3] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb2");
-		sideIcons[4] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb3");
-		sideIcons[5] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb3");
-		sideIcons[6] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb4");
-		sideIcons[7] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb4");
-		sideIcons[8] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb5");
-		sideIcons[9] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb5");
-		sideIcons[10]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb6");
-		sideIcons[11]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb6");
-		sideIcons[12]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb7");
-		sideIcons[13]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb7");
-		sideIcons[14]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb8");
-		sideIcons[15]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb8");
-		this.blockIcon=sideIcons[0];
-	}
-	
-	
-	
-    @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta){
-		if(side==0||side==1){
-			return topTex;
-		}
-        return sideIcons[meta];
-    }
   
     @Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4){
@@ -88,21 +61,28 @@ public class BlockTimeBomb extends Block{
 		int curMeta=w.getBlockMetadata(x,y,z);
     	curMeta+=2;
     	if(curMeta>15){
-    		w.setBlockToAir(x, y, z);
-    		w.spawnEntityInWorld(new EntityTNTPrimed(w, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), (EntityLiving) null));
+    		w.setBlock(x, y, z,0);
+    		explode(w,x,y,z);
     	}else{
-    		w.setBlockMetadataWithNotify(x, y, z, curMeta, 0x02);
+    		w.setBlockMetadataWithNotify(x, y, z, curMeta);
     		w.scheduleBlockUpdate(x,y,z,this.blockID, this.tickRate());
     	}    	
 	}    
 	
+	public void explode(World w, int x, int y, int z){
+		w.spawnEntityInWorld(new EntityTNTPrimed(w, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F)));
+	}
+	
     public void onBlockDestroyedByPlayer(World w, int x, int y, int z, int meta) {
     	fork(w,x,y,z,meta);
     	if(meta%2==0){
-    		w.destroyBlock(x, y, z, true);
+    		super.onBlockDestroyedByPlayer(w, x, y, z, meta);
     	}
     }
-
+    
+	public String getTextureFile(){
+		  return "/planetguy/Gizmos/tex.png";
+	}
     
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9){
     	fork(w,x,y,z);
@@ -113,7 +93,7 @@ public class BlockTimeBomb extends Block{
     {
         if (!par1World.isRemote)
         {
-            EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(par1World, (double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F), par5Explosion.func_94613_c());
+            EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(par1World, (double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F));
             entitytntprimed.fuse = par1World.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
             par1World.spawnEntityInWorld(entitytntprimed);
         }
@@ -128,22 +108,22 @@ public class BlockTimeBomb extends Block{
     		return;
     	}
     	if(w.getBlockMaterial(x+1, y, z)==Material.air){
-    		w.setBlock(x+1, y, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlockAndMetadataWithNotify(x+1, y, z, ConfigHolder.timeExplosivesID, meta);
     	}
     	if(w.getBlockMaterial(x-1, y, z)==Material.air){
-    		w.setBlock(x-1, y, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlockAndMetadataWithNotify(x-1, y, z, ConfigHolder.timeExplosivesID, meta);
     	}
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		w.setBlock(x, y+1, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlockAndMetadataWithNotify(x, y+1, z, ConfigHolder.timeExplosivesID, meta);
     	}
     	if(w.getBlockMaterial(x, y-1, z)==Material.air){
-    		w.setBlock(x, y-1, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlockAndMetadataWithNotify(x, y-1, z, ConfigHolder.timeExplosivesID, meta);
     	}
     	if(w.getBlockMaterial(x, y, z+1)==Material.air){
-    		w.setBlock(x, y, z+1, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlockAndMetadataWithNotify(x, y, z+1, ConfigHolder.timeExplosivesID, meta);
     	}
     	if(w.getBlockMaterial(x, y, z-1)==Material.air){
-    		w.setBlock(x, y, z-1, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlockAndMetadataWithNotify(x, y, z-1, ConfigHolder.timeExplosivesID, meta);
     	}
     }
     	

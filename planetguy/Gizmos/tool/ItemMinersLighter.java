@@ -2,7 +2,6 @@ package planetguy.Gizmos.tool;
 
 import planetguy.Gizmos.ConfigHolder;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,6 +14,7 @@ public class ItemMinersLighter extends ItemInteractDevice{
 
 	public ItemMinersLighter(int par1) {
 		super(par1);
+		setIconIndex(3);
 	}
 
 	@Override
@@ -36,14 +36,4 @@ public class ItemMinersLighter extends ItemInteractDevice{
 		return theWorld.getBiomeGenForCoords(posX, posZ).biomeName!="Hell";
 	}
 	
-	public void registerTexture(IconRegister ir){
-		System.out.println("Dislocator textures loading");
-		itemIcon=ir.registerIcon("Gizmos"+":"+"minersLighter");
-	}
-	
-	public void updateIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon("Gizmos:minersLighter");
-	}
 }
-
-
