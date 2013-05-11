@@ -6,7 +6,6 @@ import planetguy.Gizmos.gravitybomb.EntityGravityBomb;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
 import planetguy.Gizmos.mobcollider.BlockAccelerator;
-import planetguy.Gizmos.mobcollider.BlockColliderCore;
 import planetguy.Gizmos.mobcollider.BlockLauncher;
 import planetguy.Gizmos.mobcollider.ColliderRecipe;
 import planetguy.Gizmos.spy.BlockInserter;
@@ -22,6 +21,7 @@ import planetguy.Gizmos.tool.ItemBuildTool;
 import planetguy.Gizmos.tool.ItemBlockTicker;
 import planetguy.Gizmos.tool.ItemDeforester;
 import planetguy.Gizmos.tool.ItemMinersLighter;
+import planetguy.Gizmos.unused.BlockColliderCore;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -101,10 +101,11 @@ public class ContentLoader{
 			ConfigHolder.geoFireID = config.getBlock("Superfire ID", 3982).getInt();
 			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
 			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
-			ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt();
+			ConfigHolder.forestFireID = config.getBlock("Forest fire ID", 3985).getInt();
+			//ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt(); Probably will never be implemented
 			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
 			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
-			ConfigHolder.forestFireID = config.getBlock("Forest fire ID", 3988).getInt();
+			
 			
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
 			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
@@ -258,7 +259,7 @@ public class ContentLoader{
 					'r',sapling,
 					'f',itemStackFlintAndSteel});
 			ItemStack itemStackMinerLighter = new ItemStack(mlighter,1,0);
-			GameRegistry.addRecipe(itemStackNetherLighter, new Object[]{ "brb", "rfr", "brb",
+			GameRegistry.addRecipe(itemStackMinerLighter, new Object[]{ "brb", "rfr", "brb",
 					'b',powder,
 					'r',gravel,
 					'f',itemStackFlintAndSteel});
@@ -310,18 +311,18 @@ public class ContentLoader{
 
 			
 			BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
-			colliderCore=(Block) core.setUnlocalizedName("colliderCore");
+			//colliderCore=(Block) core.setUnlocalizedName("colliderCore");
 			
 			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "accelerator");
-			GameRegistry.registerBlock(colliderCore, ItemBlock.class, "colliderCore");
+			//GameRegistry.registerBlock(colliderCore, ItemBlock.class, "colliderCore");
 			
 			ItemStack[] stacks={new ItemStack(334,64,0)};
-			ColliderRecipe cowCowHighSpeed=new ColliderRecipe(stacks, 1.0D, EntityCow.class, EntityCow.class);
-			core.addColliderRecipe(cowCowHighSpeed);
+			//ColliderRecipe cowCowHighSpeed=new ColliderRecipe(stacks, 1.0D, EntityCow.class, EntityCow.class);
+			//core.addColliderRecipe(cowCowHighSpeed);
 
 			LanguageRegistry.instance().addName(launcher, "Launcher");
 			LanguageRegistry.instance().addName(particleAccelerator, "Accelerator");
-			LanguageRegistry.instance().addName(colliderCore, "Collider core");
+			//LanguageRegistry.instance().addName(colliderCore, "Collider core");
 		}
 
 		

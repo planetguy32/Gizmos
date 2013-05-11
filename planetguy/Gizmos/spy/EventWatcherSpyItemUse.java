@@ -25,6 +25,7 @@ public class EventWatcherSpyItemUse {
 	@ForgeSubscribe
 	public void checkIfBombedItemShouldExplode(PlayerInteractEvent pie){
 		
+		System.out.println("onInteract called");
 		EntityPlayer player=pie.entityPlayer;
 		ItemStack item=player.getHeldItem();
 		if(item==null){
