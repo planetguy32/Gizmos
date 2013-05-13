@@ -197,13 +197,13 @@ public class ContentLoader{
 		        ItemStack iSDPcx=new ItemStack(Item.pickaxeDiamond);
 		        ItemStack iSPist=new ItemStack(Block.pistonBase);
 		        
-		        /*
-		         //Commented until I can fix the duping - after which it will be legitimately 
+		        
+		        //IT LIVES!! 
 		        GameRegistry.addRecipe(itStkBuildTool, new Object[]{"  c"," p ","d  ", 
 		        		Character.valueOf('c'),chest,
 		        		Character.valueOf('p'),iSPist,
 		        		Character.valueOf('d'),iSDPcx});
-		        */
+		        
 		        
 			}
 			

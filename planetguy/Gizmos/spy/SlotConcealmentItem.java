@@ -2,6 +2,7 @@ package planetguy.Gizmos.spy;
 
 import planetguy.Gizmos.ConfigHolder;
 import planetguy.Gizmos.ContentLoader;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -65,12 +66,15 @@ public class SlotConcealmentItem extends Slot{
 					int id=tag.getShort("id");
 					int count=tag.getByte("Count");
 					int meta=tag.getShort("Damage");
+					if(id==(Integer)null||count==(Integer)null||meta==(Integer) null){
+						return;
+					}
 					ItemStack a=new ItemStack(id,count,meta);
 					inventory.setInventorySlotContents(2,a);
 					storingItem.setTagCompound(null);
 				}
 			}catch(NullPointerException npe){
-				//Can't pull an item out of that
+				
 			}
 		}
 	}

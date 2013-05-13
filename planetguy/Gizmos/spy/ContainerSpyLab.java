@@ -32,6 +32,15 @@ public class ContainerSpyLab extends Container {
         public boolean canInteractWith(EntityPlayer player) {
                 return true;
         }
+        
+        public void onCraftGuiClosed(EntityPlayer player){
+        	super.onCraftGuiClosed(player);
+        	for(int i=0; i<=3;i++){
+        		if(inv.getStackInSlot(i)!=null){
+        			player.dropPlayerItem(inv.getStackInSlot(i));
+        		}
+        	}
+        }
 
 
         protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {

@@ -33,12 +33,13 @@ public class ItemBuildTool extends ItemPickaxe{
 			int meta=tag.getShort("Damage");
 			ItemStack a=new ItemStack(id,count,meta);
 			a.tryPlaceItemIntoWorld(player, par3World, par4, par5, par6, par7, par8, par9, par10);
-			
-			if(a.stackSize==0||a.getMaxDamage()==a.getItemDamage()&&a.isItemStackDamageable()){
+
+			if(a==null||a.stackSize==0){
+				System.out.println("All used up :(");
 				boolean b=false;
 				ItemStack[] inv=player.inventory.mainInventory;
 				for(int i=0;  i<inv.length; i++){
-					if(inv[i].itemID==id){
+					if(inv[i]!=null&&inv[i].itemID==id){
 						a=inv[i];
 						inv[i]=null;
 						b=true;
@@ -50,21 +51,32 @@ public class ItemBuildTool extends ItemPickaxe{
 					a=null;
 				}	
 			}
-			NBTTagCompound futureTag=new NBTTagCompound("Planetguy-spy");
-			try{
-				a.writeToNBT(futureTag);
-			}catch(Exception e){
-				
-			}
-			NBTTagCompound oldTag=theRealThis.getTagCompound();
-			NBTTagCompound combinedTag=(NBTTagCompound) NBTTagCompound.newTag((byte) 10,"");
-			combinedTag.setCompoundTag("spydata", futureTag);
-			theRealThis.setTagCompound(futureTag);
-
-		}catch(NullPointerException eitherHasNoHiddenOrIsUsedUp){
-			//System.out.println("NPE handling build tool - prob no big deal.");
+			writeObjectToNbt(a, theRealThis);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return true;
+	}
+	/**
+	 * 
+	 * @param inside The stack to hide
+	 * @param outside the stack to hide it in
+	 */
+	private void writeObjectToNbt(ItemStack inside, ItemStack outside){
+		try{
+			NBTTagCompound futureTag=new NBTTagCompound("Planetguy-spy");
+			if(inside!=null){
+				inside.writeToNBT(futureTag);
+				NBTTagCompound oldTag=outside.getTagCompound();
+				NBTTagCompound combinedTag=(NBTTagCompound) NBTTagCompound.newTag((byte) 10,"");
+				combinedTag.setCompoundTag("spydata", futureTag);
+				outside.setTagCompound(futureTag);
+			}else{
+				outside.setTagCompound(null);
+			}
+		}catch(NullPointerException npe){
+
+		}
 	}
 
 }
