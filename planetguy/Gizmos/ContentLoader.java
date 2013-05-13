@@ -215,8 +215,12 @@ public class ContentLoader{
 				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
 				
 				LanguageRegistry.addName(defuser, "Bomb defuser");
-				LanguageRegistry.instance().addStringLocalization("tile.timeBombs.timeBomb.name", "Time Bomb");
-				LanguageRegistry.instance().addStringLocalization("tile.timeBombs.forkBomb.name", "Fork Bomb");	
+				final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
+
+				for (int re = 0; re < 16; re++){
+					ItemStack oreStack = new ItemStack(timeBomb, 1, re);
+					LanguageRegistry.addName(oreStack, oreNames[re]);
+				}	
 				//A fat lot of good THAT did... Still need a way to tell time bombs from fork bombs.
 				
 				//LET'S CRAFT!!!
@@ -296,8 +300,12 @@ public class ContentLoader{
 					Character.valueOf('b'), itemStackGB, 
 					Character.valueOf('i'), iron, 
 					Character.valueOf('p'), itemStackPick });
-			LanguageRegistry.instance().addStringLocalization("tile.graviBomb.gravityBomb.name", "Gravity Bomb");
-			LanguageRegistry.instance().addStringLocalization("tile.graviBomb.tunnelBomb.name", "Excavator Bomb");	
+			final String[] oreNames = {"Gravity bomb", "Tunnel bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Tunnel Bomb", "Gravity Bomb"};
+
+			for (int re = 0; re < 16; re++){
+				ItemStack oreStack = new ItemStack(graviBomb, 1, re);
+				LanguageRegistry.addName(oreStack, oreNames[oreStack.getItemDamage()]);
+			}
 		}
 		
 		//Spy module
@@ -310,7 +318,7 @@ public class ContentLoader{
 			GameRegistry.registerBlock(launcher, ItemBlock.class, "launcher");
 
 			
-			BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
+			//BlockColliderCore core=new BlockColliderCore(ConfigHolder.colliderID);
 			//colliderCore=(Block) core.setUnlocalizedName("colliderCore");
 			
 			GameRegistry.registerBlock(particleAccelerator, ItemBlock.class, "accelerator");

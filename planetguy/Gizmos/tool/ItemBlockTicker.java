@@ -32,18 +32,22 @@ public class ItemBlockTicker extends GizmosItem{
 	}
 	*/
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
-    {
-		Block b=Block.blocksList[par3World.getBlockId(par4, par5, par6)];
+	{
 		try{
+			Block b=Block.blocksList[par3World.getBlockId(par4, par5, par6)];
+
 			TileEntity t=par3World.getBlockTileEntity(par4, par5, par6);
 			for(int i=0; i<TICKS_PER_MINUTE; i++){
 				t.updateEntity();
 			}
 			par1ItemStack.damageItem(1, par2EntityPlayer);
-		}catch(NullPointerException ithasnogui){
+
 			for(int i=0; i<TICKS_PER_MINUTE; i++){
 				b.updateTick(par3World, par4, par5, par6, r);
 			}
+
+		}catch(NullPointerException ignore){
+		
 		}
 		return false;
 		

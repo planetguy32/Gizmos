@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class ItemBuildTool extends ItemPickaxe{
-	
+
 	private final int myID;
 
 	public ItemBuildTool(int par1) {
@@ -19,11 +19,11 @@ public class ItemBuildTool extends ItemPickaxe{
 		myID=par1;
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public void updateIcons(IconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon("Gizmos:buildTool");
 	}
-	
+
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){
 		try{
 			ItemStack theRealThis=player.inventory.getCurrentItem();
@@ -33,7 +33,8 @@ public class ItemBuildTool extends ItemPickaxe{
 			int meta=tag.getShort("Damage");
 			ItemStack a=new ItemStack(id,count,meta);
 			a.tryPlaceItemIntoWorld(player, par3World, par4, par5, par6, par7, par8, par9, par10);
-			if(a.stackSize==0){
+			
+			if(a.stackSize==0||a.getMaxDamage()==a.getItemDamage()&&a.isItemStackDamageable()){
 				boolean b=false;
 				ItemStack[] inv=player.inventory.mainInventory;
 				for(int i=0;  i<inv.length; i++){
@@ -44,20 +45,22 @@ public class ItemBuildTool extends ItemPickaxe{
 						break;
 					}
 				}
-				
+
 				if(!b){
 					a=null;
 				}	
 			}
-				NBTTagCompound futureTag=new NBTTagCompound("Planetguy-spy");
-				if(a!=null){
-					a.writeToNBT(futureTag);
-				}
-				NBTTagCompound oldTag=theRealThis.getTagCompound();
-				NBTTagCompound combinedTag=(NBTTagCompound) NBTTagCompound.newTag((byte) 10,"");
-				combinedTag.setCompoundTag("spydata", futureTag);
-				theRealThis.setTagCompound(futureTag);
-			
+			NBTTagCompound futureTag=new NBTTagCompound("Planetguy-spy");
+			try{
+				a.writeToNBT(futureTag);
+			}catch(Exception e){
+				
+			}
+			NBTTagCompound oldTag=theRealThis.getTagCompound();
+			NBTTagCompound combinedTag=(NBTTagCompound) NBTTagCompound.newTag((byte) 10,"");
+			combinedTag.setCompoundTag("spydata", futureTag);
+			theRealThis.setTagCompound(futureTag);
+
 		}catch(NullPointerException eitherHasNoHiddenOrIsUsedUp){
 			//System.out.println("NPE handling build tool - prob no big deal.");
 		}
