@@ -5,12 +5,14 @@ import planetguy.Gizmos.gravitybomb.BlockGraviBomb;
 import planetguy.Gizmos.gravitybomb.EntityGravityBomb;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.gravitybomb.ItemGraviBombs;
+import planetguy.Gizmos.invUtils.BlockInvenswapperBase;
+import planetguy.Gizmos.invUtils.BlockInvenswapperTop;
+import planetguy.Gizmos.invUtils.TileEntityInvenswapper;
 import planetguy.Gizmos.mobcollider.BlockAccelerator;
 import planetguy.Gizmos.mobcollider.BlockLauncher;
 import planetguy.Gizmos.mobcollider.ColliderRecipe;
 import planetguy.Gizmos.spy.BlockInserter;
 import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
-import planetguy.Gizmos.spy.GuiHandler;
 import planetguy.Gizmos.spy.ItemLens;
 import planetguy.Gizmos.timebomb.BlockTimeBomb;
 import planetguy.Gizmos.timebomb.ItemBombDefuser;
@@ -48,6 +50,7 @@ import net.minecraft.entity.passive.EntityCow;
  import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.SidedProxy;
@@ -75,6 +78,8 @@ public class ContentLoader{
 	
 	public static ItemStack IStimeBomb;
 
+	public static Block invenswapperBase,invenswapperTop;
+	
 	public static Block particleAccelerator;
 	public static Block colliderCore;
 	public static Block launcher;
@@ -83,7 +88,7 @@ public class ContentLoader{
 	public static Item defuser;
 	public static Item buildTool;
 	
-	public static boolean allowGravityBombs, allowFire, allowDislocator,
+	public static boolean allowGravityBombs, allowFire, allowDislocator,allowInvenswappers,
 		allowBombItems, allowAccelerator,allowTimeBomb,allowForkBomb,allowBuildTool;
 	
 
@@ -105,6 +110,8 @@ public class ContentLoader{
 			//ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt(); Probably will never be implemented
 			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
 			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
+			ConfigHolder.invenswapperTopID = config.getBlock("Invenswapper ID", 3988).getInt();
+			ConfigHolder.invenswapperBottomID = config.getBlock("Invenswapper base ID", 3989).getInt();
 			
 			
 			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
@@ -120,6 +127,8 @@ public class ContentLoader{
 			allowDislocator=config.get("Nerfs and bans", "Temporal Dislocator allowed", true).getBoolean(true);
 			allowAccelerator=config.get("Nerfs and bans", "Allow accelerator block", true).getBoolean(true);
 			allowTimeBomb=config.get("Nerfs and bans", "Allow time bomb and fork bomb", true).getBoolean(true);
+			allowInvenswappers=config.get("Nerfs and bans", "Allow invenswappers", true).getBoolean(true);
+
 
 			ConfigHolder.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
 			ConfigHolder.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
@@ -163,6 +172,8 @@ public class ContentLoader{
 		ItemStack shears=new ItemStack(Item.shears);
 		ItemStack stick=new ItemStack(Item.stick);
 
+        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+		
 		//First comes common crafting...
 		if(allowBombItems||allowTimeBomb){
 			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
@@ -183,7 +194,6 @@ public class ContentLoader{
 		        LanguageRegistry.instance().addName(buildTool, "Builder's Tool");
 				
 				MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
-		        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 
 				ItemStack itemSpyDesk=new ItemStack(spyDesk);
 		        GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
@@ -197,8 +207,7 @@ public class ContentLoader{
 		        ItemStack iSDPcx=new ItemStack(Item.pickaxeDiamond);
 		        ItemStack iSPist=new ItemStack(Block.pistonBase);
 		        
-		        
-		        //IT LIVES!! 
+		        //IT LIVES!! No more duping, either!
 		        GameRegistry.addRecipe(itStkBuildTool, new Object[]{"  c"," p ","d  ", 
 		        		Character.valueOf('c'),chest,
 		        		Character.valueOf('p'),iSPist,
@@ -207,7 +216,7 @@ public class ContentLoader{
 		        
 			}
 			
-			//Or time bombs
+			//Or time bombs (for making the defuser)
 			if(allowTimeBomb){
 				timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
 				GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBombs");
@@ -246,6 +255,17 @@ public class ContentLoader{
 
 			}
 			
+		}
+		
+		if(allowInvenswappers){
+			invenswapperTop=new BlockInvenswapperTop(ConfigHolder.invenswapperTopID);
+			invenswapperBase=new BlockInvenswapperBase(ConfigHolder.invenswapperBottomID).setCreativeTab(CreativeTabs.tabDecorations);
+			GameRegistry.registerTileEntity(TileEntityInvenswapper.class, "Gizmos.invenswapper");
+			GameRegistry.registerBlock(invenswapperTop, ItemBlock.class,"invenswapperTop");
+			GameRegistry.registerBlock(invenswapperBase, ItemBlock.class,"invenswapperBase");
+			LanguageRegistry.addName(invenswapperBase, "Invenswapper base");
+
+
 		}
 		
 		//Fire module

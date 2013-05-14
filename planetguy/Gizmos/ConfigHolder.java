@@ -28,6 +28,7 @@ public class ConfigHolder {
 	public static int defuserID;
 	public static int buildToolID;
 	public static int forestFireID;
+	public static int invenswapperTopID,invenswapperBottomID;
 
 
 }

@@ -45,8 +45,7 @@ public class BlockInserter extends Block{
     	sides=ir.registerIcon("Gizmos:spySides");
     }
 
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                EntityPlayer player, int idk, float what, float these, float are) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
         //code to open gui explained later
         player.openGui(ContentLoader.instance, 0, world, x, y, z);
         return true;

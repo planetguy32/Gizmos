@@ -19,16 +19,16 @@ public class ItemDeforester extends ItemInteractDevice{
 
 	@Override
 	public boolean doEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
-        int id = theWorld.getBlockId(posX, posY, posZ);
+		int id = theWorld.getBlockId(posX, posY, posZ);
 
-        if (id == 0)
-        {
-            theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            theWorld.setBlock(posX, posY, posZ, ConfigHolder.forestFireID);
-            me.damageItem(1, thePlayer);
-            return true;
-        }
-        return false;
+		if (id == 0)
+		{
+			theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+			theWorld.setBlock(posX, posY, posZ, ConfigHolder.forestFireID);
+			me.damageItem(1, thePlayer);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -36,18 +36,18 @@ public class ItemDeforester extends ItemInteractDevice{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	public void registerTexture(IconRegister ir){
 		System.out.println("Deforester");
 		itemIcon=ir.registerIcon("Gizmos"+":"+"netherLighter");
 	}
-	
+
 	public void updateIcons(IconRegister iconRegister) {
 		itemIcon = iconRegister.registerIcon("Gizmos:netherLighter");
 	}
-	
 
-	
+
+
 }
 
 
