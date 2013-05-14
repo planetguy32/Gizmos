@@ -1,10 +1,12 @@
 package planetguy.Gizmos.invUtils;
 
+import java.util.List;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import planetguy.Gizmos.ConfigHolder;
 import planetguy.Gizmos.ContentLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -28,6 +30,15 @@ public class BlockInvenswapperBase extends BlockContainer{
 		setUnlocalizedName("Gizmos_Invenswapper");
 		setCreativeTab(CreativeTabs.tabDecorations);
 	}
+	
+	@Override
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
+	{
+	    for (int var4 = 0; var4 < 2; ++var4)
+	    {
+	        par3List.add(new ItemStack(par1, 1, var4));
+	    }
+	}
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -38,7 +49,7 @@ public class BlockInvenswapperBase extends BlockContainer{
     @Override
 	public void onBlockAdded(World w, int x, int y, int z){
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		
+    		w.setBlock(x, y+1, z, ConfigHolder.invenswapperTopID,w.getBlockMetadata(x, y, z), 0x02);
     	}
     }
 	
@@ -56,6 +67,7 @@ public class BlockInvenswapperBase extends BlockContainer{
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6) {
 		dropItems(world, x, y, z);
+		world.setBlockToAir(x,y+1,z);
 		super.breakBlock(world, x, y, z, par5, par6);
 	}
 

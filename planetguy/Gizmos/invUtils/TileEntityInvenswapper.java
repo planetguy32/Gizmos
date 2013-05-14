@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityInvenswapper extends TileEntity implements IInventory {
 	
@@ -16,8 +17,9 @@ public class TileEntityInvenswapper extends TileEntity implements IInventory {
 	private ItemStack[] inv;
 
 	public TileEntityInvenswapper(){
-		inv = new ItemStack[31];
+		inv = new ItemStack[9]; //9x4 with a few unused spaces - player inventory is irregular like that
 	}
+	
 
 	@Override
 	public int getSizeInventory() {
@@ -35,6 +37,17 @@ public class TileEntityInvenswapper extends TileEntity implements IInventory {
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
 		}              
+	}
+	
+	public ItemStack addStack(ItemStack s){
+		for(int i=0;i<inv.length;i++){
+			if(inv[i]==null){
+				System.out.println("Adding stack...");
+				inv[i]=s;
+				return null;
+			}
+		}
+		return s;
 	}
 
 	@Override
