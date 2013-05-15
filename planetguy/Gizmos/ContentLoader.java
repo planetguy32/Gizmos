@@ -49,6 +49,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.passive.EntityCow;
  import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.Configuration;
@@ -262,7 +263,7 @@ public class ContentLoader{
 			invenswapperBase=new BlockInvenswapperBase(ConfigHolder.invenswapperBottomID).setCreativeTab(CreativeTabs.tabDecorations);
 			GameRegistry.registerTileEntity(TileEntityInvenswapper.class, "Gizmos.invenswapper");
 			GameRegistry.registerBlock(invenswapperTop, ItemBlock.class,"invenswapperTop");
-			GameRegistry.registerBlock(invenswapperBase, ItemBlock.class,"invenswapperBase");
+			GameRegistry.registerBlock(invenswapperBase, ItemBlockWithMetadata.class,"invenswapperBase");
 			LanguageRegistry.addName(invenswapperBase, "Invenswapper base");
 
 

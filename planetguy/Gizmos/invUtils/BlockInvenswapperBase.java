@@ -19,9 +19,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class BlockInvenswapperBase extends BlockContainer{
+	
+	private Icon[] icons=new Icon[3];
 
 	public BlockInvenswapperBase(int par1) {
 		super(par1, Material.iron);
@@ -43,7 +46,16 @@ public class BlockInvenswapperBase extends BlockContainer{
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir){
-    	this.blockIcon =ir.registerIcon("Gizmos:gizDefault");
+    	icons[0]=ir.registerIcon("Gizmos:invenswapperBottomIn");
+    	icons[1]=ir.registerIcon("Gizmos:invenswapperBottomOut");
+    	icons[2]=ir.registerIcon("hopper_inside");
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon(int side, int meta){
+		if(side==0||side==1)return icons[2];
+		return icons[meta];    	
     }
     
     @Override
