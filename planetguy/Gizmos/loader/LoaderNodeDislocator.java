@@ -16,7 +16,7 @@ public class LoaderNodeDislocator extends LoaderNode{
 	}
 	
 	@Override
-	public void loadLocal() {
+	public void load() {
 		ItemStack stackClock=new ItemStack(Item.pocketSundial);
 		ItemStack iron = new ItemStack(Item.ingotIron);
 		Gizmos.dislocator = new ItemBlockTicker(Gizmos.WandID).setUnlocalizedName("dislocator");

@@ -13,6 +13,7 @@ import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.Gizmos.loader.LoaderNode;
 import planetguy.Gizmos.loader.LoaderNodeBombItems;
@@ -139,20 +140,26 @@ public class Gizmos {
 	
 	@Init
 	public final void load(FMLInitializationEvent ignored){
+        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+
 		for(Object ln : LoaderNode.registeredNodes.toArray()){
 			System.out.print(((LoaderNode) ln).getName());
 		}
 		for(String s: bannedItems){
 			for(int i=0; i<LoaderNode.registeredNodes.size(); i++){
-				if(s==LoaderNode.registeredNodes.get(i).getName())LoaderNode.registeredNodes.remove(i);
+				System.out.println("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
+				System.out.println("Currently at "+LoaderNode.registeredNodes.get(i).getName());
+				if(s.equalsIgnoreCase(LoaderNode.registeredNodes.get(i).getName())){
+					System.out.println("Found it!");
+					LoaderNode.registeredNodes.remove(i);
+					break;
+				}
 			}
 		}
-		
+		System.out.println(LoaderNode.registeredNodes.toString());
 		for(Object ln : LoaderNode.registeredNodes.toArray()){
-			((LoaderNode) ln).load();
-		}
-		
-	}
-	
+			((LoaderNode) ln).loadRecursively();
+		}	
+	}	
 
 }

@@ -20,7 +20,7 @@ public class LoaderNodeInvenswappers extends LoaderNode{
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
 		Gizmos.invenswapperTop=new BlockInvenswapperTop(Gizmos.invenswapperTopID);
 		Gizmos.invenswapperBase=new BlockInvenswapperBase(Gizmos.invenswapperBottomID).setCreativeTab(CreativeTabs.tabDecorations);
 		GameRegistry.registerTileEntity(TileEntityInvenswapper.class, "Gizmos.invenswapper");

@@ -14,11 +14,13 @@ public class LoaderNodeBuildTool extends LoaderNode{
 	public static LoaderNode[] depends={LoaderNodeInserter.inst};
 	
 	public LoaderNodeBuildTool() {
-		super(depends);
+		super(new LoaderNode[0]);
+		super.depends=new LoaderNode[1];
+		super.depends[0]=LoaderNodeInserter.inst;
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
 		Gizmos.buildTool=new ItemBuildTool(Gizmos.buildToolID).setUnlocalizedName("buildTool").setCreativeTab(CreativeTabs.tabTools);
 
         ItemStack itStkBuildTool=new ItemStack(Gizmos.buildTool);

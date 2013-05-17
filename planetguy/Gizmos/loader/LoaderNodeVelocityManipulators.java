@@ -18,7 +18,7 @@ public class LoaderNodeVelocityManipulators extends LoaderNode {
 	}
 	
 	@Override
-	public void loadLocal() {
+	public void load() {
 		Gizmos.particleAccelerator=new BlockAccelerator(Gizmos.accelID).setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
 		Gizmos.launcher=new BlockLauncher(Gizmos.launcherID).setUnlocalizedName("entityLauncher");
 		GameRegistry.registerBlock(Gizmos.launcher, ItemBlock.class, "launcher");

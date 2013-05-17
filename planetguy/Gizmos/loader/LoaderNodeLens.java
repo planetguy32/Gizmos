@@ -13,14 +13,18 @@ public class LoaderNodeLens extends LoaderNode {
 
 	public static LoaderNode inst=new LoaderNodeLens();
 	
+	public static boolean isLoaded=false;
+	
 	public static final LoaderNode[] depends={LoaderNode.vanilla};
 	
 	public LoaderNodeLens() {
-		super(depends);
+		super(new LoaderNode[0]);
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
+		if(isLoaded)return;
+		isLoaded=true;
 		ItemStack glass=new ItemStack(Block.glass);
 		ItemStack iron = new ItemStack(Item.ingotIron);
 		Gizmos.spyLens=new ItemLens(Gizmos.lensID).setCreativeTab(CreativeTabs.tabMaterials);

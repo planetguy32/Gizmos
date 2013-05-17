@@ -6,15 +6,16 @@ import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 public class LoaderNodeBombItems extends LoaderNode {
 	
 	public static final LoaderNode inst=new LoaderNodeBombItems();
-	private final static LoaderNode[] depends={LoaderNodeInserter.inst};
+	public LoaderNode[] depends={LoaderNodeInserter.inst};
 	
 	public LoaderNodeBombItems() {
-		super(depends);
+		super(new LoaderNode[0]);
+		super.depends=depends;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
 		MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
 	}
 

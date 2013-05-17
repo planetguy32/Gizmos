@@ -21,7 +21,7 @@ public class LoaderNodeGravityBombs extends LoaderNode{
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
 		Gizmos.graviBomb = new BlockGraviBomb( Gizmos.gravityExplosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
 		Item.itemsList[ Gizmos.gravityExplosivesID] = new ItemGraviBombs( Gizmos.gravityExplosivesID-256).setItemName("graviBomb");
 		Gizmos.graviBombPrimed = new EntityGravityBomb(null);

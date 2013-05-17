@@ -12,14 +12,20 @@ public class LoaderNodeInserter extends LoaderNode {
 
 	public static LoaderNode inst=new LoaderNodeInserter();
 	
-	private final static LoaderNode[] depends={LoaderNodeLens.inst};
+	public static boolean isLoaded=false;
+	
+	//private final static LoaderNode[] depends={LoaderNodeLens.inst};
 	
 	public LoaderNodeInserter() {
-		super(depends);
+		super(new LoaderNode[0]);
+		super.depends=new LoaderNode[1];
+		super.depends[0]=LoaderNodeLens.inst;
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
+		if(isLoaded)return;
+		isLoaded=true;
 		ItemStack lens=new ItemStack(Gizmos.spyLens);
 		ItemStack wood=new ItemStack(Block.planks);
 		ItemStack blockIron=new ItemStack(Block.blocksList[42]);

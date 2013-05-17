@@ -22,7 +22,7 @@ public class LoaderNodeFire extends LoaderNode{
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
 		ItemStack itemStackFlintAndSteel= new ItemStack(Item.flintAndSteel);
 		ItemStack powder = new ItemStack(Item.blazePowder);
 		ItemStack sapling=new ItemStack(Block.sapling);

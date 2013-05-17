@@ -16,15 +16,14 @@ public class LoaderNodeTimeBombs extends LoaderNode{
 	private final static LoaderNode[] depends={};
 	
 	public LoaderNodeTimeBombs() {
-		super(depends);
-		// TODO Auto-generated constructor stub
+		super(new LoaderNode[0]);
 	}
 
 	@Override
-	public void loadLocal() {
+	public void load() {
 		Gizmos.timeBomb=new BlockTimeBomb(Gizmos.timeExplosivesID);
 		GameRegistry.registerBlock(Gizmos.timeBomb,ItemTimeBomb.class,"timeBombs");
-		Item.itemsList[ Gizmos.timeExplosivesID] = new ItemTimeBomb( Gizmos.timeExplosivesID-256).setItemName("timeBombs");
+		//Item.itemsList[ Gizmos.timeExplosivesID] = new ItemTimeBomb( Gizmos.timeExplosivesID-256).setItemName("timeBombs");
 		final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
 		for (int re = 0; re < 16; re++){
 			ItemStack oreStack = new ItemStack(Gizmos.timeBomb, 1, re);

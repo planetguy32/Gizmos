@@ -11,15 +11,17 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class LoaderNodeDefuser extends LoaderNode{
 
 	public static LoaderNode inst=new LoaderNodeDefuser();
-	private static LoaderNode[] depends={LoaderNodeLens.inst};
+	public LoaderNode[] depends=new LoaderNode[1];
+	
 	
 	public LoaderNodeDefuser() {
-		super(depends);
+		super(new LoaderNode[0]);
+		this.depends[0]=LoaderNodeLens.inst;
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
-	public void loadLocal() {
+	public void load() {
 		ItemStack shears=new ItemStack(Item.shears);
 		ItemStack stick=new ItemStack(Item.stick);
 		ItemStack lens=new ItemStack(Gizmos.spyLens);

@@ -11,29 +11,36 @@ public abstract class LoaderNode {
 	public static LoaderNode inst;
 	public static LoaderNode vanilla =new LNVanilla();
 	
-	public static boolean alreadyLoaded=false;
+	public boolean alreadyLoaded=false;
 	public LoaderNode[] depends;
 	
-	public LoaderNode(LoaderNode[] depends){
-		this.depends=depends;
-		this.inst=this;
+	public LoaderNode(LoaderNode[] depends2){
+		depends=depends2;
+		inst=this;
 		//LoaderNode.registeredNodes.add(this);
 	}
-	
-	public void load(){
-		this.alreadyLoaded=true;
-		if(depends==null){
-			this.loadLocal();
-			return;
-		}
+		
+	public void loadDependencies(){
 		for(LoaderNode ln : depends){
-			if(!ln.alreadyLoaded)
-				ln.load();
+			ln.loadRecursively();
 		}
-		this.loadLocal();
 	}
 	
-	public abstract void loadLocal();
+	public final void loadRecursively(){
+		System.out.println("Node: "+this.getClass().getCanonicalName());
+		if(alreadyLoaded){
+			return;
+		}
+		loadDependencies();
+		load();
+		//this.alreadyLoaded=true; //Not going to be threadsafe, but in MC who cares?
+	}
+	
+	public static void registerNode(LoaderNode ln){
+		registeredNodes.add(ln);
+	}
+	
+	public abstract void load();
 	public abstract String getName();
 	
 	public static class LNVanilla extends LoaderNode{
@@ -47,7 +54,7 @@ public abstract class LoaderNode {
 		}
 
 		@Override
-		public void loadLocal() {}
+		public void load() {}
 
 		@Override
 		public String getName() {
