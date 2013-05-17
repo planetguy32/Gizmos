@@ -1,7 +1,6 @@
 package planetguy.Gizmos.spy;
 
-import planetguy.Gizmos.ConfigHolder;
-import planetguy.Gizmos.ContentLoader;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -27,7 +26,7 @@ public class SlotConcealmentItem extends Slot{
 		if(type==TYPE_TOOL_IN||type==TYPE_TOOL_OUT){
 			return i.getMaxStackSize()==1;
 		}else{
-			return ConfigHolder.nerfHiding ? i.stackSize==1 : true;
+			return Gizmos.nerfHiding ? i.stackSize==1 : true;
 		}
 	}
 	

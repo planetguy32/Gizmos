@@ -4,8 +4,7 @@ import java.util.logging.Logger;
 
 import cpw.mods.fml.common.FMLLog;
 
-import planetguy.Gizmos.ConfigHolder;
-import planetguy.Gizmos.ContentLoader;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,7 +37,7 @@ public class EventWatcherSpyItemUse {
 			int x=0;
 			boolean testSoFar=true;
 			//while(testSoFar){
-			if(tag.getShort("id")==289&&!ConfigHolder.serverSafeMode){
+			if(tag.getShort("id")==289&&!Gizmos.serverSafeMode){
 				
 				World w=player.worldObj;
 				w.newExplosion(player, player.posX, player.posY, player.posZ, 4, true, true);

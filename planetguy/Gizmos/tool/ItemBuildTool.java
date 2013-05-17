@@ -53,7 +53,7 @@ public class ItemBuildTool extends ItemPickaxe{
 			}
 			writeObjectToNbt(a, theRealThis);
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace(); //Causes alarm if there is no item inside
 		}
 		return true;
 	}

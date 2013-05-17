@@ -1,6 +1,6 @@
 package planetguy.Gizmos.mobcollider;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -26,7 +26,7 @@ public class BlockLauncher extends Block{
 	
 	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity e){
 		System.out.println(e);
-		e.motionY+=ConfigHolder.launcherPower/5D;
+		e.motionY+=Gizmos.launcherPower/5D;
 	}
 
 }

@@ -1,0 +1,12 @@
+hiddenBombs
+lens
+buildTool
+defuser
+dislocator
+superFire
+gravityBombs
+inserter
+invenswappers
+lens
+timeBombs
+accelerators

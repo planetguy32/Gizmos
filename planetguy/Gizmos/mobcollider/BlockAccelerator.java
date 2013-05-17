@@ -1,6 +1,6 @@
 package planetguy.Gizmos.mobcollider;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -13,7 +13,7 @@ public class BlockAccelerator extends Block{
 	
 	public BlockAccelerator(int par1) {
 		super(par1,Material.glass);
-		this.slipperiness=ConfigHolder.accelRate;
+		this.slipperiness=Gizmos.accelRate;
 	}
 	
 	public void registerIcons(IconRegister ir){

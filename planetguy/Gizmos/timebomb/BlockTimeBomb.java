@@ -3,7 +3,7 @@ package planetguy.Gizmos.timebomb;
 import java.util.List;
 import java.util.Random;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,7 +32,7 @@ public class BlockTimeBomb extends Block{
 		super(id, Material.tnt);
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
-        fuse=ConfigHolder.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
+        fuse=Gizmos.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
 	}
 	
 	public int tickRate(){
@@ -41,24 +41,24 @@ public class BlockTimeBomb extends Block{
 	
 	public void registerIcons(IconRegister ir){
 		System.out.println("Time bomb textures loading");
-		topTex=ir.registerIcon(ConfigHolder.modName+":"+"bombTop");
-		bottomTex=ir.registerIcon(ConfigHolder.modName+":"+"bombBottom");
-		sideIcons[0] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb1");
-		sideIcons[1] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb1");
-		sideIcons[2] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb2");
-		sideIcons[3] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb2");
-		sideIcons[4] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb3");
-		sideIcons[5] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb3");
-		sideIcons[6] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb4");
-		sideIcons[7] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb4");
-		sideIcons[8] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb5");
-		sideIcons[9] =ir.registerIcon(ConfigHolder.modName+":"+"timeBomb5");
-		sideIcons[10]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb6");
-		sideIcons[11]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb6");
-		sideIcons[12]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb7");
-		sideIcons[13]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb7");
-		sideIcons[14]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb8");
-		sideIcons[15]=ir.registerIcon(ConfigHolder.modName+":"+"timeBomb8");
+		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
+		bottomTex=ir.registerIcon(Gizmos.modName+":"+"bombBottom");
+		sideIcons[0] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");
+		sideIcons[1] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");
+		sideIcons[2] =ir.registerIcon(Gizmos.modName+":"+"timeBomb2");
+		sideIcons[3] =ir.registerIcon(Gizmos.modName+":"+"timeBomb2");
+		sideIcons[4] =ir.registerIcon(Gizmos.modName+":"+"timeBomb3");
+		sideIcons[5] =ir.registerIcon(Gizmos.modName+":"+"timeBomb3");
+		sideIcons[6] =ir.registerIcon(Gizmos.modName+":"+"timeBomb4");
+		sideIcons[7] =ir.registerIcon(Gizmos.modName+":"+"timeBomb4");
+		sideIcons[8] =ir.registerIcon(Gizmos.modName+":"+"timeBomb5");
+		sideIcons[9] =ir.registerIcon(Gizmos.modName+":"+"timeBomb5");
+		sideIcons[10]=ir.registerIcon(Gizmos.modName+":"+"timeBomb6");
+		sideIcons[11]=ir.registerIcon(Gizmos.modName+":"+"timeBomb6");
+		sideIcons[12]=ir.registerIcon(Gizmos.modName+":"+"timeBomb7");
+		sideIcons[13]=ir.registerIcon(Gizmos.modName+":"+"timeBomb7");
+		sideIcons[14]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
+		sideIcons[15]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
 		this.blockIcon=sideIcons[0];
 	}
 	
@@ -124,26 +124,26 @@ public class BlockTimeBomb extends Block{
      */
     
     private void fork(World w, int x, int y, int z, int meta){
-    	if(meta%2!=1||!ConfigHolder.allowFB){
+    	if(meta%2!=1||!Gizmos.allowFB){
     		return;
     	}
     	if(w.getBlockMaterial(x+1, y, z)==Material.air){
-    		w.setBlock(x+1, y, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x+1, y, z, Gizmos.timeExplosivesID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x-1, y, z)==Material.air){
-    		w.setBlock(x-1, y, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x-1, y, z, Gizmos.timeExplosivesID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		w.setBlock(x, y+1, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y+1, z, Gizmos.timeExplosivesID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y-1, z)==Material.air){
-    		w.setBlock(x, y-1, z, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y-1, z, Gizmos.timeExplosivesID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y, z+1)==Material.air){
-    		w.setBlock(x, y, z+1, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y, z+1, Gizmos.timeExplosivesID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y, z-1)==Material.air){
-    		w.setBlock(x, y, z-1, ConfigHolder.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y, z-1, Gizmos.timeExplosivesID, meta, 0x02);
     	}
     }
     	

@@ -2,8 +2,6 @@ package planetguy.flowerfix;
 
 import java.util.logging.Level;
 
-import planetguy.Gizmos.api.GizAPI;
-
 import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;

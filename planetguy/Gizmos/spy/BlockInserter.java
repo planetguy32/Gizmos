@@ -5,7 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import planetguy.Gizmos.ContentLoader;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -47,7 +47,7 @@ public class BlockInserter extends Block{
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
         //code to open gui explained later
-        player.openGui(ContentLoader.instance, 0, world, x, y, z);
+        player.openGui(Gizmos.instance, 0, world, x, y, z);
         return true;
     }
 

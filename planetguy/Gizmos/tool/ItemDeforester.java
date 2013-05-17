@@ -1,6 +1,6 @@
 package planetguy.Gizmos.tool;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,7 +24,7 @@ public class ItemDeforester extends ItemInteractDevice{
 		if (id == 0)
 		{
 			theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-			theWorld.setBlock(posX, posY, posZ, ConfigHolder.forestFireID);
+			theWorld.setBlock(posX, posY, posZ, Gizmos.forestFireID);
 			me.damageItem(1, thePlayer);
 			return true;
 		}

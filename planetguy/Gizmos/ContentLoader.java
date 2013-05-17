@@ -56,7 +56,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.SidedProxy;
  
-
+/*
 @Mod(modid="planetguy_Gizmos", name="Gizmos", version="0.6")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class ContentLoader{
@@ -103,24 +103,24 @@ public class ContentLoader{
 		config.load();
 		try{
 
-			ConfigHolder.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
-			ConfigHolder.geoFireID = config.getBlock("Superfire ID", 3982).getInt();
-			ConfigHolder.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
-			ConfigHolder.accelID = config.getBlock("Accelerator ID", 3984).getInt();
-			ConfigHolder.forestFireID = config.getBlock("Forest fire ID", 3985).getInt();
+			Gizmos.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
+			Gizmos.geoFireID = config.getBlock("Superfire ID", 3982).getInt();
+			Gizmos.spyLabID = config.getBlock("Spy lab ID", 3983).getInt();
+			Gizmos.accelID = config.getBlock("Accelerator ID", 3984).getInt();
+			Gizmos.forestFireID = config.getBlock("Forest fire ID", 3985).getInt();
 			//ConfigHolder.colliderID = config.getBlock("Collider ID", 3985).getInt(); Probably will never be implemented
-			ConfigHolder.launcherID = config.getBlock("Launcher ID", 3986).getInt();
-			ConfigHolder.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
-			ConfigHolder.invenswapperTopID = config.getBlock("Invenswapper ID", 3988).getInt();
-			ConfigHolder.invenswapperBottomID = config.getBlock("Invenswapper base ID", 3989).getInt();
+			Gizmos.launcherID = config.getBlock("Launcher ID", 3986).getInt();
+			Gizmos.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
+			Gizmos.invenswapperTopID = config.getBlock("Invenswapper ID", 3988).getInt();
+			Gizmos.invenswapperBottomID = config.getBlock("Invenswapper base ID", 3989).getInt();
 			
 			
-			ConfigHolder.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
-			ConfigHolder.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
-			ConfigHolder.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
-			ConfigHolder.lensID = config.getItem("Spy lens ID", 8103).getInt();
-			ConfigHolder.defuserID=config.getItem("Defuser ID", 8104).getInt();
-			ConfigHolder.buildToolID=config.getItem("Build tool ID", 8105).getInt();
+			Gizmos.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
+			Gizmos.minerLighterID = config.getItem("Mineral igniter ID", 8101).getInt();
+			Gizmos.WandID = config.getItem("Temporal Dislocator ID", 8102).getInt();
+			Gizmos.lensID = config.getItem("Spy lens ID", 8103).getInt();
+			Gizmos.defuserID=config.getItem("Defuser ID", 8104).getInt();
+			Gizmos.buildToolID=config.getItem("Build tool ID", 8105).getInt();
 			
 			allowGravityBombs=config.get("Nerfs and bans", "Allow gravity explosives", true).getBoolean(true);
 			allowFire=config.get("Nerfs and bans", "Allow extra fire", true).getBoolean(true);
@@ -131,14 +131,14 @@ public class ContentLoader{
 			allowInvenswappers=config.get("Nerfs and bans", "Allow invenswappers", true).getBoolean(true);
 
 
-			ConfigHolder.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
-			ConfigHolder.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
-			ConfigHolder.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
-			ConfigHolder.nerfHiding = config.get("Nerfs and bans", "Limit stack size to hide",false).getBoolean(false);
-			ConfigHolder.launcherPower=config.get("Nerfs and bans", "Mob launcher power", 10D).getDouble(10D);
-			int[] dangerous={46,ConfigHolder.gravityExplosivesID,ConfigHolder.timeExplosivesID};
-			ConfigHolder.defuseableIDs=config.get("Nerfs and bans", "IDs of defuseable", dangerous).getIntList();
-			ConfigHolder.timeExplosivesFuse=config.get("Nerfs and bans", "Time bomb fuse, seconds", 60).getInt(60);
+			Gizmos.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
+			Gizmos.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
+			Gizmos.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
+			Gizmos.nerfHiding = config.get("Nerfs and bans", "Limit stack size to hide",false).getBoolean(false);
+			Gizmos.launcherPower=config.get("Nerfs and bans", "Mob launcher power", 10D).getDouble(10D);
+			int[] dangerous={46,Gizmos.gravityExplosivesID,Gizmos.timeExplosivesID};
+			Gizmos.defuseableIDs=config.get("Nerfs and bans", "IDs of defuseable", dangerous).getIntList();
+			Gizmos.timeExplosivesFuse=config.get("Nerfs and bans", "Time bomb fuse, seconds", 60).getInt(60);
 
 
 			//ConfigHolder.modName=config.get("Nerfs and bans", "Mod zip file name", "Gizmos_v0.4").getString();
@@ -151,6 +151,12 @@ public class ContentLoader{
 
 	@Init
 	public final void load(FMLInitializationEvent ignored){
+		load2(ignored);
+	}
+	
+	public final void 
+	
+	public final void load2(FMLInitializationEvent ignored){
 		//proxy.registerRenderers();
 		
 		
@@ -176,8 +182,8 @@ public class ContentLoader{
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 		
 		//First comes common crafting...
-		if(allowBombItems||allowTimeBomb){
-			spyLens=new ItemLens(ConfigHolder.lensID).setCreativeTab(CreativeTabs.tabMaterials);
+		if(allowBombItems||allowTimeBomb){ //Check
+			spyLens=new ItemLens(Gizmos.lensID).setCreativeTab(CreativeTabs.tabMaterials);
 			ItemStack lens=new ItemStack(spyLens);
 	        LanguageRegistry.instance().addName(spyLens, "Spy lens");
 			GameRegistry.addRecipe(lens, new Object[] { " i ", "igi", " i ", 
@@ -185,10 +191,10 @@ public class ContentLoader{
 					Character.valueOf('i'), iron });
 			
 			//Might need lens for bomb items...
-			if(allowBombItems){
+			if(allowBombItems){ //Check
 				//this.bomb=new EnchantmentBomb(136);
-				spyDesk=new BlockInserter(ConfigHolder.spyLabID,6).setUnlocalizedName("spyLab");
-				buildTool=new ItemBuildTool(ConfigHolder.buildToolID).setUnlocalizedName("buildTool").setCreativeTab(CreativeTabs.tabTools);
+				spyDesk=new BlockInserter(Gizmos.spyLabID,6).setUnlocalizedName("spyLab");
+				buildTool=new ItemBuildTool(Gizmos.buildToolID).setUnlocalizedName("buildTool").setCreativeTab(CreativeTabs.tabTools);
 				GameRegistry.registerBlock(spyDesk, ItemBlock.class, "spyLab");
 				
 		        LanguageRegistry.instance().addName(spyDesk, "Inserter");
@@ -218,11 +224,11 @@ public class ContentLoader{
 			}
 			
 			//Or time bombs (for making the defuser)
-			if(allowTimeBomb){
-				timeBomb=new BlockTimeBomb(ConfigHolder.timeExplosivesID);
+			if(allowTimeBomb){ //Check
+				timeBomb=new BlockTimeBomb(Gizmos.timeExplosivesID);
 				GameRegistry.registerBlock(timeBomb,ItemTimeBomb.class,"timeBombs");
-				Item.itemsList[ ConfigHolder.timeExplosivesID] = new ItemTimeBomb( ConfigHolder.timeExplosivesID-256).setItemName("timeBombs");
-				defuser=new ItemBombDefuser(ConfigHolder.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
+				Item.itemsList[ Gizmos.timeExplosivesID] = new ItemTimeBomb( Gizmos.timeExplosivesID-256).setItemName("timeBombs");
+				defuser=new ItemBombDefuser(Gizmos.defuserID).setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
 				
 				LanguageRegistry.addName(defuser, "Bomb defuser");
 				final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
@@ -258,9 +264,9 @@ public class ContentLoader{
 			
 		}
 		
-		if(allowInvenswappers){
-			invenswapperTop=new BlockInvenswapperTop(ConfigHolder.invenswapperTopID);
-			invenswapperBase=new BlockInvenswapperBase(ConfigHolder.invenswapperBottomID).setCreativeTab(CreativeTabs.tabDecorations);
+		if(allowInvenswappers){ //Checkeroo
+			invenswapperTop=new BlockInvenswapperTop(Gizmos.invenswapperTopID);
+			invenswapperBase=new BlockInvenswapperBase(Gizmos.invenswapperBottomID).setCreativeTab(CreativeTabs.tabDecorations);
 			GameRegistry.registerTileEntity(TileEntityInvenswapper.class, "Gizmos.invenswapper");
 			GameRegistry.registerBlock(invenswapperTop, ItemBlock.class,"invenswapperTop");
 			GameRegistry.registerBlock(invenswapperBase, ItemBlockWithMetadata.class,"invenswapperBase");
@@ -270,11 +276,11 @@ public class ContentLoader{
 		}
 		
 		//Fire module
-		if(allowFire&&!(ConfigHolder.serverSafeMode)){
-			deforestator = new ItemDeforester(ConfigHolder.netherLighterID).setUnlocalizedName("netherLighter");
-			mlighter = new ItemMinersLighter(ConfigHolder.minerLighterID).setUnlocalizedName("minersLighter");
-			geoFire = new BlockSuperFire(ConfigHolder.geoFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
-			forestFire = new BlockForestFire(ConfigHolder.forestFireID, 31).setUnlocalizedName("woodFire").setHardness(0.0F).setLightValue(1.0F);
+		if(allowFire&&!(Gizmos.serverSafeMode)){ //Check
+			deforestator = new ItemDeforester(Gizmos.netherLighterID).setUnlocalizedName("netherLighter");
+			mlighter = new ItemMinersLighter(Gizmos.minerLighterID).setUnlocalizedName("minersLighter");
+			geoFire = new BlockSuperFire(Gizmos.geoFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
+			forestFire = new BlockForestFire(Gizmos.forestFireID, 31).setUnlocalizedName("woodFire").setHardness(0.0F).setLightValue(1.0F);
 
 			GameRegistry.registerBlock(geoFire, ItemBlock.class, "doomFire");
 			
@@ -293,8 +299,8 @@ public class ContentLoader{
 		}
 		
 		//Temporal dislocator module
-		if(allowDislocator){
-			dislocator = new ItemBlockTicker(ConfigHolder.WandID).setUnlocalizedName("dislocator");
+		if(allowDislocator){ //Check
+			dislocator = new ItemBlockTicker(Gizmos.WandID).setUnlocalizedName("dislocator");
 			ItemStack stackTicker=new ItemStack(dislocator,1,0); 
 			GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
 					Character.valueOf('c'),stackClock,
@@ -303,9 +309,9 @@ public class ContentLoader{
 		}
 		
 		//Explosives module
-		if(allowGravityBombs&&!(ConfigHolder.serverSafeMode)){
-			graviBomb = new BlockGraviBomb( ConfigHolder.gravityExplosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
-			Item.itemsList[ ConfigHolder.gravityExplosivesID] = new ItemGraviBombs( ConfigHolder.gravityExplosivesID-256).setItemName("graviBomb");
+		if(allowGravityBombs&&!(Gizmos.serverSafeMode)){//check
+			graviBomb = new BlockGraviBomb( Gizmos.gravityExplosivesID).setUnlocalizedName("graviBomb").setHardness(0.0F).setResistance(0.0F);
+			Item.itemsList[ Gizmos.gravityExplosivesID] = new ItemGraviBombs( Gizmos.gravityExplosivesID-256).setItemName("graviBomb");
 			graviBombPrimed = new EntityGravityBomb(null);
 			tunnelBombPrimed=new EntityTunnelBomb(null);
 			//EntityRegistry.registerModEntity(EntityTunnelBeam.class, "Tunnel Beam", 199, this, 80, 3, true);
@@ -334,8 +340,8 @@ public class ContentLoader{
 		
 		if(allowAccelerator){
 			
-			particleAccelerator=new BlockAccelerator(ConfigHolder.accelID).setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
-			launcher=new BlockLauncher(ConfigHolder.launcherID).setUnlocalizedName("entityLauncher");
+			particleAccelerator=new BlockAccelerator(Gizmos.accelID).setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
+			launcher=new BlockLauncher(Gizmos.launcherID).setUnlocalizedName("entityLauncher");
 			GameRegistry.registerBlock(launcher, ItemBlock.class, "launcher");
 
 			
@@ -365,4 +371,4 @@ public class ContentLoader{
 		//SpyReflector.doStuff();
 	}
  }
- 
+ */

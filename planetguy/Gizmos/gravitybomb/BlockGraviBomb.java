@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -45,10 +45,10 @@ import static net.minecraftforge.common.ForgeDirection.*;
 @SideOnly(Side.CLIENT)
 public void registerIcons(IconRegister ir){
 	System.out.println("GraviBomb textures loading");
-	topTex=ir.registerIcon(ConfigHolder.modName+":"+"bombTop");
-	gBombTex=ir.registerIcon(ConfigHolder.modName+":"+"" +"gravityBomb");
-	tBombTex=ir.registerIcon(ConfigHolder.modName+":"+"excavatorBomb");
-	bottomTex=ir.registerIcon(ConfigHolder.modName+":"+"bombBottom");
+	topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
+	gBombTex=ir.registerIcon(Gizmos.modName+":"+"" +"gravityBomb");
+	tBombTex=ir.registerIcon(Gizmos.modName+":"+"excavatorBomb");
+	bottomTex=ir.registerIcon(Gizmos.modName+":"+"bombBottom");
 }
 
 @SideOnly(Side.CLIENT)
@@ -61,7 +61,7 @@ public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
 }
 
 public int idDropped(int par1, Random par2Random, int par3){
-		return ConfigHolder.gravityExplosivesID;
+		return Gizmos.gravityExplosivesID;
 }
 
 /*    */   public String getTextureFile(){
