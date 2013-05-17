@@ -27,7 +27,7 @@ public abstract class LoaderNode {
 	}
 	
 	public final void loadRecursively(){
-		System.out.println("Node: "+this.getClass().getCanonicalName());
+		//System.out.println("Node: "+this.getClass().getCanonicalName());
 		if(alreadyLoaded){
 			return;
 		}

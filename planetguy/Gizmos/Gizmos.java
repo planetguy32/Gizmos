@@ -147,8 +147,8 @@ public class Gizmos {
 		}
 		for(String s: bannedItems){
 			for(int i=0; i<LoaderNode.registeredNodes.size(); i++){
-				System.out.println("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
-				System.out.println("Currently at "+LoaderNode.registeredNodes.get(i).getName());
+				//System.out.println("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
+				//System.out.println("Currently at "+LoaderNode.registeredNodes.get(i).getName());
 				if(s.equalsIgnoreCase(LoaderNode.registeredNodes.get(i).getName())){
 					System.out.println("Found it!");
 					LoaderNode.registeredNodes.remove(i);

@@ -26,6 +26,7 @@ public class BlockInvenswapperTop extends Block {
 		super(par1, Material.air);
 		setUnlocalizedName("Gizmos_InvenswapperTop");
         this.setBlockBounds(0,0,0,0,0,0);
+        setResistance(100f);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -34,7 +35,7 @@ public class BlockInvenswapperTop extends Block {
     public void registerIcons(IconRegister ir){
     	icons[0]=ir.registerIcon("Gizmos:invenswapperTopIn");
     	icons[1]=ir.registerIcon("Gizmos:invenswapperTopOut");
-    	icons[2]=ir.registerIcon("Gizmos:blank");
+    	//icons[2]=ir.registerIcon("Gizmos:blank");
     }
     
     @Override

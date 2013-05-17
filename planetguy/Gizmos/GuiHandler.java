@@ -18,7 +18,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if(id==1){
-			System.out.println("Invenswapper GUI selected");
+			//System.out.println("Invenswapper GUI selected");
 			return new ContainerInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
 		}
 		return new ContainerSpyLab(player.inventory, new InventorySpyLab(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
@@ -30,7 +30,7 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		int blockID=world.getBlockId(x, y, z);
 		if(id==1){
-			System.out.println("Invenswapper GUI selected");
+			//System.out.println("Invenswapper GUI selected");
 			return new GuiInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
 		}
 		return new GuiSpyTable(player.inventory, new InventorySpyLab(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));

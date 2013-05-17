@@ -25,7 +25,7 @@ public class BlockLauncher extends Block{
 	}
 	
 	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity e){
-		System.out.println(e);
+		//System.out.println(e);
 		e.motionY+=Gizmos.launcherPower/5D;
 	}
 
