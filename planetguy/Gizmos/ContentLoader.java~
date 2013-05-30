@@ -1,7 +1,6 @@
 package planetguy.Gizmos;
  import java.util.logging.Level;
 
-import planetguy.Gizmos.*;
 import planetguy.Gizmos.gravitybomb.BlockGraviBomb;
 import planetguy.Gizmos.gravitybomb.EntityGravityBomb;
 import planetguy.Gizmos.gravitybomb.EntityTunnelBomb;

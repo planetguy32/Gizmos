@@ -42,7 +42,7 @@ public class TileEntityInvenswapper extends TileEntity implements IInventory {
 	public ItemStack addStack(ItemStack s){
 		for(int i=0;i<inv.length;i++){
 			if(inv[i]==null){
-				System.out.println("Adding stack...");
+				//System.out.println("Adding stack...");
 				inv[i]=s;
 				return null;
 			}

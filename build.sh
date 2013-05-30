@@ -2,9 +2,12 @@
 shopt -s extglob
 rm -rf reobf/minecraft
 rm -f build.jar
+
+python runtime/recompile.py "$@"
 python runtime/reobfuscate.py --srgnames "$@"
-cp  -r src/minecraft/!(net*|cpw*|mcp|*forge*|*fml*|*ibxm*|paulscode*|*.cfg|Start.java|*mcp*) reobf/minecraft
-cp  -r src/minecraft/!(net*|cpw*|mcp|*forge*|*fml*|*ibxm*|paulscode*|*.cfg|Start.java|*mcp*) repo/Gizmos
+
+cp  -r src/minecraft/!(*~|net*|cpw*|mcp|*forge*|*fml*|*ibxm*|paulscode*|*.cfg|Start.java|*mcp*) reobf/minecraft
+cp  -r src/minecraft/!(*~|net*|cpw*|mcp|*forge*|*fml*|*ibxm*|paulscode*|*.cfg|Start.java|*mcp*) repo/Gizmos
 
 rm -rf repo/Gizmos/ibxm
 

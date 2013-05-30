@@ -33,6 +33,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 
+/**
+ * 
+ * @author planetguy
+ *The Gizmos main class and API. Contains references to all blocks, items and IDs.
+ *
+ */
 @Mod(modid="planetguy_Gizmos", name="Gizmos", version="1.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos {
