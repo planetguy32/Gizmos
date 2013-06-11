@@ -76,6 +76,7 @@ public abstract class LoaderNode {
 		registeredNodes.add(LoaderNodeLens.inst);
 		registeredNodes.add(LoaderNodeTimeBombs.inst);
 		registeredNodes.add(LoaderNodeVelocityManipulators.inst);
+		registeredNodes.add(LoaderNodeFireExtinguisher.inst);
 	}
 
 }

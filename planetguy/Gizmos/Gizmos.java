@@ -32,14 +32,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
 
 /**
  * 
  * @author planetguy
- *The Gizmos main class and API. Contains references to all blocks, items and IDs.
+ *The Gizmos main class and API (sort of). Contains references to all blocks, items and IDs.
  *
  */
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="1.0")
+@Mod(modid="planetguy_Gizmos", name="Gizmos", version="1.1")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos {
 	
@@ -68,6 +69,8 @@ public class Gizmos {
 	public static Item defuser;
 	public static Item buildTool;
 	
+	public static Item fireExtinguisher;
+	
 	public static int gravityExplosivesID;
 	public static int geoFireID;
 	public static int netherLighterID;
@@ -92,6 +95,7 @@ public class Gizmos {
 	public static int forestFireID;
 	public static int invenswapperTopID;
 	public static int invenswapperBottomID;
+	public static int fireExtID;
 	
 	public static ImmutableList<String> bannedItems;
 	
@@ -122,6 +126,7 @@ public class Gizmos {
 			Gizmos.lensID = config.getItem("Spy lens ID", 8103).getInt();
 			Gizmos.defuserID=config.getItem("Defuser ID", 8104).getInt();
 			Gizmos.buildToolID=config.getItem("Build tool ID", 8105).getInt();
+			Gizmos.fireExtID=config.getItem("Fire extinguisher ID", 8106).getInt();
 			
 
 			Gizmos.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
@@ -145,7 +150,10 @@ public class Gizmos {
 	}
 	
 	@Init
-	public final void load(FMLInitializationEvent ignored){
+	public final void load(FMLInitializationEvent ignored) throws Exception{
+		
+
+		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 
 		for(Object ln : LoaderNode.registeredNodes.toArray()){
