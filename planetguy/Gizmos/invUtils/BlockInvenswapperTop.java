@@ -5,7 +5,7 @@ import java.util.Random;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -33,8 +33,8 @@ public class BlockInvenswapperTop extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir){
-    	icons[0]=ir.registerIcon("Gizmos:invenswapperTopIn");
-    	icons[1]=ir.registerIcon("Gizmos:invenswapperTopOut");
+    	icons[0]=ir.registerIcon(Gizmos.modName+":invenswapperTopIn");
+    	icons[1]=ir.registerIcon(Gizmos.modName+":invenswapperTopOut");
     	//icons[2]=ir.registerIcon("Gizmos:blank");
     }
     

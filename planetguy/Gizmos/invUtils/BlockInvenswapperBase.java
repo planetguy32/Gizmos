@@ -45,8 +45,8 @@ public class BlockInvenswapperBase extends BlockContainer{
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir){
-    	icons[0]=ir.registerIcon("Gizmos:invenswapperBottomIn");
-    	icons[1]=ir.registerIcon("Gizmos:invenswapperBottomOut");
+    	icons[0]=ir.registerIcon(Gizmos.modName+":invenswapperBottomIn");
+    	icons[1]=ir.registerIcon(Gizmos.modName+":invenswapperBottomOut");
     	icons[2]=ir.registerIcon("hopper_inside");
     }
     

@@ -78,7 +78,7 @@ public class Gizmos {
 	public static int WandID;
 	public static int spyLabID;
 	public static int lensID;
-	public static final String modName="Gizmos";
+	public static final String modName="planetguy_Gizmos";
 	public static boolean serverSafeMode;
 	public static boolean nerfHiding=false;
 	public static int accelID;

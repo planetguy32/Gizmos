@@ -17,7 +17,7 @@ public class BlockLauncher extends Block{
 	}
 
 	public void registerIcons(IconRegister ir){
-		this.blockIcon=ir.registerIcon("Gizmos:collider");
+		this.blockIcon=ir.registerIcon(Gizmos.modName+":collider");
 	}
 	
 	public  AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z){

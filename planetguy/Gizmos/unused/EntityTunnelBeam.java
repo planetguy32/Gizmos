@@ -33,10 +33,5 @@ public class EntityTunnelBeam extends EntityLiving {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public int getMaxHealth() {
-		// TODO Auto-generated method stub
-		return 1;
-	}
 
 }

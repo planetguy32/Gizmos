@@ -2,6 +2,8 @@ package planetguy.Gizmos.tool;
 
 import java.lang.reflect.Field;
 
+import planetguy.Gizmos.Gizmos;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -9,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -18,8 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class ItemFireExtinguisher extends Item{
-
-	static Field f;
 	
 	public ItemFireExtinguisher(int par1) {
 		super(par1);
@@ -31,7 +32,7 @@ public class ItemFireExtinguisher extends Item{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister ir){
-		this.itemIcon=ir.registerIcon("Gizmos_extinguisher");
+		this.itemIcon=ir.registerIcon(Gizmos.modName+":extinguisher");
 	}
 	
 	@Override
@@ -60,7 +61,7 @@ public class ItemFireExtinguisher extends Item{
 
 	
 	@Override
-    public boolean itemInteractionForEntity(ItemStack ext, EntityLiving target){
+    public boolean func_111207_a(ItemStack ext, EntityPlayer player, EntityLivingBase target){
         boolean result=false;
         if(target.isBurning()){
         	target.extinguish();

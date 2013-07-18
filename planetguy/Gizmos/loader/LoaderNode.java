@@ -14,8 +14,8 @@ public abstract class LoaderNode {
 	public boolean alreadyLoaded=false;
 	public LoaderNode[] depends;
 	
-	public LoaderNode(LoaderNode[] depends2){
-		depends=depends2;
+	public LoaderNode(LoaderNode[] dependencies){
+		depends=dependencies;
 		inst=this;
 		//LoaderNode.registeredNodes.add(this);
 	}

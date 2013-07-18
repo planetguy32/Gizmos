@@ -16,13 +16,10 @@ public class ItemBombDefuser extends Item{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void registerTexture(IconRegister ir){
-		itemIcon=ir.registerIcon("Gizmos"+":"+"buildTool");
+	public void registerIcons(IconRegister ir){
+		itemIcon=ir.registerIcon(Gizmos.modName+":"+"defuser");
 	}
-	
-	public void updateIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon("Gizmos:buildTool");
-	}
+
 	
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer thePlayer, World w, int x, int y, int z, int par7, float par8, float par9, float par10){
 		int id=w.getBlockId(x, y, z);
