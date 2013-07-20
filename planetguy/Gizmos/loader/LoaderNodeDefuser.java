@@ -4,7 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import planetguy.Gizmos.Gizmos;
-import planetguy.Gizmos.timebomb.ItemBombDefuser;
+import planetguy.Gizmos.tool.ItemBombDefuser;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -17,7 +17,6 @@ public class LoaderNodeDefuser extends LoaderNode{
 	public LoaderNodeDefuser() {
 		super(new LoaderNode[0]);
 		this.depends[0]=LoaderNodeLens.inst;
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -39,7 +38,6 @@ public class LoaderNodeDefuser extends LoaderNode{
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "defuser";
 	}
 

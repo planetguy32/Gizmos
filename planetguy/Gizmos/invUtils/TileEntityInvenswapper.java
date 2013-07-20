@@ -146,14 +146,12 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 
 	@Override
 	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 
 	@Override
 	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

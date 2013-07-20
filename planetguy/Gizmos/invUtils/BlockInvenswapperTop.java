@@ -27,7 +27,6 @@ public class BlockInvenswapperTop extends Block {
 		setUnlocalizedName("Gizmos_InvenswapperTop");
         this.setBlockBounds(0,0,0,0,0,0);
         setResistance(100f);
-		// TODO Auto-generated constructor stub
 	}
 	
     @Override

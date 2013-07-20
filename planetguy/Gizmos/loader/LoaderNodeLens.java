@@ -37,7 +37,6 @@ public class LoaderNodeLens extends LoaderNode {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "lens";
 	}
 

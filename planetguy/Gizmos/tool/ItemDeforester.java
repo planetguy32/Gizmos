@@ -14,7 +14,6 @@ public class ItemDeforester extends ItemInteractDevice{
 
 	public ItemDeforester(int par1) {
 		super(par1);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -33,7 +32,6 @@ public class ItemDeforester extends ItemInteractDevice{
 
 	@Override
 	public boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

@@ -96,6 +96,7 @@ public class Gizmos {
 	public static int invenswapperTopID;
 	public static int invenswapperBottomID;
 	public static int fireExtID;
+	public static int baseBombID;
 	
 	public static ImmutableList<String> bannedItems;
 	
@@ -118,6 +119,8 @@ public class Gizmos {
 			Gizmos.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
 			Gizmos.invenswapperTopID = config.getBlock("Invenswapper ID", 3988).getInt();
 			Gizmos.invenswapperBottomID = config.getBlock("Invenswapper base ID", 3989).getInt();
+			Gizmos.baseBombID = config.getBlock("Advanced bomb system ID", 3990).getInt();
+
 			
 			
 			Gizmos.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();

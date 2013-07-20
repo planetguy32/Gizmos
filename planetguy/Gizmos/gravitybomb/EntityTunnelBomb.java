@@ -14,7 +14,6 @@ public class EntityTunnelBomb extends EntityGravityBomb {
 			double par6, int lifespan) {
 		super(par1World, par2, par4, par6);
 		this.lifeSpan=lifespan;
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

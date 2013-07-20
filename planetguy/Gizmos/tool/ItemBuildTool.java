@@ -19,8 +19,7 @@ public class ItemBuildTool extends ItemPickaxe{
 	public ItemBuildTool(int par1) {
 		super(par1, EnumToolMaterial.EMERALD);
 		myID=par1;
-		// TODO Auto-generated constructor stub
-		LanguageRegistry.addName(this, "Build tool");
+		LanguageRegistry.instance().addStringLocalization("item.buildTool.name", "Build tool");
 	}
 
 	public void registerIcons(IconRegister ir){
@@ -44,7 +43,7 @@ public class ItemBuildTool extends ItemPickaxe{
 				ItemStack[] stacks=player.inventory.mainInventory;
 				boolean hasFoundReplace=false;
 				for(int i=0; i<stacks.length; i++){
-					if(stacks[i].isItemEqual(a)){
+					if((a.itemID==stacks[i].itemID&&a.getItemDamage()==stacks[i].getItemDamage())){
 						a=stacks[i];
 						stacks[i]=null;
 						hasFoundReplace=true;

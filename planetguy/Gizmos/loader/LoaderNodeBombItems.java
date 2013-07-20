@@ -11,7 +11,6 @@ public class LoaderNodeBombItems extends LoaderNode {
 	public LoaderNodeBombItems() {
 		super(new LoaderNode[0]);
 		super.depends=depends;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -21,7 +20,6 @@ public class LoaderNodeBombItems extends LoaderNode {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "hiddenBombs";
 	}
 
