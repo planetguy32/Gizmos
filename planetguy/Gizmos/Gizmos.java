@@ -100,6 +100,9 @@ public class Gizmos {
 	
 	public static ImmutableList<String> bannedItems;
 	
+	static{
+		FMLLog.makeLog("Gizmos");
+	}
 	
 	@Instance("planetguy_Gizmos")
 	public static Gizmos instance;
@@ -131,7 +134,9 @@ public class Gizmos {
 			Gizmos.buildToolID=config.getItem("Build tool ID", 8105).getInt();
 			Gizmos.fireExtID=config.getItem("Fire extinguisher ID", 8106).getInt();
 			
-
+			boolean isObfuscated=config.get("Developer", "Use deobfuscated mode", false).getBoolean(false);
+			ReflectionHelper.initialize(isObfuscated);
+			
 			Gizmos.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
 			Gizmos.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
 			Gizmos.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
@@ -146,7 +151,7 @@ public class Gizmos {
 
 			//ConfigHolder.modName=config.get("Nerfs and bans", "Mod zip file name", "Gizmos_v0.4").getString();
 		}catch (Exception e){
-			FMLLog.log(Level.SEVERE,e,"BAD GIZMOS CONFIG IS BAD! Try deleting it.");
+			dbg("BAD GIZMOS CONFIG IS BAD! Try deleting it.");
 			throw e;
 		}
 		config.save();
@@ -160,23 +165,27 @@ public class Gizmos {
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 
 		for(Object ln : LoaderNode.registeredNodes.toArray()){
-			System.out.print(((LoaderNode) ln).getName());
+			dbg(((LoaderNode) ln).getName());
 		}
 		for(String s: bannedItems){
 			for(int i=0; i<LoaderNode.registeredNodes.size(); i++){
-				//System.out.println("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
-				//System.out.println("Currently at "+LoaderNode.registeredNodes.get(i).getName());
+				//dbg("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
+				//dbg("Currently at "+LoaderNode.registeredNodes.get(i).getName());
 				if(s.equalsIgnoreCase(LoaderNode.registeredNodes.get(i).getName())){
-					System.out.println("Found it!");
+					dbg("Found it!");
 					LoaderNode.registeredNodes.remove(i);
 					break;
 				}
 			}
 		}
-		System.out.println(LoaderNode.registeredNodes.toString());
+		dbg(LoaderNode.registeredNodes.toString());
 		for(Object ln : LoaderNode.registeredNodes.toArray()){
 			((LoaderNode) ln).loadRecursively();
 		}	
-	}	
+	}
+	
+	public static void dbg(String text){
+		FMLLog.getLogger().log(Level.INFO, text);
+	}
 
 }

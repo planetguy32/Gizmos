@@ -24,7 +24,7 @@ public class EntityTunnelBomb extends EntityGravityBomb {
 		 this.prevPosY3=prevPosY2;
 		 //FMLLog.log(Level.SEVERE, "Tunnel bomb alive!");
 /* 53 */     this.lifeSpan --;
-/* 58 */     if (canFallFrom(this.posX, this.posY, this.posZ)) {
+/* 58 */     if (canFallFrom(this.posX, this.posY, this.posZ,this)) {
 /* 59 */       this.motionY -= 0.03999999910593033D;
 /* 60 */       moveEntity(this.motionX, this.motionY, this.motionZ);
 /*    */     } else {
