@@ -18,7 +18,6 @@ public class LoaderNodeInvenswappers extends LoaderNode{
 	
 	public LoaderNodeInvenswappers(LoaderNode[] depends) {
 		super(depends);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -52,7 +51,6 @@ public class LoaderNodeInvenswappers extends LoaderNode{
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "invenswappers";
 	}
 

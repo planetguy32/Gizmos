@@ -53,7 +53,6 @@ public class LoaderNodeGravityBombs extends LoaderNode{
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "gravityBombs";
 	}
 }

@@ -1,5 +1,7 @@
 package planetguy.Gizmos.tool;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import planetguy.Gizmos.Gizmos;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -17,41 +19,44 @@ public class ItemBuildTool extends ItemPickaxe{
 	public ItemBuildTool(int par1) {
 		super(par1, EnumToolMaterial.EMERALD);
 		myID=par1;
-		// TODO Auto-generated constructor stub
+		LanguageRegistry.instance().addStringLocalization("item.buildTool.name", "Build tool");
 	}
 
-	public void updateIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon("Gizmos:buildTool");
+	public void registerIcons(IconRegister ir){
+		itemIcon = ir.registerIcon(Gizmos.modName+":buildTool");
+	}
+	
+	@Override
+	public String getUnlocalizedName(){
+		return "buildTool";
 	}
 
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){
+	public boolean onItemUse(ItemStack me, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){
 		try{
-			ItemStack theRealThis=player.inventory.getCurrentItem();
-			NBTTagCompound tag=theRealThis.getTagCompound();
-			int id=tag.getShort("id");
-			int count=tag.getByte("Count");
-			int meta=tag.getShort("Damage");
-			ItemStack a=new ItemStack(id,count,meta);
+			NBTTagCompound tag=me.getTagCompound();
+			ItemStack a=ItemStack.loadItemStackFromNBT(tag);
+			me.setTagCompound(null);
+
 			a.tryPlaceItemIntoWorld(player, par3World, par4, par5, par6, par7, par8, par9, par10);
 
-			if(a==null||a.stackSize==0){
-				System.out.println("All used up :(");
-				boolean b=false;
-				ItemStack[] inv=player.inventory.mainInventory;
-				for(int i=0;  i<inv.length; i++){
-					if(inv[i]!=null&&inv[i].itemID==id){
-						a=inv[i];
-						inv[i]=null;
-						b=true;
+			if(a.stackSize==0||(a.getItemDamage()==a.getMaxDamage()&&a.getItem().getItemStackLimit()==1)){
+				ItemStack[] stacks=player.inventory.mainInventory;
+				boolean hasFoundReplace=false;
+				for(int i=0; i<stacks.length; i++){
+					if((a.itemID==stacks[i].itemID&&a.getItemDamage()==stacks[i].getItemDamage())){
+						a=stacks[i];
+						stacks[i]=null;
+						hasFoundReplace=true;
 						break;
 					}
 				}
-
-				if(!b){
-					a=null;
-				}	
+				if(!hasFoundReplace)a=null;
 			}
-			writeObjectToNbt(a, theRealThis);
+			
+			NBTTagCompound oldTag=new NBTTagCompound("tag");
+			a.writeToNBT(oldTag);
+			me.setTagCompound(oldTag);
+			
 		}catch(Exception e){
 			//e.printStackTrace(); //Causes alarm if there is no item inside
 		}

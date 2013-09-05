@@ -1,6 +1,6 @@
 package planetguy.Gizmos.spy;
 
-import planetguy.Gizmos.ConfigHolder;
+import planetguy.Gizmos.Gizmos;
 import planetguy.Gizmos.GizmosItem;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
@@ -13,15 +13,7 @@ public class ItemLens extends GizmosItem{
 		this.setUnlocalizedName("spyLens");
 	}
 	
-	public String getTextureFile(){
-		return "/planetguy/Gizmos/tex.png";
-	}
-	
-	public void registerTexture(IconRegister ir){
-		itemIcon=ir.registerIcon("Gizmos:spyLens");
-	}
-	
-	public void updateIcons(IconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon("Gizmos:spyLens");
+	public void registerIcons(IconRegister ir){
+		itemIcon=ir.registerIcon(Gizmos.modName+":spyLens");
 	}
 }

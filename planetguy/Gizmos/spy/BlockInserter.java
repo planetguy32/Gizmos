@@ -41,8 +41,8 @@ public class BlockInserter extends Block{
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir){
     	//System.out.println("Spy lab textures loading");
-    	top=ir.registerIcon("Gizmos:spyTop");
-    	sides=ir.registerIcon("Gizmos:spySides");
+    	top=ir.registerIcon(Gizmos.modName+":spyTop");
+    	sides=ir.registerIcon(Gizmos.modName+":spySides");
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
@@ -53,10 +53,6 @@ public class BlockInserter extends Block{
 
 	public void breakBlock(World world, int x, int y, int z, int par5, int par6) {
         //dropItems(world, x, y, z);
-	}
-	
-	public String getTextureFile(){
-		  return "/planetguy/Gizmos/tex.png";
 	}
 	
 	public Icon getIcon(int par1, int par2) {

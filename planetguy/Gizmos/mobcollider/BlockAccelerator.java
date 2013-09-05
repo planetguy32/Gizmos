@@ -17,7 +17,7 @@ public class BlockAccelerator extends Block{
 	}
 	
 	public void registerIcons(IconRegister ir){
-		this.blockIcon=ir.registerIcon("Gizmos:accelerator");
+		this.blockIcon=ir.registerIcon(Gizmos.modName+":accelerator");
 	}
 
 }

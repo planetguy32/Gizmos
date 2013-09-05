@@ -2,13 +2,14 @@ package planetguy.Gizmos.invUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class TileEntityInvenswapper extends TileEntity implements IInventory {
+public class TileEntityInvenswapper extends TileEntity implements ISidedInventory {
 	
 	/*
 	 * From the Forge wiki (mostly)
@@ -28,6 +29,9 @@ public class TileEntityInvenswapper extends TileEntity implements IInventory {
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
+		if(slot>8||slot<0){
+			return (ItemStack)null;
+		}
 		return inv[slot];
 	}
 
@@ -130,13 +134,30 @@ public class TileEntityInvenswapper extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isInvNameLocalized() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+
 	@Override
-	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
-		// TODO Auto-generated method stub
-		return false;
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[] {0,1,2,3,4,5,6,7,8,9};
+	}
+
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return true;
+	}
+
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return true;
+	}
+
+
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return true;
 	}
 }

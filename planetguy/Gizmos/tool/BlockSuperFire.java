@@ -7,6 +7,7 @@ import static net.minecraftforge.common.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.ForgeDirection.UP;
 import static net.minecraftforge.common.ForgeDirection.WEST;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,14 +16,18 @@ import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
+import planetguy.Gizmos.ReflectionHelper;
 
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
@@ -36,13 +41,44 @@ public class BlockSuperFire extends BlockFire{
 
 	protected ImmutableList<Integer> targetBlocks;
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
+	
+	@SideOnly(Side.CLIENT)
+	public Icon[] fireIcons;
 
-	public BlockSuperFire(int id, int texture) {
+	public BlockSuperFire(int id, int ignored){
+		this(id);
+		try{
+			Class fireClass=Block.fire.getClass();
+			Field f=fireClass.getDeclaredField(ReflectionHelper.reflectionStrings[0]);
+			f.setAccessible(true);
+			this.fireIcons=(Icon[]) f.get(this); //Steal icons from BlockFire (Doesn't work properly)
+		}catch(Exception e){
+			//e.printStackTrace(); //Spams the log a lot
+		}
+	}
+	
+	public BlockSuperFire(int id) {
 		super(id);
 		targetBlocks=earthBlocks;
 		//setCreativeTab(CreativeTabs.tabRedstone);
 	}
-
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public void initializeBlock(){
+        this.fireIcons = new Icon[] {super.func_94438_c(0),super.func_94438_c(1)};
+    }
+    
+	@Override
+    @SideOnly(Side.CLIENT)
+    public Icon func_94438_c(int par1){
+        return super.func_94438_c(par1); //Is this even necessary?
+    }
+    
+    @Override
+    public Icon getIcon(int side, int meta){
+    	return fireIcons[0]; 
+    }
 
 	public int tickRate(){
 		return 3;	
@@ -58,12 +94,8 @@ public class BlockSuperFire extends BlockFire{
     }
 	 */
 
-	/**
-	 * Returns the quantity of items to drop on block destruction.
-	 */
-	public int quantityDropped(Random par1Random)
-	{
-		return 0;
+	public int quantityDropped(Random par1Random){
+		return 0; //Don't drop fire blocks
 	}
 
 
@@ -272,6 +304,7 @@ public class BlockSuperFire extends BlockFire{
 			}
 		}
 	}
+	
 
 	@SideOnly(Side.CLIENT)
 	@Override

@@ -3,12 +3,15 @@ package planetguy.Gizmos.invUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
 public class GuiInvenswapper extends GuiContainer {
 
+	private final ResourceLocation guiLoc=new ResourceLocation("textures/gui/container/dispenser.png");
+	
 	public GuiInvenswapper (InventoryPlayer inventoryPlayer,
 			TileEntity tileEntity) {
 		//the container is instanciated and passed to the superclass for handling
@@ -27,7 +30,7 @@ public class GuiInvenswapper extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.bindTexture("/gui/trap.png");// /planetguy/Gizmos/spy/spyLab.png
+        this.mc.func_110434_K().func_110577_a(guiLoc);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
