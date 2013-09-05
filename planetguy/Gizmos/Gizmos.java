@@ -147,6 +147,12 @@ public class Gizmos {
 			boolean isObfuscated=config.get("Developer", "Use deobfuscated mode", false).getBoolean(false);
 			ReflectionHelper.initialize(isObfuscated);
 			
+<<<<<<< HEAD
+=======
+			boolean isObfuscated=config.get("Developer", "Use deobfuscated mode", false).getBoolean(false);
+			ReflectionHelper.initialize(isObfuscated);
+			
+>>>>>>> 21375f044762c20e3d84f6826a4f2205fcb48dbf
 			Gizmos.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
 			Gizmos.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
 			Gizmos.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
@@ -177,6 +183,8 @@ public class Gizmos {
         /*
 		for(LoaderNode ln : LoaderNode.registeredNodes.toArray(new LoaderNode[0])){
 			if(ln==null)continue;
+
+		for(Object ln : LoaderNode.registeredNodes.toArray()){
 			dbg(((LoaderNode) ln).getName());
 		}
 		for(String s: bannedItems){
