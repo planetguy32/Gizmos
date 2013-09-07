@@ -36,10 +36,14 @@ public class ItemMinersLighter extends ItemInteractDevice{
 		return theWorld.getBiomeGenForCoords(posX, posZ).biomeName!="Hell";
 	}
 	
-	public void registerIcons(IconRegister ir){
-		itemIcon=ir.registerIcon(Gizmos.modName+":"+"minersLighter");
+	public void registerTexture(IconRegister ir){
+		System.out.println("Dislocator textures loading");
+		itemIcon=ir.registerIcon("Gizmos"+":"+"minersLighter");
 	}
 	
+	public void updateIcons(IconRegister iconRegister) {
+		itemIcon = iconRegister.registerIcon("Gizmos:minersLighter");
+	}
 }
 
 

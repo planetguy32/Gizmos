@@ -1,7 +1,7 @@
 package planetguy.Gizmos.loader;
 
 import net.minecraftforge.common.MinecraftForge;
-import planetguy.Gizmos.GizmosEventWatcher;
+import planetguy.Gizmos.spy.EventWatcherSpyItemUse;
 
 public class LoaderNodeBombItems extends LoaderNode {
 	
@@ -11,15 +11,17 @@ public class LoaderNodeBombItems extends LoaderNode {
 	public LoaderNodeBombItems() {
 		super(new LoaderNode[0]);
 		super.depends=depends;
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void load() {
-		MinecraftForge.EVENT_BUS.register(new GizmosEventWatcher());
+		MinecraftForge.EVENT_BUS.register(new EventWatcherSpyItemUse());
 	}
 
 	@Override
 	public String getName() {
+		// TODO Auto-generated method stub
 		return "hiddenBombs";
 	}
 

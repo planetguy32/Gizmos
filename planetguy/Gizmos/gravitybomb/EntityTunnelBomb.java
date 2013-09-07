@@ -14,6 +14,7 @@ public class EntityTunnelBomb extends EntityGravityBomb {
 			double par6, int lifespan) {
 		super(par1World, par2, par4, par6);
 		this.lifeSpan=lifespan;
+		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -24,7 +25,7 @@ public class EntityTunnelBomb extends EntityGravityBomb {
 		 this.prevPosY3=prevPosY2;
 		 //FMLLog.log(Level.SEVERE, "Tunnel bomb alive!");
 /* 53 */     this.lifeSpan --;
-/* 58 */     if (canFallFrom(this.posX, this.posY, this.posZ,this)) {
+/* 58 */     if (canFallFrom(this.posX, this.posY, this.posZ)) {
 /* 59 */       this.motionY -= 0.03999999910593033D;
 /* 60 */       moveEntity(this.motionX, this.motionY, this.motionZ);
 /*    */     } else {

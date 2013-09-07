@@ -27,7 +27,6 @@ import planetguy.Gizmos.loader.LoaderNodeInvenswappers;
 import planetguy.Gizmos.loader.LoaderNodeLens;
 import planetguy.Gizmos.loader.LoaderNodeTimeBombs;
 import planetguy.Gizmos.loader.LoaderNodeVelocityManipulators;
-import planetguy.simpleLoader.SimpleLoader;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -72,8 +71,6 @@ public class Gizmos {
 	
 	public static Item fireExtinguisher;
 	
-	public static Item lastLaughChestplate;
-	
 	public static int gravityExplosivesID;
 	public static int geoFireID;
 	public static int netherLighterID;
@@ -81,7 +78,7 @@ public class Gizmos {
 	public static int WandID;
 	public static int spyLabID;
 	public static int lensID;
-	public static final String modName="planetguy_Gizmos";
+	public static final String modName="Gizmos";
 	public static boolean serverSafeMode;
 	public static boolean nerfHiding=false;
 	public static int accelID;
@@ -99,28 +96,18 @@ public class Gizmos {
 	public static int invenswapperTopID;
 	public static int invenswapperBottomID;
 	public static int fireExtID;
-	public static int baseBombID;
-	public static int lastLaughChestplateID;
-
 	
 	public static ImmutableList<String> bannedItems;
 	
-	static{
-		FMLLog.makeLog("Gizmos");
-	}
 	
 	@Instance("planetguy_Gizmos")
 	public static Gizmos instance;
 	
-	public static SimpleLoader loader;
-	
 	@PreInit
 	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
-		loader=new SimpleLoader("Gizmos");
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
-		loader.setupAndReadConfig(config);
-		/*try{
+		try{
 
 			Gizmos.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
 			Gizmos.geoFireID = config.getBlock("Superfire ID", 3982).getInt();
@@ -131,8 +118,6 @@ public class Gizmos {
 			Gizmos.timeExplosivesID = config.getBlock("Time bomb ID", 3987).getInt();
 			Gizmos.invenswapperTopID = config.getBlock("Invenswapper ID", 3988).getInt();
 			Gizmos.invenswapperBottomID = config.getBlock("Invenswapper base ID", 3989).getInt();
-			Gizmos.baseBombID = config.getBlock("Advanced bomb system ID", 3990).getInt();
-
 			
 			
 			Gizmos.netherLighterID = config.getItem("Deforestator ID", 8100).getInt();
@@ -142,17 +127,17 @@ public class Gizmos {
 			Gizmos.defuserID=config.getItem("Defuser ID", 8104).getInt();
 			Gizmos.buildToolID=config.getItem("Build tool ID", 8105).getInt();
 			Gizmos.fireExtID=config.getItem("Fire extinguisher ID", 8106).getInt();
-			Gizmos.fireExtID=config.getItem("Last Laugh Chestplate ID", 8107).getInt();
 			
-			boolean isObfuscated=config.get("Developer", "Use deobfuscated mode", false).getBoolean(false);
-			ReflectionHelper.initialize(isObfuscated);
-			
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 			boolean isObfuscated=config.get("Developer", "Use deobfuscated mode", false).getBoolean(false);
 			ReflectionHelper.initialize(isObfuscated);
 			
 >>>>>>> 21375f044762c20e3d84f6826a4f2205fcb48dbf
+=======
+
+>>>>>>> parent of 6d46c48... Early work on SimpleLoader: no more verbose LoaderNodes!
 			Gizmos.allowFB=config.get("Nerfs and bans", "Allow fork bombs to fork", true).getBoolean(true);
 			Gizmos.accelRate = (float) config.get("Nerfs and bans", "Accelerator rate", 1.16158634964).getDouble(1.16158634964);
 			Gizmos.serverSafeMode = config.get("Nerfs and bans", "Safe server mode",false).getBoolean(false);
@@ -167,9 +152,9 @@ public class Gizmos {
 
 			//ConfigHolder.modName=config.get("Nerfs and bans", "Mod zip file name", "Gizmos_v0.4").getString();
 		}catch (Exception e){
-			dbg("BAD GIZMOS CONFIG IS BAD! Try deleting it.");
+			FMLLog.log(Level.SEVERE,e,"BAD GIZMOS CONFIG IS BAD! Try deleting it.");
 			throw e;
-		}*/
+		}
 		config.save();
 	}
 	
@@ -179,6 +164,7 @@ public class Gizmos {
 
 		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+<<<<<<< HEAD
         loader.loadClasses();
         /*
 		for(LoaderNode ln : LoaderNode.registeredNodes.toArray(new LoaderNode[0])){
@@ -186,29 +172,27 @@ public class Gizmos {
 
 		for(Object ln : LoaderNode.registeredNodes.toArray()){
 			dbg(((LoaderNode) ln).getName());
+=======
+
+		for(Object ln : LoaderNode.registeredNodes.toArray()){
+			System.out.print(((LoaderNode) ln).getName());
+>>>>>>> parent of 6d46c48... Early work on SimpleLoader: no more verbose LoaderNodes!
 		}
 		for(String s: bannedItems){
 			for(int i=0; i<LoaderNode.registeredNodes.size(); i++){
-				//dbg("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
-				//dbg("Currently at "+LoaderNode.registeredNodes.get(i).getName());
+				//System.out.println("Banning module: "+s+", checking "+LoaderNode.registeredNodes.get(i));
+				//System.out.println("Currently at "+LoaderNode.registeredNodes.get(i).getName());
 				if(s.equalsIgnoreCase(LoaderNode.registeredNodes.get(i).getName())){
-					dbg("Found it!");
+					System.out.println("Found it!");
 					LoaderNode.registeredNodes.remove(i);
 					break;
 				}
 			}
 		}
-		dbg(LoaderNode.registeredNodes.toString());
-		for(LoaderNode ln : LoaderNode.registeredNodes.toArray(new LoaderNode[0])){
-			if(ln==null)continue;
+		System.out.println(LoaderNode.registeredNodes.toString());
+		for(Object ln : LoaderNode.registeredNodes.toArray()){
 			((LoaderNode) ln).loadRecursively();
-		}
-		*/	
-	}
-	
-	public static void dbg(String text){
-		if(text==null)text="<null>";
-		FMLLog.getLogger().log(Level.INFO, text);
-	}
+		}	
+	}	
 
 }

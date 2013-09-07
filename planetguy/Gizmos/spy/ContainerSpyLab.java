@@ -34,7 +34,7 @@ public class ContainerSpyLab extends Container {
         }
         
         public void onCraftGuiClosed(EntityPlayer player){
-        	super.onContainerClosed(player);
+        	super.onCraftGuiClosed(player);
         	for(int i=0; i<=3;i++){
         		if(inv.getStackInSlot(i)!=null){
         			player.dropPlayerItem(inv.getStackInSlot(i));

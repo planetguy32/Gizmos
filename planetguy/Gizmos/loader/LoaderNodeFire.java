@@ -18,6 +18,7 @@ public class LoaderNodeFire extends LoaderNode{
 	
 	public LoaderNodeFire() {
 		super(new LoaderNode[0]);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class LoaderNodeFire extends LoaderNode{
 
 	@Override
 	public String getName() {
+		// TODO Auto-generated method stub
 		return "superFire";
 	}
 

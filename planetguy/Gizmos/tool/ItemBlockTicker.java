@@ -2,7 +2,6 @@ package planetguy.Gizmos.tool;
 
 import java.util.Random;
 
-import planetguy.Gizmos.Gizmos;
 import planetguy.Gizmos.GizmosItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -54,8 +53,11 @@ public class ItemBlockTicker extends GizmosItem{
 		
 	}
 	
-	public void registerIcons(IconRegister ir){
-		itemIcon=ir.registerIcon(Gizmos.modName+":"+"dislocator");
+	public void registerTexture(IconRegister ir){
+		itemIcon=ir.registerIcon("Gizmos"+":"+"dislocator");
 	}
 	
+	public void updateIcons(IconRegister iconRegister) {
+		itemIcon = iconRegister.registerIcon("Gizmos:dislocator");
+	}
 }

@@ -7,6 +7,7 @@ public class GizmosItem extends Item {
 
 	public GizmosItem(int par1) {
 		super(par1);
+		// TODO Auto-generated constructor stub
 	}
 	
 	public void registerTexture(IconRegister ir){

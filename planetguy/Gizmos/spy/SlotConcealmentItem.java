@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -42,13 +41,16 @@ public class SlotConcealmentItem extends Slot{
 				System.out.println("No combining, stack is null");
 				return;
 			}
-			//if(inventory.getStackInSlot(0).getTagCompound()==null){//&&me.getTagCompound()==null
+			NBTTagCompound futureTag=new NBTTagCompound("Planetguy-spy");
+			if(inventory.getStackInSlot(0).getTagCompound()==null&&me.getTagCompound()==null){
 				
-				NBTTagCompound oldTag=new NBTTagCompound("tag");
-				otherItem.writeToNBT(oldTag);
-				me.setTagCompound(oldTag);
+				inventory.getStackInSlot(0).writeToNBT(futureTag);
+				NBTTagCompound oldTag=me.getTagCompound();
+				NBTTagCompound combinedTag=(NBTTagCompound) NBTTagCompound.newTag((byte) 10,"");
+				combinedTag.setCompoundTag("spydata", futureTag);
+				me.setTagCompound(futureTag);
 				inventory.setInventorySlotContents(0, null);
-			//}
+			}
 		}
 	}
 	
@@ -60,7 +62,13 @@ public class SlotConcealmentItem extends Slot{
 				ItemStack storingItem=inventory.getStackInSlot(3);
 				if(storingItem!=null&&inventory.getStackInSlot(2)==null){
 					NBTTagCompound tag=storingItem.getTagCompound();
-					ItemStack a=ItemStack.loadItemStackFromNBT(tag);
+					int id=tag.getShort("id");
+					int count=tag.getByte("Count");
+					int meta=tag.getShort("Damage");
+					if(id==(Integer)null||count==(Integer)null||meta==(Integer) null){
+						return;
+					}
+					ItemStack a=new ItemStack(id,count,meta);
 					inventory.setInventorySlotContents(2,a);
 					storingItem.setTagCompound(null);
 				}
