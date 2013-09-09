@@ -1,4 +1,4 @@
-package planetguy.gizmos.spy;
+package planetguy.gizmos.inserter;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
@@ -15,14 +15,14 @@ import planetguy.gizmos.Gizmos;
 
 
 @SideOnly(Side.CLIENT)
-public class GuiSpyTable extends GuiContainer {
+public class GuiInserter extends GuiContainer {
 	
 	private IInventory home;
 	private static final ResourceLocation guiLoc=new ResourceLocation(Gizmos.modName+":"+"textures/gui/container/spyLab.png");
 
-	public GuiSpyTable (InventoryPlayer inventoryPlayer, IInventory inv) {
+	public GuiInserter (InventoryPlayer inventoryPlayer, IInventory inv) {
 		//the container is instanciated and passed to the superclass for handling
-		super(new ContainerSpyLab(inventoryPlayer, inv));
+		super(new ContainerInserter(inventoryPlayer, inv));
 		home=inv;
 	}
 

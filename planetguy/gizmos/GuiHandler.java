@@ -1,12 +1,12 @@
 package planetguy.gizmos;
 
 
+import planetguy.gizmos.inserter.ContainerInserter;
+import planetguy.gizmos.inserter.GuiInserter;
+import planetguy.gizmos.inserter.InventoryInserter;
 import planetguy.gizmos.invUtils.ContainerInvenswapper;
 import planetguy.gizmos.invUtils.GuiInvenswapper;
 import planetguy.gizmos.invUtils.TileEntityInvenswapper;
-import planetguy.gizmos.spy.ContainerSpyLab;
-import planetguy.gizmos.spy.GuiSpyTable;
-import planetguy.gizmos.spy.InventorySpyLab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -21,7 +21,7 @@ public class GuiHandler implements IGuiHandler {
 			//System.out.println("Invenswapper GUI selected");
 			return new ContainerInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
 		}
-		return new ContainerSpyLab(player.inventory, new InventorySpyLab(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
+		return new ContainerInserter(player.inventory, new InventoryInserter(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
 	}
 
 	//returns an instance of the Gui you made earlier
@@ -33,7 +33,7 @@ public class GuiHandler implements IGuiHandler {
 			//System.out.println("Invenswapper GUI selected");
 			return new GuiInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
 		}
-		return new GuiSpyTable(player.inventory, new InventorySpyLab(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
+		return new GuiInserter(player.inventory, new InventoryInserter(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
 
 	}
 }

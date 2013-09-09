@@ -2,23 +2,42 @@ package planetguy.gizmos.CES;
 
 import java.util.Random;
 
+import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.CES.powerups.Powerup;
+import planetguy.gizmos.CES.powerups.PowerupDebug;
+import planetguy.gizmos.CES.powerups.PowerupExplodeOnImpact;
+import planetguy.gizmos.CES.powerups.PowerupFall;
+import planetguy.simpleLoader.SLLoad;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+@SLLoad(name="CESBomb")
 public class BlockCESBomb extends BlockContainer{
 
 	public static BlockCESBomb instance;
 	
+	@SLLoad
 	public BlockCESBomb(int blockID) {
 		super(blockID, Material.tnt);
 		LanguageRegistry.addName(this, "CES base [TEST]");
+	}
+	
+	@SLLoad
+	public static void loadMore(){
+		BlockCESBomb.instance=new BlockCESBomb(Gizmos.baseBombID);
+		BlockCESBomb.instance.setCreativeTab(CreativeTabs.tabRedstone);
+		Powerup.registerPowerup(new PowerupDebug(),(byte) 0);
+		Powerup.registerPowerup(new PowerupExplodeOnImpact(),(byte) 1);
+		Powerup.registerPowerup(new PowerupFall(),(byte) 2);
 	}
 
 	@Override

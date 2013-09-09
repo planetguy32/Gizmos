@@ -1,4 +1,4 @@
-package planetguy.gizmos.spy;
+package planetguy.gizmos.inserter;
 
 import java.util.Random;
 
@@ -10,7 +10,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class InventorySpyLab implements IInventory {
+public class InventoryInserter implements IInventory {
 
 
     private ItemStack[] inv;
@@ -18,7 +18,7 @@ public class InventorySpyLab implements IInventory {
     private World world;
     private int x, y, z;
 
-    public InventorySpyLab(World w, int x, int y, int z){
+    public InventoryInserter(World w, int x, int y, int z){
             inv = new ItemStack[4];
             this.world=w;
             this.x=x;

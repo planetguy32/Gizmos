@@ -1,34 +1,23 @@
-package planetguy.tweaks.portaltweak;
+package planetguy.sltweaks;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.Instance;
+import planetguy.simpleLoader.CustomModuleLoader;
+import planetguy.simpleLoader.SLLoad;
 
+@SLLoad(name="anyShapePortals")
+public class PortalLiberator extends CustomModuleLoader{
 
-@Mod(modid="planetguy_PortalBuff", name="PortalBuff", version="1.0")
-public class PortalBuff {
-
-	@Instance("planetguy_PortalBuff")
-	public static PortalBuff instance;
-
-	@Init
-	public final void load(FMLInitializationEvent ignored){
-		MinecraftForge.EVENT_BUS.register(new PortalCreateListener());
+	@Override
+	public void load() {
+		MinecraftForge.EVENT_BUS.register(new PortalCreateListener());		
 	}
-
-	public class PortalCreateListener {
+	
+public class PortalCreateListener {
 		
 		int checked=0;
 

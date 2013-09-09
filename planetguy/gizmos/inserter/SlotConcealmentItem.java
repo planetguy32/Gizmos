@@ -1,4 +1,4 @@
-package planetguy.gizmos.spy;
+package planetguy.gizmos.inserter;
 
 import planetguy.gizmos.Gizmos;
 import net.minecraft.block.Block;

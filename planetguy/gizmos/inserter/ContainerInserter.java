@@ -1,4 +1,4 @@
-package planetguy.gizmos.spy;
+package planetguy.gizmos.inserter;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,11 +10,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerSpyLab extends Container {
+public class ContainerInserter extends Container {
 
         protected IInventory inv;
 
-        public ContainerSpyLab (InventoryPlayer inventoryPlayer, IInventory inv){
+        public ContainerInserter (InventoryPlayer inventoryPlayer, IInventory inv){
         	this.inv=inv;
 
                 //the Slot constructor takes the IInventory and the slot number in that it binds to

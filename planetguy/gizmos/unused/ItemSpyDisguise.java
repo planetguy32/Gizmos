@@ -1,4 +1,4 @@
-package planetguy.gizmos.spy;
+package planetguy.gizmos.unused;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.EnumArmorMaterial;

@@ -13,6 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 
 import net.minecraft.block.Block;
@@ -34,41 +35,41 @@ import static net.minecraftforge.common.ForgeDirection.*;
 @SLLoad(name="GravityBomb",hasMetadata=true)
 public class BlockGraviBomb extends Block
 {
-	private int metadata;
+	private int id;
 	private Icon topTex;
 	private Icon gBombTex;
 	private Icon tBombTex;
 	private Icon bottomTex;
 
 	@SLLoad
-	public BlockGraviBomb(int id)
-	{
+	public BlockGraviBomb(int id){
 		super(id,  Material.tnt);
-		setCreativeTab(CreativeTabs.tabRedstone);
-		Gizmos.graviBombPrimed = new EntityGravityBomb(null);
-		Gizmos.tunnelBombPrimed=new EntityTunnelBomb(null);
-		//EntityRegistry.registerModEntity(EntityTunnelBeam.class, "Tunnel Beam", 199, this, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, Gizmos.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(EntityTunnelBomb.class, "TBomb", 202, Gizmos.instance, 80, 3, true);
-		ItemStack itemStackGB = new ItemStack(this, 3, 0);
-		ItemStack itemStackExcaBomb = new ItemStack(this, 1, 1);
-		ItemStack tnt = new ItemStack(Block.tnt);
-		ItemStack powder = new ItemStack(Item.blazePowder);
-		ItemStack iron = new ItemStack(Item.ingotIron);
-		ItemStack itemStackPick = new ItemStack(Item.pickaxeIron);
-		GameRegistry.addRecipe(itemStackGB, new Object[] { "xxx", "iyi", " i ", 
-				Character.valueOf('x'),tnt, 
-				Character.valueOf('y'), powder,
-				Character.valueOf('i'), iron });
-		GameRegistry.addRecipe(itemStackExcaBomb, new Object[] { " b ", "ibi", "pbp", 
-				Character.valueOf('b'), itemStackGB, 
-				Character.valueOf('i'), iron, 
-				Character.valueOf('p'), itemStackPick });
-		final String[] oreNames = {"Gravity bomb", "Tunnel bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Tunnel Bomb", "Gravity Bomb"};
-
-		for (int re = 0; re < 16; re++){
-			ItemStack oreStack = new ItemStack(this, 1, re);
-			LanguageRegistry.addName(oreStack, oreNames[oreStack.getItemDamage()]);
+		this.id=id;
+		SLItemBlock.registerString(id, 0, "Gravity Bomb", new String[] {"Falls as far as it can,","explodes where it lands"});
+		SLItemBlock.registerString(id, 1, "Excavator Bomb", new String[] {"Falls for a set time,","explodes each time it lands"});
+		try{
+			setCreativeTab(CreativeTabs.tabRedstone);
+			Gizmos.graviBombPrimed = new EntityGravityBomb(null);
+			Gizmos.tunnelBombPrimed=new EntityTunnelBomb(null);
+			//EntityRegistry.registerModEntity(EntityTunnelBeam.class, "Tunnel Beam", 199, this, 80, 3, true);
+			EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, Gizmos.instance, 80, 3, true);
+			EntityRegistry.registerModEntity(EntityTunnelBomb.class, "TBomb", 202, Gizmos.instance, 80, 3, true);
+			ItemStack itemStackGB = new ItemStack(this, 3, 0);
+			ItemStack itemStackExcaBomb = new ItemStack(this, 1, 1);
+			ItemStack tnt = new ItemStack(Block.tnt);
+			ItemStack powder = new ItemStack(Item.blazePowder);
+			ItemStack iron = new ItemStack(Item.ingotIron);
+			ItemStack itemStackPick = new ItemStack(Item.pickaxeIron);
+			GameRegistry.addRecipe(itemStackGB, new Object[] { "xxx", "iyi", " i ", 
+					Character.valueOf('x'),tnt, 
+					Character.valueOf('y'), powder,
+					Character.valueOf('i'), iron });
+			GameRegistry.addRecipe(itemStackExcaBomb, new Object[] { " b ", "ibi", "pbp", 
+					Character.valueOf('b'), itemStackGB, 
+					Character.valueOf('i'), iron, 
+					Character.valueOf('p'), itemStackPick });
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		//this.setRequiresSelfNotify();
 	}
@@ -85,7 +86,7 @@ public class BlockGraviBomb extends Block
 
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
-	{
+	{	
 		for (int var4 = 0; var4 < 2; ++var4)
 		{
 			par3List.add(new ItemStack(par1, 1, var4));
@@ -96,7 +97,7 @@ public class BlockGraviBomb extends Block
 	public int idDropped(int par1, Random par2Random, int par3){
 		return Gizmos.loader.IDMap.get("gravityBomb");
 	}
-	*/
+	 */
 
 	public String getTextureFile(){
 		return "/planetguy/Gizmos/tex.png";
@@ -152,7 +153,7 @@ public class BlockGraviBomb extends Block
 
 	public void updateTick(World par1World, int par2, int par3, int par4, Random randomThingy)
 	{
-		metadata=par1World.getBlockMetadata(par2, par3, par4);
+		int metadata=par1World.getBlockMetadata(par2, par3, par4);
 		// FMLLog.log(Level.SEVERE, "My metadata: "+metadata, "");
 
 

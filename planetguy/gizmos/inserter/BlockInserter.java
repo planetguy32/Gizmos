@@ -1,11 +1,15 @@
-package planetguy.gizmos.spy;
+package planetguy.gizmos.inserter;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SimpleLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -17,17 +21,43 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
+@SLLoad(name="inserter")
 public class BlockInserter extends Block{
 	
 	public Icon sides;
 	public Icon top;
 
+	@SLLoad
+	public BlockInserter(int id){
+		this(id, 0);
+		try {
+			//Gizmos.loader.loadClass(ItemLens.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.setUnlocalizedName("spyLab");
+		ItemStack lens=new ItemStack(Gizmos.spyLens);
+		ItemStack wood=new ItemStack(Block.planks);
+		ItemStack blockIron=new ItemStack(Block.blocksList[42]);
+		ItemStack crafter=new ItemStack(Block.workbench);
+		ItemStack chest=new ItemStack(Block.chest);
+		
+		ItemStack itemSpyDesk=new ItemStack(this);
+        GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
+        		Character.valueOf('L'),lens,
+        		Character.valueOf('W'),crafter,
+        		Character.valueOf('C'),chest,
+        		Character.valueOf('I'),blockIron,
+        		Character.valueOf('B'),wood});
+	}
+	
     public BlockInserter (int id, int texture) {
         super(id, Material.iron);
         //System.out.println("New spy lab!");

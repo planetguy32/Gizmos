@@ -1,7 +1,7 @@
 package planetguy.gizmos.loader;
 
 import planetguy.gizmos.Gizmos;
-import planetguy.gizmos.spy.BlockInserter;
+import planetguy.gizmos.inserter.BlockInserter;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

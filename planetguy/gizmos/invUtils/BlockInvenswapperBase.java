@@ -89,7 +89,7 @@ public class BlockInvenswapperBase extends BlockContainer{
     @Override
 	public void onBlockAdded(World w, int x, int y, int z){
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		w.setBlock(x, y+1, z, Gizmos.loader.IDMap.get("*invenswapperTop"),w.getBlockMetadata(x, y, z), 0x02);
+    		w.setBlock(x, y+1, z, Gizmos.loader.lookupInt("invenswapperTop"),w.getBlockMetadata(x, y, z), 0x02);
     	}
     }
 	

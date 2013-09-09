@@ -1,22 +1,17 @@
-package planetguy.vanilla;
+package planetguy.sltweaks;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import planetguy.simpleLoader.CustomModuleLoader;
+import planetguy.simpleLoader.SLLoad;
 
-@Mod(name="VanillaRecipeReverter",modid="VanillaRecipeReverter",version="1.0",dependencies="after:Railcraft")
-public class VanillaReverter {
-	
-	@Instance("VanillaRecipeReverter")
-	public static VanillaReverter instance;
-	
-	@Init
-	public final void load(FMLInitializationEvent e){
+@SLLoad(name="railRecipeReverter+")
+public class VanillaRailRecipes extends CustomModuleLoader{
+
+	@Override
+	public void load() {
 		ItemStack iron=new ItemStack(Item.ingotIron);
 		ItemStack gold=new ItemStack(Item.ingotGold);
 		ItemStack rs=new ItemStack(Item.redstone);
@@ -53,7 +48,7 @@ public class VanillaReverter {
 				"isi",
 				Character.valueOf('i'),iron,
 				Character.valueOf('s'),stick,
-				Character.valueOf('t'),rsTorch});
+				Character.valueOf('t'),rsTorch});		
 	}
 
 }

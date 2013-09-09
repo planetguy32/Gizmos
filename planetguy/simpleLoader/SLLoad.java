@@ -22,5 +22,8 @@ public @interface SLLoad {
 	String name() default "unnamed"; 
 	String[] dependencies() default {};
 	boolean hasMetadata() default false;
+	String parent() default "**none**";//If it is changed, annotated class loads if and only if parent loads.
+	String itemClass() default "planetguy.simpleLoader.SLItemBlock";
+	
 
 }

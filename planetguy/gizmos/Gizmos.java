@@ -49,7 +49,7 @@ import net.minecraftforge.common.Property;
  *The Gizmos main class and API (sort of). Contains references to all blocks, items and IDs.
  *
  */
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="1.1")
+@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos {
 	
@@ -124,10 +124,10 @@ public class Gizmos {
 	
 	@PreInit
 	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
-		//loader=new SimpleLoader("Gizmos");
-		//Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		//config.load();
-		//loader.setupAndReadConfig(config);
+		loader=new SimpleLoader("Gizmos",Gizmos.instance);
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config.load();
+		loader.setupAndReadConfig(config);
 		/*try{
 
 			Gizmos.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
@@ -172,22 +172,14 @@ public class Gizmos {
 			dbg("BAD GIZMOS CONFIG IS BAD! Try deleting it.");
 			throw e;
 		}*/
-		//config.save();
+		config.save();
 	}
 	
 	@Init
 	public final void load(FMLInitializationEvent ignored) throws Exception{
 		
-
-		BlockCESBomb.instance=new BlockCESBomb(Gizmos.baseBombID);
-		BlockCESBomb.instance.setCreativeTab(CreativeTabs.tabRedstone);
-		GameRegistry.registerBlock(BlockCESBomb.instance, ItemBlock.class, "BlockCESBombBase");
-		Powerup.registerPowerup(new PowerupDebug(),(byte) 0);
-		Powerup.registerPowerup(new PowerupExplodeOnImpact(),(byte) 1);
-		Powerup.registerPowerup(new PowerupFall(),(byte) 2);
-		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
-        //loader.loadClasses();
+        loader.loadClasses();
         /*
 		for(LoaderNode ln : LoaderNode.registeredNodes.toArray(new LoaderNode[0])){
 			if(ln==null)continue;

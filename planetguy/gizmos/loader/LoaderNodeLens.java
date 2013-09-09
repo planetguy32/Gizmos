@@ -5,7 +5,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import planetguy.gizmos.Gizmos;
-import planetguy.gizmos.spy.ItemLens;
+import planetguy.gizmos.inserter.ItemLens;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
