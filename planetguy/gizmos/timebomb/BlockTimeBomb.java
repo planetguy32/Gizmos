@@ -21,6 +21,11 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+/**
+ * Block class for the time bomb and fork bomb
+ * @author bill
+ *
+ */
 public class BlockTimeBomb extends Block{
 
 	private Icon topTex;
@@ -33,7 +38,7 @@ public class BlockTimeBomb extends Block{
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
         fuse=Gizmos.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
-	}
+	} 
 	
 	public int tickRate(){
 		return fuse; 
@@ -44,21 +49,21 @@ public class BlockTimeBomb extends Block{
 		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
 		bottomTex=ir.registerIcon(Gizmos.modName+":"+"bombBottom");
 		sideIcons[0] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");
-		sideIcons[1] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");
+		sideIcons[1] =sideIcons[0];
 		sideIcons[2] =ir.registerIcon(Gizmos.modName+":"+"timeBomb2");
-		sideIcons[3] =ir.registerIcon(Gizmos.modName+":"+"timeBomb2");
+		sideIcons[3] =sideIcons[2];
 		sideIcons[4] =ir.registerIcon(Gizmos.modName+":"+"timeBomb3");
-		sideIcons[5] =ir.registerIcon(Gizmos.modName+":"+"timeBomb3");
+		sideIcons[5] =sideIcons[4];
 		sideIcons[6] =ir.registerIcon(Gizmos.modName+":"+"timeBomb4");
-		sideIcons[7] =ir.registerIcon(Gizmos.modName+":"+"timeBomb4");
+		sideIcons[7] =sideIcons[6];
 		sideIcons[8] =ir.registerIcon(Gizmos.modName+":"+"timeBomb5");
-		sideIcons[9] =ir.registerIcon(Gizmos.modName+":"+"timeBomb5");
+		sideIcons[9] =sideIcons[8];
 		sideIcons[10]=ir.registerIcon(Gizmos.modName+":"+"timeBomb6");
-		sideIcons[11]=ir.registerIcon(Gizmos.modName+":"+"timeBomb6");
+		sideIcons[11]=sideIcons[10];
 		sideIcons[12]=ir.registerIcon(Gizmos.modName+":"+"timeBomb7");
-		sideIcons[13]=ir.registerIcon(Gizmos.modName+":"+"timeBomb7");
+		sideIcons[13]=sideIcons[12];
 		sideIcons[14]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
-		sideIcons[15]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
+		sideIcons[15]=sideIcons[14];
 		this.blockIcon=sideIcons[0];
 	}
 	

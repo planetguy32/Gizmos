@@ -8,7 +8,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-
+/**
+ * Time bomb item class. Is probably responsible for time bombs and fork bombs taking the name of whatever item was last registered.
+ * 
+ * @author planetguy
+ */
 public class ItemTimeBomb extends ItemBlock {
 
 	public ItemTimeBomb(int par1) {
@@ -16,6 +20,7 @@ public class ItemTimeBomb extends ItemBlock {
 		setHasSubtypes(true);
 	}
 	
+	///WTF?
 	public int getMetadata(int meta){
 		return meta;
 	}
@@ -29,6 +34,7 @@ public class ItemTimeBomb extends ItemBlock {
 	    }
 	}
 	
+	//Doesn't work. 
 	public String getItemNameIS(ItemStack stack){
 		String name="";
 		switch(stack.getItemDamage()%2){
@@ -45,7 +51,13 @@ public class ItemTimeBomb extends ItemBlock {
 		return getUnlocalizedName()+"."+name;
 	}
 
+	/**
+	 * Sets the name of an item.
+	 * @param string the name
+	 * @return the item (now renamed).
+	 */
 	public Item setItemName(String string) {
+		this.setUnlocalizedName(string);
 		return this;
 	}
 

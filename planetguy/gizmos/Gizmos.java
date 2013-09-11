@@ -53,6 +53,7 @@ import net.minecraftforge.common.Property;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos {
 	
+	//Holds instances for all items/blocks/etc. Deprecated with SimpleLoader?
 	public static Block graviBomb;
 	public static Entity graviBombPrimed;
 	public static EntityTunnelBomb tunnelBombPrimed;
@@ -121,7 +122,7 @@ public class Gizmos {
 	public static Gizmos instance;
 	
 	public static SimpleLoader loader;
-	
+	//Callback from Forge
 	@PreInit
 	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
 		loader=new SimpleLoader("Gizmos",Gizmos.instance);
@@ -175,6 +176,8 @@ public class Gizmos {
 		config.save();
 	}
 	
+	//Register callback from Forge
+	
 	@Init
 	public final void load(FMLInitializationEvent ignored) throws Exception{
 		
@@ -204,7 +207,7 @@ public class Gizmos {
 		*/	
 	}
 	
-	public static void dbg(String text){
+	public static void dbg(String text){ //less-wordy way to print a message to console
 		if(text==null)text="<null>";
 		FMLLog.getLogger().log(Level.INFO, text);
 	}

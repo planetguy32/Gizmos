@@ -12,9 +12,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 
+/**
+ * Item used by other items as a crafting ingredient.
+ * @author planetguy
+ *
+ */
 @SLLoad(name="Lens")
 public class ItemLens extends GizmosItem{
 	
+	/**Initializes item and adds recipe
+	 * 
+	 * @param id item ID to use
+	 */
 	@SLLoad
 	public ItemLens(int id) {
 		super(id);

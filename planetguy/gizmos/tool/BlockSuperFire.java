@@ -1,11 +1,6 @@
 package planetguy.gizmos.tool;
 
-import static net.minecraftforge.common.ForgeDirection.DOWN;
-import static net.minecraftforge.common.ForgeDirection.EAST;
-import static net.minecraftforge.common.ForgeDirection.NORTH;
-import static net.minecraftforge.common.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.ForgeDirection.UP;
-import static net.minecraftforge.common.ForgeDirection.WEST;
+import static net.minecraftforge.common.ForgeDirection.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -35,6 +30,13 @@ import net.minecraft.world.WorldProviderEnd;
 import net.minecraftforge.common.ForgeDirection;
 import static net.minecraftforge.common.ForgeDirection.*;
 
+/**Variant of fire that instantly incinerates anything it touches that matches its target blocks (by default, gravel and lava).
+ * 
+ * Does not work in the Nether, since burning all the lava there would lag any server to death.
+ * 
+ * @author planetguy
+ *
+ */
 public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();
@@ -51,9 +53,9 @@ public class BlockSuperFire extends BlockFire{
 			Class fireClass=Block.fire.getClass();
 			Field f=fireClass.getDeclaredField(ReflectionHelper.reflectionStrings[0]);
 			f.setAccessible(true);
-			this.fireIcons=(Icon[]) f.get(this); //Steal icons from BlockFire (Doesn't work properly)
+			this.fireIcons=(Icon[]) f.get(Block.fire); //Steal icons from BlockFire (Doesn't work properly)
 		}catch(Exception e){
-			//e.printStackTrace(); //Spams the log a lot
+			//e.printStackTrace(); //Unnecessary since I'm fed up with blockFire not working
 		}
 	}
 	
@@ -63,6 +65,7 @@ public class BlockSuperFire extends BlockFire{
 		//setCreativeTab(CreativeTabs.tabRedstone);
 	}
 	
+	//Attempt to steal icons from superclass, BlockFire.
 	@Override
 	@SideOnly(Side.CLIENT)
     public void initializeBlock(){
@@ -87,12 +90,6 @@ public class BlockSuperFire extends BlockFire{
 	public boolean canBurnBlock(int id){
 		return targetBlocks.contains(id);
 	}
-
-	/*
-    public String getTextureFile(){
-		  return "/planetguy/EvilToys/tex.png";
-    }
-	 */
 
 	public int quantityDropped(Random par1Random){
 		return 0; //Don't drop fire blocks

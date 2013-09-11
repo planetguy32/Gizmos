@@ -25,27 +25,24 @@ public class ItemBlockTicker extends GizmosItem{
         this.maxStackSize = 1;
         this.setMaxDamage(64);
         this.setCreativeTab(CreativeTabs.tabTools);
-        //MinecraftForgeClient.preloadTexture("/mods/Gizmos/textures/items/dislocator.png");
 	}
-	/*
-	public String getTextureFile(){
-		return "/planetguy/Gizmos/tex.png";
-	}
-	*/
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
-	{
+
+	//Ticks tile entity as many times as it would normally tick in a whole minute.
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){
 		try{
 			Block b=Block.blocksList[par3World.getBlockId(par4, par5, par6)];
 
 			TileEntity t=par3World.getBlockTileEntity(par4, par5, par6);
-			for(int i=0; i<TICKS_PER_MINUTE; i++){
-				t.updateEntity();
+			if(t!=null){ //if it has a tile entity tick it
+				for(int i=0; i<TICKS_PER_MINUTE; i++){
+					t.updateEntity();
+				}
+			}else{//otherwise tick the block
+				for(int i=0; i<TICKS_PER_MINUTE; i++){
+					b.updateTick(par3World, par4, par5, par6, r);
+				}
 			}
 			par1ItemStack.damageItem(1, par2EntityPlayer);
-
-			for(int i=0; i<TICKS_PER_MINUTE; i++){
-				b.updateTick(par3World, par4, par5, par6, r);
-			}
 
 		}catch(NullPointerException ignore){
 		
@@ -54,6 +51,7 @@ public class ItemBlockTicker extends GizmosItem{
 		
 	}
 	
+	@Override
 	public void registerIcons(IconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"dislocator");
 	}

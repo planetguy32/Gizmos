@@ -8,8 +8,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+/**
+ * Something to counter fork bombs.
+ * @author planetguy
+ *
+ */
 public class ItemBombDefuser extends Item{
 
+	//TODO read from config
 	private int[] explosivesID;
 	
 	public ItemBombDefuser(int par1) {
@@ -20,7 +26,7 @@ public class ItemBombDefuser extends Item{
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"defuser");
 	}
 
-	
+	//Removes any block at the specified coordinates if it's in the config as defusable or if it uses Material.tnt
 	public boolean onItemUse(ItemStack stack, EntityPlayer thePlayer, World w, int x, int y, int z, int par7, float par8, float par9, float par10){
 		if(w.getBlockMaterial(x, y, z)==Material.tnt){
 			defuse(w,x,y,z,thePlayer,stack);
@@ -36,6 +42,7 @@ public class ItemBombDefuser extends Item{
 		return false;
 	}
 	
+	//Damages item and removes target block
 	private void defuse(World w, int x, int y, int z, EntityPlayer p, ItemStack stk){
 		stk.damageItem(1, p);
 		w.setBlockToAir(x, y, z);
