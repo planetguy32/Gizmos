@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -47,12 +48,12 @@ public class SimpleLoader {
 		File mcdir=Minecraft.getMinecraft().mcDataDir;
 
 		String pathToDir=mcdir.getAbsolutePath(); 
-		String s=pathToDir.substring(0, pathToDir.length()-1)+"mods/"; //cd mods/
-		LinkedList<String> filenames=new LinkedList<String>();
+		String s=pathToDir.substring(0, pathToDir.length()-1)+"mods/"; //Get file path to mods folder
+		LinkedList<String> filenames=new LinkedList<String>(); 
 
-		File modsdir=new File(s);
+		File modsdir=new File(s);//get mods directory
 
-		//Add all classes either 2 or 3 folders deeo in the mod zip file to the list of class names
+		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
 
 		for(File modzip:modsdir.listFiles()){
 			if(!modzip.isDirectory())continue;
@@ -61,7 +62,7 @@ public class SimpleLoader {
 				for(File h:g.listFiles()){
 					if(!h.isDirectory())continue;
 					for(File maybeclass:h.listFiles()){						
-						if(maybeclass.getName().endsWith(".class")||maybeclass.getName().endsWith(".java")){
+						if(maybeclass.getName().endsWith(".class")||maybeclass.getName().endsWith(".java")){//filter for classes or source files
 							filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName().replaceAll("\\.java", ""));
 						}
 						if(!maybeclass.isDirectory())continue;
@@ -88,14 +89,14 @@ public class SimpleLoader {
 			try{ //if it isn't possible to load a class from a name, ignore the name
 				String classname=i.next();
 
-				if(!classname.startsWith("planetguy"))continue;
+				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.*
 				Class c=Class.forName(classname);
 				System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
 				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it
 
 					classesFound.add(c);
 				}
-			}catch(ClassNotFoundException cnfe){continue;}
+			}catch(ClassNotFoundException cnfe){continue;}//if there's a problem go on to next class
 		}
 		//System.out.println(classesFound);//debug
 		return classesFound.toArray(new Class[0]);
@@ -139,14 +140,23 @@ public class SimpleLoader {
 		this.modname=modname;
 		//System.out.println(formatClasses(moduleClasses));
 	}
+	
+	/**Utility method to get the module name of a class
+	 * 
+	 * @param c class to get module name from
+	 * @return name of module as declared in its @SLLoad annotation
+	 */
 
-	private static String getModuleName(Class c){ //simple utility method
+	private String getModuleName(Class c){
 		Annotation a=c.getAnnotation(SLLoad.class);
 		SLLoad sll=(SLLoad) a;
 		return sll.name();
 	}
 
-	private String formatClasses(Class[] classes){
+	/**
+	 * Nicely formats class names for printing.
+	 */
+	private String formatClasses(Class[] classes){ 
 		String s="[";
 		for(Class c:classes){
 			s+=c.getName()+",";
@@ -154,7 +164,7 @@ public class SimpleLoader {
 		return s;
 	}
 
-	private boolean canLoad(Class c){
+	private boolean canLoad(Class c){//another way to call canLoad, with a class instead of string
 		return canLoad(getModuleName(c));
 	}
 
@@ -165,7 +175,12 @@ public class SimpleLoader {
 		}
 		return true; //for now anyway
 	}
-
+	
+	/**
+	 * 
+	 * @return the names of modules to be loaded
+	 */
+	
 	public String[] getModuleNames(){
 		LinkedList<String> moduleNames=new LinkedList<String>();
 		for(Class c:moduleClasses){
@@ -173,6 +188,12 @@ public class SimpleLoader {
 		}
 		return moduleNames.toArray(new String[0]);
 	}
+	
+	/**
+	 * Gets Forge config options for SL framework stuff, properties marked to fill with @SLProp and any IDs needed by modules
+	 * @param config passed from the Forge
+	 * @throws Exception if anything goes wrong
+	 */
 
 	public void setupAndReadConfig(Configuration config) throws Exception{
 		Property banModeProp=config.get("[SL] Framework", "Ban list mode", 0);
@@ -233,6 +254,12 @@ public class SimpleLoader {
 			}
 		}
 	}
+	
+	/**A way to filter classes by superclass (get anything extending, for example, Block)
+	 * 
+	 * @param superclass the class to filter by
+	 * @return classes that inherit the superclass
+	 */
 
 	private Class[] filterClassesBySuper(Class superclass){
 		ArrayList<Class> classes=new ArrayList<Class>();
@@ -243,6 +270,12 @@ public class SimpleLoader {
 		}
 		return classes.toArray(new Class[0]);
 	}
+	
+	/**A way to load a single class with @SLLoad
+	 * 
+	 * @param c
+	 * @throws Exception
+	 */
 	
 	public void loadClass(Class c) throws Exception{
 		if(Block.class.isAssignableFrom(c)){
@@ -255,6 +288,11 @@ public class SimpleLoader {
 			loadCustomModule(c);
 		}
 	}
+	
+	/**
+	 * Loads all the classes in SL's arrays of classes to load
+	 * @throws Exception
+	 */
 
 	public void loadClasses() throws Exception{
 		System.out.println("[SL] Loading classes...");
@@ -337,6 +375,6 @@ public class SimpleLoader {
 			}
 		}
 	}
-
+	
 
 }
