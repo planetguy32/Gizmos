@@ -7,8 +7,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,74 +41,12 @@ import net.minecraftforge.common.Property;
  *
  */
 
+
+@SLLoad(name="__MARKER__")//good idea?
 public class SimpleLoader {
-
-	/**
-	 * 
-	 * @return the classes that match 
-	 */
-	private Class[] discoverSLModules() throws Exception{
-
-		File mcdir=Minecraft.getMinecraft().mcDataDir;
-
-		String pathToDir=mcdir.getAbsolutePath(); 
-		String s=pathToDir.substring(0, pathToDir.length()-1)+"mods/"; //Get file path to mods folder
-		LinkedList<String> filenames=new LinkedList<String>(); 
-
-		File modsdir=new File(s);//get mods directory
-
-		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
-
-		for(File modzip:modsdir.listFiles()){
-			if(!modzip.isDirectory())continue;
-			for(File g:modzip.listFiles()){
-				if(!g.isDirectory())continue;
-				for(File h:g.listFiles()){
-					if(!h.isDirectory())continue;
-					for(File maybeclass:h.listFiles()){						
-						if(maybeclass.getName().endsWith(".class")||maybeclass.getName().endsWith(".java")){//filter for classes or source files
-							filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName().replaceAll("\\.java", ""));
-						}
-						if(!maybeclass.isDirectory())continue;
-						for(File level2classes:maybeclass.listFiles()){
-							if(level2classes.getName().endsWith(".class")||level2classes.getName().endsWith(".java")){
-								filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName()+"."+level2classes.getName().replaceAll("\\.java", ""));
-							}
-						}
-
-					}
-				}
-
-			}
-		}
-
-		//System.out.println(filenames); //debug
-		Iterator<String> i=filenames.iterator();
-
-		//collect all the class names from the list
-		LinkedList<Class> classesFound=new LinkedList<Class>();
-
-
-		while(i.hasNext()){
-			try{ //if it isn't possible to load a class from a name, ignore the name
-				String classname=i.next();
-
-				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.*
-				Class c=Class.forName(classname);
-				System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
-				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it
-
-					classesFound.add(c);
-				}
-			}catch(ClassNotFoundException cnfe){continue;}//if there's a problem go on to next class
-		}
-		//System.out.println(classesFound);//debug
-		return classesFound.toArray(new Class[0]);
-	}
-
-
-
-	public final Class[] moduleClasses;
+	
+	public final Class[] moduleClasses; //unfiltered, unsorted classes
+	public Class[] filteredSortedClasses;
 	public final Class[] blocks,items,entities,custom;
 	public final String modname;
 	private Object modcontainer;
@@ -124,6 +66,7 @@ public class SimpleLoader {
 	 */
 
 	private HashMap<String,Integer> IDMap=new HashMap<String,Integer>();
+	private int passLimit;
 	
 	public int lookupInt(String s){
 		System.out.println(IDMap.containsKey(s));
@@ -171,7 +114,7 @@ public class SimpleLoader {
 	private boolean canLoad(String s){
 		//TODO hook up banning with dependency system
 		if(banMode==0){//soft blacklist
-
+			
 		}
 		return true; //for now anyway
 	}
@@ -200,6 +143,7 @@ public class SimpleLoader {
 		banModeProp.comment="Ban mode: Even -> module's dependencies override whether something is permitted by the list; 0-1 -> blacklist mode";
 		banMode=banModeProp.getInt(0);
 		banList=config.get("[SL] Framework","Ban list", new String[0]).getStringList();
+		passLimit=config.get("[SL] Framework", "Maximum dependency passes", 10).getInt(10);
 
 		//and get config values for the game content...
 		int currentID=3980;
@@ -255,6 +199,37 @@ public class SimpleLoader {
 		}
 	}
 	
+	public void filterAndSortClasses(){
+		int pass=0; //How many passes the dependency manager has continued on.
+		ArrayList<Class> sortedClasses=new ArrayList<Class>();
+		HashSet<String> loadedClasses=new HashSet<String>();
+		ArrayDeque<Class> classes=new ArrayDeque<Class>(Arrays.asList(moduleClasses));
+		classes.addLast(SimpleLoader.class);
+		mainloop:
+		while(!classes.isEmpty()&&pass<passLimit){
+			Class c=classes.pop();
+			if(c==SimpleLoader.class){
+				++pass; 
+				continue mainloop;//Don't get SLLoad from SimpleLoader...
+			}
+			SLLoad slload=(SLLoad) c.getAnnotation(SLLoad.class);
+			boolean allowSoFar=true;
+			dependchecker:
+			for(String s:slload.dependencies()){
+				if(!loadedClasses.contains(s)){
+					allowSoFar=false;
+					break dependchecker;
+				}
+			}
+			if(allowSoFar){
+				loadedClasses.add(slload.name());
+				sortedClasses.add(c);
+			}else{
+				classes.addLast(c);
+			}
+		}
+	}
+	
 	/**A way to filter classes by superclass (get anything extending, for example, Block)
 	 * 
 	 * @param superclass the class to filter by
@@ -263,7 +238,7 @@ public class SimpleLoader {
 
 	private Class[] filterClassesBySuper(Class superclass){
 		ArrayList<Class> classes=new ArrayList<Class>();
-		for(Class c:moduleClasses){
+		for(Class c:filteredSortedClasses){
 			if(superclass.isAssignableFrom(c)){
 				classes.add(c);
 			}
@@ -271,7 +246,7 @@ public class SimpleLoader {
 		return classes.toArray(new Class[0]);
 	}
 	
-	/**A way to load a single class with @SLLoad
+	/**A way to load a single class with @SLLoad. DANGER: BYPASSES DEPENDENCY MANAGEMENT!
 	 * 
 	 * @param c
 	 * @throws Exception
@@ -296,6 +271,10 @@ public class SimpleLoader {
 
 	public void loadClasses() throws Exception{
 		System.out.println("[SL] Loading classes...");
+		for(Class c:filteredSortedClasses){
+			loadClass(c);
+		}
+		/*
 		System.out.println("[SL] Loading blocks...");
 		for(Class c:blocks){
 			loadBlock(c);
@@ -311,7 +290,7 @@ public class SimpleLoader {
 		System.out.println("[SL] Loading custom modules...");
 		for(Class c:custom){
 			loadCustomModule(c);
-		}
+		}*/
 	}
 	
 	private void loadCustomModule(Class c)throws Exception{
@@ -374,6 +353,69 @@ public class SimpleLoader {
 				m.invoke(Block);
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 * @return the classes that match 
+	 */
+	private Class[] discoverSLModules() throws Exception{
+
+		File mcdir=Minecraft.getMinecraft().mcDataDir;
+
+		String pathToDir=mcdir.getAbsolutePath(); 
+		String s=pathToDir.substring(0, pathToDir.length()-1)+"mods/"; //Get file path to mods folder
+		List<String> filenames=new ArrayList<String>(); 
+
+		File modsdir=new File(s);//get mods directory
+
+		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
+
+		for(File modzip:modsdir.listFiles()){
+			if(!modzip.isDirectory())continue;
+			for(File g:modzip.listFiles()){
+				if(!g.isDirectory())continue;
+				for(File h:g.listFiles()){
+					if(!h.isDirectory())continue;
+					for(File maybeclass:h.listFiles()){						
+						if(maybeclass.getName().endsWith(".class")||maybeclass.getName().endsWith(".java")){//filter for classes or source files
+							filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName().replaceAll("\\.java", ""));
+						}
+						if(!maybeclass.isDirectory())continue;
+						for(File level2classes:maybeclass.listFiles()){
+							if(level2classes.getName().endsWith(".class")||level2classes.getName().endsWith(".java")){
+								filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName()+"."+level2classes.getName().replaceAll("\\.java", ""));
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+
+		//System.out.println(filenames); //debug
+		Iterator<String> i=filenames.iterator();
+
+		//collect all the class names from the list
+		LinkedList<Class> classesFound=new LinkedList<Class>();
+
+
+		while(i.hasNext()){
+			try{ //if it isn't possible to load a class from a name, ignore the name
+				String classname=i.next();
+
+				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.*
+				Class c=Class.forName(classname);
+				System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
+				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it
+
+					classesFound.add(c);
+				}
+			}catch(ClassNotFoundException cnfe){continue;}//if there's a problem go on to next class
+		}
+		//System.out.println(classesFound);//debug
+		return classesFound.toArray(new Class[0]);
 	}
 	
 
