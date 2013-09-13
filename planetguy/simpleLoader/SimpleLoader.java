@@ -42,7 +42,6 @@ import net.minecraftforge.common.Property;
  */
 
 
-@SLLoad(name="__MARKER__")//good idea?
 public class SimpleLoader {
 	
 	public final Class[] moduleClasses; //unfiltered, unsorted classes
@@ -53,13 +52,12 @@ public class SimpleLoader {
 	/**
 	 * Indicates how the banList should be used.
 	 * 
-	 * 0: soft blacklist - if a depends b and only b is banned, both will load
-	 * 1: hard blacklist - if a depends b and only b is banned, neither will load
-	 * 2: soft whitelist - if a depends b and only a is listed, both will load 
-	 * 3: hard whitelist - if a depends b and only a is listed, neither will load 
+	 * 0: blacklist - nothing on list loads, modules needing banned things don't load either
+	 * 1: whitelist - nothing not on list loads, modules needing banned things don't load
+	 * 
 	 */
-	private int banMode; 
-	private String[] banList;
+	private boolean useBlacklist; 
+	private List<String> banList;
 
 	/**
 	 * IDMap contains all the config data loaded. 
@@ -73,14 +71,17 @@ public class SimpleLoader {
 		return 0;//IDMap.get(s);
 	}
 	
-	public SimpleLoader(String modname, Object modcontainer) throws Exception{
+	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
 		moduleClasses=discoverSLModules();
+		this.modname=modname;
 		this.modcontainer=modcontainer;
 		blocks=filterClassesBySuper(Block.class);
 		items=filterClassesBySuper(Item.class);
 		entities=filterClassesBySuper(Entity.class);
 		custom=filterClassesBySuper(CustomModuleLoader.class);
-		this.modname=modname;
+		setupAndReadConfig(cfg);
+		filterAndSortClasses();
+
 		//System.out.println(formatClasses(moduleClasses));
 	}
 	
@@ -106,18 +107,6 @@ public class SimpleLoader {
 		}s+="]";
 		return s;
 	}
-
-	private boolean canLoad(Class c){//another way to call canLoad, with a class instead of string
-		return canLoad(getModuleName(c));
-	}
-
-	private boolean canLoad(String s){
-		//TODO hook up banning with dependency system
-		if(banMode==0){//soft blacklist
-			
-		}
-		return true; //for now anyway
-	}
 	
 	/**
 	 * 
@@ -137,18 +126,17 @@ public class SimpleLoader {
 	 * @param config passed from the Forge
 	 * @throws Exception if anything goes wrong
 	 */
-
-	public void setupAndReadConfig(Configuration config) throws Exception{
-		Property banModeProp=config.get("[SL] Framework", "Ban list mode", 0);
+	
+	private void setupAndReadConfig(Configuration config) throws Exception{
+		Property banModeProp=config.get("[SL] Framework", "Blacklist?", 0);
 		banModeProp.comment="Ban mode: Even -> module's dependencies override whether something is permitted by the list; 0-1 -> blacklist mode";
-		banMode=banModeProp.getInt(0);
-		banList=config.get("[SL] Framework","Ban list", new String[0]).getStringList();
+		useBlacklist=banModeProp.getBoolean(true);
+		banList=Arrays.asList(config.get("[SL] Framework","Ban list", new String[0]).getStringList());
 		passLimit=config.get("[SL] Framework", "Maximum dependency passes", 10).getInt(10);
 
 		//and get config values for the game content...
 		int currentID=3980;
 		for(Class c:blocks){ //go through blocks and ask the config for an ID for each
-			if(!canLoad(c))continue;
 			int id=config.getBlock(getModuleName(c), currentID).getInt(currentID);
 			IDMap.put(getModuleName(c), id);
 			++currentID;
@@ -156,7 +144,6 @@ public class SimpleLoader {
 		}
 		currentID=8100;
 		for(Class c:items){ //do the same for items
-			if(!canLoad(c))continue;
 			int id=config.getItem(getModuleName(c), currentID).getInt(currentID);
 			IDMap.put(getModuleName(c), id);
 			++currentID;
@@ -164,19 +151,16 @@ public class SimpleLoader {
 		
 		currentID=201;
 		for(Class c:entities){//and entities
-			if(!canLoad(c))continue;
 			int id=config.get("Entities", getModuleName(c), currentID).getInt(currentID);
 			++currentID;
 		}
 		
 		for(Class c:custom){
 			System.out.println(c.getName());
-			if(!canLoad(c))continue;
 			CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
 			cml.load();
 		}
 		for(Class c:moduleClasses){
-			if(!canLoad(c))continue;
 			for(Field f:c.getDeclaredFields()){
 				SLProp prop=f.getAnnotation(SLProp.class);
 				if(prop!=null){
@@ -200,25 +184,35 @@ public class SimpleLoader {
 	}
 	
 	public void filterAndSortClasses(){
-		int pass=0; //How many passes the dependency manager has continued on.
+		int pass=0; //How many passes the dependency manager has gone over the class list.
 		ArrayList<Class> sortedClasses=new ArrayList<Class>();
 		HashSet<String> loadedClasses=new HashSet<String>();
-		ArrayDeque<Class> classes=new ArrayDeque<Class>(Arrays.asList(moduleClasses));
+		ArrayDeque<Class> classes=new ArrayDeque<Class>();
+		for(Class c:moduleClasses){
+			SLLoad sll=(SLLoad) c.getAnnotation(SLLoad.class);
+			if(useBlacklist){//blacklist mode: drop classes not loadable
+				if(!banList.contains(sll.name())){
+					classes.add(c);
+				}
+			}else{
+				if(banList.contains(sll.name())){
+					classes.add(c);
+				}
+			}
+		}
 		classes.addLast(SimpleLoader.class);
-		mainloop:
 		while(!classes.isEmpty()&&pass<passLimit){
 			Class c=classes.pop();
 			if(c==SimpleLoader.class){
 				++pass; 
-				continue mainloop;//Don't get SLLoad from SimpleLoader...
+				continue;//Don't get SLLoad from SimpleLoader, it would explode!
 			}
 			SLLoad slload=(SLLoad) c.getAnnotation(SLLoad.class);
 			boolean allowSoFar=true;
-			dependchecker:
 			for(String s:slload.dependencies()){
 				if(!loadedClasses.contains(s)){
 					allowSoFar=false;
-					break dependchecker;
+					break;
 				}
 			}
 			if(allowSoFar){
@@ -228,6 +222,8 @@ public class SimpleLoader {
 				classes.addLast(c);
 			}
 		}
+		filteredSortedClasses=sortedClasses.toArray(new Class[0]);
+		
 	}
 	
 	/**A way to filter classes by superclass (get anything extending, for example, Block)
@@ -238,7 +234,7 @@ public class SimpleLoader {
 
 	private Class[] filterClassesBySuper(Class superclass){
 		ArrayList<Class> classes=new ArrayList<Class>();
-		for(Class c:filteredSortedClasses){
+		for(Class c:moduleClasses){
 			if(superclass.isAssignableFrom(c)){
 				classes.add(c);
 			}
@@ -295,21 +291,18 @@ public class SimpleLoader {
 	
 	private void loadCustomModule(Class c)throws Exception{
 		System.out.println("[SL] Loading "+c.getName());
-		if(!canLoad(c))return;
 		CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
 		cml.load();
 	}
 	
 	private void loadEntity(Class c){
 			System.out.println("[SL] Loading "+c.getName());
-			if(!canLoad(c))return;
 			EntityRegistry.registerModEntity(c, getModuleName(c), IDMap.get(getModuleName(c)), Gizmos.instance, 80, 3, true);
 	}
 	
 	private void loadItem(Class c) throws Exception{
 		System.out.println("[SL] Loading "+c.getName());
 		Object item = null;
-		if(!canLoad(c))return;
 		Constructor[] cons=c.getConstructors();
 		for(Constructor con : cons){
 			if(con.isAnnotationPresent(SLLoad.class)){
@@ -328,7 +321,6 @@ public class SimpleLoader {
 		System.out.println("[SL] Loading "+c.getName());
 		SLLoad slload=(SLLoad) c.getAnnotation(SLLoad.class);
 		Object Block = null;
-		if(!canLoad(c))return;
 		Constructor[] cons=c.getConstructors();
 		for(Constructor con : cons){
 			if(con.isAnnotationPresent(SLLoad.class)){
@@ -390,7 +382,6 @@ public class SimpleLoader {
 
 					}
 				}
-
 			}
 		}
 

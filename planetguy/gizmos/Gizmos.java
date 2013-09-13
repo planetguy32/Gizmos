@@ -125,10 +125,10 @@ public class Gizmos {
 	//Callback from Forge
 	@PreInit
 	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
-		loader=new SimpleLoader("Gizmos",Gizmos.instance);
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
-		loader.setupAndReadConfig(config);
+		loader=new SimpleLoader("Gizmos",Gizmos.instance,config);
+
 		/*try{
 
 			Gizmos.gravityExplosivesID = config.getBlock("Explosives ID", 3981).getInt();
