@@ -17,6 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 
 import planetguy.gizmos.ReflectionHelper;
+import planetguy.simpleLoader.SLLoad;
 
 import com.google.common.collect.ImmutableList;
 
@@ -37,6 +38,7 @@ import static net.minecraftforge.common.ForgeDirection.*;
  * @author planetguy
  *
  */
+@SLLoad(name="superFire",isTechnical=true)
 public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();

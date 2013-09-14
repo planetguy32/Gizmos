@@ -1,8 +1,13 @@
 package planetguy.gizmos.tool;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SLProp;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,13 +18,29 @@ import net.minecraft.world.World;
  * @author planetguy
  *
  */
+@SLLoad(name="bombDefuser",dependencies={"Lens"})
 public class ItemBombDefuser extends Item{
 
-	//TODO read from config
-	private int[] explosivesID;
+
+	@SLProp(name = "explosivesID")
+	public static int[] explosivesID;
 	
+	@SLLoad
 	public ItemBombDefuser(int par1) {
 		super(par1);
+		ItemStack shears=new ItemStack(Item.shears);
+		ItemStack stick=new ItemStack(Item.stick);
+		ItemStack lens=new ItemStack(Gizmos.spyLens);
+		Gizmos.defuser=this.setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
+		LanguageRegistry.addName(Gizmos.defuser, "Bomb defuser");
+		ItemStack ISDefuser=new ItemStack(Gizmos.defuser);
+		GameRegistry.addRecipe(ISDefuser, new Object[]{
+				" sl",
+				" ks",
+				"k  ",
+				Character.valueOf('s'),shears,
+				Character.valueOf('k'),stick,
+				Character.valueOf('l'),lens});
 	}
 	
 	public void registerIcons(IconRegister ir){
@@ -33,8 +54,8 @@ public class ItemBombDefuser extends Item{
 			return true;
 		}
 		int id=w.getBlockId(x, y, z);
-		for(int i=0; i<Gizmos.defuseableIDs.length;i++){
-			if(Gizmos.defuseableIDs[i]==id&&thePlayer.isSneaking()){
+		for(int i=0; i<explosivesID.length;i++){
+			if(explosivesID[i]==id&&thePlayer.isSneaking()){
 	            defuse(w,x,y,z,thePlayer,stack);
 				return true;
 			}

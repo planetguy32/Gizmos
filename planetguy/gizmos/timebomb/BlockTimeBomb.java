@@ -5,6 +5,8 @@ import java.util.Random;
 
 import planetguy.gizmos.Gizmos;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -16,29 +18,67 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-
+import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SLProp;
 /**
  * Block class for the time bomb and fork bomb
  * @author bill
  *
  */
+@SLLoad(name="timeBombs",hasMetadata=true)
 public class BlockTimeBomb extends Block{
 
 	private Icon topTex;
 	private Icon bottomTex;
 	private Icon[] sideIcons=new Icon[16];
-	private final int fuse;
+	
+	@SLProp(name = "timeBombFuse")
+	public static int fuse=60;
+	
+	public static boolean allowForkBomb=true;
 
+	@SLLoad
 	public BlockTimeBomb(int id) {
 		super(id, Material.tnt);
+		System.out.println("Loading time bomb...");
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
-        fuse=Gizmos.timeExplosivesFuse*5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
+        fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
+		Gizmos.timeBomb=this;
+		Gizmos.timeExplosivesID=id;
+		Gizmos.allowFB=allowForkBomb;
+		//Item.itemsList[ Gizmos.timeExplosivesID] = new ItemTimeBomb( Gizmos.timeExplosivesID-256).setItemName("timeBombs");
+		/*
+		final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
+		for (int re = 0; re < 16; re++){
+			ItemStack oreStack = new ItemStack(Gizmos.timeBomb, 1, re);
+			LanguageRegistry.addName(oreStack, oreNames[re]);
+		}*/	
+		ItemStack itemStackTB=new ItemStack(Gizmos.timeBomb,1,0); 
+		ItemStack itemStackFB=new ItemStack(Gizmos.timeBomb,1,1);
+		ItemStack endStone=new ItemStack(Block.whiteStone);
+		
+		GameRegistry.addShapelessRecipe(itemStackTB, Block.tnt, Item.pocketSundial);
+		
+		GameRegistry.addRecipe(itemStackFB, new Object[]{
+				"EEE","ETE","EEE", 
+				Character.valueOf('T'),itemStackTB,
+				Character.valueOf('E'),endStone});
 	} 
+	
+	@SLLoad
+	public static void doStuff(){
+		final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
+		for (int re = 0; re < 16; re++){
+			ItemStack oreStack = new ItemStack(Gizmos.timeBomb, 1, re);
+			LanguageRegistry.addName(oreStack, oreNames[re]);
+		}
+	}
 	
 	public int tickRate(){
 		return fuse; 
@@ -101,6 +141,7 @@ public class BlockTimeBomb extends Block{
     	}    	
 	}    
 	
+	@Override
     public void onBlockDestroyedByPlayer(World w, int x, int y, int z, int meta) {
     	fork(w,x,y,z,meta);
     	if(meta%2==0){
@@ -109,6 +150,7 @@ public class BlockTimeBomb extends Block{
     }
 
     
+	@Override
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9){
     	fork(w,x,y,z);
     	return true;

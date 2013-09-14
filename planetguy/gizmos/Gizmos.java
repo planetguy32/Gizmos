@@ -1,5 +1,6 @@
 package planetguy.gizmos;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -205,11 +206,17 @@ public class Gizmos {
 			((LoaderNode) ln).loadRecursively();
 		}
 		*/	
+        
+        //debug: after SL initializes everything, print out what is and isn't null.
+        Class c=this.getClass();
+        for(Field f:c.getDeclaredFields()){
+        	dbg(">>Field:"+f.getName()+", value:"+f.get(this));
+        }
 	}
 	
 	public static void dbg(String text){ //less-wordy way to print a message to console
 		if(text==null)text="<null>";
-		FMLLog.getLogger().log(Level.INFO, text);
+		FMLLog.log("Gizmos",Level.INFO, text);
 	}
 
 }

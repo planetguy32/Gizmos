@@ -1,6 +1,7 @@
 package planetguy.gizmos.tool;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 
-
+@SLLoad(name="minersLighter",dependencies={"superFire"})
 public class ItemMinersLighter extends ItemInteractDevice{
 
 	public ItemMinersLighter(int par1) {

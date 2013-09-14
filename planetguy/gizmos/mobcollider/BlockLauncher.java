@@ -1,6 +1,7 @@
 package planetguy.gizmos.mobcollider;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -9,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
+@SLLoad(name="launcher")
 public class BlockLauncher extends Block{
 
 	public BlockLauncher(int par1) {

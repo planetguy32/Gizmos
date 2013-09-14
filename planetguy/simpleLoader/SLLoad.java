@@ -22,8 +22,7 @@ public @interface SLLoad {
 	String name() default "unnamed"; 
 	String[] dependencies() default {};
 	boolean hasMetadata() default false;
-	boolean isTechnical() default false; //Do not load automatically in SL, whatever depends on it will load it. TODO make it actually do so
-	String parent() default "**none**";//If it is changed, annotated class loads if and only if parent loads.
+	boolean isTechnical() default false; //Should exist only as dependency. TODO make it actually do so
 	String itemClass() default "planetguy.simpleLoader.SLItemBlock";
 	
 

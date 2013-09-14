@@ -1,6 +1,7 @@
 package planetguy.gizmos.tool;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-
+@SLLoad(name="deforestator",dependencies={"forestFire"})
 public class ItemDeforester extends ItemInteractDevice{
 
 	public ItemDeforester(int par1) {

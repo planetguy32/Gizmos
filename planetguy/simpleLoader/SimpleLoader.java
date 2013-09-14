@@ -156,7 +156,7 @@ public class SimpleLoader {
 		}
 		
 		for(Class c:custom){
-			System.out.println(c.getName());
+			//System.out.println(c.getName());
 			CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
 			cml.load();
 		}
@@ -174,8 +174,12 @@ public class SimpleLoader {
 						f.setDouble(null, config.get(category, key, (Double) defaultVal).getDouble((Double) defaultVal));
 					}else if(f.getGenericType().toString()=="class java.lang.String"){
 						f.set(null, config.get(category, key, (String) defaultVal).getString());
-					}else{
+					}else if(f.getGenericType().toString()=="class [Ljava.lang.String;"){
 						f.set(null, config.get(category, key, (String[]) defaultVal).getStringList());
+					}else if(f.getGenericType().toString()=="class [I"){
+						f.set(null, config.get(category, key, (int[]) defaultVal).getIntList());
+					}else if(f.getGenericType().toString()=="class [D"){
+						f.set(null, config.get(category, key, (double[]) defaultVal).getDoubleList());
 					}
 
 				}
@@ -201,10 +205,13 @@ public class SimpleLoader {
 			}
 		}
 		classes.addLast(SimpleLoader.class);
-		while(!classes.isEmpty()&&pass<passLimit){
+		int seq=0;
+		while(!classes.isEmpty()&&pass<passLimit&&seq<1000){
+			++seq;
 			Class c=classes.pop();
 			if(c==SimpleLoader.class){
 				++pass; 
+				classes.addLast(SimpleLoader.class);
 				continue;//Don't get SLLoad from SimpleLoader, it would explode!
 			}
 			SLLoad slload=(SLLoad) c.getAnnotation(SLLoad.class);
@@ -223,7 +230,7 @@ public class SimpleLoader {
 			}
 		}
 		filteredSortedClasses=sortedClasses.toArray(new Class[0]);
-		
+		System.out.println("Classes not loaded: "+classes.toString());
 	}
 	
 	/**A way to filter classes by superclass (get anything extending, for example, Block)
@@ -398,7 +405,7 @@ public class SimpleLoader {
 
 				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.*
 				Class c=Class.forName(classname);
-				System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
+				//System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
 				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it
 
 					classesFound.add(c);

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.GizmosItem;
+import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+@SLLoad(name="temporalDislocator")
 public class ItemBlockTicker extends GizmosItem{
 
 	private final int TICKS_PER_MINUTE=20*60;

@@ -32,7 +32,7 @@ import net.minecraftforge.common.ForgeDirection;
 import static net.minecraftforge.common.ForgeDirection.*;
 
 
-@SLLoad(name="GravityBomb",hasMetadata=true)
+@SLLoad(name="GravityBomb",hasMetadata=true,dependencies={"entityGravityBomb","entityTunnelBomb",})
 public class BlockGraviBomb extends Block
 {
 	private int id;
@@ -44,6 +44,7 @@ public class BlockGraviBomb extends Block
 	@SLLoad
 	public BlockGraviBomb(int id){
 		super(id,  Material.tnt);
+		LanguageRegistry.addName(this, "Gravity Bomb");
 		this.id=id;
 		SLItemBlock.registerString(id, 0, "Gravity Bomb", new String[] {"Falls as far as it can,","explodes where it lands"});
 		SLItemBlock.registerString(id, 1, "Excavator Bomb", new String[] {"Falls for a set time,","explodes each time it lands"});

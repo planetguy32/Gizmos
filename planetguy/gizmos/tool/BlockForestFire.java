@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import planetguy.simpleLoader.SLLoad;
+
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -7,6 +9,8 @@ import com.google.common.collect.ImmutableList;
  * @author planetguy
  *
  */
+@SLLoad(name="forestFire",isTechnical=true)
+
 public class BlockForestFire extends BlockSuperFire{
 
 	public BlockForestFire(int id, int texture) {

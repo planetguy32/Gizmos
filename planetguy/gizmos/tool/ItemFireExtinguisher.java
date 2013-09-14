@@ -3,6 +3,7 @@ package planetguy.gizmos.tool;
 import java.lang.reflect.Field;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -19,6 +20,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+
+@SLLoad(name="fireExtinguisher")
 
 public class ItemFireExtinguisher extends Item{
 	

@@ -24,7 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="invenswapper",hasMetadata=true)
+@SLLoad(name="invenswapper",hasMetadata=true,dependencies={"invenswapperTop"})
 public class BlockInvenswapperBase extends BlockContainer{
 	
 	private Icon[] icons=new Icon[3];

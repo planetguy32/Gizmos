@@ -2,6 +2,7 @@ package planetguy.gizmos.tool;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLLoad;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+@SLLoad(name="buildTool",dependencies={"inserter"})
 public class ItemBuildTool extends ItemPickaxe{
 
 	private final int myID;
