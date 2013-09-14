@@ -22,7 +22,7 @@ public @interface SLLoad {
 	String name() default "unnamed"; 
 	String[] dependencies() default {};
 	boolean hasMetadata() default false;
-	boolean isTechnical() default false; //Should exist only as dependency. TODO make it actually do so
+	boolean isTechnical() default false;
 	String itemClass() default "planetguy.simpleLoader.SLItemBlock";
 	
 

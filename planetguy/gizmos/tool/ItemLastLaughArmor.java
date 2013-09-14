@@ -1,5 +1,6 @@
 package planetguy.gizmos.tool;
 
+import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -16,6 +17,7 @@ public class ItemLastLaughArmor extends ItemArmor{
 	public ItemLastLaughArmor(int id,EnumArmorMaterial par2EnumArmorMaterial, int renderIndex, int armorType) {
 		super(id, par2EnumArmorMaterial, renderIndex, armorType);
 		setUnlocalizedName("lastLaugh");
+		Gizmos.lastLaughChestplate=this;
 		LanguageRegistry.addName(this, "Last laugh armor");
 	}
 	

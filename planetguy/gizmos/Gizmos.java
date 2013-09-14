@@ -47,7 +47,7 @@ import net.minecraftforge.common.Property;
 /**
  * 
  * @author planetguy
- *The Gizmos main class and API (sort of). Contains references to all blocks, items and IDs.
+ *The Gizmos main class. Contains references to some blocks and items.
  *
  */
 @Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.0")

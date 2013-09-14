@@ -28,13 +28,12 @@ public class BlockCESBomb extends BlockContainer{
 	@SLLoad
 	public BlockCESBomb(int blockID) {
 		super(blockID, Material.tnt);
+		BlockCESBomb.instance=(BlockCESBomb) this.setCreativeTab(CreativeTabs.tabRedstone);
 		LanguageRegistry.addName(this, "CES base [TEST]");
 	}
 	
 	@SLLoad
 	public static void loadMore(){
-		BlockCESBomb.instance=new BlockCESBomb(Gizmos.baseBombID);
-		BlockCESBomb.instance.setCreativeTab(CreativeTabs.tabRedstone);
 		Powerup.registerPowerup(new PowerupDebug(),(byte) 0);
 		Powerup.registerPowerup(new PowerupExplodeOnImpact(),(byte) 1);
 		Powerup.registerPowerup(new PowerupFall(),(byte) 2);
