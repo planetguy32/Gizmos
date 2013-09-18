@@ -31,7 +31,7 @@ public class BlockCESBomb extends BlockContainer{
 		BlockCESBomb.instance=(BlockCESBomb) this.setCreativeTab(CreativeTabs.tabRedstone);
 		LanguageRegistry.addName(this, "CES base [TEST]");
 	}
-	
+		
 	@SLLoad
 	public static void loadMore(){
 		Powerup.registerPowerup(new PowerupDebug(),(byte) 0);
@@ -41,7 +41,10 @@ public class BlockCESBomb extends BlockContainer{
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntityCESBomb();
+		TileEntityCESBomb te=new TileEntityCESBomb();
+		te.getCESContainer().addPowerup(Powerup.powerups[0]);
+		te.getCESContainer().addPowerup(Powerup.powerups[1]);
+		return te;
 	}
 	
 	public void explode(TileEntityCESBomb teBomb){
@@ -80,6 +83,7 @@ public class BlockCESBomb extends BlockContainer{
 		w.scheduleBlockUpdate(x, y, z, this.blockID, 2);
 	}
 	
+	@Override
     public void updateTick(World w, int x, int y, int z, Random rand) {
 		TileEntityCESBomb bomb=((TileEntityCESBomb)(w.getBlockTileEntity(x, y, z)));
 		for(Powerup p:bomb.cesContainer.getInstalledPowerups()){

@@ -2,6 +2,7 @@ package planetguy.gizmos.CES.powerups;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.CES.BlockCESBomb;
+import planetguy.gizmos.CES.CESContainer;
 import planetguy.gizmos.CES.TileEntityCESBomb;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

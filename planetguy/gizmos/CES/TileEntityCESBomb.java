@@ -27,6 +27,10 @@ public class TileEntityCESBomb extends TileEntity implements Cloneable{
 
 	public CESContainer cesContainer;
 	
+	public CESContainer getCESContainer(){
+		return this.cesContainer;
+	}
+	
 	public TileEntityCESBomb copy(){
 		NBTTagCompound tag=new NBTTagCompound();
 		super.writeToNBT(tag);

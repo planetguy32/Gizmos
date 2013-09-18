@@ -23,7 +23,7 @@ public class PowerupFall extends Powerup{
 	@Override
     public void onBlockUpdate(World w, int x, int y, int z, Random rand,TileEntityCESBomb bomb) {
 		System.out.println("Falling?");
-		if(true){//BlockSand.canFallBelow(w, x, y, z)){
+		if(BlockSand.canFallBelow(w, x, y-1, z)){
 			System.out.println("Falling!");
 			BlockCESBomb.instance.explode(bomb);
 		}
