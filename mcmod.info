@@ -1,8 +1,8 @@
 [
 {
-	"modid": "planetguy_Gizmos",
+	"modid": "planetguy_gizmos",
 	"name": "Gizmos",
-	"description": "Random stuff I added, much of which will kill you.",
+	"description": "A pile of random stuff",
 	"version": "latest",
 	"credits": "Wuppy29, the Forge wiki people, Lesothos and Markarthian, Qwertygiy, XentosStride",
 	"authors": "Planetguy",

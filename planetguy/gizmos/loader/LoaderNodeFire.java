@@ -29,8 +29,8 @@ public class LoaderNodeFire extends LoaderNode{
 		
 		Gizmos.deforestator = new ItemDeforester(Gizmos.netherLighterID).setUnlocalizedName("netherLighter");
 		Gizmos.mlighter = new ItemMinersLighter(Gizmos.minerLighterID).setUnlocalizedName("minersLighter");
-		Gizmos.geoFire = new BlockSuperFire(Gizmos.geoFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
-		Gizmos.forestFire = new BlockForestFire(Gizmos.forestFireID, 31).setUnlocalizedName("woodFire").setHardness(0.0F).setLightValue(1.0F);
+		//Gizmos.geoFire = new BlockSuperFire(Gizmos.geoFireID, 31).setUnlocalizedName("doomFire").setHardness(0.0F).setLightValue(1.0F);
+		//Gizmos.forestFire = new BlockForestFire(Gizmos.forestFireID, 31).setUnlocalizedName("woodFire").setHardness(0.0F).setLightValue(1.0F);
 
 		GameRegistry.registerBlock(Gizmos.geoFire, ItemBlock.class, "doomFire");
 		

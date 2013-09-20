@@ -1,4 +1,4 @@
-package planetguy.gizmos.mobcollider;
+package planetguy.gizmos.motiontools;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

@@ -18,6 +18,7 @@ public class ItemBuildTool extends ItemPickaxe{
 
 	private final int myID;
 
+	@SLLoad
 	public ItemBuildTool(int par1) {
 		super(par1, EnumToolMaterial.EMERALD);
 		myID=par1;

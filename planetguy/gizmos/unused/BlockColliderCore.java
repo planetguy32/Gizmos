@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import planetguy.gizmos.Gizmos;
-import planetguy.gizmos.mobcollider.ColliderRecipe;
+import planetguy.gizmos.motiontools.ColliderRecipe;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

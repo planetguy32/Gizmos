@@ -1,18 +1,23 @@
 Gizmos
-======
+========
 
-A technologially oriented Minecraft mod that adds several ways for you to blow up your friends:
-  Time bomb: Explodes after a set time
-  Fork bomb: Time bomb that duplicates when broken
-  Gravity bomb: Bomb that falls if there is nothing under it and explodes when it hits the ground
-  Tunnel bomb: Gravity bomb that explodes repeatedly whenever it hits bottom
-  Deforestator: Creates magical fire that burns only trees and similar blocks.
-  Miner's lighter: Creates magical fire that burns only gravel and lava. Don't use in the nether.
-  Temporal Dislocator: Causes target block to experience several minutes of time flow instantaneously.
-  Spy lab: Allows hiding things inside tools. Hide gunpowder or spider eyes in your neighbor's tools and let the show begin! (Watch from far away. No, really.)
-  Accelerator: Anything standing on this bad boy has its velocity INCREASED.
-  Launcher: Sends anything that passes through it flying upwards.
-  Collider core: It no work yet. May be removed eventually unless someone really wants it.
+A Minecraft mod of the "anything goes" persuasion.
 
+Gizmos includes:
++ several forms of explosives (planetguy.gizmos.gravitybomb, planetguy.gizmos.timebomb, planetguy.gizmos.inserter (indirectly), planetguy.gizmos.CES (not in a working state))
++ a machine to hide items in any other item (planetguy.gizmos.inserter)
++ devices to speed up and throw anything that moves (planetguy.gizmos.motiontools)
++ devices to quickly ~~lag you to death~~ remove adjacent groups trees or mining hazards. Warranty void if used in jungle biomes. (planetguy.gizmos.tool.ItemDeforester, planetguy.gizmos.tool.ItemMinersLighter)
++ a device to make machines work faster (planetguy.gizmos.tool.ItemBlockTicker)
++ a device to remove the dastardly device of destruction that is the Fork Bomb (planetguy.gizmos.tool.ItemBombDefuser)
++ machines that will quickly and painlessly switch out your ~~victim's~~ inventory (planetguy.gizmos.invUtils)
++ a fire extinguisher that works on blazes, including the fireball-flinging kind (planetguy.gizmos.tool.ItemFireExtinguisher)
++ a tool that lets you place blocks but works as a pickaxe, saving inventory space (planetguy.gizmos.tool.ItemBuildTool)
++ a block that you can reach through to use whatever is behind it (planetguy.invUtils.BlockTelekinesisCatalyst)
++ a tweak that lets modpack users raise the relative occurance of vanilla Minecraft flowers, so they aren't swamped by mod flowers (planetguy.sltweaks.FlowerFix)
++ a tweak that allows nether portals to be made in any size or shape (planetguy.sltweaks.PortalLiberator)
++ lotsa stuff that doesn't work/was a bad idea to begin with
 
-This repo also includes FlowerFix which was too small for its own repository. FlowerFix allows the generation rates of vanilla flowers to be increased. Useful to stop them being lost between mod flowers adding themselves to bone meal, or for equalizing red and yellow flower spawn rates.
+##SimpleLoader##
+
+Since some server administrators might want to disable some Gizmos items for various reasons, Gizmos has a rather special loading setup, SimpleLoader, which is designed to allow each item to be disabled separately (also disabling its dependencies). The loading infrastructure can be found in the package planetguy.simpleLoader.

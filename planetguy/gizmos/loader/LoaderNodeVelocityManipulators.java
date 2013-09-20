@@ -4,8 +4,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import planetguy.gizmos.Gizmos;
-import planetguy.gizmos.mobcollider.BlockAccelerator;
-import planetguy.gizmos.mobcollider.BlockLauncher;
+import planetguy.gizmos.motiontools.BlockAccelerator;
+import planetguy.gizmos.motiontools.BlockLauncher;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 

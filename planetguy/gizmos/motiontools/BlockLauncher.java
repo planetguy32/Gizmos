@@ -1,4 +1,4 @@
-package planetguy.gizmos.mobcollider;
+package planetguy.gizmos.motiontools;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;

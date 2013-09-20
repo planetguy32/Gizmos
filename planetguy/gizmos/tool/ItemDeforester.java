@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 @SLLoad(name="deforestator",dependencies={"forestFire"})
 public class ItemDeforester extends ItemInteractDevice{
 
+	@SLLoad
 	public ItemDeforester(int par1) {
 		super(par1);
 	}

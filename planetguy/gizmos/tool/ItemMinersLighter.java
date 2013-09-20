@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 @SLLoad(name="minersLighter",dependencies={"superFire"})
 public class ItemMinersLighter extends ItemInteractDevice{
 
+	@SLLoad
 	public ItemMinersLighter(int par1) {
 		super(par1);
 	}

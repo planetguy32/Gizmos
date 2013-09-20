@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 
 public class ItemFireExtinguisher extends Item{
 	
+	@SLLoad
 	public ItemFireExtinguisher(int par1) {
 		super(par1);
 		this.setMaxStackSize(1);

@@ -1,4 +1,4 @@
-package planetguy.gizmos.mobcollider;
+package planetguy.gizmos.motiontools;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;

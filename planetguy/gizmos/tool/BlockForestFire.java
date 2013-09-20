@@ -1,5 +1,6 @@
 package planetguy.gizmos.tool;
 
+import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 
 import com.google.common.collect.ImmutableList;
@@ -13,8 +14,10 @@ import com.google.common.collect.ImmutableList;
 
 public class BlockForestFire extends BlockSuperFire{
 
-	public BlockForestFire(int id, int texture) {
-		super(id, texture);
+	@SLLoad
+	public BlockForestFire(int id) {
+		super(id);
+		Gizmos.forestFire=this;
 		targetBlocks=ImmutableList.of(17, 18, 31, 106);
 	}
 
