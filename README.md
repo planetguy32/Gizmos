@@ -9,7 +9,7 @@ Gizmos includes:
 + devices to speed up and throw anything that moves (planetguy.gizmos.motiontools)
 + devices to quickly ~~lag you to death~~ remove adjacent groups trees or mining hazards. Warranty void if used in jungle biomes. (planetguy.gizmos.tool.ItemDeforester, planetguy.gizmos.tool.ItemMinersLighter)
 + a device to make machines work faster (planetguy.gizmos.tool.ItemBlockTicker)
-+ a device to remove the dastardly device of destruction that is the Fork Bomb (planetguy.gizmos.tool.ItemBombDefuser)
++ a device to delete the dastardly device of destruction that is the Fork Bomb (planetguy.gizmos.tool.ItemBombDefuser)
 + machines that will quickly and painlessly switch out your ~~victim's~~ inventory (planetguy.gizmos.invUtils)
 + a fire extinguisher that works on blazes, including the fireball-flinging kind (planetguy.gizmos.tool.ItemFireExtinguisher)
 + a tool that lets you place blocks but works as a pickaxe, saving inventory space (planetguy.gizmos.tool.ItemBuildTool)
