@@ -27,7 +27,7 @@ public class ItemLens extends GizmosItem{
 	@SLLoad
 	public ItemLens(int id) {
 		super(id);
-		Gizmos.spyLens=this;
+		Gizmos.Lens=this;
 		this.setUnlocalizedName("spyLens");
 		ItemStack glass=new ItemStack(Block.glass);
 		ItemStack iron = new ItemStack(Item.ingotIron);

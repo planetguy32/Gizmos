@@ -17,7 +17,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 
 import planetguy.gizmos.Gizmos;
-import planetguy.gizmos.ReflectionHelper;
 import planetguy.simpleLoader.SLLoad;
 
 import com.google.common.collect.ImmutableList;
@@ -53,16 +52,7 @@ public class BlockSuperFire extends BlockFire{
 	@SLLoad
 	public BlockSuperFire(int id){
 		super(id);
-		try{
-			Gizmos.geoFire=this;
-			Class fireClass=Block.fire.getClass();
-			Field f=fireClass.getDeclaredField(ReflectionHelper.reflectionStrings[0]);
-			f.setAccessible(true);
-			targetBlocks=earthBlocks;
-			this.fireIcons=(Icon[]) f.get(Block.fire); //Steal icons from BlockFire (Doesn't work properly)
-		}catch(Exception e){
-			//e.printStackTrace(); //Unnecessary since I'm fed up with blockFire not working
-		}
+		
 	}
 	
 	

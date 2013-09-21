@@ -49,18 +49,16 @@ public class BlockTimeBomb extends Block{
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
         fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
-		Gizmos.timeBomb=this;
-		Gizmos.timeExplosivesID=id;
-		Gizmos.allowFB=allowForkBomb;
-		//Item.itemsList[ Gizmos.timeExplosivesID] = new ItemTimeBomb( Gizmos.timeExplosivesID-256).setItemName("timeBombs");
+		Gizmos.timeBombs=this;
+		//Item.itemsList[ this.blockID] = new ItemTimeBomb( this.blockID-256).setItemName("timeBombs");
 		/*
 		final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
 		for (int re = 0; re < 16; re++){
 			ItemStack oreStack = new ItemStack(Gizmos.timeBomb, 1, re);
 			LanguageRegistry.addName(oreStack, oreNames[re]);
 		}*/	
-		ItemStack itemStackTB=new ItemStack(Gizmos.timeBomb,1,0); 
-		ItemStack itemStackFB=new ItemStack(Gizmos.timeBomb,1,1);
+		ItemStack itemStackTB=new ItemStack(Gizmos.timeBombs,1,0); 
+		ItemStack itemStackFB=new ItemStack(Gizmos.timeBombs,1,1);
 		ItemStack endStone=new ItemStack(Block.whiteStone);
 		
 		GameRegistry.addShapelessRecipe(itemStackTB, Block.tnt, Item.pocketSundial);
@@ -75,7 +73,7 @@ public class BlockTimeBomb extends Block{
 	public static void doStuff(){
 		final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};
 		for (int re = 0; re < 16; re++){
-			ItemStack oreStack = new ItemStack(Gizmos.timeBomb, 1, re);
+			ItemStack oreStack = new ItemStack(Gizmos.timeBombs, 1, re);
 			LanguageRegistry.addName(oreStack, oreNames[re]);
 		}
 	}
@@ -171,26 +169,26 @@ public class BlockTimeBomb extends Block{
      */
     
     private void fork(World w, int x, int y, int z, int meta){
-    	if(meta%2!=1||!Gizmos.allowFB){
+    	if(meta%2!=1){
     		return;
     	}
     	if(w.getBlockMaterial(x+1, y, z)==Material.air){
-    		w.setBlock(x+1, y, z, Gizmos.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x+1, y, z, this.blockID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x-1, y, z)==Material.air){
-    		w.setBlock(x-1, y, z, Gizmos.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x-1, y, z, this.blockID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		w.setBlock(x, y+1, z, Gizmos.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y+1, z, this.blockID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y-1, z)==Material.air){
-    		w.setBlock(x, y-1, z, Gizmos.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y-1, z, this.blockID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y, z+1)==Material.air){
-    		w.setBlock(x, y, z+1, Gizmos.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y, z+1, this.blockID, meta, 0x02);
     	}
     	if(w.getBlockMaterial(x, y, z-1)==Material.air){
-    		w.setBlock(x, y, z-1, Gizmos.timeExplosivesID, meta, 0x02);
+    		w.setBlock(x, y, z-1, this.blockID, meta, 0x02);
     	}
     }
     	

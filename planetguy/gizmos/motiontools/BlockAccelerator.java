@@ -21,9 +21,9 @@ public class BlockAccelerator extends Block{
 	public BlockAccelerator(int par1) {
 		super(par1,Material.glass);
 		this.slipperiness=Gizmos.accelRate;
-		Gizmos.particleAccelerator=this.setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
-		GameRegistry.registerBlock(Gizmos.particleAccelerator, ItemBlock.class, "accelerator");
-		LanguageRegistry.instance().addName(Gizmos.particleAccelerator, "Accelerator");
+		Gizmos.accelerator=this.setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
+		GameRegistry.registerBlock(Gizmos.accelerator, ItemBlock.class, "accelerator");
+		LanguageRegistry.instance().addName(Gizmos.accelerator, "Accelerator");
 	}
 	
 	public void registerIcons(IconRegister ir){

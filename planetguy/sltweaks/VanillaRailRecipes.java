@@ -7,7 +7,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLLoad;
 
-@SLLoad(name="railRecipeReverter+")
+@SLLoad(name="railRecipeReverter")
 public class VanillaRailRecipes extends CustomModuleLoader{
 
 	@Override

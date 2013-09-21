@@ -43,7 +43,7 @@ public class BlockColliderCore  extends Block{
 	}
 	
 	public void onBlockAdded(World par1World, int par2, int par3, int par4){
-		par1World.scheduleBlockUpdate(par2, par3, par4, Gizmos.colliderID, tickRate);
+	//	par1World.scheduleBlockUpdate(par2, par3, par4, Gizmos.colliderID, tickRate);
 	}
 	
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z){
@@ -78,7 +78,7 @@ public class BlockColliderCore  extends Block{
 		//System.out.println("Clearing entities in collider core");
 		current1=null;
 		current2=null;
-		par1World.scheduleBlockUpdate(par2, par3, par4, Gizmos.colliderID, tickRate);
+		//par1World.scheduleBlockUpdate(par2, par3, par4, Gizmos.colliderID, tickRate);
 	}
 	
 	private double sq(double a){

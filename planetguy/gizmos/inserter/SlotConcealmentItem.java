@@ -27,7 +27,7 @@ public class SlotConcealmentItem extends Slot{
 		if(type==TYPE_TOOL_IN||type==TYPE_TOOL_OUT){
 			return i.getMaxStackSize()==1;
 		}else{
-			return Gizmos.nerfHiding ? i.stackSize==1 : true;
+			return BlockInserter.nerfHiding ? i.stackSize==1 : true;
 		}
 	}
 	

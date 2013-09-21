@@ -30,10 +30,10 @@ public class ItemBombDefuser extends Item{
 		super(par1);
 		ItemStack shears=new ItemStack(Item.shears);
 		ItemStack stick=new ItemStack(Item.stick);
-		ItemStack lens=new ItemStack(Gizmos.spyLens);
-		Gizmos.defuser=this.setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
-		LanguageRegistry.addName(Gizmos.defuser, "Bomb defuser");
-		ItemStack ISDefuser=new ItemStack(Gizmos.defuser);
+		ItemStack lens=new ItemStack(Gizmos.Lens);
+		this.setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
+		LanguageRegistry.addName(this, "Bomb defuser");
+		ItemStack ISDefuser=new ItemStack(this);
 		GameRegistry.addRecipe(ISDefuser, new Object[]{
 				" sl",
 				" ks",

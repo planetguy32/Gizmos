@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SLProp;
 import planetguy.simpleLoader.SimpleLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -31,6 +32,9 @@ import net.minecraft.world.World;
 @SLLoad(name="inserter")
 public class BlockInserter extends Block{
 	
+	@SLProp(name="limitQuantityHideable")
+	public static boolean nerfHiding;
+	
 	public Icon sides;
 	public Icon top;
 
@@ -43,7 +47,7 @@ public class BlockInserter extends Block{
 			e.printStackTrace();
 		}
 		this.setUnlocalizedName("spyLab");
-		ItemStack lens=new ItemStack(Gizmos.spyLens);
+		ItemStack lens=new ItemStack(Gizmos.Lens);
 		ItemStack wood=new ItemStack(Block.planks);
 		ItemStack blockIron=new ItemStack(Block.blocksList[42]);
 		ItemStack crafter=new ItemStack(Block.workbench);

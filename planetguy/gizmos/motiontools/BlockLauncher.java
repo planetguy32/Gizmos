@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SLProp;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -16,6 +17,9 @@ import net.minecraft.world.World;
 @SLLoad(name="launcher")
 public class BlockLauncher extends Block{
 
+	@SLProp(name="launcherPower")
+	public static double launcherPower=10D;
+	
 	@SLLoad
 	public BlockLauncher(int par1) {
 		super(par1, Material.ice);
@@ -36,7 +40,7 @@ public class BlockLauncher extends Block{
 	@Override
 	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity e){
 		//System.out.println(e);
-		e.motionY+=Gizmos.launcherPower/5D;
+		e.motionY+=launcherPower/5D;
 	}
 
 }

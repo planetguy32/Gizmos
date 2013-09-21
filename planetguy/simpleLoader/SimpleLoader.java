@@ -43,7 +43,7 @@ import net.minecraftforge.common.Property;
 
 
 public class SimpleLoader {
-	
+
 	public final Class[] moduleClasses; //unfiltered, unsorted classes
 	public Class[] filteredSortedClasses;
 	public final Class[] blocks,items,entities,custom;
@@ -65,12 +65,12 @@ public class SimpleLoader {
 
 	private HashMap<String,Integer> IDMap=new HashMap<String,Integer>();
 	private int passLimit;
-	
+
 	public int lookupInt(String s){
 		System.out.println(IDMap.containsKey(s));
 		return 0;//IDMap.get(s);
 	}
-	
+
 	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
 		moduleClasses=discoverSLModules();
 		this.modname=modname;
@@ -84,7 +84,7 @@ public class SimpleLoader {
 
 		//System.out.println(formatClasses(moduleClasses));
 	}
-	
+
 	/**Utility method to get the module name of a class
 	 * 
 	 * @param c class to get module name from
@@ -107,12 +107,12 @@ public class SimpleLoader {
 		}s+="]";
 		return s;
 	}
-	
+
 	/**
 	 * 
 	 * @return the names of modules to be loaded
 	 */
-	
+
 	public String[] getModuleNames(){
 		LinkedList<String> moduleNames=new LinkedList<String>();
 		for(Class c:moduleClasses){
@@ -120,13 +120,13 @@ public class SimpleLoader {
 		}
 		return moduleNames.toArray(new String[0]);
 	}
-	
+
 	/**
 	 * Gets Forge config options for SL framework stuff, properties marked to fill with @SLProp and any IDs needed by modules
 	 * @param config passed from the Forge
 	 * @throws Exception if anything goes wrong
 	 */
-	
+
 	private void setupAndReadConfig(Configuration config) throws Exception{
 		Property banModeProp=config.get("[SL] Framework", "Blacklist?", 0);
 		banModeProp.comment="Ban mode: Even -> module's dependencies override whether something is permitted by the list; 0-1 -> blacklist mode";
@@ -148,13 +148,13 @@ public class SimpleLoader {
 			IDMap.put(getModuleName(c), id);
 			++currentID;
 		}
-		
+
 		currentID=201;
 		for(Class c:entities){//and entities
 			int id=config.get("Entities", getModuleName(c), currentID).getInt(currentID);
 			++currentID;
 		}
-		
+
 		for(Class c:custom){
 			//System.out.println(c.getName());
 			CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
@@ -186,7 +186,7 @@ public class SimpleLoader {
 			}
 		}
 	}
-	
+
 	public void filterAndSortClasses(){
 		int pass=0; //How many passes the dependency manager has gone over the class list.
 		ArrayList<Class> sortedClasses=new ArrayList<Class>();
@@ -232,7 +232,7 @@ public class SimpleLoader {
 		filteredSortedClasses=sortedClasses.toArray(new Class[0]);
 		System.out.println("Classes not loaded: "+classes.toString());
 	}
-	
+
 	/**A way to filter classes by superclass (get anything extending, for example, Block)
 	 * 
 	 * @param superclass the class to filter by
@@ -248,13 +248,13 @@ public class SimpleLoader {
 		}
 		return classes.toArray(new Class[0]);
 	}
-	
+
 	/**A way to load a single class with @SLLoad. DANGER: BYPASSES DEPENDENCY MANAGEMENT!
 	 * 
 	 * @param c
 	 * @throws Exception
 	 */
-	
+
 	public void loadClass(Class c) throws Exception{
 		if(Block.class.isAssignableFrom(c)){
 			loadBlock(c);
@@ -266,7 +266,7 @@ public class SimpleLoader {
 			loadCustomModule(c);
 		}
 	}
-	
+
 	/**
 	 * Loads all the classes in SL's arrays of classes to load
 	 * @throws Exception
@@ -295,18 +295,20 @@ public class SimpleLoader {
 			loadCustomModule(c);
 		}*/
 	}
-	
+
 	private void loadCustomModule(Class c)throws Exception{
 		System.out.println("[SL] Loading "+c.getName());
 		CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
+		Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
+		f.set(modcontainer,cml);
 		cml.load();
 	}
-	
+
 	private void loadEntity(Class c){
-			System.out.println("[SL] Loading "+c.getName());
-			EntityRegistry.registerModEntity(c, getModuleName(c), IDMap.get(getModuleName(c)), Gizmos.instance, 80, 3, true);
+		System.out.println("[SL] Loading "+c.getName());
+		EntityRegistry.registerModEntity(c, getModuleName(c), IDMap.get(getModuleName(c)), Gizmos.instance, 80, 3, true);
 	}
-	
+
 	private void loadItem(Class c) throws Exception{
 		System.out.println("[SL] Loading "+c.getName());
 		Object item = null;
@@ -315,6 +317,8 @@ public class SimpleLoader {
 			if(con.isAnnotationPresent(SLLoad.class)){
 				item=con.newInstance(IDMap.get(getModuleName(c)));
 				GameRegistry.registerItem((Item)item, modname+"."+getModuleName(c));
+				Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
+				f.set(modcontainer,item);
 			}
 		}
 		for(Method m:c.getMethods()){
@@ -332,7 +336,9 @@ public class SimpleLoader {
 		for(Constructor con : cons){
 			if(con.isAnnotationPresent(SLLoad.class)){
 				try{
-				Block=con.newInstance(IDMap.get(getModuleName(c)));
+					Block=con.newInstance(IDMap.get(getModuleName(c)));
+					Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
+					f.set(modcontainer,Block);
 				}catch(Exception e){
 					e.printStackTrace();
 					System.out.println(c.getName());
@@ -341,10 +347,10 @@ public class SimpleLoader {
 
 				GameRegistry.registerBlock((Block) Block, 
 						(Class<? extends ItemBlock>)
-								(slload.hasMetadata()||slload.itemClass()!="net.minecraft.item.ItemBlockWithMetadata"? 
+						(slload.hasMetadata()||slload.itemClass()!="net.minecraft.item.ItemBlockWithMetadata"? 
 								Class.forName(slload.itemClass()) 
 								: ItemBlock.class),
-						modname+"."+getModuleName(c));
+								modname+"."+getModuleName(c));
 			}
 		}
 		for(Method m:c.getMethods()){
@@ -353,7 +359,7 @@ public class SimpleLoader {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @return the classes that match 
@@ -415,6 +421,6 @@ public class SimpleLoader {
 		//System.out.println(classesFound);//debug
 		return classesFound.toArray(new Class[0]);
 	}
-	
+
 
 }
