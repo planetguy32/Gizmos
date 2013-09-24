@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
@@ -13,9 +15,26 @@ import net.minecraft.world.World;
 @SLLoad(name="deforestator",dependencies={"forestFire"})
 public class ItemDeforester extends ItemInteractDevice{
 
+	public ItemDeforester(int par1, boolean ignored){
+		super(par1);
+	}
+	
 	@SLLoad
 	public ItemDeforester(int par1) {
 		super(par1);
+		this.setUnlocalizedName("deforester");
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Deforester");
+		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
+			"gbg",
+			"blb",
+			"gbg",
+			Character.valueOf('g'),new ItemStack(Block.gravel),
+			Character.valueOf('b'),new ItemStack(Item.blazePowder),
+			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
+	}
+	
+	public int id(){
+		return Gizmos.forestFire.blockID;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -57,7 +58,7 @@ public class SimpleLoader {
 	 * 
 	 */
 	private boolean useBlacklist; 
-	private List<String> banList;
+	private List<String> moduleList=new ArrayList<String>();
 
 	/**
 	 * IDMap contains all the config data loaded. 
@@ -73,6 +74,11 @@ public class SimpleLoader {
 
 	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
 		moduleClasses=discoverSLModules();
+		Arrays.sort(moduleClasses,new Comparator<Class>(){
+			@Override
+			public int compare(Class paramT1, Class paramT2) {
+				return getModuleName(paramT1).compareTo(getModuleName(paramT2));
+			}});
 		this.modname=modname;
 		this.modcontainer=modcontainer;
 		blocks=filterClassesBySuper(Block.class);
@@ -128,10 +134,11 @@ public class SimpleLoader {
 	 */
 
 	private void setupAndReadConfig(Configuration config) throws Exception{
-		Property banModeProp=config.get("[SL] Framework", "Blacklist?", 0);
-		banModeProp.comment="Ban mode: Even -> module's dependencies override whether something is permitted by the list; 0-1 -> blacklist mode";
-		useBlacklist=banModeProp.getBoolean(true);
-		banList=Arrays.asList(config.get("[SL] Framework","Ban list", new String[0]).getStringList());
+		for(int i=0; i<moduleList.size(); i++){
+			moduleList.set(i, getModuleName(moduleClasses[i]));
+		}
+		System.out.println("[SL] Modules: "+moduleList);
+		moduleList=Arrays.asList(config.get("[SL] Framework","List of allowed modules", moduleList.toArray(new String[0])).getStringList());
 		passLimit=config.get("[SL] Framework", "Maximum dependency passes", 10).getInt(10);
 
 		//and get config values for the game content...
@@ -194,14 +201,8 @@ public class SimpleLoader {
 		ArrayDeque<Class> classes=new ArrayDeque<Class>();
 		for(Class c:moduleClasses){
 			SLLoad sll=(SLLoad) c.getAnnotation(SLLoad.class);
-			if(useBlacklist){//blacklist mode: drop classes not loadable
-				if(!banList.contains(sll.name())){
-					classes.add(c);
-				}
-			}else{
-				if(banList.contains(sll.name())){
-					classes.add(c);
-				}
+			if(moduleList.contains(sll.name())){
+				classes.add(c);
 			}
 		}
 		classes.addLast(SimpleLoader.class);
@@ -362,10 +363,9 @@ public class SimpleLoader {
 
 	/**
 	 * 
-	 * @return the classes that match 
+	 * @return the classes with source attached in the same directory
 	 */
 	private Class[] discoverSLModules() throws Exception{
-
 		File mcdir=Minecraft.getMinecraft().mcDataDir;
 
 		String pathToDir=mcdir.getAbsolutePath(); 
@@ -383,12 +383,12 @@ public class SimpleLoader {
 				for(File h:g.listFiles()){
 					if(!h.isDirectory())continue;
 					for(File maybeclass:h.listFiles()){						
-						if(maybeclass.getName().endsWith(".class")||maybeclass.getName().endsWith(".java")){//filter for classes or source files
+						if(maybeclass.getName().endsWith(".java")){//filter for source files
 							filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName().replaceAll("\\.java", ""));
 						}
 						if(!maybeclass.isDirectory())continue;
 						for(File level2classes:maybeclass.listFiles()){
-							if(level2classes.getName().endsWith(".class")||level2classes.getName().endsWith(".java")){
+							if(level2classes.getName().endsWith(".java")){
 								filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName()+"."+level2classes.getName().replaceAll("\\.java", ""));
 							}
 						}
@@ -415,6 +415,7 @@ public class SimpleLoader {
 				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it
 
 					classesFound.add(c);
+					moduleList.add(classname);
 				}
 			}catch(ClassNotFoundException cnfe){continue;}//if there's a problem go on to next class
 		}

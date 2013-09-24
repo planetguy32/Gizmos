@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
@@ -12,32 +14,28 @@ import net.minecraft.world.World;
 
 
 @SLLoad(name="minersLighter",dependencies={"superFire"})
-public class ItemMinersLighter extends ItemInteractDevice{
+public class ItemMinersLighter extends ItemDeforester{
 
 	@SLLoad
 	public ItemMinersLighter(int par1) {
-		super(par1);
+		super(par1,false);
+		this.setUnlocalizedName("minersLighter");
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Miner's Lighter");
+		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
+			"gbg",
+			"blb",
+			"gbg",
+			Character.valueOf('g'),new ItemStack(Block.sapling),
+			Character.valueOf('b'),new ItemStack(Item.blazePowder),
+			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
 	}
 
 	@Override
-	public boolean doEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
-        int id = theWorld.getBlockId(posX, posY, posZ);
-
-        if (id == 0)
-        {
-            theWorld.playSoundEffect((double)posX + 0.5D, (double)posY + 0.5D, (double)posZ + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
-            theWorld.setBlock(posX, posY, posZ, Gizmos.superFire.blockID);
-            me.damageItem(1, thePlayer);
-            return true;
-        }
-        return false;
-	}
-
-	@Override
-	public boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
-		return theWorld.getBiomeGenForCoords(posX, posZ).biomeName!="Hell";
+	public int id(){
+		return Gizmos.superFire.blockID;
 	}
 	
+	@Override
 	public void registerIcons(IconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"minersLighter");
 	}

@@ -2,6 +2,9 @@ package planetguy.gizmos.tool;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.GizmosItem;
 import planetguy.simpleLoader.SLLoad;
@@ -22,11 +25,18 @@ public class ItemBlockTicker extends GizmosItem{
 	private final int TICKS_PER_MINUTE=20*60;
 	private Random r=new Random();
 	
+	@SLLoad
 	public ItemBlockTicker(int par1) {
 		super(par1);
         this.maxStackSize = 1;
         this.setMaxDamage(64);
-        this.setCreativeTab(CreativeTabs.tabTools);
+    	ItemStack stackClock=new ItemStack(Item.pocketSundial);
+    	ItemStack iron = new ItemStack(Item.ingotIron);
+    	ItemStack stackTicker=new ItemStack(this,1,0);
+    	GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
+    	Character.valueOf('c'),stackClock,
+    	Character.valueOf('i'),iron});
+    	LanguageRegistry.addName(this, "§5Temporal Dislocator");	
 	}
 
 	//Ticks tile entity as many times as it would normally tick in a whole minute.

@@ -2,6 +2,7 @@ package planetguy.gizmos.motiontools;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SLProp;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -17,10 +18,13 @@ import net.minecraft.util.Icon;
 @SLLoad(name="accelerator")
 public class BlockAccelerator extends Block{
 	
+	@SLProp(name = "acceleratorRate")
+	public static double accelRate=1.16158634964;
+	
 	@SLLoad
 	public BlockAccelerator(int par1) {
 		super(par1,Material.glass);
-		this.slipperiness=Gizmos.accelRate;
+		this.slipperiness=(float) accelRate;
 		Gizmos.accelerator=this.setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
 		GameRegistry.registerBlock(Gizmos.accelerator, ItemBlock.class, "accelerator");
 		LanguageRegistry.instance().addName(Gizmos.accelerator, "Accelerator");

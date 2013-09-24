@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -31,6 +32,8 @@ public class ItemFireExtinguisher extends Item{
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
 		this.setCreativeTab(CreativeTabs.tabTools);
+		this.setUnlocalizedName("fireExtinguisher");
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Fire extinguisher");
 	}
 	
 	@Override

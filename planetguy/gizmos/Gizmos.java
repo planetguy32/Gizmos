@@ -77,6 +77,7 @@ public class Gizmos {
 	public static Item rCanvas;
 	public static Item rCanvasBag;
 	public static Item lastLaughChestplate;
+	public static Item temporalDislocator;
 	
 	public static CreativeTabs tabGizmos;
 	
@@ -113,6 +114,7 @@ public class Gizmos {
 		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
         loader.loadClasses();
+    	if(GravityBomb==null)GravityBomb=Block.blocksList[46];
         tabGizmos=new CreativeTabs("tabGizmos"){
         	private ItemStack gb=new ItemStack(GravityBomb,1,1);
         	public ItemStack getIconItemStack(){

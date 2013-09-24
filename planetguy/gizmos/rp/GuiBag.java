@@ -1,36 +1,36 @@
-package planetguy.gizmos.inserter;
-
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.StatCollector;
+package planetguy.gizmos.rp;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import planetguy.gizmos.invUtils.ContainerInvenswapper;
+import planetguy.gizmos.invUtils.TileEntityInvenswapper;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
-import planetguy.gizmos.Gizmos;
-
-
-@SideOnly(Side.CLIENT)
-public class GuiInserter extends GuiContainer {
+public class GuiBag extends GuiContainer{
 	
-	private IInventory home;
-	private static final ResourceLocation guiLoc=new ResourceLocation(Gizmos.modName+":"+"textures/gui/container/spyLab.png");
-
-	public GuiInserter (InventoryPlayer inventoryPlayer, IInventory inv) {
-		//the container is instanciated and passed to the superclass for handling
-		super(new ContainerInserter(inventoryPlayer, inv));
-		home=inv;
+	private final ResourceLocation guiLoc=new ResourceLocation("textures/gui/container/generic_54.png");
+	private EntityPlayer player;
+	private ItemStack bag;
+	
+	public GuiBag(EntityPlayer player, ItemStack stack){
+		super(new ContainerBag(player, stack));
+		this.player=player;
+		this.bag=stack;
 	}
+	
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
 		//draw text and stuff here
 		//the parameters for drawString are: string, x, y, color
-		fontRenderer.drawString("Inserter", 8, 6, 4210752);
+		fontRenderer.drawString("Canvas bag", 8, 6, 4210752);
 		//draws "Inventory" or your regional equivalent
 		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
@@ -38,7 +38,6 @@ public class GuiInserter extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//System.out.println("Loading spy table GUI");
         this.mc.func_110434_K().func_110577_a(guiLoc);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;

@@ -52,7 +52,8 @@ public class BlockInserter extends Block{
 		ItemStack blockIron=new ItemStack(Block.blocksList[42]);
 		ItemStack crafter=new ItemStack(Block.workbench);
 		ItemStack chest=new ItemStack(Block.chest);
-		
+		this.setUnlocalizedName("inserter");
+		LanguageRegistry.instance().addNameForObject(this, "en_US", "Inserter");
 		ItemStack itemSpyDesk=new ItemStack(this);
         GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
         		Character.valueOf('L'),lens,
