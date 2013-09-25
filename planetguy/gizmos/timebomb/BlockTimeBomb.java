@@ -3,7 +3,6 @@ package planetguy.gizmos.timebomb;
 import java.util.List;
 import java.util.Random;
 
-import planetguy.gizmos.Gizmos;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -23,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;

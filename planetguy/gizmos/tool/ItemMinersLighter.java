@@ -41,6 +41,10 @@ public class ItemMinersLighter extends ItemDeforester{
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
 		tooltipLines.add("Very quickly removes gravel and lava.");
+		if(player.worldObj.getBiomeGenForCoords((int)player.posX, (int)player.posZ)==BiomeGenBase.hell){
+			tooltipLines.add("§4§LFire doesn't spread in Nether.");
+			tooltipLines.add("§4§LHack at your own risk.");
+		}
 	}
 	@Override
 	public void registerIcons(IconRegister ir){

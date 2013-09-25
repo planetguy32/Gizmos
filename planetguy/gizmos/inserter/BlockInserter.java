@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import planetguy.simpleLoader.SimpleLoader;
@@ -64,6 +65,7 @@ public class BlockInserter extends Block{
         		Character.valueOf('C'),chest,
         		Character.valueOf('I'),blockIron,
         		Character.valueOf('B'),wood});
+        SLItemBlock.registerString(id, 0, "Inserter", new String[]{"Yo dawg, I heard you like items..."});
 	}
 	
     public BlockInserter (int id, int texture) {

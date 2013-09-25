@@ -1,13 +1,13 @@
 package planetguy.gizmos.CES.powerups;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
-import net.minecraft.world.World;
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.CES.BlockCESBomb;
 import planetguy.gizmos.CES.EntityCESBombPrimed;
 import planetguy.gizmos.CES.TileEntityCESBomb;
 import planetguy.gizmos.gravitybomb.EntityGravityBomb;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
+import net.minecraft.world.World;
 
 public class PowerupExplodeOnImpact extends Powerup{
 

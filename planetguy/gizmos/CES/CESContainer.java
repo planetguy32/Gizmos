@@ -2,11 +2,12 @@ package planetguy.gizmos.CES;
 
 import java.util.ArrayList;
 
+import planetguy.gizmos.CES.powerups.Powerup;
+
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import planetguy.gizmos.CES.powerups.Powerup;
 
 public class CESContainer { //TODO move logic here from TileEntity - more versatile.
 	

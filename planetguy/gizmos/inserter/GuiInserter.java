@@ -8,10 +8,11 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
+import planetguy.gizmos.Gizmos;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import planetguy.gizmos.Gizmos;
 
 
 @SideOnly(Side.CLIENT)

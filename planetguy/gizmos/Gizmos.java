@@ -51,7 +51,8 @@ public class Gizmos {
 	public static Entity graviBombPrimed;
 	public static EntityTunnelBomb tunnelBombPrimed;
 	
-	public static Block superFire,forestFire;
+	public static Block superFire;
+	public static Block forestFire;
 	public static Item deforestator;
 	public static Item minersLighter;
 	

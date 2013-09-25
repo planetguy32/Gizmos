@@ -53,6 +53,10 @@ public class ItemFireExtinguisher extends Item{
 	@Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World w, int x, int y, int z, int par7, float par8, float par9, float par10){
 		w=player.worldObj;
+		if(player.isBurning()){
+			player.extinguish();
+			stack.damageItem(1, player);
+		}
 		
 		final int count=3; //Used to be a parameter system (onTickInUse or something)
 		final int countSq=count*count;
@@ -78,11 +82,13 @@ public class ItemFireExtinguisher extends Item{
 	@Override
     public boolean func_111207_a(ItemStack ext, EntityPlayer player, EntityLivingBase target){
         boolean result=false;
-        if(target.isBurning()){
+        if(player.isBurning()){
+        	player.extinguish();
+        	result=true;
+        }else if(target.isBurning()){
         	target.extinguish();
         	result=true;
-        }
-        if(target instanceof EntityBlaze){
+        }else if(target instanceof EntityBlaze){
         	target.attackEntityFrom(DamageSource.magic, 10);
         	result=true;
         }

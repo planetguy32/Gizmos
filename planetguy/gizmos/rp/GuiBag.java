@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import planetguy.gizmos.invUtils.ContainerInvenswapper;
 import planetguy.gizmos.invUtils.TileEntityInvenswapper;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;

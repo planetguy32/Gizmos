@@ -2,10 +2,11 @@ package planetguy.gizmos.CES;
 
 import java.util.ArrayList;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.CES.powerups.Powerup;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;

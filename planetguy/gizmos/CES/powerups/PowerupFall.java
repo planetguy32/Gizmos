@@ -2,11 +2,12 @@ package planetguy.gizmos.CES.powerups;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockSand;
-import net.minecraft.world.World;
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.CES.BlockCESBomb;
 import planetguy.gizmos.CES.TileEntityCESBomb;
+
+import net.minecraft.block.BlockSand;
+import net.minecraft.world.World;
 
 public class PowerupFall extends Powerup{
 

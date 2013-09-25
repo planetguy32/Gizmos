@@ -14,7 +14,9 @@ git add .
 git commit -a
 git push
 
-cd reobf/minecraft
+cd ../..
+
+cp repo/Gizmos reobf/minecraft
 
 zip -r build.jar *
 rm -f ~/Dropbox/Public/modstuff/gizmos_latest.jar

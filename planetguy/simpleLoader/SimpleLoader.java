@@ -24,6 +24,7 @@ import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.gravitybomb.EntityGravityBomb;
 
 
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -373,9 +374,8 @@ public class SimpleLoader {
 		List<String> filenames=new ArrayList<String>(); 
 
 		File modsdir=new File(s);//get mods directory
-
 		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
-
+		
 		for(File modzip:modsdir.listFiles()){
 			if(!modzip.isDirectory())continue;
 			for(File g:modzip.listFiles()){
