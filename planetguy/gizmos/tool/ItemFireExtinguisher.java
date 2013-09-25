@@ -1,6 +1,7 @@
 package planetguy.gizmos.tool;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
@@ -21,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 @SLLoad(name="fireExtinguisher")
 
@@ -40,6 +42,12 @@ public class ItemFireExtinguisher extends Item{
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister ir){
 		this.itemIcon=ir.registerIcon(Gizmos.modName+":extinguisher");
+	}
+	
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		tooltipLines.add("Cleans up fires. If it's deforestator");
+		tooltipLines.add("or miner's lighter fire, act fast.");
 	}
 	
 	@Override

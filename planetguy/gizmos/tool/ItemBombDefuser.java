@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 /**
  * Something to counter fork bombs.
@@ -67,6 +70,12 @@ public class ItemBombDefuser extends Item{
 	private void defuse(World w, int x, int y, int z, EntityPlayer p, ItemStack stk){
 		stk.damageItem(1, p);
 		w.setBlockToAir(x, y, z);
+	}
+	
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		tooltipLines.add("SWAT team approved! Sneak if using");
+		tooltipLines.add("on fork bomb, or it's useless.");
 	}
  
 

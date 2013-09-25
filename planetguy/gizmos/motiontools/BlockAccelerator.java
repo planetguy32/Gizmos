@@ -1,6 +1,7 @@
 package planetguy.gizmos.motiontools;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -28,6 +29,7 @@ public class BlockAccelerator extends Block{
 		Gizmos.accelerator=this.setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
 		GameRegistry.registerBlock(Gizmos.accelerator, ItemBlock.class, "accelerator");
 		LanguageRegistry.instance().addName(Gizmos.accelerator, "Accelerator");
+		SLItemBlock.registerString(par1, 0, "Accelerator", new String[]{"Anything on top speeds up."});
 	}
 	
 	public void registerIcons(IconRegister ir){

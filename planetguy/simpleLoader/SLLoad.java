@@ -21,7 +21,7 @@ public @interface SLLoad {
 	
 	String name() default "unnamed"; 
 	String[] dependencies() default {};
-	boolean hasMetadata() default false;
+	boolean hasMetadata() default true;
 	boolean isTechnical() default false;
 	String itemClass() default "planetguy.simpleLoader.SLItemBlock";
 	

@@ -2,11 +2,13 @@ package planetguy.gizmos;
 
 import java.util.logging.Logger;
 
+import planetguy.gizmos.inserter.BlockInserter;
 import planetguy.gizmos.tool.ItemLastLaughArmor;
 
 import cpw.mods.fml.common.FMLLog;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -20,8 +22,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class GizmosEventWatcher {
-	
-
 	
 	@ForgeSubscribe
 	public void checkIfBombedItemShouldExplode(PlayerInteractEvent pie){
@@ -39,8 +39,8 @@ public class GizmosEventWatcher {
 			int x=0;
 			boolean testSoFar=true;
 			//while(testSoFar){
-			if(tag.getShort("id")==289&&!Gizmos.serverSafeMode){
-				
+			ItemStack a=ItemStack.loadItemStackFromNBT(tag);
+			if(a.getItem()==Item.gunpowder&&BlockInserter.doBlockDamage){			
 				World w=player.worldObj;
 				w.newExplosion(player, player.posX, player.posY, player.posZ, 4, true, true);
 				player.destroyCurrentEquippedItem();

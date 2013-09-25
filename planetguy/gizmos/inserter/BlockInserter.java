@@ -32,8 +32,11 @@ import net.minecraft.world.World;
 @SLLoad(name="inserter")
 public class BlockInserter extends Block{
 	
+	@SLProp(name="doBlockDamage")
+	public static boolean doBlockDamage=true;
+	
 	@SLProp(name="limitQuantityHideable")
-	public static boolean nerfHiding;
+	public static boolean nerfHiding=false;
 	
 	public Icon sides;
 	public Icon top;

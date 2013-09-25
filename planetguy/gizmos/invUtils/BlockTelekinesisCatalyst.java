@@ -1,11 +1,15 @@
 package planetguy.gizmos.invUtils;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 
@@ -21,6 +25,8 @@ public class BlockTelekinesisCatalyst extends Block{
 		// TODO Auto-generated constructor stub
 		this.setUnlocalizedName("telekinesisCatalyst");
 		this.setCreativeTab(CreativeTabs.tabRedstone);
+		LanguageRegistry.instance().addStringLocalization("tile.telekinesisCatalyst.name", "Telekinesis Catalyst");
+		SLItemBlock.registerString(id, 0, "Telekinesis catalyst", new String[]{"Right-clicking uses whatever block is", "opposite, through up to "+maxBlockReach+" air."});
 	}
 
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9){
@@ -61,7 +67,10 @@ public class BlockTelekinesisCatalyst extends Block{
 		}
 		return false;
 	}
-
-
+	
+	@Override
+	public void registerIcons(IconRegister ir){
+		this.blockIcon=ir.registerIcon(Gizmos.modName+":telekinesisCatalyst");
+	}
 
 }

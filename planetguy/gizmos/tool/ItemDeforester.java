@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
@@ -11,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 @SLLoad(name="deforestator",dependencies={"forestFire"})
 public class ItemDeforester extends ItemInteractDevice{
@@ -55,6 +58,14 @@ public class ItemDeforester extends ItemInteractDevice{
 	public boolean canDoEffect(int posX, int posY, int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer) {
 		return true;
 	}
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		tooltipLines.add("Very quickly removes trees.");
+		if(player.worldObj.getBiomeGenForCoords((int)player.posX, (int)player.posZ)==BiomeGenBase.jungle){
+			tooltipLines.add("§4§LUse in jungle is a bad idea.");
+		}
+	}
+	
 
 	public void registerIcons(IconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"netherLighter");

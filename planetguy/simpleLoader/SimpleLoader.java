@@ -348,7 +348,7 @@ public class SimpleLoader {
 
 				GameRegistry.registerBlock((Block) Block, 
 						(Class<? extends ItemBlock>)
-						(slload.hasMetadata()||slload.itemClass()!="net.minecraft.item.ItemBlockWithMetadata"? 
+						(slload.itemClass()!="net.minecraft.item.ItemBlockWithMetadata"? 
 								Class.forName(slload.itemClass()) 
 								: ItemBlock.class),
 								modname+"."+getModuleName(c));

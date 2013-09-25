@@ -7,6 +7,7 @@ import planetguy.gizmos.CES.powerups.Powerup;
 import planetguy.gizmos.CES.powerups.PowerupDebug;
 import planetguy.gizmos.CES.powerups.PowerupExplodeOnImpact;
 import planetguy.gizmos.CES.powerups.PowerupFall;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -30,6 +31,7 @@ public class BlockCESBomb extends BlockContainer{
 		super(blockID, Material.tnt);
 		BlockCESBomb.instance=(BlockCESBomb) this.setCreativeTab(CreativeTabs.tabRedstone);
 		LanguageRegistry.addName(this, "CES base [TEST]");
+		SLItemBlock.registerString(blockID, 0, "CES base [TEST]",new String[]{"Preview of super seecret project.","Hint: It's a bomb."});
 	}
 		
 	@SLLoad

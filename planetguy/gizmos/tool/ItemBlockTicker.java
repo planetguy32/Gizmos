@@ -1,5 +1,6 @@
 package planetguy.gizmos.tool;
 
+import java.util.List;
 import java.util.Random;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -17,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 @SLLoad(name="temporalDislocator")
@@ -66,6 +68,12 @@ public class ItemBlockTicker extends GizmosItem{
 	@Override
 	public void registerIcons(IconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"dislocator");
+	}
+	
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		tooltipLines.add("Dislocates a block's temporal position");
+		tooltipLines.add("from the future to the present.");
 	}
 	
 }

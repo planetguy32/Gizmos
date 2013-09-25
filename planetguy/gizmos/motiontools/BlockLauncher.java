@@ -3,6 +3,7 @@ package planetguy.gizmos.motiontools;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import net.minecraft.block.Block;
@@ -27,6 +28,7 @@ public class BlockLauncher extends Block{
 		Gizmos.launcher=this.setUnlocalizedName("entityLauncher");
 		GameRegistry.registerBlock(Gizmos.launcher, ItemBlock.class, "launcher");
 		LanguageRegistry.instance().addName(Gizmos.launcher, "Launcher");
+		SLItemBlock.registerString(par1, 0, "Launcher", new String[]{"Anything inside goes up, fast."});
 	}
 
 	public void registerIcons(IconRegister ir){

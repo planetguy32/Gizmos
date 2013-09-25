@@ -52,27 +52,9 @@ public class BlockSuperFire extends BlockFire{
 	@SLLoad
 	public BlockSuperFire(int id){
 		super(id);
-		
+		this.setLightValue(1F);
 	}
 	
-	
-	//Attempt to steal icons from superclass, BlockFire.
-	@Override
-	@SideOnly(Side.CLIENT)
-    public void initializeBlock(){
-        this.fireIcons = new Icon[] {super.func_94438_c(0),super.func_94438_c(1)};
-    }
-    
-	@Override
-    @SideOnly(Side.CLIENT)
-    public Icon func_94438_c(int par1){
-        return super.func_94438_c(par1); //Is this even necessary?
-    }
-    
-    @Override
-    public Icon getIcon(int side, int meta){
-    	return fireIcons[0]; 
-    }
 
 	public int tickRate(){
 		return 3;	
@@ -81,11 +63,6 @@ public class BlockSuperFire extends BlockFire{
 	public boolean canBurnBlock(int id){
 		return targetBlocks.contains(id);
 	}
-
-	public int quantityDropped(Random par1Random){
-		return 0; //Don't drop fire blocks
-	}
-
 
 	/**
 	 * Ticks the block if it's been scheduled
@@ -259,20 +236,6 @@ public class BlockSuperFire extends BlockFire{
 	}
 
 	/**
-	 * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
-	 * their own) Args: x, y, z, neighbor blockID
-	 */
-
-	@Override
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
-	{
-		if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) && !this.canNeighborBurn(par1World, par2, par3, par4))
-		{
-			par1World.setBlock(par2, par3, par4, 0);
-		}
-	}
-
-	/**
 	 * Called whenever the block is added into the world. Args: world, x, y, z
 	 */
 
@@ -292,12 +255,15 @@ public class BlockSuperFire extends BlockFire{
 			}
 		}
 	}
-	
 
+	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
 	{
+		Block.fire.randomDisplayTick(par1World, par2, par3, par4, par5Random);
+	}
+		/*
 		if (par5Random.nextInt(24) == 0)
 		{
 			par1World.playSound((double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F), "fire.fire", 1.0F + par5Random.nextFloat(), par5Random.nextFloat() * 0.7F + 0.3F, false);
@@ -376,6 +342,7 @@ public class BlockSuperFire extends BlockFire{
 			}
 		}
 	}
+	*/
 
 	/**
 	 * Side sensitive version that calls the block function.

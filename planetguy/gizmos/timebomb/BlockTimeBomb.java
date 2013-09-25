@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 /**
@@ -30,7 +31,7 @@ import planetguy.simpleLoader.SLProp;
  * @author bill
  *
  */
-@SLLoad(name="timeBombs",hasMetadata=true)
+@SLLoad(name="timeBombs")
 public class BlockTimeBomb extends Block{
 
 	private Icon topTex;
@@ -57,6 +58,8 @@ public class BlockTimeBomb extends Block{
 			ItemStack oreStack = new ItemStack(Gizmos.timeBomb, 1, re);
 			LanguageRegistry.addName(oreStack, oreNames[re]);
 		}*/	
+		SLItemBlock.registerString(id, 0, "Time bomb", new String[]{"Counts down to destruction"});
+		SLItemBlock.registerString(id, 1, "Fork bomb", new String[]{"Counts down to destruction,","duplicates if disturbed"});
 		ItemStack itemStackTB=new ItemStack(Gizmos.timeBombs,1,0); 
 		ItemStack itemStackFB=new ItemStack(Gizmos.timeBombs,1,1);
 		ItemStack endStone=new ItemStack(Block.whiteStone);

@@ -19,14 +19,16 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="invenswapperTop",hasMetadata=true)
+@SLLoad(name="invenswapperTop")
 public class BlockInvenswapperTop extends Block {
 
 	private Icon[] icons=new Icon[2];
-
+	public static int id;
+	
 	@SLLoad
 	public BlockInvenswapperTop(int par1) {
 		super(par1, Material.air);
+		this.id=par1;
 		setUnlocalizedName("Gizmos_InvenswapperTop");
         this.setBlockBounds(0,0,0,0,0,0);
         setResistance(100f);

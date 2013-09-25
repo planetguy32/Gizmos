@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
@@ -11,6 +13,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenJungle;
 
 
 @SLLoad(name="minersLighter",dependencies={"superFire"})
@@ -34,7 +38,10 @@ public class ItemMinersLighter extends ItemDeforester{
 	public int id(){
 		return Gizmos.superFire.blockID;
 	}
-	
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		tooltipLines.add("Very quickly removes gravel and lava.");
+	}
 	@Override
 	public void registerIcons(IconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"minersLighter");

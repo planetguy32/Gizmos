@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -24,7 +25,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="invenswapper",hasMetadata=true,dependencies={"invenswapperTop"})
+@SLLoad(name="invenswapper",dependencies={"invenswapperTop"})
 public class BlockInvenswapperBase extends BlockContainer{
 	
 	private Icon[] icons=new Icon[3];
@@ -37,6 +38,8 @@ public class BlockInvenswapperBase extends BlockContainer{
 		setUnlocalizedName("Gizmos_Invenswapper");
 		setCreativeTab(CreativeTabs.tabDecorations);
 		LanguageRegistry.addName(this, "Invenswapper base");
+		SLItemBlock.registerString(par1, 0, "Invenswapper (in)", new String[] {"Sneak while on top of it to","put items into it."});
+		SLItemBlock.registerString(par1, 1, "Invenswapper (out)", new String[] {"Sneak while on top of it to","take all the items inside it."});
 		GameRegistry.registerTileEntity(TileEntityInvenswapper.class, "Gizmos.invenswapper");
 	}
 	
@@ -89,7 +92,7 @@ public class BlockInvenswapperBase extends BlockContainer{
     @Override
 	public void onBlockAdded(World w, int x, int y, int z){
     	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		w.setBlock(x, y+1, z, Gizmos.loader.lookupInt("invenswapperTop"),w.getBlockMetadata(x, y, z), 0x02);
+    		w.setBlock(x, y+1, z, BlockInvenswapperTop.id,w.getBlockMetadata(x, y, z), 0x02);
     	}
     }
 	

@@ -1,5 +1,7 @@
 package planetguy.gizmos.tool;
 
+import java.util.List;
+
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
@@ -12,6 +14,7 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 @SLLoad(name="buildTool",dependencies={"inserter"})
 public class ItemBuildTool extends ItemPickaxe{
@@ -22,6 +25,8 @@ public class ItemBuildTool extends ItemPickaxe{
 	public ItemBuildTool(int par1) {
 		super(par1, EnumToolMaterial.EMERALD);
 		myID=par1;
+		this.setUnlocalizedName("buildTool");
+		LanguageRegistry.addName(this, "Build tool");
 		LanguageRegistry.instance().addStringLocalization("item.buildTool.name", "Build tool");
 	}
 
@@ -32,6 +37,12 @@ public class ItemBuildTool extends ItemPickaxe{
 	@Override
 	public String getUnlocalizedName(){
 		return "buildTool";
+	}
+	
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		tooltipLines.add("Half pickaxe, half placing hand.");
+		tooltipLines.add("Refill with inserter.");
 	}
 
 	public boolean onItemUse(ItemStack me, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){
