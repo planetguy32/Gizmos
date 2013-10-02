@@ -17,23 +17,22 @@ public class CESContainer { //TODO move logic here from TileEntity - more versat
 		installedPowerups.add(p);
 	}
 	
-    public void readFromNBT(NBTTagCompound par1NBTTagCompound)
-    {
-        NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Powerups");
-        for (int i = 0; i < nbttaglist.tagCount(); ++i)
-        {
-           NBTTagByte powerup=(NBTTagByte) nbttaglist.tagAt(i);
-           installedPowerups.add(Powerup.powerups[powerup.data]);
-        }
+    public void readFromNBT(NBTTagCompound tag){
+    	NBTTagList powerups=tag.getTagList("powerups");
+    	for(int i=0; i<powerups.tagCount(); i++){
+    		NBTTagByte puTag=(NBTTagByte) powerups.tagAt(i);
+    		byte id=puTag.data;
+    		installedPowerups.add(Powerup.powerups[id]);
+    	}
     }
 	
-    public void writeToNBT(NBTTagCompound par1NBTTagCompound)
-    {
-        NBTTagList powerups = new NBTTagList();
-        for(Powerup p:installedPowerups.toArray(new Powerup[0])){
-        	powerups.appendTag(new NBTTagByte("powerup",p.getID()));
-        }
-        par1NBTTagCompound.setTag("Powerups", powerups);
+    public void writeToNBT(NBTTagCompound tag){
+    	NBTTagList list=new NBTTagList("powerups");
+    	for(Powerup p:installedPowerups){
+    		NBTTagByte puTag=new NBTTagByte("powerupID");
+    		puTag.data=p.getID();
+    		list.appendTag(puTag);
+    	}
     }
 
 	public Powerup[] getInstalledPowerups() {
@@ -46,6 +45,11 @@ public class CESContainer { //TODO move logic here from TileEntity - more versat
 		this.writeToNBT(tag);
 		bomb.readFromNBT(tag);
 		return bomb;
+	}
+	
+	public int getPowerupCopiesInstalled(Byte id){
+		return 2;
+		
 	}
 
 	public boolean tryAddPowerup(Powerup powerup) {

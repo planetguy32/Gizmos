@@ -7,8 +7,6 @@ import planetguy.gizmos.inserter.InventoryInserter;
 import planetguy.gizmos.invUtils.ContainerInvenswapper;
 import planetguy.gizmos.invUtils.GuiInvenswapper;
 import planetguy.gizmos.invUtils.TileEntityInvenswapper;
-import planetguy.gizmos.rp.ContainerBag;
-import planetguy.gizmos.rp.GuiBag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -22,8 +20,6 @@ public class GuiHandler implements IGuiHandler {
 		switch(id){
 		case 1:
 			return new ContainerInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
-		case 2:
-			return new ContainerBag(player, player.getHeldItem());
 		}
 		return new ContainerInserter(player.inventory, new InventoryInserter(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
 	}
@@ -37,8 +33,6 @@ public class GuiHandler implements IGuiHandler {
 		case 1:
 			//System.out.println("Invenswapper GUI selected");
 			return new GuiInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
-		case 2:
-			return new GuiBag(player, player.getHeldItem());
 		}
 		return new GuiInserter(player.inventory, new InventoryInserter(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
 

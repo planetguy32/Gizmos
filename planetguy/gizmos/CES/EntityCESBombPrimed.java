@@ -31,7 +31,7 @@ public class EntityCESBombPrimed extends Entity{
 	}
 	
 	public void explode(){
-		CESExplosion expl=new CESExplosion(worldObj, this, this.posX, this.posY, this.posZ, power);
+		CESExplosion expl=new CESExplosion(worldObj, this, this.posX, this.posY, this.posZ, this.cesContainer);
 	}
 	
 	public void onUpdate(){
@@ -42,7 +42,7 @@ public class EntityCESBombPrimed extends Entity{
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound tag) {
-
+		super.readFromNBT(tag);
 		cesContainer.readFromNBT(tag);
 	}
 

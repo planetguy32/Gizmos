@@ -34,6 +34,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+import net.minecraft.util.ReportedException;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -46,7 +47,7 @@ import net.minecraftforge.common.Property;
 
 public class SimpleLoader {
 
-	public final Class[] moduleClasses; //unfiltered, unsorted classes
+	public Class[] moduleClasses; //unfiltered, unsorted classes
 	public Class[] filteredSortedClasses;
 	public final Class[] blocks,items,entities,custom;
 	public final String modname;
@@ -74,7 +75,12 @@ public class SimpleLoader {
 	}
 
 	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
-		moduleClasses=discoverSLModules();
+		try{
+			moduleClasses=discoverSLModules();
+		}catch(Exception e){
+			e.printStackTrace();
+			moduleClasses=fallbackDiscoverSLModules();
+		}
 		Arrays.sort(moduleClasses,new Comparator<Class>(){
 			@Override
 			public int compare(Class paramT1, Class paramT2) {
@@ -375,6 +381,8 @@ public class SimpleLoader {
 
 		File modsdir=new File(s);//get mods directory
 		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
+
+		System.out.println("[SL] Got mods dir");
 		
 		for(File modzip:modsdir.listFiles()){
 			if(!modzip.isDirectory())continue;
@@ -404,6 +412,7 @@ public class SimpleLoader {
 		//collect all the class names from the list
 		LinkedList<Class> classesFound=new LinkedList<Class>();
 
+		System.out.println(filenames);
 
 		while(i.hasNext()){
 			try{ //if it isn't possible to load a class from a name, ignore the name
@@ -419,8 +428,20 @@ public class SimpleLoader {
 				}
 			}catch(ClassNotFoundException cnfe){continue;}//if there's a problem go on to next class
 		}
+		Class[] result=classesFound.toArray(new Class[0]);
+		for(Class c:result){
+			System.out.print(c.toString()+"\",\"");
+		}System.out.println();
 		//System.out.println(classesFound);//debug
-		return classesFound.toArray(new Class[0]);
+		return result;
+	}
+	
+	public Class[] fallbackDiscoverSLModules() throws ClassNotFoundException{
+		List<Class> classes=new ArrayList<Class>();
+		for(String s:SLDiscovererFallback.classnames){
+			classes.add(Class.forName(s));
+		}
+		return classes.toArray(new Class[0]);
 	}
 
 

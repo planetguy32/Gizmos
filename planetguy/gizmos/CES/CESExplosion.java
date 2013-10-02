@@ -21,6 +21,10 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+/**
+ * Vanilla MC explosion with added hooks for CES
+ *
+ */
 public class CESExplosion extends Explosion{
     /** whether or not the explosion sets fire to blocks around it */
     public boolean isFlaming;
@@ -34,7 +38,6 @@ public class CESExplosion extends Explosion{
     public double explosionY;
     public double explosionZ;
     public Entity exploder;
-    public TileEntityCESBomb bomb;
     public float explosionSize;
     public float damageScaler=0;
     public float motionScaler=0;
@@ -43,9 +46,12 @@ public class CESExplosion extends Explosion{
     public List affectedBlockPositions = new ArrayList();
     private Map field_77288_k = new HashMap();
 
-    public CESExplosion(World w, Entity e, double x, double y, double z, float pow)
+	public final CESContainer cesContainer;
+
+    public CESExplosion(World w, Entity e, double x, double y, double z,CESContainer cesc)
     {
-        super(w,e,x,y,z,pow);
+    	super(w,e,x,y,z,0);
+    	this.cesContainer=cesc;
         this.world=w;
     }
 
