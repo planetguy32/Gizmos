@@ -1,6 +1,7 @@
 package planetguy.simpleLoader;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -18,6 +19,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.filechooser.FileFilter;
 import javax.swing.text.html.parser.Entity;
 
 import planetguy.gizmos.Gizmos;
@@ -376,31 +378,40 @@ public class SimpleLoader {
 		File mcdir=Minecraft.getMinecraft().mcDataDir;
 
 		String pathToDir=mcdir.getAbsolutePath(); 
-		String s=pathToDir.substring(0, pathToDir.length()-1)+"mods/"; //Get file path to mods folder
 		List<String> filenames=new ArrayList<String>(); 
 
-		File modsdir=new File(s);//get mods directory
+		System.out.println("[SL] MC dir: "+mcdir.getAbsolutePath());
+		
+		File[] alldirs=mcdir.listFiles(new FilenameFilter(){
+			@Override
+			public boolean accept(File dir, String name) {
+				return dir.isDirectory();
+			}
+		});
 		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
 
 		System.out.println("[SL] Got mods dir");
-		
-		for(File modzip:modsdir.listFiles()){
-			if(!modzip.isDirectory())continue;
-			for(File g:modzip.listFiles()){
-				if(!g.isDirectory())continue;
-				for(File h:g.listFiles()){
-					if(!h.isDirectory())continue;
-					for(File maybeclass:h.listFiles()){						
-						if(maybeclass.getName().endsWith(".java")){//filter for source files
-							filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName().replaceAll("\\.java", ""));
-						}
-						if(!maybeclass.isDirectory())continue;
-						for(File level2classes:maybeclass.listFiles()){
-							if(level2classes.getName().endsWith(".java")){
-								filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName()+"."+level2classes.getName().replaceAll("\\.java", ""));
+		for(File modfolder:alldirs){
+			if(!modfolder.isDirectory())continue;
+			for(File modzip:modfolder.listFiles()){
+				if(!modzip.isDirectory())continue;
+				for(File g:modzip.listFiles()){
+					if(!g.isDirectory())continue;
+					for(File h:g.listFiles()){
+						if(!h.isDirectory())continue;
+						for(File maybeclass:h.listFiles()){						
+							if(maybeclass.getName().endsWith(".java")){//filter for source files
+								filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName().replaceAll("\\.java", ""));
 							}
-						}
+							if(!maybeclass.isDirectory())continue;
+							for(File level2classes:maybeclass.listFiles()){
+								if(level2classes.getName().endsWith(".java")){
+									filenames.add(g.getName()+"."+h.getName()+"."+maybeclass.getName()+"."+level2classes.getName().replaceAll("\\.java", ""));
+								}
+							}
 
+
+						}
 					}
 				}
 			}

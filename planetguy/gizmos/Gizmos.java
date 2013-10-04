@@ -117,9 +117,15 @@ public class Gizmos {
 		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
         loader.loadClasses();
-    	if(GravityBomb==null)GravityBomb=Block.blocksList[46];
+        final ItemStack gb;
+        if(GravityBomb==null){
+        	gb=new ItemStack(Block.blocksList[46]);
+        }else{
+        	gb=new ItemStack(GravityBomb,1,1);
+        }
+        
         tabGizmos=new CreativeTabs("tabGizmos"){
-        	private ItemStack gb=new ItemStack(GravityBomb,1,1);
+        	
         	public ItemStack getIconItemStack(){
         		return gb;
         	}
