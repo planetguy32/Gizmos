@@ -30,6 +30,8 @@ import planetguy.gizmos.gravitybomb.EntityGravityBomb;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -53,7 +55,11 @@ public class SimpleLoader {
 	public Class[] filteredSortedClasses;
 	public final Class[] blocks,items,entities,custom;
 	public final String modname;
+	/**
+	 * The mod container class that is starting this SimpleLoader instance
+	 */
 	private Object modcontainer;
+	
 	/**
 	 * Indicates how the banList should be used.
 	 * 
@@ -70,6 +76,7 @@ public class SimpleLoader {
 
 	private HashMap<String,Integer> IDMap=new HashMap<String,Integer>();
 	private int passLimit;
+	private ClassLoader classLoader;
 
 	public int lookupInt(String s){
 		System.out.println(IDMap.containsKey(s));
@@ -77,12 +84,12 @@ public class SimpleLoader {
 	}
 
 	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
-		try{
-			moduleClasses=discoverSLModules();
-		}catch(Exception e){
-			e.printStackTrace();
+		//try{
+			//moduleClasses=discoverSLModules();
+		//}catch(Exception e){
+			//e.printStackTrace();
 			moduleClasses=fallbackDiscoverSLModules();
-		}
+		//}
 		Arrays.sort(moduleClasses,new Comparator<Class>(){
 			@Override
 			public int compare(Class paramT1, Class paramT2) {
@@ -444,6 +451,7 @@ public class SimpleLoader {
 			System.out.print(c.toString()+"\",\"");
 		}System.out.println();
 		//System.out.println(classesFound);//debug
+		
 		return result;
 	}
 	
@@ -452,6 +460,7 @@ public class SimpleLoader {
 		for(String s:SLDiscovererFallback.classnames){
 			classes.add(Class.forName(s));
 		}
+		System.out.println(classes);
 		return classes.toArray(new Class[0]);
 	}
 
