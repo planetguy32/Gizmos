@@ -26,6 +26,10 @@ Note: This doesn't yet work in a production environment and will probably be cha
 
 ##The future##
 
-I tend to keep my plans (and wild ideas that are way beyone me) here.
+I use https://gist.github.com/planetguy32/6528825 as a place to put any plans and/or wild ideas.
 
-https://gist.github.com/planetguy32/6528825
+##Binary builds##
+
+The ones in MC version folders should all work for that version. There's a fair chance that the latest build won't work at all, since it's never tested.
+
+https://www.dropbox.com/l/TDTOyeYtPZK8Ivo3OuqbI9
