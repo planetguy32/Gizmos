@@ -102,7 +102,6 @@ public class BlockInvenswapperBase extends BlockContainer{
 		if (tileEntity == null || player.isSneaking()) {
 			return false;
 		}
-		//code to open gui explained later
 		player.openGui(Gizmos.instance, 1, world, x, y, z);
 		return true;
 	}

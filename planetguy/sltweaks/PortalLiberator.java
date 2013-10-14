@@ -8,11 +8,13 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.util.Point;
 
 @SLLoad(name="anyShapePortals")
 public class PortalLiberator extends CustomModuleLoader{
 
 	@Override
+	@SLLoad
 	public void load() {
 		MinecraftForge.EVENT_BUS.register(new PortalCreateListener());		
 	}
@@ -115,27 +117,6 @@ public class PortalCreateListener {
 				return 2; 
 			}
 		}
-
-		private class Point{ //Really simple point class
-
-			public int x, y, z;
-
-			public Point(int x, int y, int z){
-				this.x=x;
-				this.y=y;
-				this.z=z;
-			}
-
-			@Override
-			public boolean equals(Object o){ //Overridden so that check x,y,z not memory address
-				return o instanceof Point 
-						&& ((Point)o).x==x
-						&& ((Point)o).y==y
-						&& ((Point)o).z==z;
-			}
-
-		}
-
 	}
 
 }

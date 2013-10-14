@@ -55,6 +55,9 @@ public class SimpleLoader {
 	public Class[] filteredSortedClasses;
 	public final Class[] blocks,items,entities,custom;
 	public final String modname;
+	
+	public ObfuscatedClassHelper OCHelper;
+	
 	/**
 	 * The mod container class that is starting this SimpleLoader instance
 	 */
@@ -79,17 +82,16 @@ public class SimpleLoader {
 	private ClassLoader classLoader;
 
 	public int lookupInt(String s){
-		System.out.println(IDMap.containsKey(s));
-		return 0;//IDMap.get(s);
+		return IDMap.get(s);
 	}
 
 	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
-		//try{
-			//moduleClasses=discoverSLModules();
-		//}catch(Exception e){
-			//e.printStackTrace();
+		try{
+			moduleClasses=discoverSLModules();
+		}catch(Exception e){
+			e.printStackTrace();
 			moduleClasses=fallbackDiscoverSLModules();
-		//}
+		}
 		Arrays.sort(moduleClasses,new Comparator<Class>(){
 			@Override
 			public int compare(Class paramT1, Class paramT2) {
@@ -97,6 +99,9 @@ public class SimpleLoader {
 			}});
 		this.modname=modname;
 		this.modcontainer=modcontainer;
+		Property prop=cfg.get("[SL] Framework","Obfuscated mode?",true);
+		prop.comment="Unless you're a modder and using MCP, don't touch this.";
+		OCHelper=new ObfuscatedClassHelper(prop.getBoolean(true));
 		blocks=filterClassesBySuper(Block.class);
 		items=filterClassesBySuper(Item.class);
 		entities=filterClassesBySuper(Entity.class);
@@ -348,21 +353,21 @@ public class SimpleLoader {
 	private void loadBlock(Class c) throws Exception{
 		System.out.println("[SL] Loading "+c.getName());
 		SLLoad slload=(SLLoad) c.getAnnotation(SLLoad.class);
-		Object Block = null;
+		Object block = null;
 		Constructor[] cons=c.getConstructors();
 		for(Constructor con : cons){
 			if(con.isAnnotationPresent(SLLoad.class)){
 				try{
-					Block=con.newInstance(IDMap.get(getModuleName(c)));
+					block=con.newInstance(lookupInt(getModuleName(c)));
 					Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
-					f.set(modcontainer,Block);
+					f.set(modcontainer,block);
 				}catch(Exception e){
 					e.printStackTrace();
 					System.out.println(c.getName());
 					throw(e);
 				}
 
-				GameRegistry.registerBlock((Block) Block, 
+				GameRegistry.registerBlock((Block) block, 
 						(Class<? extends ItemBlock>)
 						(slload.itemClass()!="net.minecraft.item.ItemBlockWithMetadata"? 
 								Class.forName(slload.itemClass()) 
@@ -372,7 +377,7 @@ public class SimpleLoader {
 		}
 		for(Method m:c.getMethods()){
 			if(m.isAnnotationPresent(SLLoad.class)){
-				m.invoke(Block);
+				m.invoke(block);
 			}
 		}
 	}
