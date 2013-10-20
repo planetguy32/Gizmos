@@ -7,6 +7,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,12 +22,12 @@ import net.minecraft.world.biome.BiomeGenBase;
  * @author planetguy
  *
  */
-@SLLoad(name="bombDefuser",dependencies={"Lens"})
+@SLLoad(name="bombDefuser",dependencies={"Lens","GravityBomb","timeBombs"})
 public class ItemBombDefuser extends Item{
 
 
 	@SLProp(name = "explosivesID")
-	public static int[] explosivesID;
+	public static int[] explosivesID={Block.tnt.blockID};;
 	
 	@SLLoad
 	public ItemBombDefuser(int par1) {

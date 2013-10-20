@@ -26,7 +26,6 @@ public class BlockLauncher extends Block{
 		super(par1, Material.ice);
 		this.setCreativeTab(CreativeTabs.tabRedstone);
 		Gizmos.launcher=this.setUnlocalizedName("entityLauncher");
-		GameRegistry.registerBlock(Gizmos.launcher, ItemBlock.class, "launcher");
 		LanguageRegistry.instance().addName(Gizmos.launcher, "Launcher");
 		SLItemBlock.registerString(par1, 0, "Launcher", new String[]{"Anything inside goes up, fast."});
 	}

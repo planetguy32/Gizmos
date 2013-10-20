@@ -53,8 +53,8 @@ public class SimpleLoader {
 
 	public Class[] moduleClasses; //unfiltered, unsorted classes
 	public Class[] filteredSortedClasses;
-	public final Class[] blocks,items,entities,custom;
-	public final String modname;
+	public Class[] blocks,items,entities,custom;
+	public String modname;
 	
 	public ObfuscatedClassHelper OCHelper;
 	
@@ -79,13 +79,17 @@ public class SimpleLoader {
 
 	private HashMap<String,Integer> IDMap=new HashMap<String,Integer>();
 	private int passLimit;
-	private ClassLoader classLoader;
+	private boolean generateCode;
+	
+	private boolean staticLoading;
+	
+	public CodeWriter cw;
 
 	public int lookupInt(String s){
 		return IDMap.get(s);
 	}
 
-	public SimpleLoader(String modname, Object modcontainer, Configuration cfg) throws Exception{
+	public SimpleLoader(String modname, SLModContainer modcontainer, Configuration cfg) throws Exception{
 		try{
 			moduleClasses=discoverSLModules();
 		}catch(Exception e){
@@ -99,17 +103,41 @@ public class SimpleLoader {
 			}});
 		this.modname=modname;
 		this.modcontainer=modcontainer;
-		Property prop=cfg.get("[SL] Framework","Obfuscated mode?",true);
-		prop.comment="Unless you're a modder and using MCP, don't touch this.";
-		OCHelper=new ObfuscatedClassHelper(prop.getBoolean(true));
+		Property prop=cfg.get("[SL] Framework","SL mode",0);
+		prop.comment="0=static, 1=dynamic no-gen, 2=dynamic gen. Unless you're modding with SimpleLoader, you want 0.";
+		int slMode=prop.getInt(0);
+		staticLoading=slMode==0;
+		cw=new CodeWriter(modcontainer);
+		if(staticLoading){
+			 modcontainer.setStaticLoading(true);
+		}else{
+			modcontainer.setStaticLoading(false);
+			generateCode=slMode==2;
+			initDynamically(cfg);
+		}
+		
+		//System.out.println(formatClasses(moduleClasses));
+	}
+	
+	public void initDynamically(Configuration cfg){
 		blocks=filterClassesBySuper(Block.class);
 		items=filterClassesBySuper(Item.class);
 		entities=filterClassesBySuper(Entity.class);
 		custom=filterClassesBySuper(CustomModuleLoader.class);
-		setupAndReadConfig(cfg);
+		try {
+			setupAndReadConfig(cfg);
+		} catch (Exception e) {
+		}
 		filterAndSortClasses();
-
-		//System.out.println(formatClasses(moduleClasses));
+		if(generateCode){
+			cw.classes=Arrays.asList(filteredSortedClasses);
+			try{
+				cw.writeLoaderClass();
+			}catch(Exception e){
+				e.printStackTrace();
+				System.exit(0);
+			}
+		}
 	}
 
 	/**Utility method to get the module name of a class
@@ -155,6 +183,7 @@ public class SimpleLoader {
 	 */
 
 	private void setupAndReadConfig(Configuration config) throws Exception{
+		if(staticLoading)return;
 		for(int i=0; i<moduleList.size(); i++){
 			moduleList.set(i, getModuleName(moduleClasses[i]));
 		}
@@ -216,6 +245,8 @@ public class SimpleLoader {
 	}
 
 	public void filterAndSortClasses(){
+		if(staticLoading)return;
+
 		int pass=0; //How many passes the dependency manager has gone over the class list.
 		ArrayList<Class> sortedClasses=new ArrayList<Class>();
 		HashSet<String> loadedClasses=new HashSet<String>();
@@ -278,6 +309,7 @@ public class SimpleLoader {
 	 */
 
 	public void loadClass(Class c) throws Exception{
+		if(staticLoading)return;
 		if(Block.class.isAssignableFrom(c)){
 			loadBlock(c);
 		}else if(Item.class.isAssignableFrom(c)){
@@ -295,6 +327,7 @@ public class SimpleLoader {
 	 */
 
 	public void loadClasses() throws Exception{
+		if(staticLoading)return;
 		System.out.println("[SL] Loading classes...");
 		for(Class c:filteredSortedClasses){
 			loadClass(c);
@@ -441,7 +474,7 @@ public class SimpleLoader {
 			try{ //if it isn't possible to load a class from a name, ignore the name
 				String classname=i.next();
 
-				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.*
+				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.* Change?
 				Class c=Class.forName(classname);
 				//System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
 				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it

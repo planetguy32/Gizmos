@@ -26,6 +26,7 @@ import planetguy.gizmos.CES.powerups.PowerupFall;
 import planetguy.gizmos.gravitybomb.EntityTunnelBomb;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLItemBlock;
+import planetguy.simpleLoader.SLModContainer;
 import planetguy.simpleLoader.SimpleLoader;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -44,9 +45,11 @@ import net.minecraftforge.common.Property;
  */
 @Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
-public class Gizmos {
+public class Gizmos implements SLModContainer{
 	
-	//Holds instances for all items/blocks/etc. Deprecated with SimpleLoader?
+	public static boolean useStaticLoading;
+	
+	//Holds instances for all items/blocks/etc. Required by SimpleLoader.
 	public static Block GravityBomb;
 	public static Entity graviBombPrimed;
 	public static EntityTunnelBomb tunnelBombPrimed;
@@ -55,6 +58,8 @@ public class Gizmos {
 	public static Block forestFire;
 	public static Item deforestator;
 	public static Item minersLighter;
+	
+	public static Block composter;
 	
 	public static Block inserter;
 	public static Item Lens;
@@ -78,8 +83,6 @@ public class Gizmos {
 	
 	public static Item fireExtinguisher;
 	public static Item lastLaugh;
-	public static Item rCanvas;
-	public static Item rCanvasBag;
 	public static Item lastLaughChestplate;
 	public static Item temporalDislocator;
 	
@@ -106,7 +109,9 @@ public class Gizmos {
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		loader=new SimpleLoader("Gizmos",Gizmos.instance,config);
-
+		if(useStaticLoading){
+			SLGeneratedLoader.setupConfigs(config);
+		}
 		
 		config.save();
 	}
@@ -117,6 +122,9 @@ public class Gizmos {
 		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
         loader.loadClasses();
+        if(useStaticLoading){
+        	SLGeneratedLoader.loadThings();
+        }
         final ItemStack gb;
         if(GravityBomb==null){
         	gb=new ItemStack(Block.blocksList[46]);
@@ -166,6 +174,12 @@ public class Gizmos {
 	@PostInit
 	public final void postInit(FMLPostInitializationEvent e){
 		SLItemBlock.loadLanguages();
+	}
+
+
+	@Override
+	public void setStaticLoading(boolean isStatic) {
+		useStaticLoading=isStatic;
 	}
 
 }

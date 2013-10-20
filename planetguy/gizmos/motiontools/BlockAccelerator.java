@@ -27,7 +27,6 @@ public class BlockAccelerator extends Block{
 		super(par1,Material.glass);
 		this.slipperiness=(float) accelRate;
 		Gizmos.accelerator=this.setUnlocalizedName("accelerator").setCreativeTab(CreativeTabs.tabRedstone);
-		GameRegistry.registerBlock(Gizmos.accelerator, ItemBlock.class, "accelerator");
 		LanguageRegistry.instance().addName(Gizmos.accelerator, "Accelerator");
 		SLItemBlock.registerString(par1, 0, "Accelerator", new String[]{"Anything on top speeds up."});
 	}

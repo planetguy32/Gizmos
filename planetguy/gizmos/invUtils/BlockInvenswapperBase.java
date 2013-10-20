@@ -36,7 +36,6 @@ public class BlockInvenswapperBase extends BlockContainer{
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setUnlocalizedName("Gizmos_Invenswapper");
-		setCreativeTab(CreativeTabs.tabDecorations);
 		LanguageRegistry.addName(this, "Invenswapper base");
 		SLItemBlock.registerString(par1, 0, "Invenswapper (in)", new String[] {"Sneak while on top of it to","put items into it."});
 		SLItemBlock.registerString(par1, 1, "Invenswapper (out)", new String[] {"Sneak while on top of it to","take all the items inside it."});

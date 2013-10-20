@@ -20,7 +20,7 @@ import net.minecraft.tileentity.TileEntity;
  */
 public class TileEntityComposter extends TileEntity implements IInventory{
 	
-	public ItemStack[] inventory=new ItemStack[27];
+	public ItemStack[] inventory=new ItemStack[10];
 	
 	public boolean isEmpty;
 	public int accumulatedComposting;
@@ -159,7 +159,13 @@ public class TileEntityComposter extends TileEntity implements IInventory{
 	 */
 	
 	public void updateInventoryContents(){
-		
+		int itemsCanProcess=accumulatedComposting/1000;
+		int itemsAlreadyConverted=0;
+		for(int i=0; i<inventory.length-1; i++){
+			if(itemsAlreadyConverted==itemsCanProcess)
+				break;
+			
+		}
 	}
 
 }
