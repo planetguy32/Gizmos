@@ -2,12 +2,12 @@ package planetguy.gizmos;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import com.google.common.collect.ImmutableList;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
@@ -28,6 +28,7 @@ import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLModContainer;
 import planetguy.simpleLoader.SimpleLoader;
+import planetguy.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -47,7 +48,7 @@ import net.minecraftforge.common.Property;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos implements SLModContainer{
 	
-	public static boolean useStaticLoading;
+	public static final boolean useStaticLoading=true;
 	
 	//Holds instances for all items/blocks/etc. Required by SimpleLoader.
 	public static Block GravityBomb;
@@ -104,7 +105,7 @@ public class Gizmos implements SLModContainer{
 	private ImmutableList<String> creativeTabBlacklistedThings=ImmutableList.of("superFire","forestFire","invenswapperTop");
 	
 	//Callback from Forge
-	@PreInit
+	@EventHandler
 	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
@@ -116,14 +117,19 @@ public class Gizmos implements SLModContainer{
 		config.save();
 	}
 	
-	
-	@Init
-	public final void load(FMLInitializationEvent ignored) throws Exception{
+	@EventHandler
+	public void load(FMLInitializationEvent ignored) throws Exception{
+		
+		Debug.dbg("Before loading:");
+        Debug.dump(this.getClass(), this);
+        Debug.dump(SLGeneratedLoader.class,null);
+        Debug.dump(SimpleLoader.class, loader);
 		
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
-        loader.loadClasses();
         if(useStaticLoading){
         	SLGeneratedLoader.loadThings();
+        }else{
+        	loader.loadClasses();
         }
         final ItemStack gb;
         if(GravityBomb==null){
@@ -145,6 +151,12 @@ public class Gizmos implements SLModContainer{
         };
        
         //debug: after SL initializes everything, print out what is and isn't null. Makes sure references get to this class.
+        Debug.dbg("After loading:");
+        Debug.dump(this.getClass(), this);
+        Debug.dump(SLGeneratedLoader.class,null);
+        Debug.dump(SimpleLoader.class, loader);
+        
+        //Move all the items and blocks into our creative tab
         Class c=this.getClass();
         for(Field f:c.getDeclaredFields()){
         	boolean isBlock=f.getType().equals(Block.class);
@@ -162,16 +174,10 @@ public class Gizmos implements SLModContainer{
         			
         		}catch(Exception e){}
         	}
-        	dbg(">>Field:"+f.getName()+", value:"+f.get(this));
         }
 	}
 	
-	public static void dbg(String text){ //less-wordy way to print a message to console
-		if(text==null)text="<null>";
-		FMLLog.log("Gizmos",Level.INFO, text);
-	}
-	
-	@PostInit
+	@EventHandler
 	public final void postInit(FMLPostInitializationEvent e){
 		SLItemBlock.loadLanguages();
 	}
@@ -179,7 +185,7 @@ public class Gizmos implements SLModContainer{
 
 	@Override
 	public void setStaticLoading(boolean isStatic) {
-		useStaticLoading=isStatic;
+		//useStaticLoading=isStatic;
 	}
 
 }

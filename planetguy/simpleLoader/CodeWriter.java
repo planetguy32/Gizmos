@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import planetguy.gizmos.Gizmos;
+
 import cpw.mods.fml.common.Mod;
 
 import net.minecraft.block.Block;
@@ -32,7 +34,7 @@ public class CodeWriter {
 	List<Class> classes=new ArrayList<Class>();
 		
 	public CodeWriter(Object o) throws IOException{
-		String filename=Minecraft.getMinecraft().mcDataDir.getCanonicalPath()+"/SLGeneratedLoader.java";
+		String filename=Minecraft.getMinecraft().mcDataDir.getCanonicalPath()+"/../repo/Gizmos/planetguy/gizmos/SLGeneratedLoader.java";
 		File out=new File(filename);
 		output=new PrintStream(out);
 		modContainer=o;
@@ -46,10 +48,10 @@ public class CodeWriter {
 		}
 	}
 	
-	public void writeLoaderClass() throws IllegalArgumentException, IllegalAccessException{
+	public void writeLoaderClass(List<String> classnames) throws IllegalArgumentException, IllegalAccessException{
 		System.out.println("Writing loader...");
 		System.out.println("[CW] classes:"+classes);
-		output.println("package planetguy.simpleLoader;");
+		output.println("package planetguy.gizmos;");
 		output.println();
 		output.println("import net.minecraftforge.common.Configuration;");
 		output.println();
@@ -67,7 +69,12 @@ public class CodeWriter {
 		output.println();
 		//HashMap to store IDs from loading from config to object construction
 		output.println("private static HashMap<String, Integer> idMap=new HashMap<String,Integer>();");
-		output.println("private static List<String> moduleList;");
+		output.println("private static List<String> moduleList=Arrays.asList(new String[]{");
+		output.println("\""+classnames.get(0)+"\"");
+		for(int i=1; i<classnames.size(); i++){//treat 0 as a special case, it needs no comma before
+			output.println(",\""+classnames.get(i)+"\"");
+		}
+		output.println("});");
 		output.println();
 		output.println("public static void setupConfigs(Configuration config){");
 
@@ -89,21 +96,23 @@ public class CodeWriter {
 					
 					//choose the matching type to get from the config property to put in the field
 					if(f.getGenericType().equals(Integer.TYPE)){
-						output.print(".getInt(");
+						output.print(".getInt("+qName);
 					}else if(f.getGenericType().equals(Double.TYPE)){
-						output.print(".getDouble(");
+						output.print(".getDouble("+qName);
 					}else if(f.getGenericType().toString()=="class java.lang.String"){
-						output.print(".getString(");
+						output.print(".getString("+qName);
 					}else if(f.getGenericType().toString()=="class [Ljava.lang.String;"){
 						output.print(".getStringList(");
 					}else if(f.getGenericType().toString()=="class [I"){
 						output.print(".getIntList(");
 					}else if(f.getGenericType().toString()=="class [D"){
 						output.print(".getDoubleList(");
-					}else{
-						output.print("/*!!!*/"); //If unsupported type, leave something noticeable.
+					}else if(f.getGenericType()==Boolean.TYPE){
+						output.print(".getBoolean("+qName); 
+					}else{//If unsupported type, leave something noticeable.
+						output.print("/*!!!*/.getIntList(");
 					}
-					output.println(qName+");");
+					output.println(");");
 				}
 			}
 		}
@@ -150,7 +159,7 @@ public class CodeWriter {
 				output.println("GameRegistry.registerItem("+containerField+",\""+modName+"."+sll.name()+"\");");
 			}
 			if(Entity.class.isAssignableFrom(c)){
-				output.println("/*!!!*/EntityRegistry.registerModEntity("+c.getSimpleName()+".class,\""+sll.name()+"\",idMap.get(\""+sll.name()+".entityID\"),Gizmos.instance,80,3,true);");
+				output.println("EntityRegistry.registerModEntity("+c.getName()+".class,\""+sll.name()+"\",idMap.get(\""+sll.name()+".entityID\"),Gizmos.instance,80,3,true);");
 			}
 			if(CustomModuleLoader.class.isAssignableFrom(c)){
 				output.println(containerField+"=new "+c.getName()+"();");

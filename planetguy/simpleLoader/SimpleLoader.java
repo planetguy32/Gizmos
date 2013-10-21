@@ -103,16 +103,18 @@ public class SimpleLoader {
 			}});
 		this.modname=modname;
 		this.modcontainer=modcontainer;
-		Property prop=cfg.get("[SL] Framework","SL mode",0);
-		prop.comment="0=static, 1=dynamic no-gen, 2=dynamic gen. Unless you're modding with SimpleLoader, you want 0.";
-		int slMode=prop.getInt(0);
+		Property prop=cfg.get("[SL] Framework","SL loader",1);
+		prop.comment="0=static, 1=dynamic no-gen, 2=dynamic code gen. If using 1 crashes, try 0. 2 is 1 plus a code generator thingy.";
+		int slMode=prop.getInt(1);
 		staticLoading=slMode==0;
-		cw=new CodeWriter(modcontainer);
 		if(staticLoading){
 			 modcontainer.setStaticLoading(true);
 		}else{
 			modcontainer.setStaticLoading(false);
-			generateCode=slMode==2;
+			if(slMode==2){
+				generateCode=true;
+				cw=new CodeWriter(modcontainer);
+			}
 			initDynamically(cfg);
 		}
 		
@@ -131,8 +133,12 @@ public class SimpleLoader {
 		filterAndSortClasses();
 		if(generateCode){
 			cw.classes=Arrays.asList(filteredSortedClasses);
+			List<String> classnames=new ArrayList<String>();
+			for(Class c:filteredSortedClasses){
+				classnames.add(getModuleName(c));
+			}
 			try{
-				cw.writeLoaderClass();
+				cw.writeLoaderClass(classnames);
 			}catch(Exception e){
 				e.printStackTrace();
 				System.exit(0);
