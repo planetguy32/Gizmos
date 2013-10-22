@@ -79,7 +79,6 @@ public class Gizmos implements SLModContainer{
 	public static Item buildTool;
 	
 	public static CustomModuleLoader flowerFix;
-	public static CustomModuleLoader railRecipeReverter;
 	public static CustomModuleLoader anyShapePortals;
 	
 	public static Item fireExtinguisher;

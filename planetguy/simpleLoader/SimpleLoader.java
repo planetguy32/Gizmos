@@ -63,14 +63,6 @@ public class SimpleLoader {
 	 */
 	private Object modcontainer;
 	
-	/**
-	 * Indicates how the banList should be used.
-	 * 
-	 * 0: blacklist - nothing on list loads, modules needing banned things don't load either
-	 * 1: whitelist - nothing not on list loads, modules needing banned things don't load
-	 * 
-	 */
-	private boolean useBlacklist; 
 	private List<String> moduleList=new ArrayList<String>();
 
 	/**
@@ -104,7 +96,7 @@ public class SimpleLoader {
 		this.modname=modname;
 		this.modcontainer=modcontainer;
 		Property prop=cfg.get("[SL] Framework","SL loader",1);
-		prop.comment="0=static, 1=dynamic no-gen, 2=dynamic code gen. If using 1 crashes, try 0. 2 is 1 plus a code generator thingy.";
+		prop.comment="0=static, 1=dynamic no-gen, 2=dynamic code gen. If using 1 crashes, try 0. 2 is 1 plus a code generator thingy, which you don't need unless you're a developer.";
 		int slMode=prop.getInt(1);
 		staticLoading=slMode==0;
 		if(staticLoading){
@@ -153,9 +145,11 @@ public class SimpleLoader {
 	 */
 
 	private String getModuleName(Class c){
-		Annotation a=c.getAnnotation(SLLoad.class);
-		SLLoad sll=(SLLoad) a;
-		return sll.name();
+		return getSLL(c).name();
+	}
+	
+	private SLLoad getSLL(Class c){
+		return (SLLoad) c.getAnnotation(SLLoad.class);
 	}
 
 	/**
@@ -190,11 +184,13 @@ public class SimpleLoader {
 
 	private void setupAndReadConfig(Configuration config) throws Exception{
 		if(staticLoading)return;
-		for(int i=0; i<moduleList.size(); i++){
-			moduleList.set(i, getModuleName(moduleClasses[i]));
+		for(int i=0; i<moduleClasses.length; i++){
+			boolean show=!(getSLL(moduleClasses[i]).isTechnical());
+			if(!show||config.get("[SL] Item-restrict","allow '"+moduleList.get(i)+"'",true).getBoolean(true))
+				moduleList.add(getModuleName(moduleClasses[i]));
 		}
 		System.out.println("[SL] Modules: "+moduleList);
-		moduleList=Arrays.asList(config.get("[SL] Framework","List of allowed modules", moduleList.toArray(new String[0])).getStringList());
+		//moduleList=Arrays.asList(config.get("[SL] Framework","List of allowed modules", moduleList.toArray(new String[0])).getStringList());
 		passLimit=config.get("[SL] Framework", "Maximum dependency passes", 10).getInt(10);
 
 		//and get config values for the game content...

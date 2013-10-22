@@ -65,7 +65,7 @@ public class BlockInserter extends Block{
         		Character.valueOf('C'),chest,
         		Character.valueOf('I'),blockIron,
         		Character.valueOf('B'),wood});
-        SLItemBlock.registerString(id, 0, "Inserter", new String[]{"Yo dawg, I heard you like items..."});
+        SLItemBlock.registerString(id, 0, "Inserter", new String[]{"Hides items in other items,","or retrieves hidden items."});
 	}
 	
     public BlockInserter (int id, int texture) {
