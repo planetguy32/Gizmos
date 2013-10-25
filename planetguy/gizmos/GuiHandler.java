@@ -7,9 +7,9 @@ import planetguy.gizmos.inserter.InventoryInserter;
 import planetguy.gizmos.invUtils.ContainerInvenswapper;
 import planetguy.gizmos.invUtils.GuiInvenswapper;
 import planetguy.gizmos.invUtils.TileEntityInvenswapper;
-import planetguy.gizmos.multiblock.ContainerComposter;
-import planetguy.gizmos.multiblock.GuiComposter;
-import planetguy.gizmos.multiblock.TileEntityComposter;
+import planetguy.gizmos.multiblock.ContainerMultiMachine;
+import planetguy.gizmos.multiblock.GuiMultiMachine;
+import planetguy.gizmos.multiblock.TileEntityMultiMachine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -22,7 +22,7 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		switch(id){
 		case 2:
-			return new ContainerComposter(player.inventory,(TileEntityComposter) tileEntity);
+			return new ContainerMultiMachine(player.inventory,(TileEntityMultiMachine) tileEntity);
 		case 1:
 			return new ContainerInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
 		}
@@ -36,7 +36,7 @@ public class GuiHandler implements IGuiHandler {
 		int blockID=world.getBlockId(x, y, z);
 		switch(id){
 		case 2:
-			return new GuiComposter(player.inventory, (TileEntityComposter) tileEntity);
+			return new GuiMultiMachine(player.inventory, (TileEntityMultiMachine) tileEntity);
 		case 1:
 			//System.out.println("Invenswapper GUI selected");
 			return new GuiInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);

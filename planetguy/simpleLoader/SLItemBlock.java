@@ -28,7 +28,6 @@ public class SLItemBlock extends ItemBlockWithMetadata{
 	public SLItemBlock(int id, Block block) {
 		super(id, block);
 		setHasSubtypes(true);
-		System.out.println("Making SLItemBlock");
 		slItemBlocks.add(this);
 	}
 
@@ -41,12 +40,16 @@ public class SLItemBlock extends ItemBlockWithMetadata{
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean showMore){
 		try{
-		int meta=itemStack.getItemDamage();
-		for(String TTtext:tooltip[meta]){
-			tooltipLines.add(TTtext);
-		}
+			if(!showMore){
+				tooltipLines.add("§o<hold shift>");
+				return;
+			}
+			int meta=itemStack.getItemDamage();
+			for(String TTtext:tooltip[meta]){
+				tooltipLines.add(TTtext);
+			}
 		}catch(Exception e){
 			return;
 		}

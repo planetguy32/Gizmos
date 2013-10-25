@@ -9,10 +9,10 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.StatCollector;
 
-public class GuiComposter extends GuiContainer{
+public class GuiMultiMachine extends GuiContainer{
 
-	public GuiComposter(InventoryPlayer playerInv, TileEntityComposter composter) {
-		super(new ContainerComposter(playerInv, composter));
+	public GuiMultiMachine(InventoryPlayer playerInv, TileEntityMultiMachine composter) {
+		super(new ContainerMultiMachine(playerInv, composter));
 	}
 
 	@Override

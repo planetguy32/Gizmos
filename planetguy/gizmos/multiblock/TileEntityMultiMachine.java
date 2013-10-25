@@ -14,20 +14,32 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 /**
- * A tile entity for the composter based on a hopefully better-performing model of an ultra-lightweight onTick method.
+ * A tile entity for the multi-machine.
  * @author bill
  *
  */
-public class TileEntityComposter extends TileEntity implements IInventory{
+public class TileEntityMultiMachine extends TileEntity implements IInventory{
 	
-	public ItemStack[] inventory=new ItemStack[10];
+	
+	
+	//The main item pool. Items here are acted on by all available recipes.
+	public ItemStack[] inventory=new ItemStack[9];
+	
+	//If an item matches this, move it to finished.
+	public ItemStack match;
+
+	//The items that define the processes applied go here.
+	public ItemStack[] processes=new ItemStack[3];
+	
+	//Items that have been matched and are ready to be removed.
+	public ItemStack[] finished=new ItemStack[9];
 	
 	public boolean isEmpty;
 	public int accumulatedComposting;
 	
 	public static ImmutableList<Integer> compostableItems;
 	
-	public TileEntityComposter(){
+	public TileEntityMultiMachine(){
 		super();
 	}
 	

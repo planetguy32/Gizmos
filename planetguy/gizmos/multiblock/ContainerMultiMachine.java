@@ -6,11 +6,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
-public class ContainerComposter extends Container{
+public class ContainerMultiMachine extends Container{
 
-	public TileEntityComposter composter;
+	public TileEntityMultiMachine composter;
 	
-	public ContainerComposter(InventoryPlayer playerInv, TileEntityComposter tileEntity) {
+	public ContainerMultiMachine(InventoryPlayer playerInv, TileEntityMultiMachine tileEntity) {
 		composter=tileEntity;
 	}
 

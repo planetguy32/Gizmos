@@ -142,7 +142,7 @@ public class SLGeneratedLoader{
 			planetguy.gizmos.Gizmos.anyShapePortals.load();
 		}
 		if(moduleList.contains("composter")){
-			planetguy.gizmos.Gizmos.composter=new planetguy.gizmos.multiblock.BlockComposter(idMap.get("composter.blockID"));
+			planetguy.gizmos.Gizmos.composter=new planetguy.gizmos.multiblock.BlockMultiMachine(idMap.get("composter.blockID"));
 			GameRegistry.registerBlock(planetguy.gizmos.Gizmos.composter,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.composter");
 		}
 		if(moduleList.contains("entityGravityBomb")){
