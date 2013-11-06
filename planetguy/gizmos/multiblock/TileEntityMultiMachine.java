@@ -23,13 +23,13 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 	
 	
 	//The main item pool. Items here are acted on by all available recipes.
-	public ItemStack[] inventory=new ItemStack[9];
+	public ItemStack[] itemPool=new ItemStack[9];
 	
 	//If an item matches this, move it to finished.
-	public ItemStack match;
+	public ItemStack[] finishedFilter=new ItemStack[3];
 
 	//The items that define the processes applied go here.
-	public ItemStack[] processes=new ItemStack[3];
+	public ItemStack[] processors=new ItemStack[3];
 	
 	//Items that have been matched and are ready to be removed.
 	public ItemStack[] finished=new ItemStack[9];
@@ -65,32 +65,32 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 	
 	@Override
 	public int getSizeInventory() {
-		return inventory.length;
+		return itemPool.length;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int i) {
-		ItemStack returnval=inventory[i];
-		inventory[i]=null;
+		ItemStack returnval=itemPool[i];
+		itemPool[i]=null;
 		return returnval;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
-		if(inventory[i].stackSize<j)
-			j=inventory[i].stackSize;
-		inventory[i].stackSize-=j;
-		return new ItemStack(inventory[i].getItem(),inventory[i].getItemDamage(),j);
+		if(itemPool[i].stackSize<j)
+			j=itemPool[i].stackSize;
+		itemPool[i].stackSize-=j;
+		return new ItemStack(itemPool[i].getItem(),itemPool[i].getItemDamage(),j);
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
-		return inventory[i];
+		return itemPool[i];
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory[i]=itemstack;
+		itemPool[i]=itemstack;
 	}
 
 	@Override
@@ -127,8 +127,8 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
 			byte slot = tag.getByte("Slot");
-			if (slot >= 0 && slot < inventory.length) {
-				inventory[slot] = ItemStack.loadItemStackFromNBT(tag);
+			if (slot >= 0 && slot < itemPool.length) {
+				itemPool[slot] = ItemStack.loadItemStackFromNBT(tag);
 			}
 		}
 		this.accumulatedComposting=tagCompound.getInteger("accumulatedWork");
@@ -140,8 +140,8 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 
 		tagCompound.setInteger("accumulatedWork", this.accumulatedComposting);
 		NBTTagList itemList = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			ItemStack stack = inventory[i];
+		for (int i = 0; i < itemPool.length; i++) {
+			ItemStack stack = itemPool[i];
 			if (stack != null) {
 				NBTTagCompound tag = new NBTTagCompound();
 				tag.setByte("Slot", (byte) i);
@@ -173,7 +173,7 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 	public void updateInventoryContents(){
 		int itemsCanProcess=accumulatedComposting/1000;
 		int itemsAlreadyConverted=0;
-		for(int i=0; i<inventory.length-1; i++){
+		for(int i=0; i<itemPool.length-1; i++){
 			if(itemsAlreadyConverted==itemsCanProcess)
 				break;
 			

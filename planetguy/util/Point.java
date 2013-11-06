@@ -2,7 +2,7 @@ package planetguy.util;
 
 public class Point{ //Really simple point class
 
-	public int x, y, z;
+	public final int x, y, z;
 
 	public Point(int x, int y, int z){
 		this.x=x;
@@ -16,6 +16,21 @@ public class Point{ //Really simple point class
 				&& ((Point)o).x==x
 				&& ((Point)o).y==y
 				&& ((Point)o).z==z;
+	}
+	
+	public Point[] adjacent(){
+		return new Point[]{
+				new Point(x-1,y,z),
+				new Point(x+1,y,z),
+				new Point(x,y-1,z),
+				new Point(x,y+1,z),
+				new Point(x,y,z-1),
+				new Point(x,y,z+1)
+		};
+	}
+	
+	public Point plus(Point p){
+		return new Point(x+p.x, y+p.y, z+p.z);
 	}
 
 }

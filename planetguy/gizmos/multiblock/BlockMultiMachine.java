@@ -1,5 +1,7 @@
 package planetguy.gizmos.multiblock;
 
+import java.util.ArrayList;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -31,9 +33,9 @@ public class BlockMultiMachine extends BlockContainer {
 		super(id,machinery);
 		this.setUnlocalizedName("gizmos_MultiMachine");
 		GameRegistry.registerTileEntity(TileEntityMultiMachine.class,"gizmos_MultiMachine");
-		GameRegistry.addRecipe(new ItemStack(this,13,0), new Object[]{
-			"iii","ici","iii",
-			Character.valueOf('i'),new ItemStack(Block.blockIron),
+		GameRegistry.addRecipe(new ItemStack(this,4,0), new Object[]{
+			"i","c",
+			Character.valueOf('i'),new ItemStack(Item.ingotIron),
 			Character.valueOf('c'),new ItemStack(Block.cauldron)
 		});
 		for(int i=0; i<16; i++){
@@ -48,6 +50,14 @@ public class BlockMultiMachine extends BlockContainer {
 		for(int i=0; i<15; i++){
 			icons[i]=ir.registerIcon(Gizmos.modName+":MultiMachine_"+i);
 		}
+	}
+	
+	@Override
+    public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune){
+		ArrayList<ItemStack> stacks=new ArrayList<ItemStack>();
+		if(world.getBlockTileEntity(x, y, z) instanceof TileEntityMultiMachine)
+			stacks.add(new ItemStack(this,metadata));
+		return stacks;
 	}
 	
     @Override

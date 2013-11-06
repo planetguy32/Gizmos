@@ -62,6 +62,8 @@ public class Gizmos implements SLModContainer{
 	
 	public static Block composter;
 	
+	public static Block RedstoneResponsiveWool;
+	
 	public static Block inserter;
 	public static Item Lens;
 	
