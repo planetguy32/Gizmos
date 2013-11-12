@@ -44,7 +44,7 @@ import net.minecraftforge.common.Property;
  *The Gizmos main class. Contains references to some blocks and items.
  *
  */
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.0")
+@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.1")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos implements SLModContainer{
 	
