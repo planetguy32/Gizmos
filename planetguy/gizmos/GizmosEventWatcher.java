@@ -1,14 +1,20 @@
 package planetguy.gizmos;
 
+import java.lang.reflect.Field;
 import java.util.logging.Logger;
 
 import planetguy.gizmos.inserter.BlockInserter;
 import planetguy.gizmos.tool.ItemLastLaughArmor;
+import planetguy.simpleLoader.CustomModuleLoader;
+import planetguy.simpleLoader.SLLoad;
+import planetguy.util.Debug;
 
 
 import cpw.mods.fml.common.FMLLog;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,12 +23,18 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.Event;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
-public class GizmosEventWatcher {
+
+@SLLoad(name="eventHandler")
+public class GizmosEventWatcher extends CustomModuleLoader{
 	
 	@ForgeSubscribe
 	public void checkIfBombedItemShouldExplode(PlayerInteractEvent pie){
@@ -75,7 +87,10 @@ public class GizmosEventWatcher {
 			player.worldObj.createExplosion(player, player.posX, player.posY, player.posZ, 4, true);
 		}
 	}
-	
-	
+
+	@Override
+	public void load() {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
 }

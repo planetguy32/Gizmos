@@ -49,7 +49,6 @@ public class CESContainer { //TODO move logic here from TileEntity - more versat
 	
 	public int getPowerupCopiesInstalled(Byte id){
 		return 2;
-		
 	}
 
 	public boolean tryAddPowerup(Powerup powerup) {

@@ -75,7 +75,7 @@ public class BlockDynamicWool extends Block{
 			return;
 		w.scheduleBlockUpdate(x, y, z, this.blockID, 4);
 	}
-
+	
 	public int signalStrength(World w, int x, int y, int z, int side) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Integer[] nums={getSignalStrength( w, x, y, z, 0),
 				getSignalStrength( w, x, y, z, 1),

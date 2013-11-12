@@ -42,10 +42,6 @@ public class SLItemBlock extends ItemBlockWithMetadata{
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean showMore){
 		try{
-			if(!showMore){
-				tooltipLines.add("§o<hold shift>");
-				return;
-			}
 			int meta=itemStack.getItemDamage();
 			for(String TTtext:tooltip[meta]){
 				tooltipLines.add(TTtext);

@@ -40,9 +40,18 @@ public class ItemBuildTool extends ItemPickaxe{
 	}
 	
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
-		tooltipLines.add("Half pickaxe, half placing hand.");
-		tooltipLines.add("Refill with inserter.");
+	public void addInformation(ItemStack buildtool, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+		
+		try{
+			NBTTagCompound tag=buildtool.getTagCompound();
+			ItemStack contained=ItemStack.loadItemStackFromNBT(tag);
+			
+			tooltipLines.add("Contains "+contained.stackSize + " x "+ contained.getDisplayName());
+			
+		}catch(Exception e){ //Default message if can't pull item
+			tooltipLines.add("Half pickaxe, half placing hand.");
+			tooltipLines.add("Refill with inserter.");	
+		}
 	}
 
 	public boolean onItemUse(ItemStack me, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10){

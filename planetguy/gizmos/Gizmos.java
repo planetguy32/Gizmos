@@ -83,10 +83,15 @@ public class Gizmos implements SLModContainer{
 	public static CustomModuleLoader flowerFix;
 	public static CustomModuleLoader anyShapePortals;
 	
+	public static CustomModuleLoader eventHandler;
+	
 	public static Item fireExtinguisher;
 	public static Item lastLaugh;
 	public static Item lastLaughChestplate;
 	public static Item temporalDislocator;
+	
+	public static Item arrowNova;
+	public static Entity entityArrowNova;
 	
 	public static CreativeTabs tabGizmos;
 	
@@ -164,7 +169,8 @@ public class Gizmos implements SLModContainer{
         	boolean isItem=f.getType().equals(Item.class);
         	if(isBlock||isItem){
         		try{
-        			if(creativeTabBlacklistedThings.contains(f.getName()))throw new Exception();
+        			if(creativeTabBlacklistedThings.contains(f.getName()))
+        				continue;
         			if(isItem){
         				Item i=(Item) f.get(this);
         				i.setCreativeTab(tabGizmos);

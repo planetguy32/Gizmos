@@ -8,6 +8,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.simpleLoader.SLProp;
 import planetguy.util.Point;
 
 @SLLoad(name="anyShapePortals")
@@ -19,8 +20,11 @@ public class PortalLiberator extends CustomModuleLoader{
 		MinecraftForge.EVENT_BUS.register(new PortalCreateListener());		
 	}
 	
-public class PortalCreateListener {
-		
+	@SLProp(name="portalSizeLimit")
+	public static int sizeLimit=30;
+
+	public class PortalCreateListener {
+
 		int checked=0;
 
 		ArrayList<Point> points=new ArrayList<Point>();
@@ -52,14 +56,14 @@ public class PortalCreateListener {
 		public int[] correct(int x, int y, int z, int dir){
 
 			if (dir == 0){--y;}
-	        if (dir == 1){++y;}
-	        if (dir == 2){--z;}
-	        if (dir == 3){++z;}
-	        if (dir == 4){--x;}
-	        if (dir == 5){++x;}
-	        
-	        int[] pos={x,y,z};
-	        return pos;
+			if (dir == 1){++y;}
+			if (dir == 2){--z;}
+			if (dir == 3){++z;}
+			if (dir == 4){--x;}
+			if (dir == 5){++x;}
+
+			int[] pos={x,y,z};
+			return pos;
 		}
 
 		/**
@@ -68,7 +72,7 @@ public class PortalCreateListener {
 		 */
 
 		public boolean tryMakePortal(World w, int x, int y, int z, boolean checkConstantZPlane){
-			if(checked>30)
+			if(checked>sizeLimit)
 				return false; //Don't check too many points - algorithm will go on forever otherwise
 			//System.out.println("Checking portal at ("+x+","+y+","+z+")"); //Debug spam
 			if(points.contains(new Point(x,y,z)))
@@ -96,7 +100,7 @@ public class PortalCreateListener {
 				return true; //Hit obby: We're happy
 			}else if (check==2)
 				return false; //Hit invalid portal blocks: No portal can be made
-			return checkConstantZPlane;
+			return true;
 		}
 
 		/**

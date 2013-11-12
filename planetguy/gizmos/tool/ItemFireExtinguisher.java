@@ -6,6 +6,7 @@ import java.util.List;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -36,6 +37,14 @@ public class ItemFireExtinguisher extends Item{
 		this.setCreativeTab(CreativeTabs.tabTools);
 		this.setUnlocalizedName("fireExtinguisher");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Fire extinguisher");
+		GameRegistry.addRecipe(new ItemStack(this), new Object[] {
+			" i ",
+			"rbr",
+			"rbr",
+			Character.valueOf('i'),new ItemStack(Item.ingotIron),
+			Character.valueOf('r'),new ItemStack(Item.dyePowder,1,14),
+			Character.valueOf('b'),new ItemStack(Item.bucketWater)
+		});
 	}
 	
 	@Override
@@ -80,7 +89,7 @@ public class ItemFireExtinguisher extends Item{
 
 	
 	@Override
-    public boolean func_111207_a(ItemStack ext, EntityPlayer player, EntityLivingBase target){
+    public boolean itemInteractionForEntity(ItemStack ext, EntityPlayer player, EntityLivingBase target){
         boolean result=false;
         if(player.isBurning()){
         	player.extinguish();

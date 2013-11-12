@@ -35,7 +35,7 @@ public class CodeWriter {
 	List<Class> classes=new ArrayList<Class>();
 		
 	public CodeWriter(Object o) throws IOException{
-		String filename=Minecraft.getMinecraft().mcDataDir.getCanonicalPath()+"/../repo/Gizmos/planetguy/gizmos/SLGeneratedLoader.java";
+		String filename=SimpleLoader.mcdir+"/../repo/Gizmos/planetguy/gizmos/SLGeneratedLoader.java";
 		File out=new File(filename);
 		output=new PrintStream(out);
 		modContainer=o;

@@ -25,8 +25,10 @@ private static List<String> moduleList=new ArrayList(Arrays.asList(new String[]{
 ,"accelerator"
 ,"anyShapePortals"
 ,"composter"
+,"entityArrowNova"
 ,"entityGravityBomb"
 ,"entityTunnelBomb"
+,"eventHandler"
 ,"fireExtinguisher"
 ,"flowerFix"
 ,"forestFire"
@@ -38,6 +40,7 @@ private static List<String> moduleList=new ArrayList(Arrays.asList(new String[]{
 ,"temporalDislocator"
 ,"timeBombs"
 ,"GravityBomb"
+,"arrowNova"
 ,"bombDefuser"
 ,"buildTool"
 ,"deforestator"
@@ -58,10 +61,14 @@ if(!config.get("[SL] Item-restrict","allow 'anyShapePortals'",true).getBoolean(t
 moduleList.remove("anyShapePortals");
 if(!config.get("[SL] Item-restrict","allow 'composter'",true).getBoolean(true))
 moduleList.remove("composter");
+if(!config.get("[SL] Item-restrict","allow 'entityArrowNova'",true).getBoolean(true))
+moduleList.remove("entityArrowNova");
 if(!config.get("[SL] Item-restrict","allow 'entityGravityBomb'",true).getBoolean(true))
 moduleList.remove("entityGravityBomb");
 if(!config.get("[SL] Item-restrict","allow 'entityTunnelBomb'",true).getBoolean(true))
 moduleList.remove("entityTunnelBomb");
+if(!config.get("[SL] Item-restrict","allow 'eventHandler'",true).getBoolean(true))
+moduleList.remove("eventHandler");
 if(!config.get("[SL] Item-restrict","allow 'fireExtinguisher'",true).getBoolean(true))
 moduleList.remove("fireExtinguisher");
 if(!config.get("[SL] Item-restrict","allow 'flowerFix'",true).getBoolean(true))
@@ -84,6 +91,8 @@ if(!config.get("[SL] Item-restrict","allow 'timeBombs'",true).getBoolean(true))
 moduleList.remove("timeBombs");
 if(!config.get("[SL] Item-restrict","allow 'GravityBomb'",true).getBoolean(true))
 moduleList.remove("GravityBomb");
+if(!config.get("[SL] Item-restrict","allow 'arrowNova'",true).getBoolean(true))
+moduleList.remove("arrowNova");
 if(!config.get("[SL] Item-restrict","allow 'bombDefuser'",true).getBoolean(true))
 moduleList.remove("bombDefuser");
 if(!config.get("[SL] Item-restrict","allow 'buildTool'",true).getBoolean(true))
@@ -95,6 +104,7 @@ moduleList.remove("invenswapper");
 if(!config.get("[SL] Item-restrict","allow 'minersLighter'",true).getBoolean(true))
 moduleList.remove("minersLighter");
 planetguy.gizmos.motiontools.BlockAccelerator.accelRate=config.get("Details","acceleratorRate",planetguy.gizmos.motiontools.BlockAccelerator.accelRate).getDouble(planetguy.gizmos.motiontools.BlockAccelerator.accelRate);
+planetguy.sltweaks.PortalLiberator.sizeLimit=config.get("Details","portalSizeLimit",planetguy.sltweaks.PortalLiberator.sizeLimit).getInt(planetguy.sltweaks.PortalLiberator.sizeLimit);
 planetguy.sltweaks.FlowerFix.redFlowerWeight=config.get("Details","redFlowerWeight",planetguy.sltweaks.FlowerFix.redFlowerWeight).getInt(planetguy.sltweaks.FlowerFix.redFlowerWeight);
 planetguy.sltweaks.FlowerFix.yellowFlowerWeight=config.get("Details","yellowFlowerWeight",planetguy.sltweaks.FlowerFix.yellowFlowerWeight).getInt(planetguy.sltweaks.FlowerFix.yellowFlowerWeight);
 planetguy.gizmos.inserter.BlockInserter.doBlockDamage=config.get("Details","doBlockDamage",planetguy.gizmos.inserter.BlockInserter.doBlockDamage).getBoolean(planetguy.gizmos.inserter.BlockInserter.doBlockDamage);
@@ -109,8 +119,9 @@ idMap.put("Lens.itemID",config.getItem("Lens",8100).getInt(8100));
 idMap.put("RedstoneResponsiveWool.blockID",config.getBlock("RedstoneResponsiveWool",3981).getInt(3981));
 idMap.put("accelerator.blockID",config.getBlock("accelerator",3982).getInt(3982));
 idMap.put("composter.blockID",config.getBlock("composter",3983).getInt(3983));
-idMap.put("entityGravityBomb.entityID",config.get("Entities","entityGravityBomb",201).getInt(201));
-idMap.put("entityTunnelBomb.entityID",config.get("Entities","entityTunnelBomb",202).getInt(202));
+idMap.put("entityArrowNova.entityID",config.get("Entities","entityArrowNova",201).getInt(201));
+idMap.put("entityGravityBomb.entityID",config.get("Entities","entityGravityBomb",202).getInt(202));
+idMap.put("entityTunnelBomb.entityID",config.get("Entities","entityTunnelBomb",203).getInt(203));
 idMap.put("fireExtinguisher.itemID",config.getItem("fireExtinguisher",8101).getInt(8101));
 idMap.put("forestFire.blockID",config.getBlock("forestFire",3984).getInt(3984));
 idMap.put("inserter.blockID",config.getBlock("inserter",3985).getInt(3985));
@@ -121,11 +132,12 @@ idMap.put("telekinesisCatalyst.blockID",config.getBlock("telekinesisCatalyst",39
 idMap.put("temporalDislocator.itemID",config.getItem("temporalDislocator",8102).getInt(8102));
 idMap.put("timeBombs.blockID",config.getBlock("timeBombs",3990).getInt(3990));
 idMap.put("GravityBomb.blockID",config.getBlock("GravityBomb",3991).getInt(3991));
-idMap.put("bombDefuser.itemID",config.getItem("bombDefuser",8103).getInt(8103));
-idMap.put("buildTool.itemID",config.getItem("buildTool",8104).getInt(8104));
-idMap.put("deforestator.itemID",config.getItem("deforestator",8105).getInt(8105));
+idMap.put("arrowNova.itemID",config.getItem("arrowNova",8103).getInt(8103));
+idMap.put("bombDefuser.itemID",config.getItem("bombDefuser",8104).getInt(8104));
+idMap.put("buildTool.itemID",config.getItem("buildTool",8105).getInt(8105));
+idMap.put("deforestator.itemID",config.getItem("deforestator",8106).getInt(8106));
 idMap.put("invenswapper.blockID",config.getBlock("invenswapper",3992).getInt(3992));
-idMap.put("minersLighter.itemID",config.getItem("minersLighter",8106).getInt(8106));
+idMap.put("minersLighter.itemID",config.getItem("minersLighter",8107).getInt(8107));
 }
 
 public static void loadThings(){
@@ -153,11 +165,18 @@ if(moduleList.contains("composter")){
 planetguy.gizmos.Gizmos.composter=new planetguy.gizmos.multiblock.BlockMultiMachine(idMap.get("composter.blockID"));
 GameRegistry.registerBlock(planetguy.gizmos.Gizmos.composter,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.composter");
 }
+if(moduleList.contains("entityArrowNova")){
+EntityRegistry.registerModEntity(planetguy.gizmos.tool.EntityArrowNova.class,"entityArrowNova",idMap.get("entityArrowNova.entityID"),Gizmos.instance,80,3,true);
+}
 if(moduleList.contains("entityGravityBomb")){
 EntityRegistry.registerModEntity(planetguy.gizmos.gravitybomb.EntityGravityBomb.class,"entityGravityBomb",idMap.get("entityGravityBomb.entityID"),Gizmos.instance,80,3,true);
 }
 if(moduleList.contains("entityTunnelBomb")){
 EntityRegistry.registerModEntity(planetguy.gizmos.gravitybomb.EntityTunnelBomb.class,"entityTunnelBomb",idMap.get("entityTunnelBomb.entityID"),Gizmos.instance,80,3,true);
+}
+if(moduleList.contains("eventHandler")){
+planetguy.gizmos.Gizmos.eventHandler=new planetguy.gizmos.GizmosEventWatcher();
+planetguy.gizmos.Gizmos.eventHandler.load();
 }
 if(moduleList.contains("fireExtinguisher")){
 planetguy.gizmos.Gizmos.fireExtinguisher=new planetguy.gizmos.tool.ItemFireExtinguisher(idMap.get("fireExtinguisher.itemID"));
@@ -202,6 +221,10 @@ GameRegistry.registerBlock(planetguy.gizmos.Gizmos.timeBombs,planetguy.simpleLoa
 if(moduleList.contains("GravityBomb")&&moduleList.contains("entityGravityBomb")&&moduleList.contains("entityTunnelBomb")){
 planetguy.gizmos.Gizmos.GravityBomb=new planetguy.gizmos.gravitybomb.BlockGraviBomb(idMap.get("GravityBomb.blockID"));
 GameRegistry.registerBlock(planetguy.gizmos.Gizmos.GravityBomb,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.GravityBomb");
+}
+if(moduleList.contains("arrowNova")&&moduleList.contains("entityArrowNova")){
+planetguy.gizmos.Gizmos.arrowNova=new planetguy.gizmos.tool.ItemArrowNova(idMap.get("arrowNova.itemID"));
+GameRegistry.registerItem(planetguy.gizmos.Gizmos.arrowNova,"Gizmos.arrowNova");
 }
 if(moduleList.contains("bombDefuser")&&moduleList.contains("Lens")&&moduleList.contains("GravityBomb")&&moduleList.contains("timeBombs")){
 planetguy.gizmos.Gizmos.bombDefuser=new planetguy.gizmos.tool.ItemBombDefuser(idMap.get("bombDefuser.itemID"));

@@ -32,12 +32,14 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ReportedException;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -56,13 +58,15 @@ public class SimpleLoader {
 	public Class[] blocks,items,entities,custom;
 	public String modname;
 	
+	public static File mcdir;
+
 	public ObfuscatedClassHelper OCHelper;
-	
+
 	/**
 	 * The mod container class that is starting this SimpleLoader instance
 	 */
 	private Object modcontainer;
-	
+
 	private List<String> moduleList=new ArrayList<String>();
 
 	/**
@@ -72,9 +76,9 @@ public class SimpleLoader {
 	private HashMap<String,Integer> IDMap=new HashMap<String,Integer>();
 	private int passLimit;
 	private boolean generateCode;
-	
+
 	private boolean staticLoading;
-	
+
 	public CodeWriter cw;
 
 	public int lookupInt(String s){
@@ -83,7 +87,7 @@ public class SimpleLoader {
 
 	public SimpleLoader(String modname, SLModContainer modcontainer, Configuration cfg) throws Exception{
 		try{
-			moduleClasses=discoverSLModules();
+			moduleClasses=discoverSLModules(cfg);
 		}catch(Exception e){
 			e.printStackTrace();
 			moduleClasses=fallbackDiscoverSLModules();
@@ -100,7 +104,7 @@ public class SimpleLoader {
 		int slMode=prop.getInt(1);
 		staticLoading=slMode==0;
 		if(staticLoading){
-			 modcontainer.setStaticLoading(true);
+			modcontainer.setStaticLoading(true);
 		}else{
 			modcontainer.setStaticLoading(false);
 			if(slMode==2){
@@ -109,10 +113,10 @@ public class SimpleLoader {
 			}
 			initDynamically(cfg);
 		}
-		
+
 		//System.out.println(formatClasses(moduleClasses));
 	}
-	
+
 	public void initDynamically(Configuration cfg){
 		blocks=filterClassesBySuper(Block.class);
 		items=filterClassesBySuper(Item.class);
@@ -147,7 +151,7 @@ public class SimpleLoader {
 	private String getModuleName(Class c){
 		return getSLL(c).name();
 	}
-	
+
 	private SLLoad getSLL(Class c){
 		return (SLLoad) c.getAnnotation(SLLoad.class);
 	}
@@ -421,14 +425,29 @@ public class SimpleLoader {
 	 * 
 	 * @return the classes with source attached in the same directory
 	 */
-	private Class[] discoverSLModules() throws Exception{
-		File mcdir=Minecraft.getMinecraft().mcDataDir;
+	private Class[] discoverSLModules(Configuration conf) throws Exception{
+		Field fileLoc=Configuration.class.getDeclaredField("file");
+		fileLoc.setAccessible(true);
+		mcdir=((File) fileLoc.get(conf)).getParentFile().getParentFile();
 
+		/*try{
+			mcdir=Minecraft.getMinecraft().mcDataDir;
+		}catch(NullPointerException e){
+			try{
+				mcdir=MinecraftServer.getServer().getFile("mods");
+			}catch(NullPointerException npe){
+				try{
+					mcdir=new File(conf.get("[SL] Framework", "FS path", "").getString());
+				}catch(Exception x){
+					mcdir=null;
+				}
+			}
+		}*/
 		String pathToDir=mcdir.getAbsolutePath(); 
 		List<String> filenames=new ArrayList<String>(); 
 
 		System.out.println("[SL] MC dir: "+mcdir.getAbsolutePath());
-		
+
 		File[] alldirs=mcdir.listFiles(new FilenameFilter(){
 			@Override
 			public boolean accept(File dir, String name) {
@@ -491,10 +510,10 @@ public class SimpleLoader {
 			System.out.print(c.toString()+"\",\"");
 		}System.out.println();
 		//System.out.println(classesFound);//debug
-		
+
 		return result;
 	}
-	
+
 	public Class[] fallbackDiscoverSLModules() throws ClassNotFoundException{
 		List<Class> classes=new ArrayList<Class>();
 		for(String s:SLDiscovererFallback.classnames){
