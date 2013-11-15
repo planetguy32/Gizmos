@@ -16,7 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.Icon;
 
-@SLLoad(name="accelerator")
+@SLLoad(name="accelerator", primacy=4)
 public class BlockAccelerator extends Block{
 	
 	@SLProp(name = "acceleratorRate")

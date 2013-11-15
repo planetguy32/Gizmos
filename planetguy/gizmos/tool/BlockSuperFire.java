@@ -38,7 +38,7 @@ import static net.minecraftforge.common.ForgeDirection.*;
  * @author planetguy
  *
  */
-@SLLoad(name="superFire",isTechnical=true)
+@SLLoad(name="superFire",isTechnical=true,primacy=11)
 public class BlockSuperFire extends BlockFire{
 
 	Random randomizer = new Random();

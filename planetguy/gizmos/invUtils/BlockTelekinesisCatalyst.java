@@ -13,7 +13,7 @@ import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 
-@SLLoad(name="telekinesisCatalyst")
+@SLLoad(name="telekinesisCatalyst",primacy=12)
 public class BlockTelekinesisCatalyst extends Block{
 
 	@SLProp(name = "telekinesisCatalystReach")

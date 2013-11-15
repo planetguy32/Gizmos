@@ -19,7 +19,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="invenswapperTop")
+@SLLoad(name="invenswapperTop",primacy=9)
 public class BlockInvenswapperTop extends Block {
 
 	private Icon[] icons=new Icon[2];

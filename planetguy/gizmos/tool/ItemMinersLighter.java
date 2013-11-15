@@ -17,7 +17,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenJungle;
 
 
-@SLLoad(name="minersLighter",dependencies={"superFire"})
+@SLLoad(name="minersLighter",dependencies={"superFire"},primacy=6)
 public class ItemMinersLighter extends ItemDeforester{
 
 	@SLLoad

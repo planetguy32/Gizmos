@@ -21,7 +21,7 @@ import net.minecraft.world.biome.BiomeGenBase;
  * @author planetguy
  *
  */
-@SLLoad(name="Lens")
+@SLLoad(name="Lens",primacy=1)
 public class ItemLens extends GizmosItem{
 	
 	/**Initializes item and adds recipe

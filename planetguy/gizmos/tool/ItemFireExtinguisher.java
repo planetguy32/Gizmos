@@ -25,7 +25,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-@SLLoad(name="fireExtinguisher")
+@SLLoad(name="fireExtinguisher",primacy=5)
 
 public class ItemFireExtinguisher extends Item{
 	

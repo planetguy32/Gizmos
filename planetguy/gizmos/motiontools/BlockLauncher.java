@@ -15,7 +15,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-@SLLoad(name="launcher")
+@SLLoad(name="launcher",primacy=10)
 public class BlockLauncher extends Block{
 
 	@SLProp(name="launcherPower")

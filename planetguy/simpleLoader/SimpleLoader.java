@@ -95,7 +95,7 @@ public class SimpleLoader {
 		Arrays.sort(moduleClasses,new Comparator<Class>(){
 			@Override
 			public int compare(Class paramT1, Class paramT2) {
-				return getModuleName(paramT1).compareTo(getModuleName(paramT2));
+				return getPrimacy(paramT1)-getPrimacy(paramT2);
 			}});
 		this.modname=modname;
 		this.modcontainer=modcontainer;
@@ -150,6 +150,10 @@ public class SimpleLoader {
 
 	private String getModuleName(Class c){
 		return getSLL(c).name();
+	}
+	
+	private int getPrimacy(Class c){
+		return getSLL(c).primacy();
 	}
 
 	private SLLoad getSLL(Class c){
@@ -334,6 +338,11 @@ public class SimpleLoader {
 
 	public void loadClasses() throws Exception{
 		if(staticLoading)return;
+		
+		//Items and blocks must not have primacies of 0. Should fix unstable configs.
+		for(Class c:blocks){assert(getPrimacy(c)!=0);} 
+		for(Class c:items){assert(getPrimacy(c)!=0);} 
+		
 		System.out.println("[SL] Loading classes...");
 		for(Class c:filteredSortedClasses){
 			loadClass(c);

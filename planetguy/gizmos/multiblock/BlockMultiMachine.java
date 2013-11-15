@@ -21,7 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="composter")
+@SLLoad(name="composter", primacy=5)
 public class BlockMultiMachine extends BlockContainer {
 
 	public static Material machinery=new Material(MapColor.ironColor);

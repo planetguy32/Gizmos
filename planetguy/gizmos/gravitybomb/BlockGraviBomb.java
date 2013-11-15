@@ -32,7 +32,7 @@ import net.minecraftforge.common.ForgeDirection;
 import static net.minecraftforge.common.ForgeDirection.*;
 
 
-@SLLoad(name="GravityBomb",dependencies={"entityGravityBomb","entityTunnelBomb",})
+@SLLoad(name="GravityBomb",dependencies={"entityGravityBomb","entityTunnelBomb",}, primacy=2)
 public class BlockGraviBomb extends Block
 {
 	private int id;

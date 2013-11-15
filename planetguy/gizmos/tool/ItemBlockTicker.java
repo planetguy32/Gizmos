@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.MinecraftForgeClient;
 
-@SLLoad(name="temporalDislocator")
+@SLLoad(name="temporalDislocator",primacy=7)
 public class ItemBlockTicker extends GizmosItem{
 
 	private final int TICKS_PER_MINUTE=20*60;

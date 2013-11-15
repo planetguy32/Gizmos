@@ -22,7 +22,7 @@ import net.minecraft.world.biome.BiomeGenBase;
  * @author planetguy
  *
  */
-@SLLoad(name="bombDefuser",dependencies={"Lens","GravityBomb","timeBombs"})
+@SLLoad(name="bombDefuser",dependencies={"Lens","GravityBomb","timeBombs"},primacy=2)
 public class ItemBombDefuser extends Item{
 
 

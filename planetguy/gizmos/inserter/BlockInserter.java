@@ -30,7 +30,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="inserter")
+@SLLoad(name="inserter",primacy=7)
 public class BlockInserter extends Block{
 	
 	@SLProp(name="doBlockDamage")

@@ -24,7 +24,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-@SLLoad(name="RedstoneResponsiveWool")
+@SLLoad(name="RedstoneResponsiveWool", primacy=3)
 public class BlockDynamicWool extends Block{
 
 	public Method getSignalStrength;

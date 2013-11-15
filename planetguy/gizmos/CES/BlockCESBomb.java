@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-@SLLoad(name="CESBomb")
+@SLLoad(name="CESBomb", primacy=1)
 public class BlockCESBomb extends BlockContainer{
 
 	public static BlockCESBomb instance;

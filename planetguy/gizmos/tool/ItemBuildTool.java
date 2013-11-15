@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-@SLLoad(name="buildTool",dependencies={"inserter"})
+@SLLoad(name="buildTool",dependencies={"inserter"},primacy=3)
 public class ItemBuildTool extends ItemPickaxe{
 
 	private final int myID;

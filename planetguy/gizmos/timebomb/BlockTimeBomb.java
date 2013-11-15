@@ -31,7 +31,7 @@ import planetguy.simpleLoader.SLProp;
  * @author bill
  *
  */
-@SLLoad(name="timeBombs")
+@SLLoad(name="timeBombs",primacy=13)
 public class BlockTimeBomb extends Block{
 
 	private Icon topTex;

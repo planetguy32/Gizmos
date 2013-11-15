@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
  * @author planetguy
  *
  */
-@SLLoad(name="forestFire",isTechnical=true)
+@SLLoad(name="forestFire",isTechnical=true,primacy=6)
 
 public class BlockForestFire extends BlockSuperFire{
 
