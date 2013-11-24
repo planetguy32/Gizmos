@@ -2,6 +2,8 @@ package planetguy.gizmos.inserter;
 
 import java.util.Random;
 
+import planetguy.util.Debug;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -84,7 +86,7 @@ public class InventoryInserter implements IInventory {
 
     @Override
     public void closeChest() {
-    	System.out.println("Closed");
+    	Debug.dbg("Closed");
     	Random rand = new Random();
 
         IInventory inventory = this;

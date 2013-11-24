@@ -39,7 +39,7 @@ public class GuiInserter extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//System.out.println("Loading spy table GUI");
+		//Debug.dbg("Loading spy table GUI");
         this.mc.getTextureManager().bindTexture(guiLoc);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;

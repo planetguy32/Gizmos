@@ -5,6 +5,7 @@ import planetguy.gizmos.CES.BlockCESBomb;
 import planetguy.gizmos.CES.EntityCESBombPrimed;
 import planetguy.gizmos.CES.TileEntityCESBomb;
 import planetguy.gizmos.gravitybomb.EntityGravityBomb;
+import planetguy.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.world.World;
@@ -23,7 +24,7 @@ public class PowerupExplodeOnImpact extends Powerup{
 	
 	@Override
 	public void onNeighborBlockChange(World w, int x, int y, int z, int neighbor, TileEntityCESBomb bomb) {
-		System.out.println("Fall?");
+		Debug.dbg("Fall?");
 		if(BlockSand.canFallBelow(w, x, y-1, z)){
 			BlockCESBomb.instance.explode((TileEntityCESBomb) w.getBlockTileEntity(x,y,z));
 		}

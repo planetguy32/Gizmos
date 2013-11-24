@@ -24,6 +24,7 @@ import javax.swing.text.html.parser.Entity;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.gravitybomb.EntityGravityBomb;
+import planetguy.util.Debug;
 
 
 
@@ -102,6 +103,10 @@ public class SimpleLoader {
 		Property prop=cfg.get("[SL] Framework","SL loader",1);
 		prop.comment="0=static, 1=dynamic no-gen, 2=dynamic code gen. If using 1 crashes, try 0. 2 is 1 plus a code generator thingy, which you don't need unless you're a developer.";
 		int slMode=prop.getInt(1);
+		
+		Debug.enable=cfg.get("[SL] Framework", "Debug messages", false).getBoolean(false);
+		
+		staticLoading=slMode==0;
 		staticLoading=slMode==0;
 		if(staticLoading){
 			modcontainer.setStaticLoading(true);

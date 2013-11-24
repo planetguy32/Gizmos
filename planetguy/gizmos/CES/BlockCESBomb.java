@@ -9,6 +9,7 @@ import planetguy.gizmos.CES.powerups.PowerupExplodeOnImpact;
 import planetguy.gizmos.CES.powerups.PowerupFall;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.util.Debug;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.BlockContainer;
@@ -64,7 +65,7 @@ public class BlockCESBomb extends BlockContainer{
     public void breakBlock(World w, int x, int y, int z, int idk, int idk2){
     	TileEntityCESBomb teBomb=((TileEntityCESBomb) w.getBlockTileEntity(x,y,z));
     	if(teBomb==null){
-    		System.out.println("TE is null when bomb destroyed!");
+    		Debug.dbg("TE is null when bomb destroyed!");
     		super.breakBlock(w, x, y, z, idk, idk2);
     		return;
     	}
@@ -107,7 +108,7 @@ public class BlockCESBomb extends BlockContainer{
 			return true;
 		}else{
 			for(Powerup p : bomb.cesContainer.getInstalledPowerups()){
-				System.out.println(p.getName());
+				Debug.dbg(p.getName());
 			}
 		}
 		bomb.cesContainer.tryAddPowerup(Powerup.powerups[1]);

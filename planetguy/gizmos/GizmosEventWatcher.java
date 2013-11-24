@@ -39,16 +39,16 @@ public class GizmosEventWatcher extends CustomModuleLoader{
 	@ForgeSubscribe
 	public void checkIfBombedItemShouldExplode(PlayerInteractEvent pie){
 		
-		//System.out.println("onInteract called"); //SO NOISY
+		//Debug.dbg("onInteract called"); //SO NOISY
 		EntityPlayer player=pie.entityPlayer;
 		ItemStack item=player.getHeldItem();
 		if(item==null){
 			return;
 		}
 		NBTTagCompound tag = item.getTagCompound();
-		//System.out.println(tag==null);
+		//Debug.dbg(tag==null);
 		try{
-			//System.out.println(tag.getShort("id"));
+			//Debug.dbg(tag.getShort("id"));
 			int x=0;
 			boolean testSoFar=true;
 			//while(testSoFar){
@@ -60,7 +60,7 @@ public class GizmosEventWatcher extends CustomModuleLoader{
 				testSoFar=false;
 				player.attackEntityFrom(DamageSource.magic, 20);
 					
-				//System.out.println("Surprise! >:)");
+				//Debug.dbg("Surprise! >:)");
 			        //player.openGui(ContentLoader.cl, 0, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
 				//}
 				//x++;

@@ -7,6 +7,7 @@ import java.util.Random;
 
 import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.motiontools.ColliderRecipe;
+import planetguy.util.Debug;
 
 
 import net.minecraft.block.Block;
@@ -61,7 +62,7 @@ public class BlockColliderCore  extends Block{
 		double deltaVz=current1.motionZ-current2.motionZ;
 		double netDeltaV=Math.sqrt(sq(deltaVx)+sq(deltaVy)+sq(deltaVz));
 		if(netDeltaV>=0.8){
-			System.out.println("netDeltaV: "+netDeltaV); //Debug message
+			Debug.dbg("netDeltaV: "+netDeltaV); //Debug message
 			for(int i=0; i<recipes.size(); i++){
 				ColliderRecipe r=recipes.get(i);
 				if(r.isValidRecipe(current1, current2, netDeltaV)){
@@ -76,7 +77,7 @@ public class BlockColliderCore  extends Block{
 	}
 	
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random){
-		//System.out.println("Clearing entities in collider core");
+		//Debug.dbg("Clearing entities in collider core");
 		current1=null;
 		current2=null;
 		//par1World.scheduleBlockUpdate(par2, par3, par4, Gizmos.colliderID, tickRate);
@@ -100,7 +101,7 @@ public class BlockColliderCore  extends Block{
 		 &&current2 instanceof EntityLiving &&! (current2 instanceof EntityPlayer)){
 			doCollisionReaction();
 		}
-		//System.out.println("Mobs inside!");
+		//Debug.dbg("Mobs inside!");
 	}
 	
 	

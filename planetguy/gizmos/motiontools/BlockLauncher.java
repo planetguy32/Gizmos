@@ -40,7 +40,7 @@ public class BlockLauncher extends Block{
 	
 	@Override
 	public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity e){
-		//System.out.println(e);
+		//Debug.dbg(e);
 		e.motionY+=launcherPower/5D;
 	}
 

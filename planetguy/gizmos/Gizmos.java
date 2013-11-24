@@ -44,7 +44,7 @@ import net.minecraftforge.common.Property;
  *The Gizmos main class. Contains references to some blocks and items.
  *
  */
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.1")
+@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.2")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos implements SLModContainer{
 	
@@ -92,6 +92,7 @@ public class Gizmos implements SLModContainer{
 	
 	public static Item arrowNova;
 	public static Entity entityArrowNova;
+	public static Item luncher;
 	
 	public static CreativeTabs tabGizmos;
 	

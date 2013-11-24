@@ -38,7 +38,7 @@ public class GuiHandler implements IGuiHandler {
 		case 2:
 			return new GuiMultiMachine(player.inventory, (TileEntityMultiMachine) tileEntity);
 		case 1:
-			//System.out.println("Invenswapper GUI selected");
+			//Debug.dbg("Invenswapper GUI selected");
 			return new GuiInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
 		}
 		return new GuiInserter(player.inventory, new InventoryInserter(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));

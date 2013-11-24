@@ -1,6 +1,7 @@
 package planetguy.gizmos.inserter;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -39,7 +40,7 @@ public class SlotConcealmentItem extends Slot{
 		if(type==TYPE_TOOL_IN){
 			ItemStack otherItem=inventory.getStackInSlot(0);
 			if(otherItem==null){
-				System.out.println("No combining, stack is null");
+				Debug.dbg("No combining, stack is null");
 				return;
 			}
 			//if(inventory.getStackInSlot(0).getTagCompound()==null){//&&me.getTagCompound()==null

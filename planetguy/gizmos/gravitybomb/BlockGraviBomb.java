@@ -15,6 +15,7 @@ import java.util.Random;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
+import planetguy.util.Debug;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -78,7 +79,7 @@ public class BlockGraviBomb extends Block
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister ir){
-		System.out.println("GraviBomb textures loading");
+		Debug.dbg("GraviBomb textures loading");
 		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
 		gBombTex=ir.registerIcon(Gizmos.modName+":"+"" +"gravityBomb");
 		tBombTex=ir.registerIcon(Gizmos.modName+":"+"excavatorBomb");

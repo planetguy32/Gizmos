@@ -73,7 +73,7 @@ public class ItemFireExtinguisher extends Item{
 			for(int b=-count; b<count;b++){
 				for(int c=-count; c<count;c++){
 					//if(!(a*a+b*b+c*c<countSq))break;
-					//System.out.println("("+(a+x)+","+(b+y)+","+(c+z)+")");
+					//Debug.dbg("("+(a+x)+","+(b+y)+","+(c+z)+")");
 					if(w.getBlockMaterial(a+x, b+y, c+z)==Material.fire){
 						w.setBlockToAir(a+x, b+y, c+z);
 						stack.damageItem(1, player);

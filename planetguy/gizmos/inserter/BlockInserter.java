@@ -70,7 +70,7 @@ public class BlockInserter extends Block{
 	
     public BlockInserter (int id, int texture) {
         super(id, Material.iron);
-        //System.out.println("New spy lab!");
+        //Debug.dbg("New spy lab!");
         setHardness(2.0F);
         setResistance(5.0F);
         setUnlocalizedName("blockSpyLab");
@@ -80,7 +80,7 @@ public class BlockInserter extends Block{
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir){
-    	//System.out.println("Spy lab textures loading");
+    	//Debug.dbg("Spy lab textures loading");
     	top=ir.registerIcon(Gizmos.modName+":spyTop");
     	sides=ir.registerIcon(Gizmos.modName+":spySides");
     }

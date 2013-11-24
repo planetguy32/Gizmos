@@ -36,7 +36,7 @@ public class ItemDeforester extends ItemInteractDevice{
 			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
 	}
 	
-	public int id(){
+	protected int id(){
 		return Gizmos.forestFire.blockID;
 	}
 

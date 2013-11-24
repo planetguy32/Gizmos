@@ -26,6 +26,7 @@ import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
+import planetguy.util.Debug;
 /**
  * Block class for the time bomb and fork bomb
  * @author bill
@@ -46,7 +47,7 @@ public class BlockTimeBomb extends Block{
 	@SLLoad
 	public BlockTimeBomb(int id) {
 		super(id, Material.tnt);
-		System.out.println("Loading time bomb...");
+		Debug.dbg("Loading time bomb...");
         //this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabRedstone);
         fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
@@ -86,7 +87,7 @@ public class BlockTimeBomb extends Block{
 	}
 	
 	public void registerIcons(IconRegister ir){
-		System.out.println("Time bomb textures loading");
+		Debug.dbg("Time bomb textures loading");
 		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
 		bottomTex=ir.registerIcon(Gizmos.modName+":"+"bombBottom");
 		sideIcons[0] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");

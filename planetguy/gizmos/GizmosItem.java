@@ -1,5 +1,6 @@
 package planetguy.gizmos;
 
+import planetguy.util.Debug;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 
@@ -10,7 +11,7 @@ public class GizmosItem extends Item {
 	}
 	
 	public void registerTexture(IconRegister ir){
-		System.out.println("Generic item textures loading");
+		Debug.dbg("Generic item textures loading");
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+this.getUnlocalizedName());
 	}
 
