@@ -20,15 +20,15 @@ A Minecraft mod of the "anything goes" persuasion.
 
 ##SimpleLoader##
 
-Since some server administrators might want to disable some Gizmos items for various reasons, Gizmos has a rather special loading setup, SimpleLoader, which is designed to allow each item to be disabled separately (also disabling its dependencies). The loading infrastructure can be found in the package planetguy.simpleLoader.
-
-Note: This doesn't yet work in a production environment and will probably be changed from reflection-based to a code generator.
+Since some server administrators might want to disable some Gizmos items for various reasons, Gizmos has a rather special loading setup, SimpleLoader, which is designed to allow each item to be disabled separately (also disabling its dependencies). The loading infrastructure can be found in the package planetguy.simpleLoader. It includes a dynamic loader and a code generator mode.
 
 ##The future##
 
 I use https://gist.github.com/planetguy32/6528825 as a place to put any plans and/or wild ideas.
 
 ##Binary builds##
+
+New versions can be found on my CurseForge page at http://minecraft.curseforge.com/mc-mods/planetguy_gizmos/files/
 
 The ones in MC version folders should all work for that version. There's a fair chance that the latest build won't work at all, since it's never tested.
 
