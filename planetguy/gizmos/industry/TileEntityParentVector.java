@@ -1,4 +1,4 @@
-package planetguy.gizmos.multiblock;
+package planetguy.gizmos.industry;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

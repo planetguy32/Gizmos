@@ -119,7 +119,7 @@ public class SimpleLoader {
 			initDynamically(cfg);
 		}
 
-		//System.out.println(formatClasses(moduleClasses));
+		//Debug.dbg(formatClasses(moduleClasses));
 	}
 
 	public void initDynamically(Configuration cfg){
@@ -202,7 +202,7 @@ public class SimpleLoader {
 			if(!show||config.get("[SL] Item-restrict","allow '"+moduleList.get(i)+"'",true).getBoolean(true))
 				moduleList.add(getModuleName(moduleClasses[i]));
 		}
-		System.out.println("[SL] Modules: "+moduleList);
+		Debug.dbg("[SL] Modules: "+moduleList);
 		//moduleList=Arrays.asList(config.get("[SL] Framework","List of allowed modules", moduleList.toArray(new String[0])).getStringList());
 		passLimit=config.get("[SL] Framework", "Maximum dependency passes", 10).getInt(10);
 
@@ -212,7 +212,7 @@ public class SimpleLoader {
 			int id=config.getBlock(getModuleName(c), currentID).getInt(currentID);
 			IDMap.put(getModuleName(c), id);
 			++currentID;
-			//System.out.println(currentID);
+			//Debug.dbg(currentID);
 		}
 		currentID=8100;
 		for(Class c:items){ //do the same for items
@@ -228,7 +228,7 @@ public class SimpleLoader {
 		}
 
 		for(Class c:custom){
-			//System.out.println(c.getName());
+			//Debug.dbg(c.getName());
 			CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
 			cml.load();
 		}
@@ -298,7 +298,7 @@ public class SimpleLoader {
 			}
 		}
 		filteredSortedClasses=sortedClasses.toArray(new Class[0]);
-		System.out.println("Classes not loaded: "+classes.toString());
+		Debug.dbg("Classes not loaded: "+classes.toString());
 	}
 
 	/**A way to filter classes by superclass (get anything extending, for example, Block)
@@ -348,31 +348,31 @@ public class SimpleLoader {
 		for(Class c:blocks){assert(getPrimacy(c)!=0);} 
 		for(Class c:items){assert(getPrimacy(c)!=0);} 
 		
-		System.out.println("[SL] Loading classes...");
+		Debug.dbg("[SL] Loading classes...");
 		for(Class c:filteredSortedClasses){
 			loadClass(c);
 		}
 		/*
-		System.out.println("[SL] Loading blocks...");
+		Debug.dbg("[SL] Loading blocks...");
 		for(Class c:blocks){
 			loadBlock(c);
 		}
-		System.out.println("[SL] Loading items...");
+		Debug.dbg("[SL] Loading items...");
 		for(Class c:items){
 			loadItem(c);
 		}
-		System.out.println("[SL] Loading entities...");
+		Debug.dbg("[SL] Loading entities...");
 		for(Class c:entities){
 			loadEntity(c);
 		}
-		System.out.println("[SL] Loading custom modules...");
+		Debug.dbg("[SL] Loading custom modules...");
 		for(Class c:custom){
 			loadCustomModule(c);
 		}*/
 	}
 
 	private void loadCustomModule(Class c)throws Exception{
-		System.out.println("[SL] Loading "+c.getName());
+		Debug.dbg("[SL] Loading "+c.getName());
 		CustomModuleLoader cml=(CustomModuleLoader) c.newInstance();
 		Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
 		f.set(modcontainer,cml);
@@ -380,12 +380,12 @@ public class SimpleLoader {
 	}
 
 	private void loadEntity(Class c){
-		System.out.println("[SL] Loading "+c.getName());
+		Debug.dbg("[SL] Loading "+c.getName());
 		EntityRegistry.registerModEntity(c, getModuleName(c), IDMap.get(getModuleName(c)), Gizmos.instance, 80, 3, true);
 	}
 
 	private void loadItem(Class c) throws Exception{
-		System.out.println("[SL] Loading "+c.getName());
+		Debug.dbg("[SL] Loading "+c.getName());
 		Object item = null;
 		Constructor[] cons=c.getConstructors();
 		for(Constructor con : cons){
@@ -404,7 +404,7 @@ public class SimpleLoader {
 	}
 
 	private void loadBlock(Class c) throws Exception{
-		System.out.println("[SL] Loading "+c.getName());
+		Debug.dbg("[SL] Loading "+c.getName());
 		SLLoad slload=(SLLoad) c.getAnnotation(SLLoad.class);
 		Object block = null;
 		Constructor[] cons=c.getConstructors();
@@ -416,7 +416,7 @@ public class SimpleLoader {
 					f.set(modcontainer,block);
 				}catch(Exception e){
 					e.printStackTrace();
-					System.out.println(c.getName());
+					Debug.dbg(c.getName());
 					throw(e);
 				}
 
@@ -460,7 +460,7 @@ public class SimpleLoader {
 		String pathToDir=mcdir.getAbsolutePath(); 
 		List<String> filenames=new ArrayList<String>(); 
 
-		System.out.println("[SL] MC dir: "+mcdir.getAbsolutePath());
+		Debug.dbg("[SL] MC dir: "+mcdir.getAbsolutePath());
 
 		File[] alldirs=mcdir.listFiles(new FilenameFilter(){
 			@Override
@@ -470,7 +470,7 @@ public class SimpleLoader {
 		});
 		//Add all classes either 2 or 3 folders deep in the mod zip file to the list of class names
 
-		System.out.println("[SL] Got mods dir");
+		Debug.dbg("[SL] Got mods dir");
 		for(File modfolder:alldirs){
 			if(!modfolder.isDirectory())continue;
 			for(File modzip:modfolder.listFiles()){
@@ -497,13 +497,13 @@ public class SimpleLoader {
 			}
 		}
 
-		//System.out.println(filenames); //debug
+		//Debug.dbg(filenames); //debug
 		Iterator<String> i=filenames.iterator();
 
 		//collect all the class names from the list
 		LinkedList<Class> classesFound=new LinkedList<Class>();
 
-		System.out.println(filenames);
+		Debug.dbg(filenames.toString());
 
 		while(i.hasNext()){
 			try{ //if it isn't possible to load a class from a name, ignore the name
@@ -511,7 +511,7 @@ public class SimpleLoader {
 
 				if(!classname.startsWith("planetguy"))continue;//only in packages planetguy.* Change?
 				Class c=Class.forName(classname);
-				//System.out.println("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
+				//Debug.dbg("[SL] class "+c.getName()+", "+c.getAnnotation(SLLoad.class));
 				if(c.getAnnotation(SLLoad.class)!=null){ //if it isn't marked @SLLoad ignore it
 
 					classesFound.add(c);
@@ -521,20 +521,15 @@ public class SimpleLoader {
 		}
 		Class[] result=classesFound.toArray(new Class[0]);
 		for(Class c:result){
-			System.out.print(c.toString()+"\",\"");
-		}System.out.println();
-		//System.out.println(classesFound);//debug
+			Debug.dbg(c.toString()+"\",\"");
+		}
+		//Debug.dbg(classesFound);//debug
 
 		return result;
 	}
 
 	public Class[] fallbackDiscoverSLModules() throws ClassNotFoundException{
-		List<Class> classes=new ArrayList<Class>();
-		for(String s:SLDiscovererFallback.classnames){
-			classes.add(Class.forName(s));
-		}
-		System.out.println(classes);
-		return classes.toArray(new Class[0]);
+		return null;
 	}
 
 

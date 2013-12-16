@@ -76,6 +76,9 @@ public class Gizmos implements SLModContainer{
 	
 	public static Block CESBomb;
 	
+	public static Item redstoneWand;
+	public static Block redstoneWandBlock;
+	
 	public static Block timeBombs;	
 	public static Item bombDefuser;
 	public static Item buildTool;

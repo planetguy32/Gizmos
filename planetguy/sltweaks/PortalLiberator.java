@@ -108,7 +108,7 @@ public class PortalLiberator extends CustomModuleLoader{
 		 * @return 0 if you need to check the neighbors, 1 if not, 2 if it breaks the portal
 		 */
 
-		public byte checkPortalAt(World w, int x, int y, int z){
+		private byte checkPortalAt(World w, int x, int y, int z){
 			int id=w.getBlockId(x, y, z);
 			//System.out.println(id);
 			switch(id){

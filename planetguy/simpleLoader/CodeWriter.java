@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import planetguy.gizmos.Gizmos;
+import planetguy.util.Debug;
 
 import cpw.mods.fml.common.Mod;
 
@@ -50,8 +51,8 @@ public class CodeWriter {
 	}
 	
 	public void writeLoaderClass(List<String> classnames) throws IllegalArgumentException, IllegalAccessException{
-		System.out.println("Writing loader...");
-		System.out.println("[CW] classes:"+classes);
+		Debug.dbg("Writing loader...");
+		Debug.dbg("[CW] classes:"+classes);
 		output.println("package planetguy.gizmos;");
 		output.println();
 		output.println("import net.minecraftforge.common.Configuration;");

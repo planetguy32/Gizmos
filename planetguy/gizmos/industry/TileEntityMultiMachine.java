@@ -1,4 +1,4 @@
-package planetguy.gizmos.multiblock;
+package planetguy.gizmos.industry;
 
 import com.google.common.collect.ImmutableList;
 

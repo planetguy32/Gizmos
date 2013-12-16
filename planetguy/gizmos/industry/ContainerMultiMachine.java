@@ -1,4 +1,4 @@
-package planetguy.gizmos.multiblock;
+package planetguy.gizmos.industry;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

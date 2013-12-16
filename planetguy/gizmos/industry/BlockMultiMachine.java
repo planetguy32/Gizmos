@@ -1,4 +1,4 @@
-package planetguy.gizmos.multiblock;
+package planetguy.gizmos.industry;
 
 import java.util.ArrayList;
 
