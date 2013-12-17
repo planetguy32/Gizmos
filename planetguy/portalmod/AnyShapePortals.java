@@ -1,4 +1,4 @@
-package planetguy.sltweaks;
+package planetguy.portalmod;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import planetguy.simpleLoader.SLProp;
 import planetguy.util.Point;
 
 @SLLoad(name="anyShapePortals")
-public class PortalLiberator extends CustomModuleLoader{
+public class AnyShapePortals extends CustomModuleLoader{
 
 	@Override
 	@SLLoad

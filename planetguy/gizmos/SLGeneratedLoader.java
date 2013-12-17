@@ -114,7 +114,7 @@ if(!config.get("[SL] Item-restrict","allow 'invenswapper'",true).getBoolean(true
 moduleList.remove("invenswapper");
 planetguy.sltweaks.FlowerFix.redFlowerWeight=config.get("Details","redFlowerWeight",planetguy.sltweaks.FlowerFix.redFlowerWeight).getInt(planetguy.sltweaks.FlowerFix.redFlowerWeight);
 planetguy.sltweaks.FlowerFix.yellowFlowerWeight=config.get("Details","yellowFlowerWeight",planetguy.sltweaks.FlowerFix.yellowFlowerWeight).getInt(planetguy.sltweaks.FlowerFix.yellowFlowerWeight);
-planetguy.sltweaks.PortalLiberator.sizeLimit=config.get("Details","portalSizeLimit",planetguy.sltweaks.PortalLiberator.sizeLimit).getInt(planetguy.sltweaks.PortalLiberator.sizeLimit);
+planetguy.portalmod.AnyShapePortals.sizeLimit=config.get("Details","portalSizeLimit",planetguy.portalmod.AnyShapePortals.sizeLimit).getInt(planetguy.portalmod.AnyShapePortals.sizeLimit);
 planetguy.gizmos.motiontools.BlockAccelerator.accelRate=config.get("Details","acceleratorRate",planetguy.gizmos.motiontools.BlockAccelerator.accelRate).getDouble(planetguy.gizmos.motiontools.BlockAccelerator.accelRate);
 planetguy.gizmos.inserter.BlockInserter.doBlockDamage=config.get("Details","doBlockDamage",planetguy.gizmos.inserter.BlockInserter.doBlockDamage).getBoolean(planetguy.gizmos.inserter.BlockInserter.doBlockDamage);
 planetguy.gizmos.inserter.BlockInserter.nerfHiding=config.get("Details","limitQuantityHideable",planetguy.gizmos.inserter.BlockInserter.nerfHiding).getBoolean(planetguy.gizmos.inserter.BlockInserter.nerfHiding);
@@ -180,7 +180,7 @@ planetguy.gizmos.Gizmos.flowerFix=new planetguy.sltweaks.FlowerFix();
 planetguy.gizmos.Gizmos.flowerFix.load();
 }
 if(moduleList.contains("anyShapePortals")){
-planetguy.gizmos.Gizmos.anyShapePortals=new planetguy.sltweaks.PortalLiberator();
+planetguy.gizmos.Gizmos.anyShapePortals=new planetguy.portalmod.AnyShapePortals();
 planetguy.gizmos.Gizmos.anyShapePortals.load();
 }
 if(moduleList.contains("Lens")){
