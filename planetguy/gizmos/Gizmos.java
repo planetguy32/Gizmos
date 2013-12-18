@@ -24,6 +24,7 @@ import planetguy.gizmos.CES.powerups.PowerupDebug;
 import planetguy.gizmos.CES.powerups.PowerupExplodeOnImpact;
 import planetguy.gizmos.CES.powerups.PowerupFall;
 import planetguy.gizmos.gravitybomb.EntityTunnelBomb;
+import planetguy.gizmos.tool.BlockRedstoneWand;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLModContainer;

@@ -2,6 +2,8 @@ package planetguy.portalmod;
 
 import java.util.Map;
 
+import net.minecraft.world.WorldServer;
+
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
@@ -35,5 +37,17 @@ public class NoCrosslinkCoremod implements IFMLLoadingPlugin {
     {
             runtimeDeobfEnabled = (Boolean)data.get("runtimeDeobfuscationEnabled");
     }
+    
+    /**
+     * Small helper for injected ASM code.
+     * @param world
+     * @return
+     */
+	public static short getMaximumRange(WorldServer world){
+		short val=(short) (world.provider.dimensionId!=-1 ? 128 : 16);
+		System.out.println("PortalUtil called, returning "+val);
+		return val;
+	}
+
 
 }
