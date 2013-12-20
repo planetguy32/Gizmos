@@ -1,6 +1,7 @@
 package planetguy.portalmod;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,13 +22,13 @@ public class AnyShapePortals extends CustomModuleLoader{
 	}
 	
 	@SLProp(name="portalSizeLimit")
-	public static int sizeLimit=30;
+	public static int sizeLimit=100;
 
 	public class PortalCreateListener {
 
 		int checked=0;
 
-		ArrayList<Point> points=new ArrayList<Point>();
+		private HashSet<Point> points=new HashSet<Point>();
 
 		@ForgeSubscribe
 		public void onInteract(PlayerInteractEvent pie){
@@ -44,6 +45,7 @@ public class AnyShapePortals extends CustomModuleLoader{
 						tryMakePortal(w,x,y,z,false); //Try to make XY portal
 					}
 					points.clear();
+					System.out.println(sizeLimit);
 				}
 			}catch(NullPointerException e){ //Equipped item could be null, in which case can't make portal
 				//e.printStackTrace();

@@ -18,6 +18,11 @@ public class Point{ //Really simple point class
 				&& ((Point)o).z==z;
 	}
 	
+	@Override
+	public int hashCode(){ //Overridden so that == hash codes if .equals(o)
+		return 23*x+27*y+29*z;
+	}
+	
 	public Point[] adjacent(){
 		return new Point[]{
 				new Point(x-1,y,z),

@@ -15,6 +15,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.IntInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 
@@ -36,15 +37,16 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 
 			FMLDeobfuscatingRemapper remapper = FMLDeobfuscatingRemapper.INSTANCE;
 
-			String nameObf="func_77184_b";//1.6.4
+			
+			String nameObf="b";//1.6.4
+			
+			String sigObf="";//TODO
 
 			String nameDev="placeInExistingPortal";
 
 			System.out.println("Found class!");
 
 			name = name.replace('.', '/');
-
-			String actualName = NoCrosslinkCoremod.runtimeDeobfEnabled ? "placeInExistingPortal" : "";
 
 			ClassReader cr=new ClassReader(bytecode);
 			ClassNode cn=new ClassNode();
@@ -53,34 +55,49 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 			for(MethodNode mn: cn.methods){
 
 				String mName=mn.name;
-				System.out.println(mName);
-				if(mName.equals(nameObf)||mName.equals(nameDev)){
-					System.out.println("Transforming!");
+				if(mName.equals(nameDev)){
 
 					InsnList il=new InsnList();
-					il.add(new IntInsnNode(Opcodes.ALOAD, 0));
-					il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/world/Teleporter",
-							"worldServerInstance", Type.getDescriptor(WorldServer.class)));
-					il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(NoCrosslinkCoremod.class),
-							"getMaximumRange", Type.getMethodDescriptor(NoCrosslinkCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
-
-					mn.instructions.remove(mn.instructions.get(0));
 
 					Iterator<AbstractInsnNode> nodes=mn.instructions.iterator();
 
-					while(nodes.hasNext()){
-						il.add(nodes.next());
-					}
-					System.out.println(il);
-
-					mn.instructions=il;
-
-					nodes=mn.instructions.iterator();
-
+					
 					while(nodes.hasNext()){
 						AbstractInsnNode instr=nodes.next();
-						System.out.println(instr.getOpcode());
+						System.out.println(instr);
 					}
+					
+					nodes=mn.instructions.iterator();
+					int index=0;
+					while(nodes.hasNext()){
+						
+						AbstractInsnNode node=nodes.next();
+	
+						
+						if(index==2){
+							il.add(new VarInsnNode(Opcodes.ALOAD, 0));
+							il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/world/Teleporter",
+									"worldServerInstance", Type.getDescriptor(WorldServer.class)));
+							il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(NoCrosslinkCoremod.class),
+									"getMaximumRange", Type.getMethodDescriptor(NoCrosslinkCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
+
+							il.add(new VarInsnNode(Opcodes.ISTORE, 9));
+						}else if(index!=3){
+							il.add(node);
+						}
+						index++;
+						
+						
+					}
+					
+					mn.instructions=il;
+					
+					nodes=mn.instructions.iterator();
+					while(nodes.hasNext()){
+						AbstractInsnNode instr=nodes.next();
+						System.out.println(instr);
+					}
+
 				}
 			}
 
@@ -97,6 +114,8 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 			0 aload_0
 			1 getfield 29
 			4 invokestatic 138
+			
+			
 			 */
 
 			//	return cw.toByteArray();

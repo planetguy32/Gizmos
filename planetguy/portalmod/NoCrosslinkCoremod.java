@@ -44,9 +44,7 @@ public class NoCrosslinkCoremod implements IFMLLoadingPlugin {
      * @return
      */
 	public static short getMaximumRange(WorldServer world){
-		short val=(short) (world.provider.dimensionId!=-1 ? 128 : 16);
-		System.out.println("PortalUtil called, returning "+val);
-		return val;
+		return (short) (world.provider.dimensionId!=-1 ? 128 : 16);
 	}
 
 
