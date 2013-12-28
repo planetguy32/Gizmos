@@ -1,4 +1,4 @@
-package planetguy.portalmod;
+package planetguy.asmfixes;
 
 import java.util.Map;
 
@@ -7,8 +7,8 @@ import net.minecraft.world.WorldServer;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
-@MCVersion(value = "1.6.4")
-public class NoCrosslinkCoremod implements IFMLLoadingPlugin {
+@MCVersion("1.6.4")
+public class ASMFixesCoremod implements IFMLLoadingPlugin {
 
 	public static boolean runtimeDeobfEnabled = true;
 	
@@ -19,12 +19,12 @@ public class NoCrosslinkCoremod implements IFMLLoadingPlugin {
 
 	@Override
 	public String[] getASMTransformerClass() {
-		return new String[]{"planetguy.portalmod.NoCrosslinkASMTransformer"};
+		return new String[]{"planetguy.asmfixes.TransformerNoCrosslink"};
 	}
 
 	@Override
 	public String getModContainerClass() {
-		return "planetguy.portalmod.NoCrosslinkModContainer";
+		return "planetguy.asmfixes.ASMFixesModContainer";
 	}
 
 	@Override

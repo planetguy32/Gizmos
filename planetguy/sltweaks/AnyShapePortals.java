@@ -1,4 +1,4 @@
-package planetguy.portalmod;
+package planetguy.sltweaks;
 
 import java.util.ArrayList;
 import java.util.HashSet;

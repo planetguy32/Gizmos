@@ -1,4 +1,4 @@
-package planetguy.portalmod;
+package planetguy.asmfixes;
 
 import java.util.Arrays;
 
@@ -8,17 +8,17 @@ import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.ModMetadata;
 
-public class NoCrosslinkModContainer extends DummyModContainer{
+public class ASMFixesModContainer extends DummyModContainer{
 
-	public NoCrosslinkModContainer(){
+	public ASMFixesModContainer(){
             super(new ModMetadata());
             ModMetadata md = super.getMetadata();
-            md.modId = "planetguy_NoCrosslink";
-            md.name = "NoCrosslink";
+            md.modId = "planetguy_AsmFixes";
+            md.name = "ASM fixes";
             md.version = "1.0";
             md.authorList = Arrays.asList(new String[]{"planetguy"});
             md.url = "https://github.com/planetguy32/Gizmos";
-            md.description = "Scales portal range finding in the Nether, to fix portals cross-linking.";
+            md.description = "Fixes various things with ASM. So far: cuts down nether portal cross-linking, tries to stop render glitches from crashing the game.";
     }
 	
 	@Override

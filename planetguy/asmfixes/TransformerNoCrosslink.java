@@ -1,4 +1,4 @@
-package planetguy.portalmod;
+package planetguy.asmfixes;
 
 import java.util.Iterator;
 
@@ -26,7 +26,7 @@ import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldServer;
 
-public class NoCrosslinkASMTransformer implements IClassTransformer{
+public class TransformerNoCrosslink implements IClassTransformer{
 
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] bytecode){
@@ -38,13 +38,11 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 			FMLDeobfuscatingRemapper remapper = FMLDeobfuscatingRemapper.INSTANCE;
 
 			
-			String nameObf="b";//1.6.4
+			String nameObf="b";//1.6.4 - it's a bit of a hack, but there doesn't seem to be another method named "b".
 			
-			String sigObf="";//TODO
-
 			String nameDev="placeInExistingPortal";
 
-			System.out.println("Found class!");
+			System.out.println("NoCrosslink: Found class!");
 
 			name = name.replace('.', '/');
 
@@ -55,7 +53,7 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 			for(MethodNode mn: cn.methods){
 
 				String mName=mn.name;
-				if(mName.equals(nameDev)){
+				if(mName.equals(nameDev)||mName.equals(nameObf)){
 
 					InsnList il=new InsnList();
 
@@ -78,8 +76,8 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 							il.add(new VarInsnNode(Opcodes.ALOAD, 0));
 							il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/world/Teleporter",
 									"worldServerInstance", Type.getDescriptor(WorldServer.class)));
-							il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(NoCrosslinkCoremod.class),
-									"getMaximumRange", Type.getMethodDescriptor(NoCrosslinkCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
+							il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(ASMFixesCoremod.class),
+									"getMaximumRange", Type.getMethodDescriptor(ASMFixesCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
 
 							il.add(new VarInsnNode(Opcodes.ISTORE, 9));
 						}else if(index!=3){
@@ -124,7 +122,7 @@ public class NoCrosslinkASMTransformer implements IClassTransformer{
 			return writer.toByteArray();
 
 		}catch(Exception e){
-			System.out.println("!!NOCROSSLINK CRASHED!! Don't be shocked if stuff breaks!");
+			System.out.println("!!NOCROSSLINK CRASHED!! No changes made!");
 			e.printStackTrace();
 		}
 		return bytecode;
