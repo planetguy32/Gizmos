@@ -113,7 +113,7 @@ public class Gizmos implements SLModContainer{
 	
 	public static float accelRate;
 	
-	private ImmutableList<String> creativeTabBlacklistedThings=ImmutableList.of("superFire","forestFire","invenswapperTop");
+	private ImmutableList<String> creativeTabBlacklistedThings=ImmutableList.of("superFire","forestFire","invenswapperTop","redstoneWandBlock");
 	
 	//Callback from Forge
 	@EventHandler

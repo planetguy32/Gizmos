@@ -2,6 +2,8 @@ package planetguy.gizmos.tool;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
@@ -75,6 +77,10 @@ public class ItemBombDefuser extends Item{
 	
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		tooltipLines.add("SWAT team approved! Sneak if using");
 		tooltipLines.add("on fork bomb, or it's useless.");
 	}

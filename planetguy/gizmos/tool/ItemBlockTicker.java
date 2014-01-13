@@ -3,6 +3,8 @@ package planetguy.gizmos.tool;
 import java.util.List;
 import java.util.Random;
 
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -38,6 +40,7 @@ public class ItemBlockTicker extends GizmosItem{
     	GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
     	Character.valueOf('c'),stackClock,
     	Character.valueOf('i'),iron});
+    	this.setUnlocalizedName("temporalDislocator");
     	LanguageRegistry.addName(this, "§5Temporal Dislocator");	
 	}
 
@@ -72,6 +75,10 @@ public class ItemBlockTicker extends GizmosItem{
 	
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		tooltipLines.add("Dislocates a block's temporal position");
 		tooltipLines.add("from the future to the present.");
 	}

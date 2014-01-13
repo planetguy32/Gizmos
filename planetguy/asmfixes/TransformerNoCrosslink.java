@@ -37,11 +37,15 @@ public class TransformerNoCrosslink implements IClassTransformer{
 
 			FMLDeobfuscatingRemapper remapper = FMLDeobfuscatingRemapper.INSTANCE;
 
+			boolean deobf=name.equals(transformedName);
 			
 			String nameObf="b";//1.6.4 - it's a bit of a hack, but there doesn't seem to be another method named "b".
 			
 			String nameDev="placeInExistingPortal";
 
+			String fieldObf="field_85192_a";
+			String fieldDev="worldServerInstance";
+			
 			System.out.println("NoCrosslink: Found class!");
 
 			name = name.replace('.', '/');
@@ -75,7 +79,7 @@ public class TransformerNoCrosslink implements IClassTransformer{
 						if(index==2){
 							il.add(new VarInsnNode(Opcodes.ALOAD, 0));
 							il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/world/Teleporter",
-									"worldServerInstance", Type.getDescriptor(WorldServer.class)));
+									deobf ? fieldDev : fieldObf, Type.getDescriptor(WorldServer.class)));
 							il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(ASMFixesCoremod.class),
 									"getMaximumRange", Type.getMethodDescriptor(ASMFixesCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
 

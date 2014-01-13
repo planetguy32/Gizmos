@@ -107,7 +107,7 @@ public class SimpleLoader {
 		Debug.enable=cfg.get("[SL] Framework", "Debug messages", false).getBoolean(false);
 		
 		staticLoading=slMode==0;
-		staticLoading=slMode==0;
+		
 		if(staticLoading){
 			modcontainer.setStaticLoading(true);
 		}else{

@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Class-Path: .
-FMLCorePlugin: planetguy.portalmod.NoCrosslinkCoremod
+FMLCorePlugin: planetguy.asmfixes.ASMFixesCoremod
+FMLCorePluginContainsFMLMod: true
 Main-Class: Start
 

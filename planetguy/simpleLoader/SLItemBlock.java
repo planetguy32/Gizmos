@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlockWithMetadata;
@@ -41,6 +43,10 @@ public class SLItemBlock extends ItemBlockWithMetadata{
 
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean showMore){
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		try{
 			int meta=itemStack.getItemDamage();
 			for(String TTtext:tooltip[meta]){

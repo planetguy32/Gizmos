@@ -2,6 +2,8 @@ package planetguy.gizmos.tool;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
@@ -42,6 +44,10 @@ public class ItemLastLaughArmor extends ItemArmor{
 	
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		tooltipLines.add("He who laughs last, laughs longest.");
 	}
 

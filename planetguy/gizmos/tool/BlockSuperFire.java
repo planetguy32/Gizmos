@@ -53,6 +53,7 @@ public class BlockSuperFire extends BlockFire{
 	public BlockSuperFire(int id){
 		super(id);
 		this.setLightValue(1F);
+		this.setUnlocalizedName("superFire");
 	}
 	
 

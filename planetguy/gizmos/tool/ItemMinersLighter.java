@@ -2,6 +2,8 @@ package planetguy.gizmos.tool;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
@@ -40,6 +42,10 @@ public class ItemMinersLighter extends ItemDeforester{
 	}
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		tooltipLines.add("Very quickly removes gravel and lava.");
 		if(player.worldObj.getBiomeGenForCoords((int)player.posX, (int)player.posZ)==BiomeGenBase.hell){
 			tooltipLines.add("§4§LFire doesn't spread in Nether.");

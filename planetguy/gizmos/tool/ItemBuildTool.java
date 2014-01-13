@@ -2,9 +2,13 @@ package planetguy.gizmos.tool;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -28,6 +32,10 @@ public class ItemBuildTool extends ItemPickaxe{
 		this.setUnlocalizedName("buildTool");
 		LanguageRegistry.addName(this, "Build tool");
 		LanguageRegistry.instance().addStringLocalization("item.buildTool.name", "Build tool");
+		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
+			"pd",
+			Character.valueOf('d'),new ItemStack(Item.pickaxeDiamond),
+			Character.valueOf('p'),new ItemStack(Block.pistonBase),});
 	}
 
 	public void registerIcons(IconRegister ir){
@@ -41,7 +49,10 @@ public class ItemBuildTool extends ItemPickaxe{
 	
 	@Override
 	public void addInformation(ItemStack buildtool, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
-		
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		try{
 			NBTTagCompound tag=buildtool.getTagCompound();
 			ItemStack contained=ItemStack.loadItemStackFromNBT(tag);

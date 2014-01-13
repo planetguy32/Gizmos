@@ -3,6 +3,8 @@ package planetguy.gizmos.tool;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 
@@ -55,6 +57,10 @@ public class ItemFireExtinguisher extends Item{
 	
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List tooltipLines, boolean advancedTooltipsActive){
+        if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+        	tooltipLines.add("Hold <shift> for more");
+        	return;
+        }
 		tooltipLines.add("Cleans up fires. If it's deforestator");
 		tooltipLines.add("or miner's lighter fire, act fast.");
 	}

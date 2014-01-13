@@ -18,7 +18,7 @@ public class ASMFixesModContainer extends DummyModContainer{
             md.version = "1.0";
             md.authorList = Arrays.asList(new String[]{"planetguy"});
             md.url = "https://github.com/planetguy32/Gizmos";
-            md.description = "Fixes various things with ASM. So far: cuts down nether portal cross-linking, tries to stop render glitches from crashing the game.";
+            md.description = "Fixes things with coremods. ";
     }
 	
 	@Override
