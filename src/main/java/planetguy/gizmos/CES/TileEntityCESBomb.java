@@ -1,0 +1,56 @@
+package planetguy.gizmos.CES;
+
+import java.util.ArrayList;
+
+import planetguy.gizmos.Gizmos;
+import planetguy.gizmos.CES.powerups.Powerup;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+
+public class TileEntityCESBomb extends TileEntity implements Cloneable{
+	
+	static{
+		GameRegistry.registerTileEntity(TileEntityCESBomb.class, Gizmos.modName+"_customBomb");
+	}
+	
+	public TileEntityCESBomb(){
+		super();
+		this.cesContainer=new CESContainer();
+	}
+
+	public CESContainer cesContainer;
+	
+	public CESContainer getCESContainer(){
+		return this.cesContainer;
+	}
+	
+	public TileEntityCESBomb copy(){
+		NBTTagCompound tag=new NBTTagCompound();
+		this.writeToNBT(tag);
+		TileEntityCESBomb bomb=new TileEntityCESBomb();
+		bomb.readFromNBT(tag);
+		return bomb;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag){
+		super.readFromNBT(tag);
+		cesContainer.readFromNBT(tag);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag){
+		super.writeToNBT(tag);
+		cesContainer.writeToNBT(tag);
+	}
+
+
+}
