@@ -55,7 +55,7 @@ public class CodeWriter {
 		Debug.dbg("[CW] classes:"+classes);
 		output.println("package planetguy.gizmos;");
 		output.println();
-		output.println("import net.minecraftforge.common.Configuration;");
+		output.println("import net.minecraftforge.common.config.Configuration;");
 		output.println();
 		output.println("import cpw.mods.fml.common.registry.GameRegistry;");
 		output.println("import cpw.mods.fml.common.registry.EntityRegistry;");

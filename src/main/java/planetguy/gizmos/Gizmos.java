@@ -8,16 +8,14 @@ import com.google.common.collect.ImmutableList;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import planetguy.gizmos.CES.BlockCESBomb;
 import planetguy.gizmos.CES.powerups.Powerup;
 import planetguy.gizmos.CES.powerups.PowerupDebug;
@@ -36,8 +34,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * 
@@ -46,7 +43,6 @@ import net.minecraftforge.common.Property;
  *
  */
 @Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.3")
-@NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos implements SLModContainer{
 	
 	public static final boolean useStaticLoading=true;
@@ -103,10 +99,6 @@ public class Gizmos implements SLModContainer{
 	
 	public static final String modName="planetguy_gizmos";
 	
-	static{
-		FMLLog.makeLog("Gizmos");
-	}
-	
 	@Instance("planetguy_Gizmos")
 	public static Gizmos instance;
 	
@@ -137,7 +129,7 @@ public class Gizmos implements SLModContainer{
         Debug.dump(SLGeneratedLoader.class,null);
         Debug.dump(SimpleLoader.class, loader);
 		
-        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         if(useStaticLoading){
         	SLGeneratedLoader.loadThings();
         }else{
@@ -145,7 +137,7 @@ public class Gizmos implements SLModContainer{
         }
         final ItemStack gb;
         if(GravityBomb==null){
-        	gb=new ItemStack(Block.blocksList[46]);
+        	gb=new ItemStack((Block) Block.field_149771_c.getObject("tnt"));
         }else{
         	gb=new ItemStack(GravityBomb,1,1);
         }
@@ -157,8 +149,14 @@ public class Gizmos implements SLModContainer{
         	}
         	
             public String getTranslatedTabLabel(){
-            	return "Gizmos stuff";
+            	return "Gizmos";
             }
+
+			@Override
+			@SideOnly(Side.CLIENT)
+			public Item getTabIconItem() {
+				return null;
+			}
 
         };
        
@@ -182,7 +180,7 @@ public class Gizmos implements SLModContainer{
         				i.setCreativeTab(tabGizmos);
         			}else if(isBlock){
         				Block b=(Block) f.get(this);
-        				b.setCreativeTab(tabGizmos);
+        				b.func_149647_a(tabGizmos);
         			}
         			
         		}catch(Exception e){}

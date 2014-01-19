@@ -42,8 +42,8 @@ import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ReportedException;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 /**Class containing logic to allow easily-created content modules with dependency management.
  *  
@@ -74,17 +74,12 @@ public class SimpleLoader {
 	 * IDMap contains all the config data loaded. 
 	 */
 
-	private HashMap<String,Integer> IDMap=new HashMap<String,Integer>();
 	private int passLimit;
 	private boolean generateCode;
 
 	private boolean staticLoading;
 
 	public CodeWriter cw;
-
-	public int lookupInt(String s){
-		return IDMap.get(s);
-	}
 
 	public SimpleLoader(String modname, SLModContainer modcontainer, Configuration cfg) throws Exception{
 		try{
@@ -207,21 +202,8 @@ public class SimpleLoader {
 		passLimit=config.get("[SL] Framework", "Maximum dependency passes", 10).getInt(10);
 
 		//and get config values for the game content...
-		int currentID=3980;
-		for(Class c:blocks){ //go through blocks and ask the config for an ID for each
-			int id=config.getBlock(getModuleName(c), currentID).getInt(currentID);
-			IDMap.put(getModuleName(c), id);
-			++currentID;
-			//Debug.dbg(currentID);
-		}
-		currentID=8100;
-		for(Class c:items){ //do the same for items
-			int id=config.getItem(getModuleName(c), currentID).getInt(currentID);
-			IDMap.put(getModuleName(c), id);
-			++currentID;
-		}
 
-		currentID=201;
+		int currentID=201;
 		for(Class c:entities){//and entities
 			int id=config.get("Entities", getModuleName(c), currentID).getInt(currentID);
 			++currentID;
