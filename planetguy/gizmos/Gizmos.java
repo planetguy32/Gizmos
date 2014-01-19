@@ -96,6 +96,7 @@ public class Gizmos implements SLModContainer{
 	
 	public static Item arrowNova;
 	public static Entity entityArrowNova;
+	
 	public static Item luncher;
 	
 	public static CreativeTabs tabGizmos;
@@ -113,7 +114,7 @@ public class Gizmos implements SLModContainer{
 	
 	public static float accelRate;
 	
-	private ImmutableList<String> creativeTabBlacklistedThings=ImmutableList.of("superFire","forestFire","invenswapperTop","redstoneWandBlock");
+	private ImmutableList<String> creativeTabBlacklistedThings=ImmutableList.of("superFire","forestFire","invenswapperTop","redstoneWandBlock","arrowNova");
 	
 	//Callback from Forge
 	@EventHandler

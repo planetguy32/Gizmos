@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-//@SLLoad(name="arrowNova", dependencies={"entityArrowNova"},primacy=8)
+@SLLoad(name="arrowNova", dependencies={"entityArrowNova"},primacy=8)
 public class ItemArrowNova extends Item{
 
 	@SLLoad
