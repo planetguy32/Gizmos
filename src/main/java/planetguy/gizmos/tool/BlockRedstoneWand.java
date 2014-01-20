@@ -3,7 +3,8 @@ package planetguy.gizmos.tool;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPoweredOre;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.BlockRedstoneOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,11 +15,11 @@ import net.minecraft.world.World;
 import planetguy.simpleLoader.SLLoad;
 
 @SLLoad(name="redstoneWandBlock",primacy=13)
-public class BlockRedstoneWand extends BlockPoweredOre{
+public class BlockRedstoneWand extends BlockRedstoneOre{
 
 	@SLLoad
 	public BlockRedstoneWand(int par1) {
-		super();
+		super(true);//I think...
 	}
 	
 	public boolean isOpaqueCube(){

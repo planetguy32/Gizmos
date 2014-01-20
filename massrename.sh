@@ -1,6 +1,6 @@
 #!/bin/bash
 cd Gizmos
-git checkout .
+git checkout ..
 shopt -s globstar
 g="/g"
 for line in $(cat ../replacements)
