@@ -26,7 +26,7 @@ public class PowerupExplodeOnImpact extends Powerup{
 	public void onNeighborBlockChange(World w, int x, int y, int z, int neighbor, TileEntityCESBomb bomb) {
 		Debug.dbg("Fall?");
 		if(BlockSand.canFallBelow(w, x, y-1, z)){
-			BlockCESBomb.instance.explode((TileEntityCESBomb) w.getBlockTileEntity(x,y,z));
+			BlockCESBomb.instance.explode((TileEntityCESBomb) w.func_147438_o(x,y,z));
 		}
 	}
 

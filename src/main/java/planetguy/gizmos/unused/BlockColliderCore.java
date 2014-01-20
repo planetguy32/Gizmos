@@ -12,7 +12,7 @@ import planetguy.util.Debug;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -33,11 +33,11 @@ public class BlockColliderCore  extends Block{
 
 	public BlockColliderCore(int id) {
 		super(id, Material.web);
-		this.setCreativeTab(CreativeTabs.tabRedstone);
+		this.func_149647_a(CreativeTabs.tabRedstone);
 	}
 
-	public void registerIcons(IconRegister ir){
-		this.blockIcon=ir.registerIcon("Gizmos:collider");
+	public void registerIcons(IIconRegister ir){
+		this.field_149761_L=ir.registerIcon("Gizmos:collider");
 	}
 	
 	public int tickRate(World world){

@@ -25,7 +25,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event;
-import net.minecraftforge.event.ForgeSubscribe;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -36,7 +36,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 @SLLoad(name="eventHandler")
 public class GizmosEventWatcher extends CustomModuleLoader{
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void checkIfBombedItemShouldExplode(PlayerInteractEvent pie){
 		
 		//Debug.dbg("onInteract called"); //SO NOISY
@@ -72,7 +72,7 @@ public class GizmosEventWatcher extends CustomModuleLoader{
 		}	
 	}
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void checkIfLastLaughSuitShouldExplode(LivingDeathEvent ev){
 		if(!(ev.entity instanceof EntityPlayer))return;
 		EntityPlayer player=(EntityPlayer) ev.entity;

@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLLoad;
@@ -30,7 +30,7 @@ public class AnyShapePortals extends CustomModuleLoader{
 
 		private HashSet<Point> points=new HashSet<Point>();
 
-		@ForgeSubscribe
+		@SubscribeEvent
 		public void onInteract(PlayerInteractEvent pie){
 			try{
 				if(pie.entityPlayer.getCurrentEquippedItem().itemID==259){

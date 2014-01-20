@@ -86,7 +86,7 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this &&
+		return worldObj.func_147438_o(xCoord, yCoord, zCoord) == this &&
 				player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
 	}
 
@@ -100,7 +100,7 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 
-		NBTTagList tagList = tagCompound.getTagList("Inventory");
+		NBTTagList tagList = tagC(NBTTagList)ompound.getTag("Inventory");
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
 			byte slot = tag.getByte("Slot");
@@ -114,7 +114,7 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 
-		NBTTagList itemList = new NBTTagList();
+		NBTTagList itemList = new NBTTagList().);
 		for (int i = 0; i < inv.length; i++) {
 			ItemStack stack = inv[i];
 			if (stack != null) {
@@ -128,12 +128,12 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 	}
 
 	@Override
-	public String getInvName() {
+	public String func_145825_b() {
 		return "Gizmos.invenswapper";
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean func_145818_k_() {
 		return false;
 	}
 

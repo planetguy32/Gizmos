@@ -9,7 +9,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.EnumToolMaterial;
@@ -29,16 +29,16 @@ public class ItemBuildTool extends ItemPickaxe{
 	public ItemBuildTool(int par1) {
 		super(par1, EnumToolMaterial.EMERALD);
 		myID=par1;
-		this.setUnlocalizedName("buildTool");
+		this.func_149663_c("buildTool");
 		LanguageRegistry.addName(this, "Build tool");
 		LanguageRegistry.instance().addStringLocalization("item.buildTool.name", "Build tool");
 		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
 			"pd",
 			Character.valueOf('d'),new ItemStack(Item.pickaxeDiamond),
-			Character.valueOf('p'),new ItemStack(Block.pistonBase),});
+			Character.valueOf('p'),new ItemStack((Block)Block.field_149771_c.getObject("pistonBase),});
 	}
 
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		itemIcon = ir.registerIcon(Gizmos.modName+":buildTool");
 	}
 	

@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +27,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 @SLLoad(name="inserter",primacy=7)
@@ -39,8 +39,8 @@ public class BlockInserter extends Block{
 	@SLProp(name="limitQuantityHideable")
 	public static boolean nerfHiding=false;
 	
-	public Icon sides;
-	public Icon top;
+	public IIcon sides;
+	public IIcon top;
 
 	@SLLoad
 	public BlockInserter(int id){
@@ -50,13 +50,13 @@ public class BlockInserter extends Block{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.setUnlocalizedName("spyLab");
+		this.func_149663_c("spyLab");
 		ItemStack lens=new ItemStack(Gizmos.Lens);
-		ItemStack wood=new ItemStack(Block.planks);
-		ItemStack blockIron=new ItemStack(Block.blocksList[42]);
-		ItemStack crafter=new ItemStack(Block.workbench);
-		ItemStack chest=new ItemStack(Block.chest);
-		this.setUnlocalizedName("inserter");
+		ItemStack wood=new ItemStack((Block)Block.field_149771_c.getObject("planks);
+		ItemStack blockIron=new ItemStack((Block)Block.field_149771_c.getObject("blocksList[42]);
+		ItemStack crafter=new ItemStack((Block)Block.field_149771_c.getObject("workbench);
+		ItemStack chest=new ItemStack((Block)Block.field_149771_c.getObject("chest);
+		this.func_149663_c("inserter");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Inserter");
 		ItemStack itemSpyDesk=new ItemStack(this);
         GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
@@ -73,13 +73,13 @@ public class BlockInserter extends Block{
         //Debug.dbg("New spy lab!");
         setHardness(2.0F);
         setResistance(5.0F);
-        setUnlocalizedName("blockSpyLab");
-        setCreativeTab(CreativeTabs.tabTools);
+        func_149663_c("blockSpyLab");
+        func_149647_a(CreativeTabs.tabTools);
     }
     
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister ir){
+    public void registerIcons(IIconRegister ir){
     	//Debug.dbg("Spy lab textures loading");
     	top=ir.registerIcon(Gizmos.modName+":spyTop");
     	sides=ir.registerIcon(Gizmos.modName+":spySides");
@@ -95,7 +95,7 @@ public class BlockInserter extends Block{
         //dropItems(world, x, y, z);
 	}
 	
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		if(par1==1){
 			return top;
 		}else{

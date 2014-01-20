@@ -21,7 +21,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 @SLLoad(name="RedstoneResponsiveWool", primacy=3)
@@ -32,7 +32,7 @@ public class BlockDynamicWool extends Block{
 	@SLLoad
 	public BlockDynamicWool(int id){
 		super(id, Material.cloth);
-		this.setUnlocalizedName(Gizmos.modName+":dynamicWool");
+		this.func_149663_c(Gizmos.modName+":dynamicWool");
 		SLItemBlock.registerString(id, 0, "Dynamic wool", new String[]{"Redstone makes it", "change colours"});
 		try {
 			getSignalStrength=BlockRedstoneLogic.class.getDeclaredMethod("getInputStrength", World.class, int.class, int.class, int.class, int.class);
@@ -66,7 +66,7 @@ public class BlockDynamicWool extends Block{
 	}
 
 	@Override
-	public Icon getIcon(int side, int meta){
+	public IIcon getIcon(int side, int meta){
 		return Block.cloth.getIcon(side, meta);
 	}
 

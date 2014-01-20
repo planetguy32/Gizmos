@@ -9,7 +9,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -21,19 +21,19 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class ItemDeforester extends ItemInteractDevice{
 
 	public ItemDeforester(int par1, boolean ignored){
-		super(par1);
+		super();
 	}
 	
 	@SLLoad
 	public ItemDeforester(int par1) {
-		super(par1);
-		this.setUnlocalizedName("deforester");
+		super();
+		this.func_149663_c("deforester");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Deforester");
 		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
 			"gbg",
 			"blb",
 			"gbg",
-			Character.valueOf('g'),new ItemStack(Block.gravel),
+			Character.valueOf('g'),new ItemStack((Block)Block.field_149771_c.getObject("gravel),
 			Character.valueOf('b'),new ItemStack(Item.blazePowder),
 			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
 	}
@@ -73,7 +73,7 @@ public class ItemDeforester extends ItemInteractDevice{
 	}
 	
 
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"netherLighter");
 	}
 

@@ -11,7 +11,7 @@ public class BlockPoisonableCake extends BlockCake {
 	private boolean isPoisoned=false;
 	
 	public BlockPoisonableCake(int par1) {
-		super(par1);
+		super();
 	}
 	
     public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9){

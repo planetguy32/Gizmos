@@ -9,7 +9,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
@@ -47,13 +47,13 @@ public class BlockSuperFire extends BlockFire{
 	private ImmutableList<Integer> earthBlocks=ImmutableList.of(10, 11, 13);
 	
 	@SideOnly(Side.CLIENT)
-	public Icon[] fireIcons;
+	public IIcon[] fireIIcons;
 
 	@SLLoad
 	public BlockSuperFire(int id){
 		super(id);
 		this.setLightValue(1F);
-		this.setUnlocalizedName("superFire");
+		this.func_149663_c("superFire");
 	}
 	
 

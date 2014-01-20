@@ -9,7 +9,7 @@ import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import planetguy.util.Debug;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -26,7 +26,7 @@ public class ItemLuncher extends Item{
 	@SLLoad
 	public ItemLuncher(int id) {
 		super(id);
-		this.setUnlocalizedName("luncher");
+		this.func_149663_c("luncher");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Luncher");
 		this.setMaxDamage(MAX_FOOD_CARRIED);
 		this.setNoRepair();
@@ -39,12 +39,12 @@ public class ItemLuncher extends Item{
 			"lll",
 			Character.valueOf('l'), new ItemStack(Item.leather),
 			Character.valueOf('s'), new ItemStack(Item.bread),
-			Character.valueOf('c'), new ItemStack(Block.chest)
+			Character.valueOf('c'), new ItemStack((Block)Block.field_149771_c.getObject("chest)
 		});
 	}
 	
 	@Override
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		this.itemIcon=ir.registerIcon(Gizmos.modName+":luncher");
 	}
 	

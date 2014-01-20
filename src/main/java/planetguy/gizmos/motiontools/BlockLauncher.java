@@ -8,7 +8,7 @@ import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemBlock;
@@ -24,14 +24,14 @@ public class BlockLauncher extends Block{
 	@SLLoad
 	public BlockLauncher(int par1) {
 		super(par1, Material.ice);
-		this.setCreativeTab(CreativeTabs.tabRedstone);
-		Gizmos.launcher=this.setUnlocalizedName("entityLauncher");
+		this.func_149647_a(CreativeTabs.tabRedstone);
+		Gizmos.launcher=this.func_149663_c("entityLauncher");
 		LanguageRegistry.instance().addName(Gizmos.launcher, "Launcher");
 		SLItemBlock.registerString(par1, 0, "Launcher", new String[]{"Anything inside goes up, fast."});
 	}
 
-	public void registerIcons(IconRegister ir){
-		this.blockIcon=ir.registerIcon(Gizmos.modName+":collider");
+	public void registerIcons(IIconRegister ir){
+		this.field_149761_L=ir.registerIcon(Gizmos.modName+":collider");
 	}
 	
 	public  AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z){

@@ -12,7 +12,7 @@ import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.GizmosItem;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +31,7 @@ public class ItemBlockTicker extends GizmosItem{
 	
 	@SLLoad
 	public ItemBlockTicker(int par1) {
-		super(par1);
+		super();
         this.maxStackSize = 1;
         this.setMaxDamage(64);
     	ItemStack stackClock=new ItemStack(Item.pocketSundial);
@@ -40,7 +40,7 @@ public class ItemBlockTicker extends GizmosItem{
     	GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
     	Character.valueOf('c'),stackClock,
     	Character.valueOf('i'),iron});
-    	this.setUnlocalizedName("temporalDislocator");
+    	this.func_149663_c("temporalDislocator");
     	LanguageRegistry.addName(this, "§5Temporal Dislocator");	
 	}
 
@@ -49,7 +49,7 @@ public class ItemBlockTicker extends GizmosItem{
 		try{
 			Block b=Block.blocksList[par3World.getBlockId(par4, par5, par6)];
 
-			TileEntity t=par3World.getBlockTileEntity(par4, par5, par6);
+			TileEntity t=par3World.func_147438_o(par4, par5, par6);
 			if(t!=null){ //if it has a tile entity tick it
 				for(int i=0; i<TICKS_PER_MINUTE; i++){
 					t.updateEntity();
@@ -69,7 +69,7 @@ public class ItemBlockTicker extends GizmosItem{
 	}
 	
 	@Override
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"dislocator");
 	}
 	

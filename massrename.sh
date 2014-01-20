@@ -1,8 +1,9 @@
 #!/bin/bash
+cd Gizmos
 git checkout .
 shopt -s globstar
 g="/g"
-for line in $(cat replacements)
+for line in $(cat ../replacements)
  do
  sedCmd='s/'$line'/g'
  echo $sedCmd

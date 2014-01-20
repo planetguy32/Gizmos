@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,13 +22,13 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 
 	@SLLoad
 	public ItemRedstoneActivator(int par1) {
-		super(par1);
-		this.setUnlocalizedName("redstoneActivator");
+		super();
+		this.func_149663_c("redstoneActivator");
 		LanguageRegistry.addName(this, "Redstone Activator");
 		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
 			" r",
 			"s ",
-			Character.valueOf('r'),new ItemStack(Block.torchRedstoneActive),
+			Character.valueOf('r'),new ItemStack((Block)Block.field_149771_c.getObject("torchRedstoneActive),
 			Character.valueOf('s'),new ItemStack(Item.stick),});
 	}
 
@@ -47,7 +47,7 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		this.itemIcon=ir.registerIcon(Gizmos.modName+":redstoneActivator");
 	}
 	

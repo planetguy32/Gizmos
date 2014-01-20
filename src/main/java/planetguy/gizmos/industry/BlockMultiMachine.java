@@ -13,12 +13,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 @SLLoad(name="composter", primacy=5)
@@ -26,17 +26,17 @@ public class BlockMultiMachine extends BlockContainer {
 
 	public static Material machinery=new Material(MapColor.ironColor);
 	
-	public Icon[] icons=new Icon[16];
+	public IIcon[] icons=new IIcon[16];
 	
 	@SLLoad
 	public BlockMultiMachine(int id) {
 		super(id,machinery);
-		this.setUnlocalizedName("gizmos_MultiMachine");
+		this.func_149663_c("gizmos_MultiMachine");
 		GameRegistry.registerTileEntity(TileEntityMultiMachine.class,"gizmos_MultiMachine");
 		GameRegistry.addRecipe(new ItemStack(this,4,0), new Object[]{
 			"i","c",
 			Character.valueOf('i'),new ItemStack(Item.ingotIron),
-			Character.valueOf('c'),new ItemStack(Block.cauldron)
+			Character.valueOf('c'),new ItemStack((Block)Block.field_149771_c.getObject("cauldron)
 		});
 		for(int i=0; i<16; i++){
 			SLItemBlock.registerString(id, i, "Multi-Machine", new String[]{"For all your industrial needs."});
@@ -46,7 +46,7 @@ public class BlockMultiMachine extends BlockContainer {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		for(int i=0; i<15; i++){
 			icons[i]=ir.registerIcon(Gizmos.modName+":MultiMachine_"+i);
 		}
@@ -55,14 +55,14 @@ public class BlockMultiMachine extends BlockContainer {
 	@Override
     public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune){
 		ArrayList<ItemStack> stacks=new ArrayList<ItemStack>();
-		if(world.getBlockTileEntity(x, y, z) instanceof TileEntityMultiMachine)
+		if(world.func_147438_o(x, y, z) instanceof TileEntityMultiMachine)
 			stacks.add(new ItemStack(this,metadata));
 		return stacks;
 	}
 	
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta){
+    public IIcon getIcon(int side, int meta){
     	return icons[meta];
     }
 
@@ -73,7 +73,7 @@ public class BlockMultiMachine extends BlockContainer {
 	
 	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
-		TileEntity tileEntity = w.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = w.func_147438_o(x, y, z);
 		if (tileEntity == null 
 				||!(tileEntity instanceof TileEntityMultiMachine) 
 				|| player.isSneaking()) {

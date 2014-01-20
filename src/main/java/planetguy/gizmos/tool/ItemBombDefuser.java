@@ -11,7 +11,7 @@ import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -33,11 +33,11 @@ public class ItemBombDefuser extends Item{
 	
 	@SLLoad
 	public ItemBombDefuser(int par1) {
-		super(par1);
+		super();
 		ItemStack shears=new ItemStack(Item.shears);
 		ItemStack stick=new ItemStack(Item.stick);
 		ItemStack lens=new ItemStack(Gizmos.Lens);
-		this.setMaxDamage(10).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("defuser");
+		this.setMaxDamage(10).func_149647_a(CreativeTabs.tabTools).func_149663_c("defuser");
 		LanguageRegistry.addName(this, "Bomb defuser");
 		ItemStack ISDefuser=new ItemStack(this);
 		GameRegistry.addRecipe(ISDefuser, new Object[]{
@@ -49,7 +49,7 @@ public class ItemBombDefuser extends Item{
 				Character.valueOf('l'),lens});
 	}
 	
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"defuser");
 	}
 

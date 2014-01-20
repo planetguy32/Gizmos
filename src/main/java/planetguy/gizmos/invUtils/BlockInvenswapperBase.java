@@ -14,7 +14,7 @@ import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,20 +22,20 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 @SLLoad(name="invenswapper",dependencies={"invenswapperTop"},primacy=8)
 public class BlockInvenswapperBase extends BlockContainer{
 	
-	private Icon[] icons=new Icon[3];
+	private IIcon[] icons=new IIcon[3];
 
 	@SLLoad
 	public BlockInvenswapperBase(int par1) {
 		super(par1, Material.iron);
 		setHardness(2.0F);
 		setResistance(5.0F);
-		setUnlocalizedName("Gizmos_Invenswapper");
+		func_149663_c("Gizmos_Invenswapper");
 		LanguageRegistry.addName(this, "Invenswapper base");
 		SLItemBlock.registerString(par1, 0, "Invenswapper (in)", new String[] {"Sneak while on top of it to","put items into it."});
 		SLItemBlock.registerString(par1, 1, "Invenswapper (out)", new String[] {"Sneak while on top of it to","take all the items inside it."});
@@ -46,19 +46,19 @@ public class BlockInvenswapperBase extends BlockContainer{
 	public void addCrafting(){
 		GameRegistry.addRecipe(new ItemStack(this,1,0), new Object[]{
 			"php","lsl","lcl",
-			Character.valueOf('h'),new ItemStack(Block.hopperBlock),
-			Character.valueOf('p'),new ItemStack(Block.pressurePlateIron),
-			Character.valueOf('l'),new ItemStack(Block.blockLapis),
-			Character.valueOf('s'),new ItemStack(Block.pistonBase),
-			Character.valueOf('c'),new ItemStack(Block.chest)
+			Character.valueOf('h'),new ItemStack((Block)Block.field_149771_c.getObject("hopperBlock),
+			Character.valueOf('p'),new ItemStack((Block)Block.field_149771_c.getObject("pressurePlateIron),
+			Character.valueOf('l'),new ItemStack((Block)Block.field_149771_c.getObject("blockLapis),
+			Character.valueOf('s'),new ItemStack((Block)Block.field_149771_c.getObject("pistonBase),
+			Character.valueOf('c'),new ItemStack((Block)Block.field_149771_c.getObject("chest)
 		});
 		GameRegistry.addRecipe(new ItemStack(this,1,1), new Object[]{
 			"pcp","lsl","lhl",
-			Character.valueOf('h'),new ItemStack(Block.hopperBlock),
-			Character.valueOf('p'),new ItemStack(Block.pressurePlateIron),
-			Character.valueOf('l'),new ItemStack(Block.blockLapis),
-			Character.valueOf('s'),new ItemStack(Block.pistonBase),
-			Character.valueOf('c'),new ItemStack(Block.chest)
+			Character.valueOf('h'),new ItemStack((Block)Block.field_149771_c.getObject("hopperBlock),
+			Character.valueOf('p'),new ItemStack((Block)Block.field_149771_c.getObject("pressurePlateIron),
+			Character.valueOf('l'),new ItemStack((Block)Block.field_149771_c.getObject("blockLapis),
+			Character.valueOf('s'),new ItemStack((Block)Block.field_149771_c.getObject("pistonBase),
+			Character.valueOf('c'),new ItemStack((Block)Block.field_149771_c.getObject("chest)
 		});
 		GameRegistry.addShapelessRecipe(new ItemStack(this,1,0), new ItemStack(this,1,1));
 		GameRegistry.addShapelessRecipe(new ItemStack(this,1,1), new ItemStack(this,1,0));
@@ -75,7 +75,7 @@ public class BlockInvenswapperBase extends BlockContainer{
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister ir){
+    public void registerIcons(IIconRegister ir){
     	icons[0]=ir.registerIcon(Gizmos.modName+":invenswapperBottomIn");
     	icons[1]=ir.registerIcon(Gizmos.modName+":invenswapperBottomOut");
     	icons[2]=ir.registerIcon("hopper_inside");
@@ -83,7 +83,7 @@ public class BlockInvenswapperBase extends BlockContainer{
     
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta){
+    public IIcon getIcon(int side, int meta){
 		if(side==0||side==1)return icons[2];
 		return icons[meta];    	
     }
@@ -97,7 +97,7 @@ public class BlockInvenswapperBase extends BlockContainer{
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = world.func_147438_o(x, y, z);
 		if (tileEntity == null || player.isSneaking()) {
 			return false;
 		}
@@ -115,7 +115,7 @@ public class BlockInvenswapperBase extends BlockContainer{
 	private void dropItems(World world, int x, int y, int z){
 		Random rand = new Random();
 
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = world.func_147438_o(x, y, z);
 		if (!(tileEntity instanceof IInventory)) {
 			return;
 		}

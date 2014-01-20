@@ -14,7 +14,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.biome.BiomeGenBase;
 
 //@SLLoad(name="lastLaugh")
@@ -22,14 +22,14 @@ public class ItemLastLaughArmor extends ItemArmor{
 
 	public ItemLastLaughArmor(int id,EnumArmorMaterial par2EnumArmorMaterial, int renderIndex, int armorType) {
 		super(id, par2EnumArmorMaterial, renderIndex, armorType);
-		setUnlocalizedName("lastLaugh");
+		func_149663_c("lastLaugh");
 		Gizmos.lastLaughChestplate=this;
 		LanguageRegistry.addName(this, "Last laugh armor");
 		this.itemIcon=Item.plateIron.getIcon(new ItemStack(Item.plateIron), 0);
 	}
 	
 	@Override
-	public Icon getIcon(ItemStack s, int pass){
+	public IIcon getIcon(ItemStack s, int pass){
 		return Item.plateIron.getIcon(s, pass);
 	}
 	

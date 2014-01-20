@@ -9,7 +9,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,13 +25,13 @@ public class ItemMinersLighter extends ItemDeforester{
 	@SLLoad
 	public ItemMinersLighter(int par1) {
 		super(par1,false);
-		this.setUnlocalizedName("minersLighter");
+		this.func_149663_c("minersLighter");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Miner's Lighter");
 		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
 			"gbg",
 			"blb",
 			"gbg",
-			Character.valueOf('g'),new ItemStack(Block.sapling),
+			Character.valueOf('g'),new ItemStack((Block)Block.field_149771_c.getObject("sapling),
 			Character.valueOf('b'),new ItemStack(Item.blazePowder),
 			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
 	}
@@ -53,7 +53,7 @@ public class ItemMinersLighter extends ItemDeforester{
 		}
 	}
 	@Override
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":"+"minersLighter");
 	}
 	

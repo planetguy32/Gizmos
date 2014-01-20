@@ -18,7 +18,7 @@ public class CESContainer { //TODO move logic here from TileEntity - more versat
 	}
 	
     public void readFromNBT(NBTTagCompound tag){
-    	NBTTagList powerups=tag.getTagList("powerups");
+    	NBTTagList powerups=(NBTTagList)tag.getTag("powerups");
     	for(int i=0; i<powerups.tagCount(); i++){
     		NBTTagByte puTag=(NBTTagByte) powerups.tagAt(i);
     		byte id=puTag.data;
@@ -27,7 +27,7 @@ public class CESContainer { //TODO move logic here from TileEntity - more versat
     }
 	
     public void writeToNBT(NBTTagCompound tag){
-    	NBTTagList list=new NBTTagList("powerups");
+    	NBTTagList list=new NBTTagList()."powerups");
     	for(Powerup p:installedPowerups){
     		NBTTagByte puTag=new NBTTagByte("powerupID");
     		puTag.data=p.getID();

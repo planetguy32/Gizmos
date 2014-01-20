@@ -119,7 +119,7 @@ public class InventoryInserter implements IInventory {
     		
     
     @Override
-    public String getInvName() {
+    public String func_145825_b() {
     	return "planetguy.spyLab";
     }
     
@@ -129,7 +129,7 @@ public class InventoryInserter implements IInventory {
     }
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean func_145818_k_() {
 		return false;
 	}
 

@@ -12,8 +12,8 @@ public class ItemArrowNova extends Item{
 
 	@SLLoad
 	public ItemArrowNova(int par1) {
-		super(par1);
-		this.setUnlocalizedName("arrowNova");
+		super();
+		this.func_149663_c("arrowNova");
 		LanguageRegistry.addName(this, "Arrow-nova");
 	}
 	

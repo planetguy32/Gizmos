@@ -144,7 +144,7 @@ public class Gizmos implements SLModContainer{
         
         tabGizmos=new CreativeTabs("tabGizmos"){
         	
-        	public ItemStack getIconItemStack(){
+        	public ItemStack getIIconItemStack(){
         		return gb;
         	}
         	
@@ -177,7 +177,7 @@ public class Gizmos implements SLModContainer{
         				continue;
         			if(isItem){
         				Item i=(Item) f.get(this);
-        				i.setCreativeTab(tabGizmos);
+        				i.func_149647_a(tabGizmos);
         			}else if(isBlock){
         				Block b=(Block) f.get(this);
         				b.func_149647_a(tabGizmos);

@@ -9,34 +9,34 @@ import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 @SLLoad(name="invenswapperTop",primacy=9)
 public class BlockInvenswapperTop extends Block {
 
-	private Icon[] icons=new Icon[2];
+	private IIcon[] icons=new IIcon[2];
 	public static int id;
 	
 	@SLLoad
 	public BlockInvenswapperTop(int par1) {
 		super(par1, Material.air);
 		this.id=par1;
-		setUnlocalizedName("Gizmos_InvenswapperTop");
+		func_149663_c("Gizmos_InvenswapperTop");
         this.setBlockBounds(0,0,0,0,0,0);
         setResistance(100f);
 	}
 	
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister ir){
+    public void registerIcons(IIconRegister ir){
     	icons[0]=ir.registerIcon(Gizmos.modName+":invenswapperTopIn");
     	icons[1]=ir.registerIcon(Gizmos.modName+":invenswapperTopOut");
     	//icons[2]=ir.registerIcon("Gizmos:blank");
@@ -44,7 +44,7 @@ public class BlockInvenswapperTop extends Block {
     
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta){
+    public IIcon getIcon(int side, int meta){
 		return icons[meta];    	
     }
 
@@ -85,7 +85,7 @@ public class BlockInvenswapperTop extends Block {
 		if(!(e instanceof EntityPlayer)){
 			return;
 		}
-		TileEntityInvenswapper tileEntity =(TileEntityInvenswapper) w.getBlockTileEntity(x, y-1, z);
+		TileEntityInvenswapper tileEntity =(TileEntityInvenswapper) w.func_147438_o(x, y-1, z);
 		if(tileEntity==null){
 			w.setBlockToAir(x, y, z);
 			return;

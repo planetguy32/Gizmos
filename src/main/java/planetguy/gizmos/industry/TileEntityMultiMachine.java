@@ -94,12 +94,12 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 	}
 
 	@Override
-	public String getInvName() {
+	public String func_145825_b() {
 		return "Composter";
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
+	public boolean func_145818_k_() {
 		return false;
 	}
 
@@ -123,7 +123,7 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 
-		NBTTagList tagList = tagCompound.getTagList("Inventory");
+		NBTTagList tagList = tagC(NBTTagList)ompound.getTag("Inventory");
 		for (int i = 0; i < tagList.tagCount(); i++) {
 			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
 			byte slot = tag.getByte("Slot");
@@ -139,7 +139,7 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 		super.writeToNBT(tagCompound);
 
 		tagCompound.setInteger("accumulatedWork", this.accumulatedComposting);
-		NBTTagList itemList = new NBTTagList();
+		NBTTagList itemList = new NBTTagList().);
 		for (int i = 0; i < itemPool.length; i++) {
 			ItemStack stack = itemPool[i];
 			if (stack != null) {

@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,11 +33,11 @@ public class ItemFireExtinguisher extends Item{
 	
 	@SLLoad
 	public ItemFireExtinguisher(int par1) {
-		super(par1);
+		super();
 		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
-		this.setCreativeTab(CreativeTabs.tabTools);
-		this.setUnlocalizedName("fireExtinguisher");
+		this.func_149647_a(CreativeTabs.tabTools);
+		this.func_149663_c("fireExtinguisher");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Fire extinguisher");
 		GameRegistry.addRecipe(new ItemStack(this), new Object[] {
 			" i ",
@@ -51,7 +51,7 @@ public class ItemFireExtinguisher extends Item{
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		this.itemIcon=ir.registerIcon(Gizmos.modName+":extinguisher");
 	}
 	

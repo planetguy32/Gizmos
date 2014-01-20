@@ -13,10 +13,10 @@ import net.minecraft.world.World;
 public abstract class ItemInteractDevice extends GizmosItem{
 	
     public ItemInteractDevice(int par1) {
-		super(par1);
+		super();
         this.maxStackSize = 1;
         this.setMaxDamage(64);
-        this.setCreativeTab(CreativeTabs.tabTools);
+        this.func_149647_a(CreativeTabs.tabTools);
 	}
     
     public abstract boolean doEffect(int posX, int posY,int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer);

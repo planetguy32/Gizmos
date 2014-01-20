@@ -11,7 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
@@ -19,7 +19,7 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import planetguy.gizmos.Gizmos;
@@ -35,9 +35,9 @@ import planetguy.util.Debug;
 @SLLoad(name="timeBombs",primacy=13)
 public class BlockTimeBomb extends Block{
 
-	private Icon topTex;
-	private Icon bottomTex;
-	private Icon[] sideIcons=new Icon[16];
+	private IIcon topTex;
+	private IIcon bottomTex;
+	private IIcon[] sideIIcons=new IIcon[16];
 	
 	@SLProp(name = "timeBombFuse")
 	public static int fuse=60;
@@ -49,7 +49,7 @@ public class BlockTimeBomb extends Block{
 		super(id, Material.tnt);
 		Debug.dbg("Loading time bomb...");
         //this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
+        this.func_149647_a(CreativeTabs.tabRedstone);
         fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
 		Gizmos.timeBombs=this;
 		//Item.itemsList[ this.blockID] = new ItemTimeBomb( this.blockID-256).setItemName("timeBombs");
@@ -63,7 +63,7 @@ public class BlockTimeBomb extends Block{
 		SLItemBlock.registerString(id, 1, "Fork bomb", new String[]{"Counts down to destruction,","duplicates if disturbed"});
 		ItemStack itemStackTB=new ItemStack(Gizmos.timeBombs,1,0); 
 		ItemStack itemStackFB=new ItemStack(Gizmos.timeBombs,1,1);
-		ItemStack endStone=new ItemStack(Block.whiteStone);
+		ItemStack endStone=new ItemStack((Block)Block.field_149771_c.getObject("whiteStone);
 		
 		GameRegistry.addShapelessRecipe(itemStackTB, Block.tnt, Item.pocketSundial);
 		
@@ -86,37 +86,37 @@ public class BlockTimeBomb extends Block{
 		return fuse; 
 	}
 	
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		Debug.dbg("Time bomb textures loading");
 		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
 		bottomTex=ir.registerIcon(Gizmos.modName+":"+"bombBottom");
-		sideIcons[0] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");
-		sideIcons[1] =sideIcons[0];
-		sideIcons[2] =ir.registerIcon(Gizmos.modName+":"+"timeBomb2");
-		sideIcons[3] =sideIcons[2];
-		sideIcons[4] =ir.registerIcon(Gizmos.modName+":"+"timeBomb3");
-		sideIcons[5] =sideIcons[4];
-		sideIcons[6] =ir.registerIcon(Gizmos.modName+":"+"timeBomb4");
-		sideIcons[7] =sideIcons[6];
-		sideIcons[8] =ir.registerIcon(Gizmos.modName+":"+"timeBomb5");
-		sideIcons[9] =sideIcons[8];
-		sideIcons[10]=ir.registerIcon(Gizmos.modName+":"+"timeBomb6");
-		sideIcons[11]=sideIcons[10];
-		sideIcons[12]=ir.registerIcon(Gizmos.modName+":"+"timeBomb7");
-		sideIcons[13]=sideIcons[12];
-		sideIcons[14]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
-		sideIcons[15]=sideIcons[14];
-		this.blockIcon=sideIcons[0];
+		sideIIcons[0] =ir.registerIcon(Gizmos.modName+":"+"timeBomb1");
+		sideIIcons[1] =sideIIcons[0];
+		sideIIcons[2] =ir.registerIcon(Gizmos.modName+":"+"timeBomb2");
+		sideIIcons[3] =sideIIcons[2];
+		sideIIcons[4] =ir.registerIcon(Gizmos.modName+":"+"timeBomb3");
+		sideIIcons[5] =sideIIcons[4];
+		sideIIcons[6] =ir.registerIcon(Gizmos.modName+":"+"timeBomb4");
+		sideIIcons[7] =sideIIcons[6];
+		sideIIcons[8] =ir.registerIcon(Gizmos.modName+":"+"timeBomb5");
+		sideIIcons[9] =sideIIcons[8];
+		sideIIcons[10]=ir.registerIcon(Gizmos.modName+":"+"timeBomb6");
+		sideIIcons[11]=sideIIcons[10];
+		sideIIcons[12]=ir.registerIcon(Gizmos.modName+":"+"timeBomb7");
+		sideIIcons[13]=sideIIcons[12];
+		sideIIcons[14]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
+		sideIIcons[15]=sideIIcons[14];
+		this.field_149761_L=sideIIcons[0];
 	}
 	
 	
 	
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta){
+    public IIcon getIcon(int side, int meta){
 		if(side==0||side==1){
 			return topTex;
 		}
-        return sideIcons[meta];
+        return sideIIcons[meta];
     }
   
     @Override

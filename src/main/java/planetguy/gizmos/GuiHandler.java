@@ -19,7 +19,7 @@ public class GuiHandler implements IGuiHandler {
 	//returns an instance of the Container you made earlier
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = world.func_147438_o(x, y, z);
 		switch(id){
 		case 2:
 			return new ContainerMultiMachine(player.inventory,(TileEntityMultiMachine) tileEntity);
@@ -32,7 +32,7 @@ public class GuiHandler implements IGuiHandler {
 	//returns an instance of the Gui you made earlier
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = world.func_147438_o(x, y, z);
 		int blockID=world.getBlockId(x, y, z);
 		switch(id){
 		case 2:

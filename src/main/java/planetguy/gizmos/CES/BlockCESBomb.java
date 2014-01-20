@@ -30,7 +30,7 @@ public class BlockCESBomb extends BlockContainer{
 	@SLLoad
 	public BlockCESBomb(int blockID) {
 		super(blockID, Material.tnt);
-		BlockCESBomb.instance=(BlockCESBomb) this.setCreativeTab(CreativeTabs.tabRedstone);
+		BlockCESBomb.instance=(BlockCESBomb) this.func_149647_a(CreativeTabs.tabRedstone);
 		LanguageRegistry.addName(this, "CES base [TEST]");
 		SLItemBlock.registerString(blockID, 0, "CES base [TEST]",new String[]{"Preview of super seecret project.","Hint: It's a bomb."});
 	}
@@ -63,7 +63,7 @@ public class BlockCESBomb extends BlockContainer{
 	//Pass event to all powerups
 	@Override
     public void breakBlock(World w, int x, int y, int z, int idk, int idk2){
-    	TileEntityCESBomb teBomb=((TileEntityCESBomb) w.getBlockTileEntity(x,y,z));
+    	TileEntityCESBomb teBomb=((TileEntityCESBomb) w.func_147438_o(x,y,z));
     	if(teBomb==null){
     		Debug.dbg("TE is null when bomb destroyed!");
     		super.breakBlock(w, x, y, z, idk, idk2);
@@ -79,7 +79,7 @@ public class BlockCESBomb extends BlockContainer{
 	
 	@Override
     public void onNeighborBlockChange(World w, int x, int y, int z, int neighbor){
-		TileEntityCESBomb bomb=((TileEntityCESBomb)(w.getBlockTileEntity(x, y, z)));
+		TileEntityCESBomb bomb=((TileEntityCESBomb)(w.func_147438_o(x, y, z)));
 		for(Powerup p:bomb.cesContainer.getInstalledPowerups()){
 			p.onNeighborBlockChange(w,  x,  y,  z, neighbor, bomb);
 		}
@@ -88,7 +88,7 @@ public class BlockCESBomb extends BlockContainer{
 	
 	@Override
     public void updateTick(World w, int x, int y, int z, Random rand) {
-		TileEntityCESBomb bomb=((TileEntityCESBomb)(w.getBlockTileEntity(x, y, z)));
+		TileEntityCESBomb bomb=((TileEntityCESBomb)(w.func_147438_o(x, y, z)));
 		for(Powerup p:bomb.cesContainer.getInstalledPowerups()){
 			p.onBlockUpdate(w,  x,  y,  z, rand, bomb);
 		}
@@ -102,7 +102,7 @@ public class BlockCESBomb extends BlockContainer{
 	@Override
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int side, float par7, float par8, float par9){
 		ItemStack stk=player.getHeldItem();
-		TileEntityCESBomb bomb=((TileEntityCESBomb) w.getBlockTileEntity(x, y, z));
+		TileEntityCESBomb bomb=((TileEntityCESBomb) w.func_147438_o(x, y, z));
 		if(stk==null||stk.itemID!=345){
 			onBlockActivatedPassEvent(bomb,side,stk);
 			return true;

@@ -19,12 +19,12 @@ import planetguy.util.Debug;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -37,10 +37,10 @@ import static net.minecraftforge.common.ForgeDirection.*;
 public class BlockGraviBomb extends Block
 {
 	private int id;
-	private Icon topTex;
-	private Icon gBombTex;
-	private Icon tBombTex;
-	private Icon bottomTex;
+	private IIcon topTex;
+	private IIcon gBombTex;
+	private IIcon tBombTex;
+	private IIcon bottomTex;
 
 	@SLLoad
 	public BlockGraviBomb(int id){
@@ -50,7 +50,7 @@ public class BlockGraviBomb extends Block
 		SLItemBlock.registerString(id, 0, "Gravity Bomb", new String[] {"Falls as far as it can,","explodes where it lands"});
 		SLItemBlock.registerString(id, 1, "Excavator Bomb", new String[] {"Falls for a set time,","explodes each time it lands"});
 		try{
-			setCreativeTab(CreativeTabs.tabRedstone);
+			func_149647_a(CreativeTabs.tabRedstone);
 			Gizmos.graviBombPrimed = new EntityGravityBomb(null);
 			Gizmos.tunnelBombPrimed=new EntityTunnelBomb(null);
 			//EntityRegistry.registerModEntity(EntityTunnelBeam.class, "Tunnel Beam", 199, this, 80, 3, true);
@@ -58,7 +58,7 @@ public class BlockGraviBomb extends Block
 			EntityRegistry.registerModEntity(EntityTunnelBomb.class, "TBomb", 202, Gizmos.instance, 80, 3, true);
 			ItemStack itemStackGB = new ItemStack(this, 3, 0);
 			ItemStack itemStackExcaBomb = new ItemStack(this, 1, 1);
-			ItemStack tnt = new ItemStack(Block.tnt);
+			ItemStack tnt = new ItemStack((Block)Block.field_149771_c.getObject("tnt);
 			ItemStack powder = new ItemStack(Item.blazePowder);
 			ItemStack iron = new ItemStack(Item.ingotIron);
 			ItemStack itemStackPick = new ItemStack(Item.pickaxeIron);
@@ -78,7 +78,7 @@ public class BlockGraviBomb extends Block
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		Debug.dbg("GraviBomb textures loading");
 		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
 		gBombTex=ir.registerIcon(Gizmos.modName+":"+"" +"gravityBomb");
@@ -110,7 +110,7 @@ public class BlockGraviBomb extends Block
 		return 3;
 	}
 
-	public Icon getIcon(int par1, int par2) {
+	public IIcon getIcon(int par1, int par2) {
 		if(par1==0){
 			return bottomTex;
 		}else if(par1==1){

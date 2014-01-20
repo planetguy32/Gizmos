@@ -8,12 +8,12 @@ import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.GizmosItem;
 import planetguy.simpleLoader.SLLoad;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.biome.BiomeGenBase;
 
 /**
@@ -32,8 +32,8 @@ public class ItemLens extends GizmosItem{
 	public ItemLens(int id) {
 		super(id);
 		Gizmos.Lens=this;
-		this.setUnlocalizedName("spyLens");
-		ItemStack glass=new ItemStack(Block.glass);
+		this.func_149663_c("spyLens");
+		ItemStack glass=new ItemStack((Block)Block.field_149771_c.getObject("glass);
 		ItemStack iron = new ItemStack(Item.ingotIron);
         LanguageRegistry.instance().addName(this, "Lens");
 		ItemStack lens=new ItemStack(this);
@@ -42,7 +42,7 @@ public class ItemLens extends GizmosItem{
 				Character.valueOf('i'), iron });
 	}
 	
-	public void registerIcons(IconRegister ir){
+	public void registerIcons(IIconRegister ir){
 		itemIcon=ir.registerIcon(Gizmos.modName+":spyLens");
 	}
 	

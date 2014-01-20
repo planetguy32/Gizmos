@@ -11,8 +11,16 @@ registerIIcon/registerIcon
 setUnlocalizedName/func_149663_c
 setCreativeTab(/func_149647_a(
 getTabIIconItem/getTabIconItem
-Item\./Items.
 getIIcon(/getIcon(
 Items.blazePowder/Items.blaze_powder
 Items.ingotIron/Items.iron_ingot
 Items.pickaxeIron/Items.iron_pickaxe
+getInvName/func_145825_b
+isInvNameLocalized/func_145818_k_
+SlotConcealmentItems/SlotConcealmentItem
+itemIIcon/itemIcon
+super(par1)/super()
+net.minecraftforge.event.SubscribeEvent;/cpw.mods.fml.common.eventhandler.SubscribeEvent;
+\([a-z]*\)\.getTagList(/(NBTTagList)\1.getTag(
+NBTTagList(/NBTTagList().
+
