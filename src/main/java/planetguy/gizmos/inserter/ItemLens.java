@@ -33,8 +33,8 @@ public class ItemLens extends GizmosItem{
 		super(id);
 		Gizmos.Lens=this;
 		this.func_149663_c("spyLens");
-		ItemStack glass=new ItemStack((Block)Block.field_149771_c.getObject("glass);
-		ItemStack iron = new ItemStack(Item.ingotIron);
+		ItemStack glass=new ItemStack((Block)Block.field_149771_c.getObject("glass");
+		ItemStack iron = new ItemStack(Items.iron_ingot);
         LanguageRegistry.instance().addName(this, "Lens");
 		ItemStack lens=new ItemStack(this);
 		GameRegistry.addRecipe(lens, new Object[] { " i ", "igi", " i ", 

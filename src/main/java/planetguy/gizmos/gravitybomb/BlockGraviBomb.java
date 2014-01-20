@@ -21,6 +21,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -58,10 +59,10 @@ public class BlockGraviBomb extends Block
 			EntityRegistry.registerModEntity(EntityTunnelBomb.class, "TBomb", 202, Gizmos.instance, 80, 3, true);
 			ItemStack itemStackGB = new ItemStack(this, 3, 0);
 			ItemStack itemStackExcaBomb = new ItemStack(this, 1, 1);
-			ItemStack tnt = new ItemStack((Block)Block.field_149771_c.getObject("tnt);
-			ItemStack powder = new ItemStack(Item.blazePowder);
-			ItemStack iron = new ItemStack(Item.ingotIron);
-			ItemStack itemStackPick = new ItemStack(Item.pickaxeIron);
+			ItemStack tnt = new ItemStack((Block)Block.field_149771_c.getObject("tnt");
+			ItemStack powder = new ItemStack(Items.blaze_powder);
+			ItemStack iron = new ItemStack(Items.iron_ingot);
+			ItemStack itemStackPick = new ItemStack(Items.iron_pickaxe);
 			GameRegistry.addRecipe(itemStackGB, new Object[] { "xxx", "iyi", " i ", 
 					Character.valueOf('x'),tnt, 
 					Character.valueOf('y'), powder,

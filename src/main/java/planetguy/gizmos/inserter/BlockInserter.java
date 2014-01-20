@@ -52,10 +52,10 @@ public class BlockInserter extends Block{
 		}
 		this.func_149663_c("spyLab");
 		ItemStack lens=new ItemStack(Gizmos.Lens);
-		ItemStack wood=new ItemStack((Block)Block.field_149771_c.getObject("planks);
+		ItemStack wood=new ItemStack((Block)Block.field_149771_c.getObject("planks");
 		ItemStack blockIron=new ItemStack((Block)Block.field_149771_c.getObject("blocksList[42]);
-		ItemStack crafter=new ItemStack((Block)Block.field_149771_c.getObject("workbench);
-		ItemStack chest=new ItemStack((Block)Block.field_149771_c.getObject("chest);
+		ItemStack crafter=new ItemStack((Block)Block.field_149771_c.getObject("workbench");
+		ItemStack chest=new ItemStack((Block)Block.field_149771_c.getObject("chest");
 		this.func_149663_c("inserter");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Inserter");
 		ItemStack itemSpyDesk=new ItemStack(this);

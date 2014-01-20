@@ -43,7 +43,7 @@ public class ItemFireExtinguisher extends Item{
 			" i ",
 			"rbr",
 			"rbr",
-			Character.valueOf('i'),new ItemStack(Item.ingotIron),
+			Character.valueOf('i'),new ItemStack(Items.iron_ingot),
 			Character.valueOf('r'),new ItemStack(Item.dyePowder,1,14),
 			Character.valueOf('b'),new ItemStack(Item.bucketWater)
 		});

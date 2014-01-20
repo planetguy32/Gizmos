@@ -107,17 +107,17 @@ public class CodeWriter {
 					}else if(f.getGenericType().toString()=="class java.lang.String"){
 						output.print(".getString("+qName);
 					}else if(f.getGenericType().toString()=="class [Ljava.lang.String;"){
-						output.print(".getStringList(");
+						output.print(".getStringList("");
 					}else if(f.getGenericType().toString()=="class [I"){
-						output.print(".getIntList(");
+						output.print(".getIntList("");
 					}else if(f.getGenericType().toString()=="class [D"){
-						output.print(".getDoubleList(");
+						output.print(".getDoubleList("");
 					}else if(f.getGenericType()==Boolean.TYPE){
 						output.print(".getBoolean("+qName); 
 					}else{//If unsupported type, leave something noticeable.
-						output.print("/*!!!*/.getIntList(");
+						output.print("/*!!!*/.getIntList("");
 					}
-					output.println(");");
+					output.println("");");
 				}
 			}
 		}

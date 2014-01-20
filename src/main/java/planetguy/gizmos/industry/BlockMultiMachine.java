@@ -35,7 +35,7 @@ public class BlockMultiMachine extends BlockContainer {
 		GameRegistry.registerTileEntity(TileEntityMultiMachine.class,"gizmos_MultiMachine");
 		GameRegistry.addRecipe(new ItemStack(this,4,0), new Object[]{
 			"i","c",
-			Character.valueOf('i'),new ItemStack(Item.ingotIron),
+			Character.valueOf('i'),new ItemStack(Items.iron_ingot),
 			Character.valueOf('c'),new ItemStack((Block)Block.field_149771_c.getObject("cauldron)
 		});
 		for(int i=0; i<16; i++){

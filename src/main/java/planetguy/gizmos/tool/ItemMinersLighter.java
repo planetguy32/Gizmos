@@ -32,7 +32,7 @@ public class ItemMinersLighter extends ItemDeforester{
 			"blb",
 			"gbg",
 			Character.valueOf('g'),new ItemStack((Block)Block.field_149771_c.getObject("sapling),
-			Character.valueOf('b'),new ItemStack(Item.blazePowder),
+			Character.valueOf('b'),new ItemStack(Items.blaze_powder),
 			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
 	}
 

@@ -34,7 +34,7 @@ public class ItemDeforester extends ItemInteractDevice{
 			"blb",
 			"gbg",
 			Character.valueOf('g'),new ItemStack((Block)Block.field_149771_c.getObject("gravel),
-			Character.valueOf('b'),new ItemStack(Item.blazePowder),
+			Character.valueOf('b'),new ItemStack(Items.blaze_powder),
 			Character.valueOf('l'),new ItemStack(Item.flintAndSteel)});
 	}
 	

@@ -35,7 +35,7 @@ public class ItemBlockTicker extends GizmosItem{
         this.maxStackSize = 1;
         this.setMaxDamage(64);
     	ItemStack stackClock=new ItemStack(Item.pocketSundial);
-    	ItemStack iron = new ItemStack(Item.ingotIron);
+    	ItemStack iron = new ItemStack(Items.iron_ingot);
     	ItemStack stackTicker=new ItemStack(this,1,0);
     	GameRegistry.addRecipe(stackTicker, new Object[] {"ccc", "cic", "ccc",
     	Character.valueOf('c'),stackClock,
