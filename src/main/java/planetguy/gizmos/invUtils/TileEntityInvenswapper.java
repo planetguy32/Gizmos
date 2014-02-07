@@ -114,7 +114,7 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 
-		NBTTagList itemList = new NBTTagList().).);
+		NBTTagList itemList = new NBTTagList().).).);
 		for (int i = 0; i < inv.length; i++) {
 			ItemStack stack = inv[i];
 			if (stack != null) {

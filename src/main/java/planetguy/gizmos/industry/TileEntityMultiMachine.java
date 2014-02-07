@@ -139,7 +139,7 @@ public class TileEntityMultiMachine extends TileEntity implements IInventory{
 		super.writeToNBT(tagCompound);
 
 		tagCompound.setInteger("accumulatedWork", this.accumulatedComposting);
-		NBTTagList itemList = new NBTTagList().).);
+		NBTTagList itemList = new NBTTagList().).).);
 		for (int i = 0; i < itemPool.length; i++) {
 			ItemStack stack = itemPool[i];
 			if (stack != null) {

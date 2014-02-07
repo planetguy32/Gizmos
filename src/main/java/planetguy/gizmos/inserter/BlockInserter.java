@@ -52,10 +52,10 @@ public class BlockInserter extends Block{
 		}
 		this.func_149663_c("spyLab");
 		ItemStack lens=new ItemStack(Gizmos.Lens);
-		ItemStack wood=new ItemStack((Block)Block.field_149771_c.getObject("planks");
-		ItemStack blockIron=new ItemStack((Block)Block.field_149771_c.getObject("blocksList[42]);
-		ItemStack crafter=new ItemStack((Block)Block.field_149771_c.getObject("workbench");
-		ItemStack chest=new ItemStack((Block)Block.field_149771_c.getObject("chest");
+		ItemStack wood=new ItemStack((Block)Block.field_149771_c.getObject("planks"));
+		ItemStack blockIron=new ItemStack((Block)Block.field_149771_c.getObject("iron_block"));
+		ItemStack crafter=new ItemStack((Block)Block.field_149771_c.getObject("crafting_table"));
+		ItemStack chest=new ItemStack((Block)Block.field_149771_c.getObject("chest"));
 		this.func_149663_c("inserter");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Inserter");
 		ItemStack itemSpyDesk=new ItemStack(this);
@@ -69,14 +69,14 @@ public class BlockInserter extends Block{
 	}
 	
     public BlockInserter (int id, int texture) {
-        super(id, Material.iron);
+        super("");
         //Debug.dbg("New spy lab!");
-        setHardness(2.0F);
-        setResistance(5.0F);
+        //setHardness(2.0F);
+        //setResistance(5.0F);
         func_149663_c("blockSpyLab");
         func_149647_a(CreativeTabs.tabTools);
     }
-    
+    /*
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir){
@@ -84,7 +84,7 @@ public class BlockInserter extends Block{
     	top=ir.registerIcon(Gizmos.modName+":spyTop");
     	sides=ir.registerIcon(Gizmos.modName+":spySides");
     }
-
+    */
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
         //code to open gui explained later
         player.openGui(Gizmos.instance, 0, world, x, y, z);

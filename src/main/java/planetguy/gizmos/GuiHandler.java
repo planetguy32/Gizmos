@@ -1,15 +1,18 @@
 package planetguy.gizmos;
 
 
+import planetguy.gizmos.industry.BlockMultiMachine;
 import planetguy.gizmos.industry.ContainerMultiMachine;
 import planetguy.gizmos.industry.GuiMultiMachine;
 import planetguy.gizmos.industry.TileEntityMultiMachine;
 import planetguy.gizmos.inserter.ContainerInserter;
 import planetguy.gizmos.inserter.GuiInserter;
 import planetguy.gizmos.inserter.InventoryInserter;
+import planetguy.gizmos.invUtils.BlockInvenswapperBase;
 import planetguy.gizmos.invUtils.ContainerInvenswapper;
 import planetguy.gizmos.invUtils.GuiInvenswapper;
 import planetguy.gizmos.invUtils.TileEntityInvenswapper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,14 +36,12 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tileEntity = world.func_147438_o(x, y, z);
-		int blockID=world.getBlockId(x, y, z);
-		switch(id){
-		case 2:
+		Block block=world.func_147439_a(x, y, z);
+		if(block instanceof BlockMultiMachine)
 			return new GuiMultiMachine(player.inventory, (TileEntityMultiMachine) tileEntity);
-		case 1:
-			//Debug.dbg("Invenswapper GUI selected");
+		if(block instanceof BlockInvenswapperBase)
 			return new GuiInvenswapper(player.inventory, (TileEntityInvenswapper) tileEntity);
-		}
+
 		return new GuiInserter(player.inventory, new InventoryInserter(player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ));
 
 	}

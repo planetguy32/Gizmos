@@ -13,11 +13,6 @@ public class ASMFixesCoremod implements IFMLLoadingPlugin {
 	public static boolean runtimeDeobfEnabled = true;
 	
 	@Override
-	public String[] getLibraryRequestClass() {
-		return null;
-	}
-
-	@Override
 	public String[] getASMTransformerClass() {
 		return new String[]{"planetguy.asmfixes.TransformerNoCrosslink"};
 	}
@@ -45,6 +40,11 @@ public class ASMFixesCoremod implements IFMLLoadingPlugin {
      */
 	public static short getMaximumRange(WorldServer world){
 		return (short) (world.provider.dimensionId!=-1 ? 128 : 16);
+	}
+
+	@Override
+	public String getAccessTransformerClass() {
+		return null;
 	}
 
 

@@ -24,7 +24,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -53,7 +52,7 @@ public class GizmosEventWatcher extends CustomModuleLoader{
 			boolean testSoFar=true;
 			//while(testSoFar){
 			ItemStack a=ItemStack.loadItemStackFromNBT(tag);
-			if(a.getItem()==Item.gunpowder&&BlockInserter.doBlockDamage){			
+			if(a.getItem()==Item.field_150901_e.getObject("gunpowder")&&BlockInserter.doBlockDamage){			
 				World w=player.worldObj;
 				w.newExplosion(player, player.posX, player.posY, player.posZ, 4, true, true);
 				player.destroyCurrentEquippedItem();

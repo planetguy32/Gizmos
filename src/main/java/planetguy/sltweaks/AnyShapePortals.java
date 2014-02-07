@@ -3,6 +3,8 @@ package planetguy.sltweaks;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -33,7 +35,7 @@ public class AnyShapePortals extends CustomModuleLoader{
 		@SubscribeEvent
 		public void onInteract(PlayerInteractEvent pie){
 			try{
-				if(pie.entityPlayer.getCurrentEquippedItem().itemID==259){
+				if(pie.entityPlayer.getCurrentEquippedItem().equals(Item.field_150901_e.getObject("flint_and_steel"))){
 					World w=pie.entityPlayer.worldObj;
 					int[] pos=correct(pie.x, pie.y, pie.z, pie.face); 
 					int x=pos[0],y=pos[1],z=pos[2];//Get block in which our click fell
@@ -94,7 +96,7 @@ public class AnyShapePortals extends CustomModuleLoader{
 					stillAlive=stillAlive&&b; 
 				}
 				if(stillAlive){
-					w.setBlock(x, y, z, 90, checkConstantZPlane ? 1 : 0, 0x02 ); //Actually make a portal
+					w.setBlock(x, y, z, Block.field_149771_c.getObject("portal"), checkConstantZPlane ? 1 : 0, 0x02 ); //Actually make a portal
 				}
 				return stillAlive;
 

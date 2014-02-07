@@ -1,7 +1,5 @@
 package planetguy.gizmos.tool;
 
-import static net.minecraftforge.common.ForgeDirection.*;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,22 +12,16 @@ import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.Random;
-
 import planetguy.gizmos.Gizmos;
 import planetguy.simpleLoader.SLLoad;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
-
-import net.minecraftforge.common.ForgeDirection;
-import static net.minecraftforge.common.ForgeDirection.*;
 
 /**Variant of fire that instantly incinerates anything it touches that matches its target blocks (by default, gravel and lava).
  * 

@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.html.parser.Entity;
@@ -54,6 +55,7 @@ import net.minecraftforge.common.config.Property;
 
 public class SimpleLoader {
 
+	private static final Map<Object, Integer> IDMap = new HashMap<Object, Integer>();
 	public Class[] moduleClasses; //unfiltered, unsorted classes
 	public Class[] filteredSortedClasses;
 	public Class[] blocks,items,entities,custom;
@@ -363,7 +365,7 @@ public class SimpleLoader {
 
 	private void loadEntity(Class c){
 		Debug.dbg("[SL] Loading "+c.getName());
-		EntityRegistry.registerModEntity(c, getModuleName(c), IDMap.get(getModuleName(c)), Gizmos.instance, 80, 3, true);
+		EntityRegistry.registerModEntity(c, getModuleName(c), (Integer) IDMap.get(getModuleName(c)), Gizmos.instance, 80, 3, true);
 	}
 
 	private void loadItem(Class c) throws Exception{
@@ -372,7 +374,7 @@ public class SimpleLoader {
 		Constructor[] cons=c.getConstructors();
 		for(Constructor con : cons){
 			if(con.isAnnotationPresent(SLLoad.class)){
-				item=con.newInstance(IDMap.get(getModuleName(c)));
+				item=con.newInstance();
 				GameRegistry.registerItem((Item)item, modname+"."+getModuleName(c));
 				Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
 				f.set(modcontainer,item);
@@ -393,7 +395,7 @@ public class SimpleLoader {
 		for(Constructor con : cons){
 			if(con.isAnnotationPresent(SLLoad.class)){
 				try{
-					block=con.newInstance(lookupInt(getModuleName(c)));
+					block=con.newInstance();
 					Field f=modcontainer.getClass().getDeclaredField(getModuleName(c));
 					f.set(modcontainer,block);
 				}catch(Exception e){

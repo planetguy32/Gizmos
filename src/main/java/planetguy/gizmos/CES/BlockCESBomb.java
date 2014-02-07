@@ -29,7 +29,7 @@ public class BlockCESBomb extends BlockContainer{
 	
 	@SLLoad
 	public BlockCESBomb(int blockID) {
-		super(blockID, Material.tnt);
+		super(blockID, Material.);
 		BlockCESBomb.instance=(BlockCESBomb) this.func_149647_a(CreativeTabs.tabRedstone);
 		LanguageRegistry.addName(this, "CES base [TEST]");
 		SLItemBlock.registerString(blockID, 0, "CES base [TEST]",new String[]{"Preview of super seecret project.","Hint: It's a bomb."});
@@ -120,5 +120,11 @@ public class BlockCESBomb extends BlockContainer{
 		for(Powerup p : bomb.cesContainer.getInstalledPowerups()){
 			if(p!=null)p.onRightClick(bomb, side, stk);
 		}
+	}
+
+	@Override
+	public TileEntity func_149915_a(World var1, int var2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

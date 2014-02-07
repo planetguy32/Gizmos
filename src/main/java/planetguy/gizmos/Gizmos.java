@@ -1,11 +1,22 @@
 package planetguy.gizmos;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.config.Configuration;
+import planetguy.gizmos.gravitybomb.EntityTunnelBomb;
+import planetguy.simpleLoader.CustomModuleLoader;
+import planetguy.simpleLoader.SLItemBlock;
+import planetguy.simpleLoader.SLModContainer;
+import planetguy.simpleLoader.SimpleLoader;
+import planetguy.util.Debug;
 
 import com.google.common.collect.ImmutableList;
 
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -13,28 +24,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import planetguy.gizmos.CES.BlockCESBomb;
-import planetguy.gizmos.CES.powerups.Powerup;
-import planetguy.gizmos.CES.powerups.PowerupDebug;
-import planetguy.gizmos.CES.powerups.PowerupExplodeOnImpact;
-import planetguy.gizmos.CES.powerups.PowerupFall;
-import planetguy.gizmos.gravitybomb.EntityTunnelBomb;
-import planetguy.gizmos.tool.BlockRedstoneWand;
-import planetguy.simpleLoader.CustomModuleLoader;
-import planetguy.simpleLoader.SLItemBlock;
-import planetguy.simpleLoader.SLModContainer;
-import planetguy.simpleLoader.SimpleLoader;
-import planetguy.util.Debug;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.config.Configuration;
 
 /**
  * 
@@ -144,7 +135,7 @@ public class Gizmos implements SLModContainer{
         
         tabGizmos=new CreativeTabs("tabGizmos"){
         	
-        	public ItemStack getIIconItemStack(){
+        	public ItemStack func_151244_d(){
         		return gb;
         	}
         	
@@ -167,7 +158,8 @@ public class Gizmos implements SLModContainer{
         Debug.dump(SimpleLoader.class, loader);
         
         //Move all the items and blocks into our creative tab
-        Class c=this.getClass();
+        @SuppressWarnings("unchecked")
+		Class<Gizmos> c=(Class<Gizmos>) this.getClass();
         for(Field f:c.getDeclaredFields()){
         	boolean isBlock=f.getType().equals(Block.class);
         	boolean isItem=f.getType().equals(Item.class);
@@ -177,7 +169,7 @@ public class Gizmos implements SLModContainer{
         				continue;
         			if(isItem){
         				Item i=(Item) f.get(this);
-        				i.func_149647_a(tabGizmos);
+        				i.setCreativeTab(tabGizmos);
         			}else if(isBlock){
         				Block b=(Block) f.get(this);
         				b.func_149647_a(tabGizmos);
