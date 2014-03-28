@@ -9,7 +9,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.block.Block;
+//import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,6 +23,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import planetguy.gizmos.Gizmos;
+import planetguy.lapis.Block;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
@@ -45,13 +46,10 @@ public class BlockTimeBomb extends Block{
 	public static boolean allowForkBomb=true;
 
 	@SLLoad
-	public BlockTimeBomb(int id) {
-		super(id, Material.tnt);
+	public BlockTimeBomb() {
 		Debug.dbg("Loading time bomb...");
         //this.setTickRandomly(true);
-        this.setCreativeTab(CreativeTabs.tabRedstone);
         fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
-		Gizmos.timeBombs=this;
 		//Item.itemsList[ this.blockID] = new ItemTimeBomb( this.blockID-256).setItemName("timeBombs");
 		/*
 		final String[] oreNames = {"Time bomb", "Fork bomb", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "Fork bomb", "Time bomb"};

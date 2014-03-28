@@ -26,7 +26,6 @@ private static List<String> moduleList=new ArrayList(Arrays.asList(new String[]{
 ,"flowerFix"
 ,"anyShapePortals"
 ,"Lens"
-,"CESBomb"
 ,"GravityBomb"
 ,"RedstoneResponsiveWool"
 ,"accelerator"
@@ -35,14 +34,17 @@ private static List<String> moduleList=new ArrayList(Arrays.asList(new String[]{
 ,"forestFire"
 ,"temporalDislocator"
 ,"inserter"
+,"arrowNova"
 ,"luncher"
 ,"invenswapperTop"
 ,"redstoneWand"
 ,"launcher"
+,"mudpack"
 ,"superFire"
 ,"telekinesisCatalyst"
 ,"redstoneWandBlock"
 ,"timeBombs"
+,"mudpackMud"
 ,"bombDefuser"
 ,"buildTool"
 ,"deforestator"
@@ -65,8 +67,6 @@ if(!config.get("[SL] Item-restrict","allow 'anyShapePortals'",true).getBoolean(t
 moduleList.remove("anyShapePortals");
 if(!config.get("[SL] Item-restrict","allow 'Lens'",true).getBoolean(true))
 moduleList.remove("Lens");
-if(!config.get("[SL] Item-restrict","allow 'CESBomb'",true).getBoolean(true))
-moduleList.remove("CESBomb");
 if(!config.get("[SL] Item-restrict","allow 'GravityBomb'",true).getBoolean(true))
 moduleList.remove("GravityBomb");
 if(!config.get("[SL] Item-restrict","allow 'RedstoneResponsiveWool'",true).getBoolean(true))
@@ -83,6 +83,8 @@ if(!config.get("[SL] Item-restrict","allow 'temporalDislocator'",true).getBoolea
 moduleList.remove("temporalDislocator");
 if(!config.get("[SL] Item-restrict","allow 'inserter'",true).getBoolean(true))
 moduleList.remove("inserter");
+if(!config.get("[SL] Item-restrict","allow 'arrowNova'",true).getBoolean(true))
+moduleList.remove("arrowNova");
 if(!config.get("[SL] Item-restrict","allow 'luncher'",true).getBoolean(true))
 moduleList.remove("luncher");
 if(!config.get("[SL] Item-restrict","allow 'invenswapperTop'",true).getBoolean(true))
@@ -91,6 +93,8 @@ if(!config.get("[SL] Item-restrict","allow 'redstoneWand'",true).getBoolean(true
 moduleList.remove("redstoneWand");
 if(!config.get("[SL] Item-restrict","allow 'launcher'",true).getBoolean(true))
 moduleList.remove("launcher");
+if(!config.get("[SL] Item-restrict","allow 'mudpack'",true).getBoolean(true))
+moduleList.remove("mudpack");
 if(!config.get("[SL] Item-restrict","allow 'superFire'",true).getBoolean(true))
 moduleList.remove("superFire");
 if(!config.get("[SL] Item-restrict","allow 'telekinesisCatalyst'",true).getBoolean(true))
@@ -99,6 +103,8 @@ if(!config.get("[SL] Item-restrict","allow 'redstoneWandBlock'",true).getBoolean
 moduleList.remove("redstoneWandBlock");
 if(!config.get("[SL] Item-restrict","allow 'timeBombs'",true).getBoolean(true))
 moduleList.remove("timeBombs");
+if(!config.get("[SL] Item-restrict","allow 'mudpackMud'",true).getBoolean(true))
+moduleList.remove("mudpackMud");
 if(!config.get("[SL] Item-restrict","allow 'bombDefuser'",true).getBoolean(true))
 moduleList.remove("bombDefuser");
 if(!config.get("[SL] Item-restrict","allow 'buildTool'",true).getBoolean(true))
@@ -117,6 +123,7 @@ planetguy.gizmos.inserter.BlockInserter.doBlockDamage=config.get("Details","doBl
 planetguy.gizmos.inserter.BlockInserter.nerfHiding=config.get("Details","limitQuantityHideable",planetguy.gizmos.inserter.BlockInserter.nerfHiding).getBoolean(planetguy.gizmos.inserter.BlockInserter.nerfHiding);
 planetguy.gizmos.invUtils.ItemLuncher.MAX_FOOD_CARRIED=config.get("Details","Luncher capacity, in half food units",planetguy.gizmos.invUtils.ItemLuncher.MAX_FOOD_CARRIED).getInt(planetguy.gizmos.invUtils.ItemLuncher.MAX_FOOD_CARRIED);
 planetguy.gizmos.motiontools.BlockLauncher.launcherPower=config.get("Details","launcherPower",planetguy.gizmos.motiontools.BlockLauncher.launcherPower).getDouble(planetguy.gizmos.motiontools.BlockLauncher.launcherPower);
+planetguy.gizmos.invUtils.ItemMudpack.MAX_MUD_CARRIED=config.get("Details","Mudpack capacity, in blocks",planetguy.gizmos.invUtils.ItemMudpack.MAX_MUD_CARRIED).getInt(planetguy.gizmos.invUtils.ItemMudpack.MAX_MUD_CARRIED);
 planetguy.gizmos.invUtils.BlockTelekinesisCatalyst.maxBlockReach=config.get("Details","telekinesisCatalystReach",planetguy.gizmos.invUtils.BlockTelekinesisCatalyst.maxBlockReach).getInt(planetguy.gizmos.invUtils.BlockTelekinesisCatalyst.maxBlockReach);
 planetguy.gizmos.timebomb.BlockTimeBomb.fuse=config.get("Details","timeBombFuse",planetguy.gizmos.timebomb.BlockTimeBomb.fuse).getInt(planetguy.gizmos.timebomb.BlockTimeBomb.fuse);
 planetguy.gizmos.tool.ItemBombDefuser.explosivesID=config.get("Details","explosivesID",planetguy.gizmos.tool.ItemBombDefuser.explosivesID)/*!!!*/.getIntList();
@@ -125,27 +132,29 @@ idMap.put("entityArrowNova.entityID",config.get("Entities","entityArrowNova",201
 idMap.put("entityTunnelBomb.entityID",config.get("Entities","entityTunnelBomb",202).getInt(202));
 idMap.put("entityGravityBomb.entityID",config.get("Entities","entityGravityBomb",203).getInt(203));
 idMap.put("Lens.itemID",config.getItem("Lens",8100).getInt(8100));
-idMap.put("CESBomb.blockID",config.getBlock("CESBomb",3980).getInt(3980));
-idMap.put("GravityBomb.blockID",config.getBlock("GravityBomb",3981).getInt(3981));
-idMap.put("RedstoneResponsiveWool.blockID",config.getBlock("RedstoneResponsiveWool",3982).getInt(3982));
-idMap.put("accelerator.blockID",config.getBlock("accelerator",3983).getInt(3983));
+idMap.put("GravityBomb.blockID",config.getBlock("GravityBomb",3980).getInt(3980));
+idMap.put("RedstoneResponsiveWool.blockID",config.getBlock("RedstoneResponsiveWool",3981).getInt(3981));
+idMap.put("accelerator.blockID",config.getBlock("accelerator",3982).getInt(3982));
 idMap.put("fireExtinguisher.itemID",config.getItem("fireExtinguisher",8101).getInt(8101));
-idMap.put("composter.blockID",config.getBlock("composter",3984).getInt(3984));
-idMap.put("forestFire.blockID",config.getBlock("forestFire",3985).getInt(3985));
+idMap.put("composter.blockID",config.getBlock("composter",3983).getInt(3983));
+idMap.put("forestFire.blockID",config.getBlock("forestFire",3984).getInt(3984));
 idMap.put("temporalDislocator.itemID",config.getItem("temporalDislocator",8102).getInt(8102));
-idMap.put("inserter.blockID",config.getBlock("inserter",3986).getInt(3986));
-idMap.put("luncher.itemID",config.getItem("luncher",8103).getInt(8103));
-idMap.put("invenswapperTop.blockID",config.getBlock("invenswapperTop",3987).getInt(3987));
-idMap.put("redstoneWand.itemID",config.getItem("redstoneWand",8104).getInt(8104));
-idMap.put("launcher.blockID",config.getBlock("launcher",3988).getInt(3988));
-idMap.put("superFire.blockID",config.getBlock("superFire",3989).getInt(3989));
-idMap.put("telekinesisCatalyst.blockID",config.getBlock("telekinesisCatalyst",3990).getInt(3990));
-idMap.put("redstoneWandBlock.blockID",config.getBlock("redstoneWandBlock",3991).getInt(3991));
-idMap.put("timeBombs.blockID",config.getBlock("timeBombs",3992).getInt(3992));
-idMap.put("bombDefuser.itemID",config.getItem("bombDefuser",8105).getInt(8105));
-idMap.put("buildTool.itemID",config.getItem("buildTool",8106).getInt(8106));
-idMap.put("deforestator.itemID",config.getItem("deforestator",8107).getInt(8107));
-idMap.put("minersLighter.itemID",config.getItem("minersLighter",8108).getInt(8108));
+idMap.put("inserter.blockID",config.getBlock("inserter",3985).getInt(3985));
+idMap.put("arrowNova.itemID",config.getItem("arrowNova",8103).getInt(8103));
+idMap.put("luncher.itemID",config.getItem("luncher",8104).getInt(8104));
+idMap.put("invenswapperTop.blockID",config.getBlock("invenswapperTop",3986).getInt(3986));
+idMap.put("redstoneWand.itemID",config.getItem("redstoneWand",8105).getInt(8105));
+idMap.put("launcher.blockID",config.getBlock("launcher",3987).getInt(3987));
+idMap.put("mudpack.itemID",config.getItem("mudpack",8106).getInt(8106));
+idMap.put("superFire.blockID",config.getBlock("superFire",3988).getInt(3988));
+idMap.put("telekinesisCatalyst.blockID",config.getBlock("telekinesisCatalyst",3989).getInt(3989));
+idMap.put("redstoneWandBlock.blockID",config.getBlock("redstoneWandBlock",3990).getInt(3990));
+idMap.put("timeBombs.blockID",config.getBlock("timeBombs",3991).getInt(3991));
+idMap.put("mudpackMud.blockID",config.getBlock("mudpackMud",3992).getInt(3992));
+idMap.put("bombDefuser.itemID",config.getItem("bombDefuser",8107).getInt(8107));
+idMap.put("buildTool.itemID",config.getItem("buildTool",8108).getInt(8108));
+idMap.put("deforestator.itemID",config.getItem("deforestator",8109).getInt(8109));
+idMap.put("minersLighter.itemID",config.getItem("minersLighter",8110).getInt(8110));
 idMap.put("invenswapper.blockID",config.getBlock("invenswapper",3993).getInt(3993));
 }
 
@@ -174,10 +183,6 @@ planetguy.gizmos.Gizmos.anyShapePortals.load();
 if(moduleList.contains("Lens")){
 planetguy.gizmos.Gizmos.Lens=new planetguy.gizmos.inserter.ItemLens(idMap.get("Lens.itemID"));
 GameRegistry.registerItem(planetguy.gizmos.Gizmos.Lens,"Gizmos.Lens");
-}
-if(moduleList.contains("CESBomb")){
-planetguy.gizmos.Gizmos.CESBomb=new planetguy.gizmos.CES.BlockCESBomb(idMap.get("CESBomb.blockID"));
-GameRegistry.registerBlock(planetguy.gizmos.Gizmos.CESBomb,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.CESBomb");
 }
 if(moduleList.contains("GravityBomb")&&moduleList.contains("entityGravityBomb")&&moduleList.contains("entityTunnelBomb")){
 planetguy.gizmos.Gizmos.GravityBomb=new planetguy.gizmos.gravitybomb.BlockGraviBomb(idMap.get("GravityBomb.blockID"));
@@ -211,6 +216,10 @@ if(moduleList.contains("inserter")){
 planetguy.gizmos.Gizmos.inserter=new planetguy.gizmos.inserter.BlockInserter(idMap.get("inserter.blockID"));
 GameRegistry.registerBlock(planetguy.gizmos.Gizmos.inserter,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.inserter");
 }
+if(moduleList.contains("arrowNova")&&moduleList.contains("entityArrowNova")){
+planetguy.gizmos.Gizmos.arrowNova=new planetguy.gizmos.tool.ItemArrowNova(idMap.get("arrowNova.itemID"));
+GameRegistry.registerItem(planetguy.gizmos.Gizmos.arrowNova,"Gizmos.arrowNova");
+}
 if(moduleList.contains("luncher")){
 planetguy.gizmos.Gizmos.luncher=new planetguy.gizmos.invUtils.ItemLuncher(idMap.get("luncher.itemID"));
 GameRegistry.registerItem(planetguy.gizmos.Gizmos.luncher,"Gizmos.luncher");
@@ -227,6 +236,10 @@ if(moduleList.contains("launcher")){
 planetguy.gizmos.Gizmos.launcher=new planetguy.gizmos.motiontools.BlockLauncher(idMap.get("launcher.blockID"));
 GameRegistry.registerBlock(planetguy.gizmos.Gizmos.launcher,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.launcher");
 }
+if(moduleList.contains("mudpack")){
+planetguy.gizmos.Gizmos.mudpack=new planetguy.gizmos.invUtils.ItemMudpack(idMap.get("mudpack.itemID"));
+GameRegistry.registerItem(planetguy.gizmos.Gizmos.mudpack,"Gizmos.mudpack");
+}
 if(moduleList.contains("superFire")){
 planetguy.gizmos.Gizmos.superFire=new planetguy.gizmos.tool.BlockSuperFire(idMap.get("superFire.blockID"));
 GameRegistry.registerBlock(planetguy.gizmos.Gizmos.superFire,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.superFire");
@@ -242,6 +255,10 @@ GameRegistry.registerBlock(planetguy.gizmos.Gizmos.redstoneWandBlock,planetguy.s
 if(moduleList.contains("timeBombs")){
 planetguy.gizmos.Gizmos.timeBombs=new planetguy.gizmos.timebomb.BlockTimeBomb(idMap.get("timeBombs.blockID"));
 GameRegistry.registerBlock(planetguy.gizmos.Gizmos.timeBombs,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.timeBombs");
+}
+if(moduleList.contains("mudpackMud")){
+planetguy.gizmos.Gizmos.mudpackMud=new planetguy.gizmos.invUtils.BlockMudpackMud(idMap.get("mudpackMud.blockID"));
+GameRegistry.registerBlock(planetguy.gizmos.Gizmos.mudpackMud,planetguy.simpleLoader.SLItemBlock.class,"Gizmos.mudpackMud");
 }
 if(moduleList.contains("bombDefuser")&&moduleList.contains("Lens")&&moduleList.contains("GravityBomb")&&moduleList.contains("timeBombs")){
 planetguy.gizmos.Gizmos.bombDefuser=new planetguy.gizmos.tool.ItemBombDefuser(idMap.get("bombDefuser.itemID"));

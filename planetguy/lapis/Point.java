@@ -1,4 +1,4 @@
-package planetguy.util;
+package planetguy.lapis;
 
 public class Point{ //Really simple point class
 

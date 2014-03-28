@@ -2,7 +2,7 @@ package planetguy.gizmos.industry;
 
 import com.google.common.collect.ImmutableList;
 
-import planetguy.util.Point;
+import planetguy.lapis.Point;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

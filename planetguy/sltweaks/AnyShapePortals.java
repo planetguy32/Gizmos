@@ -7,10 +7,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import planetguy.lapis.Point;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
-import planetguy.util.Point;
 
 @SLLoad(name="anyShapePortals")
 public class AnyShapePortals extends CustomModuleLoader{

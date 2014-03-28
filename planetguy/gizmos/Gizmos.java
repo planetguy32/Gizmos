@@ -45,7 +45,7 @@ import net.minecraftforge.common.Property;
  *The Gizmos main class. Contains references to some blocks and items.
  *
  */
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.3")
+@Mod(modid="planetguy_Gizmos", name="Gizmos", version="2.4")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Gizmos implements SLModContainer{
 	
@@ -98,6 +98,8 @@ public class Gizmos implements SLModContainer{
 	public static Entity entityArrowNova;
 	
 	public static Item luncher;
+	public static Block mudpackMud;
+	public static Item mudpack;
 	
 	public static CreativeTabs tabGizmos;
 	
@@ -113,7 +115,7 @@ public class Gizmos implements SLModContainer{
 	public static SimpleLoader loader;
 	
 	public static float accelRate;
-	
+
 	private ImmutableList<String> creativeTabBlacklistedThings=ImmutableList.of("superFire","forestFire","invenswapperTop","redstoneWandBlock","arrowNova");
 	
 	//Callback from Forge
@@ -145,6 +147,7 @@ public class Gizmos implements SLModContainer{
         }
         final ItemStack gb;
         if(GravityBomb==null){
+        	//handle banning gravity bombs
         	gb=new ItemStack(Block.blocksList[46]);
         }else{
         	gb=new ItemStack(GravityBomb,1,1);
@@ -157,7 +160,7 @@ public class Gizmos implements SLModContainer{
         	}
         	
             public String getTranslatedTabLabel(){
-            	return "Gizmos stuff";
+            	return "Gizmos";
             }
 
         };

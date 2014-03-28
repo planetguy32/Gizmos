@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 @SLLoad(name="redstoneWand",primacy=10)
-public class ItemRedstoneActivator extends ItemInteractDevice{
+public class ItemRedstoneActivator extends ItemOffsetInteractDevice{
 
 	@SLLoad
 	public ItemRedstoneActivator(int par1) {

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 @SLLoad(name="deforestator",dependencies={"forestFire"},primacy=4)
-public class ItemDeforester extends ItemInteractDevice{
+public class ItemDeforester extends ItemOffsetInteractDevice{
 
 	public ItemDeforester(int par1, boolean ignored){
 		super(par1);

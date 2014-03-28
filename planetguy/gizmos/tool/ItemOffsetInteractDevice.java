@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 
 
 
-public abstract class ItemInteractDevice extends GizmosItem{
+public abstract class ItemOffsetInteractDevice extends GizmosItem{
 	
-    public ItemInteractDevice(int par1) {
+    public ItemOffsetInteractDevice(int par1) {
 		super(par1);
         this.maxStackSize = 1;
         this.setMaxDamage(64);
