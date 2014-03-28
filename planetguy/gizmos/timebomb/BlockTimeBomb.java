@@ -9,7 +9,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-//import net.minecraft.block.Block;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,7 +23,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import planetguy.gizmos.Gizmos;
-import planetguy.lapis.Block;
+//import planetguy.lapis.api.Block;
 import planetguy.simpleLoader.SLItemBlock;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
@@ -46,7 +46,8 @@ public class BlockTimeBomb extends Block{
 	public static boolean allowForkBomb=true;
 
 	@SLLoad
-	public BlockTimeBomb() {
+	public BlockTimeBomb(int id) {
+		super(id, Material.tnt);
 		Debug.dbg("Loading time bomb...");
         //this.setTickRandomly(true);
         fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
@@ -197,6 +198,14 @@ public class BlockTimeBomb extends Block{
     private void fork(World w, int x, int y, int z){
     	fork(w,x,y,z,w.getBlockMetadata(x, y, z));
     }
+
+	public String[] getIconFromMeta() {
+		return null;
+	}
+
+	public String[] getNameForMeta() {
+		return null;
+	}
 
 
 }

@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.world.World;
-import planetguy.lapis.Point;
+import planetguy.lapis.api.Point;
 
-public class WorldWrapper implements planetguy.lapis.World {
+public class WorldWrapper implements planetguy.lapis.api.World {
 
 	private World w;
 	

@@ -1,4 +1,4 @@
-package planetguy.lapis.item;
+package planetguy.lapis.api.item;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,5 +22,5 @@ public class SimpleDrop implements Drop {
 		}
 		return strings.toArray(new String[0]);
 	}
-
+	
 }

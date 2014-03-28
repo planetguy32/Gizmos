@@ -1,7 +1,7 @@
 package planetguy.lapis.implement.forge;
 
-import planetguy.lapis.Entity;
-import planetguy.lapis.Point;
+import planetguy.lapis.api.Entity;
+import planetguy.lapis.api.Point;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ForgePlayer implements Entity {

@@ -1,4 +1,6 @@
-package planetguy.lapis;
+package planetguy.lapis.api;
+
+import planetguy.lapis.api.item.Drop;
 
 public abstract class Block {
 	
@@ -22,5 +24,11 @@ public abstract class Block {
 	
 	public void onTick(World w,Point p){}
 	
+	public Drop onExploded(World w, Point p){
+		return Drop.NULL_DROP;
+	}
 	
+	public Drop onBroken(World w, Point p){
+		return Drop.NULL_DROP;
+	}; 
 }

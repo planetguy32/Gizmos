@@ -1,4 +1,4 @@
-package planetguy.lapis;
+package planetguy.lapis.api;
 
 public interface World {
 	

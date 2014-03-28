@@ -8,7 +8,7 @@ import java.util.Queue;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import planetguy.gizmos.Gizmos;
-import planetguy.lapis.Point;
+import planetguy.lapis.api.Point;
 import planetguy.simpleLoader.SLLoad;
 import planetguy.simpleLoader.SLProp;
 import net.minecraft.block.Block;

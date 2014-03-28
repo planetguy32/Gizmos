@@ -4,8 +4,8 @@ import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import planetguy.lapis.Block;
-import planetguy.lapis.Point;
+import planetguy.lapis.api.Block;
+import planetguy.lapis.api.Point;
 
 public class BlockWrapper extends net.minecraft.block.Block{
 	

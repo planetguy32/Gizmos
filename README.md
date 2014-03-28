@@ -20,6 +20,8 @@ A Minecraft mod of the "anything goes" persuasion.
 
 ##SimpleLoader##
 
+Most likely will be scrapped in large part with LAPIS and Gizmos 3.
+
 Since some server administrators might want to disable some Gizmos items for various reasons, Gizmos has a rather special loading setup, SimpleLoader, which is designed to allow each item to be disabled separately (also disabling its dependencies). The loading infrastructure can be found in the package planetguy.simpleLoader. It includes a dynamic loader and a code generator mode.
 
 ##The future##
