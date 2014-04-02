@@ -1,6 +1,7 @@
 package planetguy.lapis.api;
 
 import planetguy.lapis.api.item.Drop;
+import planetguy.lapis.api.item.Recipe;
 
 public abstract class Block {
 	

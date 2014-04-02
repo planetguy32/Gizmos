@@ -5,5 +5,7 @@ public interface Context {
 	public String modName();
 	
 	public String[] packageName();
+	
+	public Class contextClass();
 
 }

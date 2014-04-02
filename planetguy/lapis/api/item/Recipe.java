@@ -1,4 +1,4 @@
-package planetguy.lapis.api;
+package planetguy.lapis.api.item;
 
 public class Recipe {
 	

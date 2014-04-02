@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Class-Path: .
-FMLCorePlugin: planetguy.asmfixes.ASMFixesCoremod
+FMLCorePlugin: planetguy.lapis.implement.forge.loader.LoaderCoremod
 FMLCorePluginContainsFMLMod: true
 Main-Class: Start
 

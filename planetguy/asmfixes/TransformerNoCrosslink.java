@@ -19,6 +19,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 
+import planetguy.lapis.implement.forge.loader.LoaderCoremod;
 import planetguy.util.Debug;
 
 import net.minecraft.entity.Entity;
@@ -80,8 +81,8 @@ public class TransformerNoCrosslink implements IClassTransformer{
 							il.add(new VarInsnNode(Opcodes.ALOAD, 0));
 							il.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/world/Teleporter",
 									deobf ? fieldDev : fieldObf, Type.getDescriptor(WorldServer.class)));
-							il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(ASMFixesCoremod.class),
-									"getMaximumRange", Type.getMethodDescriptor(ASMFixesCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
+							il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(LoaderCoremod.class),
+									"getMaximumRange", Type.getMethodDescriptor(LoaderCoremod.class.getDeclaredMethod("getMaximumRange", WorldServer.class))));
 
 							il.add(new VarInsnNode(Opcodes.ISTORE, 9));
 						}else if(index!=3){

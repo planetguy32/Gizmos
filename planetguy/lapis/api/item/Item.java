@@ -1,6 +1,5 @@
 package planetguy.lapis.api.item;
 
-import planetguy.lapis.api.Recipe;
 
 public abstract class Item {
 	

@@ -60,8 +60,8 @@ public class BlockTimeBomb extends Block{
 		}*/	
 		SLItemBlock.registerString(id, 0, "Time bomb", new String[]{"Counts down to destruction"});
 		SLItemBlock.registerString(id, 1, "Fork bomb", new String[]{"Counts down to destruction,","duplicates if disturbed"});
-		ItemStack itemStackTB=new ItemStack(Gizmos.timeBombs,1,0); 
-		ItemStack itemStackFB=new ItemStack(Gizmos.timeBombs,1,1);
+		ItemStack itemStackTB=new ItemStack(this,1,0); 
+		ItemStack itemStackFB=new ItemStack(this,1,1);
 		ItemStack endStone=new ItemStack(Block.whiteStone);
 		
 		GameRegistry.addShapelessRecipe(itemStackTB, Block.tnt, Item.pocketSundial);
