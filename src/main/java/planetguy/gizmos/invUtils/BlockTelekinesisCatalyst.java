@@ -21,10 +21,10 @@ public class BlockTelekinesisCatalyst extends Block{
 
 	@SLLoad
 	public BlockTelekinesisCatalyst(int id) {
-		super(id, Material.wood);
+		super(Material.wood);
 		// TODO Auto-generated constructor stub
-		this.func_149663_c("telekinesisCatalyst");
-		this.func_149647_a(CreativeTabs.tabRedstone);
+		setBlockName("telekinesisCatalyst");
+		this.setCreativeTab(CreativeTabs.tabRedstone);
 		LanguageRegistry.instance().addStringLocalization("tile.telekinesisCatalyst.name", "Telekinesis Catalyst");
 		SLItemBlock.registerString(id, 0, "Telekinesis catalyst", new String[]{"Right-clicking uses whatever block is", "opposite, through up to "+maxBlockReach+" air."});
 	}
@@ -56,7 +56,7 @@ public class BlockTelekinesisCatalyst extends Block{
 					--z;
 					break;
 				}
-				b=Block.blocksList[w.getBlockId(x, y, z)];
+				b=w.getBlock(x, y, z);
 				if(!w.isAirBlock(x, y, z))
 					advance=false;
 			}
@@ -69,8 +69,8 @@ public class BlockTelekinesisCatalyst extends Block{
 	}
 	
 	@Override
-	public void registerIcons(IIconRegister ir){
-		this.field_149761_L=ir.registerIcon(Gizmos.modName+":telekinesisCatalyst");
+	public void registerBlockIcons(IIconRegister ir){
+		this.blockIcon=ir.registerIcon(Gizmos.modName+":telekinesisCatalyst");
 	}
 
 }

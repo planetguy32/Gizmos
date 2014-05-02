@@ -37,7 +37,7 @@ public class ContainerInserter extends Container {
         	super.onContainerClosed(player);
         	for(int i=0; i<=3;i++){
         		if(inv.getStackInSlot(i)!=null){
-        			player.dropPlayerItem(inv.getStackInSlot(i));
+        			player.dropPlayerItemWithRandomChoice(inv.getStackInSlot(i), false);
         		}
         	}
         }

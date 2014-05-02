@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -44,19 +45,17 @@ public class BlockInserter extends Block{
 
 	@SLLoad
 	public BlockInserter(int id){
-		this(id, 0);
+		super(Material.iron);
 		try {
 			//Gizmos.loader.loadClass(ItemLens.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.func_149663_c("spyLab");
 		ItemStack lens=new ItemStack(Gizmos.Lens);
-		ItemStack wood=new ItemStack((Block)Block.field_149771_c.getObject("planks"));
-		ItemStack blockIron=new ItemStack((Block)Block.field_149771_c.getObject("iron_block"));
-		ItemStack crafter=new ItemStack((Block)Block.field_149771_c.getObject("crafting_table"));
-		ItemStack chest=new ItemStack((Block)Block.field_149771_c.getObject("chest"));
-		this.func_149663_c("inserter");
+		ItemStack wood=new ItemStack(Blocks.planks);
+		ItemStack blockIron=new ItemStack(Blocks.iron_block);
+		ItemStack crafter=new ItemStack(Blocks.crafting_table);
+		ItemStack chest=new ItemStack(Blocks.chest);
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Inserter");
 		ItemStack itemSpyDesk=new ItemStack(this);
         GameRegistry.addRecipe(itemSpyDesk, new Object[] {"LWC", "III","B B",
@@ -67,24 +66,16 @@ public class BlockInserter extends Block{
         		Character.valueOf('B'),wood});
         SLItemBlock.registerString(id, 0, "Inserter", new String[]{"Hides items in other items,","or retrieves hidden items."});
 	}
+
 	
-    public BlockInserter (int id, int texture) {
-        super("");
-        //Debug.dbg("New spy lab!");
-        //setHardness(2.0F);
-        //setResistance(5.0F);
-        func_149663_c("blockSpyLab");
-        func_149647_a(CreativeTabs.tabTools);
-    }
-    /*
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ir){
+    public void registerBlockIcons(IIconRegister ir){
     	//Debug.dbg("Spy lab textures loading");
     	top=ir.registerIcon(Gizmos.modName+":spyTop");
     	sides=ir.registerIcon(Gizmos.modName+":spySides");
     }
-    */
+    
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are) {
         //code to open gui explained later
         player.openGui(Gizmos.instance, 0, world, x, y, z);

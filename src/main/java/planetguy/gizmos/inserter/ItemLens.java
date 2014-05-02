@@ -11,6 +11,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -29,11 +31,11 @@ public class ItemLens extends GizmosItem{
 	 * @param id item ID to use
 	 */
 	@SLLoad
-	public ItemLens(int id) {
-		super(id);
+	public ItemLens() {
+		super();
 		Gizmos.Lens=this;
-		this.func_149663_c("spyLens");
-		ItemStack glass=new ItemStack((Block)Block.field_149771_c.getObject("glass");
+		this.setUnlocalizedName("spyLens");
+		ItemStack glass=new ItemStack(Blocks.glass);
 		ItemStack iron = new ItemStack(Items.iron_ingot);
         LanguageRegistry.instance().addName(this, "Lens");
 		ItemStack lens=new ItemStack(this);

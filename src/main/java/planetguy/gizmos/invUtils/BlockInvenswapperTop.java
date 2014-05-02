@@ -22,16 +22,17 @@ import net.minecraft.world.World;
 @SLLoad(name="invenswapperTop",primacy=9)
 public class BlockInvenswapperTop extends Block {
 
+	public static Block instance = null;
 	private IIcon[] icons=new IIcon[2];
 	public static int id;
 	
 	@SLLoad
-	public BlockInvenswapperTop(int par1) {
-		super(par1, Material.air);
-		this.id=par1;
-		func_149663_c("Gizmos_InvenswapperTop");
+	public BlockInvenswapperTop() {
+		super(Material.air);
+		setBlockName("Gizmos_InvenswapperTop");
         this.setBlockBounds(0,0,0,0,0,0);
         setResistance(100f);
+        instance=this;
 	}
 	
     @Override

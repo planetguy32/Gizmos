@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 
 public class GizmosItem extends Item {
 
-	public GizmosItem(int par1) {
+	public GizmosItem() {
 		super();
 	}
 	

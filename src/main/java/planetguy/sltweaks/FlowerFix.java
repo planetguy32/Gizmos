@@ -1,6 +1,8 @@
 package planetguy.sltweaks;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import planetguy.simpleLoader.CustomModuleLoader;
 import planetguy.simpleLoader.SLLoad;
@@ -18,10 +20,10 @@ public class FlowerFix extends CustomModuleLoader{
 	@Override
 	public void load() {
 		if(yellowFlowerWeight>20){
-			MinecraftForge.addGrassPlant( (Block) Block.field_149771_c.getObject("yellow_flower"), 0, yellowFlowerWeight-20);
+			MinecraftForge.addGrassSeed(new ItemStack(Blocks.yellow_flower), yellowFlowerWeight-20);
 		}
 		if(redFlowerWeight>10){
-			MinecraftForge.addGrassPlant(Block.plantRed, 0, redFlowerWeight-10);
+			MinecraftForge.addGrassSeed(new ItemStack(Blocks.red_flower), redFlowerWeight-10);
 		}
 	}
 

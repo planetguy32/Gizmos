@@ -12,7 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -27,15 +28,15 @@ public class ItemBuildTool extends ItemPickaxe{
 
 	@SLLoad
 	public ItemBuildTool(int par1) {
-		super(par1, EnumToolMaterial.EMERALD);
+		super(ToolMaterial.EMERALD);
 		myID=par1;
-		this.func_149663_c("buildTool");
+		this.setUnlocalizedName("buildTool");
 		LanguageRegistry.addName(this, "Build tool");
 		LanguageRegistry.instance().addStringLocalization("item.buildTool.name", "Build tool");
 		GameRegistry.addShapedRecipe(new ItemStack(this), new Object[]{
 			"pd",
-			Character.valueOf('d'),new ItemStack(Item.pickaxeDiamond),
-			Character.valueOf('p'),new ItemStack((Block)Block.field_149771_c.getObject("pistonBase),});
+			Character.valueOf('d'),new ItemStack(Items.diamond_pickaxe),
+			Character.valueOf('p'),new ItemStack(Blocks.piston),});
 	}
 
 	public void registerIcons(IIconRegister ir){

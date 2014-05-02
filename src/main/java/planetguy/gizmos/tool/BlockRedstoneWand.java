@@ -8,6 +8,7 @@ import net.minecraft.block.BlockRedstoneOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -27,16 +28,16 @@ public class BlockRedstoneWand extends BlockRedstoneOre{
 	}
 	
 	public int getRenderType(){
-		return Block.grass.getRenderType();
+		return Blocks.grass.getRenderType();
 	}
 	
 	public void onBlockAdded(World w, int x, int y, int z){
-		w.scheduleBlockUpdate(x, y, z, this.blockID, 20);
+		w.scheduleBlockUpdate(x, y, z, this, 20);
 	}
 
 	//On tick, vanish
 	public void updateTick(World w, int x, int y, int z, Random par5Random){
-		w.setBlock(x, y, z, 0);
+		w.setBlockToAir(x, y, z);
 	}
 	
 	//Always power
@@ -51,12 +52,12 @@ public class BlockRedstoneWand extends BlockRedstoneOre{
     
     //Vanish if r-clicked
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are)  {
-		w.setBlock(x,y,z,0);
+		w.setBlockToAir(x,y,z);
 		return true;
 	}
 	
 	public void registerIcons(IIconRegister ir){
-		this.field_149761_L=Block.cloth.getIcon(0, 14); //Snarf the icon from red wool.
+		this.blockIcon=Blocks.wool.getIcon(0, 14); //Snarf the icon from red wool.
 	}
 
 }

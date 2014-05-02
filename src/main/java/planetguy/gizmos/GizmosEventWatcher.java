@@ -15,6 +15,7 @@ import cpw.mods.fml.common.FMLLog;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,7 +53,7 @@ public class GizmosEventWatcher extends CustomModuleLoader{
 			boolean testSoFar=true;
 			//while(testSoFar){
 			ItemStack a=ItemStack.loadItemStackFromNBT(tag);
-			if(a.getItem()==Item.field_150901_e.getObject("gunpowder")&&BlockInserter.doBlockDamage){			
+			if(a.getItem()==Items.gunpowder&&BlockInserter.doBlockDamage){			
 				World w=player.worldObj;
 				w.newExplosion(player, player.posX, player.posY, player.posZ, 4, true, true);
 				player.destroyCurrentEquippedItem();

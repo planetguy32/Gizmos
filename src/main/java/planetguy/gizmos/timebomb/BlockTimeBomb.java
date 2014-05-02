@@ -17,6 +17,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -46,10 +48,10 @@ public class BlockTimeBomb extends Block{
 
 	@SLLoad
 	public BlockTimeBomb(int id) {
-		super(id, Material.tnt);
+		super(Material.tnt);
 		Debug.dbg("Loading time bomb...");
         //this.setTickRandomly(true);
-        this.func_149647_a(CreativeTabs.tabRedstone);
+        this.setCreativeTab(CreativeTabs.tabRedstone);
         fuse*=5/2;//Simplified 20/8: 20 ticks/sec, 8 updates to explode
 		Gizmos.timeBombs=this;
 		//Item.itemsList[ this.blockID] = new ItemTimeBomb( this.blockID-256).setItemName("timeBombs");
@@ -63,9 +65,9 @@ public class BlockTimeBomb extends Block{
 		SLItemBlock.registerString(id, 1, "Fork bomb", new String[]{"Counts down to destruction,","duplicates if disturbed"});
 		ItemStack itemStackTB=new ItemStack(Gizmos.timeBombs,1,0); 
 		ItemStack itemStackFB=new ItemStack(Gizmos.timeBombs,1,1);
-		ItemStack endStone=new ItemStack((Block)Block.field_149771_c.getObject("whiteStone);
+		ItemStack endStone=new ItemStack(Blocks.end_stone);
 		
-		GameRegistry.addShapelessRecipe(itemStackTB, Block.tnt, Item.pocketSundial);
+		GameRegistry.addShapelessRecipe(itemStackTB, Blocks.tnt, Items.clock);
 		
 		GameRegistry.addRecipe(itemStackFB, new Object[]{
 				"EEE","ETE","EEE", 
@@ -106,7 +108,7 @@ public class BlockTimeBomb extends Block{
 		sideIIcons[13]=sideIIcons[12];
 		sideIIcons[14]=ir.registerIcon(Gizmos.modName+":"+"timeBomb8");
 		sideIIcons[15]=sideIIcons[14];
-		this.field_149761_L=sideIIcons[0];
+		this.blockIcon=sideIIcons[0];
 	}
 	
 	
@@ -121,11 +123,12 @@ public class BlockTimeBomb extends Block{
   
     @Override
     public void onBlockAdded(World par1World, int par2, int par3, int par4){
-    	par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate());
+    	par1World.scheduleBlockUpdate(par2, par3, par4, this, this.tickRate());
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(int id, CreativeTabs par2CreativeTabs, List items){
+    @Override
+    public void getSubBlocks(Item id,CreativeTabs par2CreativeTabs, List items){
     	items.add(new ItemStack(id, 1, 0));
     	items.add(new ItemStack(id, 1, 1));
     }
@@ -139,7 +142,7 @@ public class BlockTimeBomb extends Block{
     		w.spawnEntityInWorld(new EntityTNTPrimed(w, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), (EntityLiving) null));
     	}else{
     		w.setBlockMetadataWithNotify(x, y, z, curMeta, 0x02);
-    		w.scheduleBlockUpdate(x,y,z,this.blockID, this.tickRate());
+    		w.scheduleBlockUpdate(x,y,z,this, this.tickRate());
     	}    	
 	}    
 	
@@ -147,7 +150,7 @@ public class BlockTimeBomb extends Block{
     public void onBlockDestroyedByPlayer(World w, int x, int y, int z, int meta) {
     	fork(w,x,y,z,meta);
     	if(meta%2==0){
-    		w.destroyBlock(x, y, z, true);
+    		w.setBlockToAir(x, y, z);
     	}
     }
 
@@ -176,23 +179,23 @@ public class BlockTimeBomb extends Block{
     	if(meta%2!=1){
     		return;
     	}
-    	if(w.getBlockMaterial(x+1, y, z)==Material.air){
-    		w.setBlock(x+1, y, z, this.blockID, meta, 0x02);
+    	if(w.getBlock(x+1, y, z).getMaterial()==Material.air){
+    		w.setBlock(x+1, y, z, this, meta, 0x02);
     	}
-    	if(w.getBlockMaterial(x-1, y, z)==Material.air){
-    		w.setBlock(x-1, y, z, this.blockID, meta, 0x02);
+    	if(w.getBlock(x-1, y, z).getMaterial()==Material.air){
+    		w.setBlock(x-1, y, z, this, meta, 0x02);
     	}
-    	if(w.getBlockMaterial(x, y+1, z)==Material.air){
-    		w.setBlock(x, y+1, z, this.blockID, meta, 0x02);
+    	if(w.getBlock(x, y+1, z).getMaterial()==Material.air){
+    		w.setBlock(x, y+1, z, this, meta, 0x02);
     	}
-    	if(w.getBlockMaterial(x, y-1, z)==Material.air){
-    		w.setBlock(x, y-1, z, this.blockID, meta, 0x02);
+    	if(w.getBlock(x, y-1, z).getMaterial()==Material.air){
+    		w.setBlock(x, y-1, z, this, meta, 0x02);
     	}
-    	if(w.getBlockMaterial(x, y, z+1)==Material.air){
-    		w.setBlock(x, y, z+1, this.blockID, meta, 0x02);
+    	if(w.getBlock(x, y, z+1).getMaterial()==Material.air){
+    		w.setBlock(x, y, z+1, this, meta, 0x02);
     	}
-    	if(w.getBlockMaterial(x, y, z-1)==Material.air){
-    		w.setBlock(x, y, z-1, this.blockID, meta, 0x02);
+    	if(w.getBlock(x, y, z-1).getMaterial()==Material.air){
+    		w.setBlock(x, y, z-1, this, meta, 0x02);
     	}
     }
     	

@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -33,13 +34,13 @@ public class BlockGraviBomb extends Block
 
 	@SLLoad
 	public BlockGraviBomb(int id){
-		super(id,  Material.tnt);
+		super(Material.tnt);
 		LanguageRegistry.addName(this, "Gravity Bomb");
 		this.id=id;
 		SLItemBlock.registerString(id, 0, "Gravity Bomb", new String[] {"Falls as far as it can,","explodes where it lands"});
 		SLItemBlock.registerString(id, 1, "Excavator Bomb", new String[] {"Falls for a set time,","explodes each time it lands"});
 		try{
-			func_149647_a(CreativeTabs.tabRedstone);
+			setCreativeTab(CreativeTabs.tabRedstone);
 			Gizmos.graviBombPrimed = new EntityGravityBomb(null);
 			Gizmos.tunnelBombPrimed=new EntityTunnelBomb(null);
 			//EntityRegistry.registerModEntity(EntityTunnelBeam.class, "Tunnel Beam", 199, this, 80, 3, true);
@@ -47,7 +48,7 @@ public class BlockGraviBomb extends Block
 			EntityRegistry.registerModEntity(EntityTunnelBomb.class, "TBomb", 202, Gizmos.instance, 80, 3, true);
 			ItemStack itemStackGB = new ItemStack(this, 3, 0);
 			ItemStack itemStackExcaBomb = new ItemStack(this, 1, 1);
-			ItemStack tnt = new ItemStack((Block)Block.field_149771_c.getObject("tnt");
+			ItemStack tnt = new ItemStack(Blocks.tnt);
 			ItemStack powder = new ItemStack(Items.blaze_powder);
 			ItemStack iron = new ItemStack(Items.iron_ingot);
 			ItemStack itemStackPick = new ItemStack(Items.iron_pickaxe);
@@ -67,7 +68,7 @@ public class BlockGraviBomb extends Block
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister ir){
+	public void registerBlockIcons(IIconRegister ir){
 		Debug.dbg("GraviBomb textures loading");
 		topTex=ir.registerIcon(Gizmos.modName+":"+"bombTop");
 		gBombTex=ir.registerIcon(Gizmos.modName+":"+"" +"gravityBomb");
@@ -80,7 +81,7 @@ public class BlockGraviBomb extends Block
 	{	
 		for (int var4 = 0; var4 < 2; ++var4)
 		{
-			par3List.add(new ItemStack(par1, 1, var4));
+			par3List.add(new ItemStack(this, 1, var4));
 		}
 	}
 
@@ -118,27 +119,27 @@ public class BlockGraviBomb extends Block
 
 	public void onBlockAdded(World par1World, int x, int par3, int par4)
 	{
-		par1World.scheduleBlockUpdate(x, par3, par4, this.blockID, tickRate());
+		par1World.scheduleBlockUpdate(x, par3, par4, this, tickRate());
 	}
 
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {
-		par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, tickRate());
+		par1World.scheduleBlockUpdate(par2, par3, par4, this, tickRate());
 	}
 
 	public static boolean canFallBelow(World par0World, int par1, int par2, int par3)
 	{
-		int var4 = par0World.getBlockId(par1, par2, par3);
+		Block var4 = par0World.getBlock(par1, par2, par3);
 
-		if (var4 == 0)
+		if (var4.isAir(par0World, par1, par2, par3))
 		{
 			return true;
 		}
-		if (var4 == Block.fire.blockID)
+		if (var4 == Blocks.fire)
 		{
 			return true;
 		}
 
-		Material var5 = Block.blocksList[var4].blockMaterial;
+		Material var5 = var4.getMaterial();
 		return var5 == Material.water;
 	}
 
@@ -156,7 +157,7 @@ public class BlockGraviBomb extends Block
 			{
 				if (!par1World.isRemote)
 				{
-					par1World.setBlock(par2, par3, par4, 0);
+					par1World.setBlockToAir(par2, par3, par4);
 					switch(metadata){
 					case 0:{
 						//FMLLog.log(Level.SEVERE, "A gravity bomb!","");

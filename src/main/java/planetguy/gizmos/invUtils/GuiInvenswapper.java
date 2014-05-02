@@ -1,5 +1,7 @@
 package planetguy.gizmos.invUtils;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -20,15 +22,16 @@ public class GuiInvenswapper extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int param1, int param2) {
+		FontRenderer fr=Minecraft.getMinecraft().fontRenderer;
 		//draw text and stuff here
 		//the parameters for drawString are: string, x, y, color
-		fontRenderer.drawString("Invenswapper", 8, 6, 4210752);
+		fr.drawString("Invenswapper", 8, 6, 4210752);
 		//draws "Inventory" or your regional equivalent
-		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		fr.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void func_146976_a(float par1, int par2, int par3) {
+	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         Minecraft.getMinecraft().getTextureManager().bindTexture(guiLoc);
 		int x = (width - xSize) / 2;

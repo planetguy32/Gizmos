@@ -24,7 +24,7 @@ public class Debug {
 	public static void dbg(String text){ //less-wordy way to print a message to console
 		if(!enable)return;
 		if(text==null)text="<null>";
-		FMLLog.log("Gizmos",Level.INFO, "", (Object) text);
+		FMLLog.info("", (Object) text);
 	}
 	
 }

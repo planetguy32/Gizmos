@@ -45,7 +45,7 @@ public class SlotConcealmentItem extends Slot{
 			}
 			//if(inventory.getStackInSlot(0).getTagCompound()==null){//&&me.getTagCompound()==null
 				
-				NBTTagCompound oldTag=new NBTTagCompound("tag");
+				NBTTagCompound oldTag=new NBTTagCompound();
 				otherItem.writeToNBT(oldTag);
 				me.setTagCompound(oldTag);
 				inventory.setInventorySlotContents(0, null);

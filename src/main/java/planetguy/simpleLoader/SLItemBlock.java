@@ -27,8 +27,8 @@ public class SLItemBlock extends ItemBlockWithMetadata{
 	public String[] name=new String[maxMetadata];
 	public String[][] tooltip=new String[maxMetadata][0];
 
-	public SLItemBlock(int id, Block block) {
-		super(id, block);
+	public SLItemBlock( Block block) {
+		super(block, block);
 		setHasSubtypes(true);
 		slItemBlocks.add(this);
 	}

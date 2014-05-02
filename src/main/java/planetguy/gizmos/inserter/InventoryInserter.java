@@ -82,10 +82,10 @@ public class InventoryInserter implements IInventory {
     }
 
     @Override
-    public void openChest() {}
+    public void openInventory() {}
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     	Debug.dbg("Closed");
     	Random rand = new Random();
 
@@ -101,7 +101,7 @@ public class InventoryInserter implements IInventory {
         		
         		EntityItem entityItem = new EntityItem(world,
         					x + rx, y + ry, z + rz,
-        					new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
+        					new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
         		
                 if (item.hasTagCompound()) {
                 	//entityItem.getEntityData().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
@@ -119,17 +119,17 @@ public class InventoryInserter implements IInventory {
     		
     
     @Override
-    public String func_145825_b() {
+    public String getInventoryName() {
     	return "planetguy.spyLab";
     }
     
     @Override
-    public void onInventoryChanged() {
+    public void markDirty() {
     	
     }
 
 	@Override
-	public boolean func_145818_k_() {
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
@@ -137,4 +137,6 @@ public class InventoryInserter implements IInventory {
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
 	}
+
+
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,7 +37,7 @@ public class AnyShapePortals extends CustomModuleLoader{
 		@SubscribeEvent
 		public void onInteract(PlayerInteractEvent pie){
 			try{
-				if(pie.entityPlayer.getCurrentEquippedItem().equals(Item.field_150901_e.getObject("flint_and_steel"))){
+				if(pie.entityPlayer.getCurrentEquippedItem().equals(Items.flint_and_steel)){
 					World w=pie.entityPlayer.worldObj;
 					int[] pos=correct(pie.x, pie.y, pie.z, pie.face); 
 					int x=pos[0],y=pos[1],z=pos[2];//Get block in which our click fell
@@ -96,7 +98,7 @@ public class AnyShapePortals extends CustomModuleLoader{
 					stillAlive=stillAlive&&b; 
 				}
 				if(stillAlive){
-					w.setBlock(x, y, z, Block.field_149771_c.getObject("portal"), checkConstantZPlane ? 1 : 0, 0x02 ); //Actually make a portal
+					w.setBlock(x, y, z, Blocks.portal, checkConstantZPlane ? 1 : 0, 0x02 ); //Actually make a portal
 				}
 				return stillAlive;
 
@@ -113,17 +115,14 @@ public class AnyShapePortals extends CustomModuleLoader{
 		 */
 
 		private byte checkPortalAt(World w, int x, int y, int z){
-			int id=w.getBlockId(x, y, z);
+			Block id=w.getBlock(x, y, z);
 			//System.out.println(id);
-			switch(id){
-			case 0: //Air or fire -> inside portal, need to check neighbors
-			case 51:
-				return 0;
-			case 49: //Obby -> portal wall
+			if(id.equals(Blocks.obsidian))
 				return 1;
-			default: //Anything else -> can't make portal
-				return 2; 
-			}
+			else if(id.equals(Blocks.air)||id.equals(Blocks.fire))
+				return 0;
+			else
+				return 2;
 		}
 	}
 

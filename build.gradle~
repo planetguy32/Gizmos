@@ -10,20 +10,16 @@ buildscript {
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
         maven {
-            name = "codechickenlib"
+            name = "ccl"
             url = "http://files.minecraftforge.net/maven/codechicken/CodeChickenLib/1.7.2-1.1.0.76-dev.jar/"
-        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
-sourceCompatibility=7
-
-apply plugin: 'scala'
-
 apply plugin: 'forge'
+apply plugin: 'scala'
 
 version = "2.0"
 group= "me.planetguy.remaininmotion" // http://maven.apache.org/guides/mini/guide-naming-conventions.html

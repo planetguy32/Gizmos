@@ -1,5 +1,6 @@
 package planetguy.gizmos.tool;
 
+import planetguy.gizmos.Gizmos;
 import planetguy.gizmos.GizmosItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,11 +13,11 @@ import net.minecraft.world.World;
 
 public abstract class ItemInteractDevice extends GizmosItem{
 	
-    public ItemInteractDevice(int par1) {
+    public ItemInteractDevice() {
 		super();
         this.maxStackSize = 1;
         this.setMaxDamage(64);
-        this.func_149647_a(CreativeTabs.tabTools);
+        this.setCreativeTab(Gizmos.tabGizmos);
 	}
     
     public abstract boolean doEffect(int posX, int posY,int posZ, World theWorld, ItemStack me, EntityPlayer thePlayer);

@@ -11,6 +11,8 @@ import planetguy.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -26,7 +28,7 @@ public class ItemLuncher extends Item{
 	@SLLoad
 	public ItemLuncher(int id) {
 		super(id);
-		this.func_149663_c("luncher");
+		this.setUnlocalizedName("luncher");
 		LanguageRegistry.instance().addNameForObject(this, "en_US", "Luncher");
 		this.setMaxDamage(MAX_FOOD_CARRIED);
 		this.setNoRepair();
@@ -37,9 +39,9 @@ public class ItemLuncher extends Item{
 			"lsl",
 			"lcl",
 			"lll",
-			Character.valueOf('l'), new ItemStack(Item.leather),
-			Character.valueOf('s'), new ItemStack(Item.bread),
-			Character.valueOf('c'), new ItemStack((Block)Block.field_149771_c.getObject("chest)
+			Character.valueOf('l'), new ItemStack(Items.leather),
+			Character.valueOf('s'), new ItemStack(Items.bread),
+			Character.valueOf('c'), new ItemStack(Blocks.chest)
 		});
 	}
 	
