@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: .
-FMLCorePlugin: planetguy.asmfixes.ASMFixesCoremod
-FMLCorePluginContainsFMLMod: true
-Main-Class: Start
-

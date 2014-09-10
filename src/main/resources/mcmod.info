@@ -1,16 +1,10 @@
 [
 {
-	"modid": "planetguy_gizmos",
-	"name": "Gizmos",
-	"description": "A pile of random stuff",
-	"version": "latest",
-	"credits": "Wuppy29, the Forge wiki people, Lesothos and Markarthian, Qwertygiy, XentosStride, aidancbrandy, GotoLink, Emasher",
-	"authors": [ "Planetguy" ],
-	"logoFile": "",
-	"url": "http://minecraft.curseforge.com/mc-mods/planetguy_gizmos/",
-	"updateUrl": "",
-	"parent": "",
-	"screenshots": [],
-	"dependencies": []
+"modid": "planetguy_Gizmos",
+"name": "Gizmos",
+"version": "$version",
+"mcversion": "$mcversion",
+"authors": [ "planetguy" ],
+"url": "https://github.com/planetguy32/Gizmos"
 }
 ]

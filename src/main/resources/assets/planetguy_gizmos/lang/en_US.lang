@@ -1,0 +1,71 @@
+planetguy_Gizmos.misc.pressShift=Press <shift> for more
+
+itemGroup.gizmosTab=Gizmos
+
+
+tile.accelerator.name=Accelerator
+tile.accelerator.tooltip.1=Anything on top speeds up.
+
+tile.dynamicWool.name=Dynamic Wool
+tile.dynamicWool.tooltip.1=Changes colour when
+tile.dynamicWool.tooltip.2=redstone is applied
+
+tile.gravityBomb.name=Gravity Bomb
+tile.gravityBomb.tooltip.1=Falls until it hits the ground,
+tile.gravityBomb.tooltip.2=explodes violently.
+
+tile.gravityBomb.1.name=Excavator Bomb
+tile.gravityBomb.1.tooltip.1=Falls until it hits the ground,
+tile.gravityBomb.1.tooltip.2=explodes and keeps falling.
+
+tile.inserter.name=Inserter
+tile.inserter.tooltip.1=Hides items inside
+tile.inserter.tooltip.2=other items.
+
+tile.invenswapper.name=Invenswapper (in)
+tile.invenswapper.tooltip.1=Sneak while on top of it to
+tile.invenswapper.tooltip.2=put items into it.
+
+tile.invenswapper.1.name=Invenswapper (out)
+tile.invenswapper.1.tooltip.1=Sneak while on top of it to
+tile.invenswapper.1.tooltip.2=take items out of it
+
+tile.launcher.name=Launcher
+tile.launcher.tooltip.1=Anything inside goes up, fast.
+
+tile.telekinesisCatalyst.name=Telekinesis Catalyst
+tile.telekinesisCatalyst.tooltip.1=When right-clicked, passes your actions
+tile.telekinesisCatalyst.tooltip.2=to the opposite side, through air
+
+tile.timeBomb.name=Time Bomb
+tile.timeBomb.tooltip.1=Counts down to destruction
+
+tile.timeBomb.1.name=Fork Bomb
+tile.timeBomb.1.tooltip.1=Counts down to destruction
+tile.timeBomb.1.tooltip.2=Copies itself if punched
+
+
+item.bombDefuser.name=Bomb Defuser
+item.bombDefuser.tooltip.1=Removes explosives painlessly.
+item.bombDefuser.tooltip.2=*NOTE* Sneak if using on fork bombs
+
+item.buildTool.name=Build Tool
+item.buildTool.tooltipDynamic=Contains <name> X <number>
+item.buildTool.tooltip.1=Mines like a pick, builds like
+item.buildTool.tooltip.2=a block. Refill in inserter.
+
+item.fireExtinguisher.name=Fire Extinguisher
+item.fireExtinguisher.tooltip.1=Puts out burning blocks, mobs,
+item.fireExtinguisher.tooltip.2=players, or yourself. Hurts blazes.
+
+item.luncher.name=Luncher
+item.luncher.tooltip.1=Stores food. R-click to use.
+item.luncher.tooltip.2=Contains #### food.
+
+item.redstoneActivator.name=Redstone Activator
+item.redstoneActivator.tooltip.1=Places temporary redstone emitters.
+item.redstoneActivator.tooltip.2=Inspired by similar item by Emasher.
+
+item.temporalDislocator.name=§5Temporal Dislocator
+item.temporalDislocator.tooltip.1=Dislocates blocks' future state
+item.temporalDislocator.tooltip.2=into the present.

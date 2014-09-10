@@ -1,22 +1,33 @@
 package me.planetguy.gizmos;
 
-import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import me.planetguy.core.sl.CustomModuleLoader;
-import me.planetguy.core.sl.SLItemBlock;
-import me.planetguy.core.sl.SimpleLoader;
-import me.planetguy.gizmos.gravitybomb.EntityTunnelBomb;
-import me.planetguy.util.Debug;
+import me.planetguy.gizmos.base.BlockBase;
+import me.planetguy.gizmos.base.BlockContainerBase;
+import me.planetguy.gizmos.base.CreativeTabPrefab;
+import me.planetguy.gizmos.base.IGizmosItem;
+import me.planetguy.gizmos.base.ItemBase;
+import me.planetguy.gizmos.content.BlockAccelerator;
+import me.planetguy.gizmos.content.BlockDynamicWool;
+import me.planetguy.gizmos.content.BlockLauncher;
+import me.planetguy.gizmos.content.BlockTimeBomb;
+import me.planetguy.gizmos.content.ItemBombDefuser;
+import me.planetguy.gizmos.content.ItemFireExtinguisher;
+import me.planetguy.gizmos.content.ItemRedstoneActivator;
+import me.planetguy.gizmos.content.ItemTemporalDislocator;
+import me.planetguy.gizmos.content.gravitybomb.BlockGravityBomb;
+import me.planetguy.gizmos.content.gravitybomb.EntityGravityBomb;
+import me.planetguy.gizmos.content.gravitybomb.EntityTunnelBomb;
+import me.planetguy.gizmos.content.inserter.BlockInserter;
+import me.planetguy.gizmos.content.inserter.ItemBuildTool;
+import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
+import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
+import me.planetguy.gizmos.content.inventory.ItemLuncher;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
-
-import com.google.common.collect.ImmutableList;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -24,98 +35,83 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
-/**
- * 
- * @author planetguy
- *The Gizmos main class. Contains references to some blocks and items.
- *
- */
-@Mod(modid="planetguy_Gizmos", name="Gizmos", version="3.0")
+@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version="3.0")
 public class Gizmos {
-	
-	//Holds instances for all items/blocks/etc. Required by SimpleLoader.
-	public static Block GravityBomb;
-	public static Entity graviBombPrimed;
-	public static EntityTunnelBomb tunnelBombPrimed;
-	
-	public static Block superFire;
-	public static Block forestFire;
-	public static Item deforestator;
-	public static Item minersLighter;
-	
-	public static Block composter;
-	
-	public static Block RedstoneResponsiveWool;
-	
-	public static Block inserter;
-	public static Item Lens;
-	
-	public static Block telekinesisCatalyst;
-	
-	public static Block invenswapper,invenswapperTop;
-	
-	public static Block accelerator;
-	public static Block launcher;
-	
-	public static Block CESBomb;
-	
-	public static Item redstoneWand;
-	public static Block redstoneWandBlock;
-	
-	public static Block timeBombs;	
-	public static Item bombDefuser;
-	public static Item buildTool;
-	
-	public static CustomModuleLoader flowerFix;
-	public static CustomModuleLoader anyShapePortals;
-	
-	public static CustomModuleLoader eventHandler;
-	
-	public static Item fireExtinguisher;
-	public static Item lastLaugh;
-	public static Item lastLaughChestplate;
-	public static Item temporalDislocator;
-	
-	public static Item arrowNova;
-	public static Entity entityArrowNova;
-	
-	public static Item luncher;
-	
-	public static CreativeTabs tabGizmos;
-	
-	public static final String modName="planetguy_gizmos";
-	
-	@Instance("planetguy_Gizmos")
-	public static Gizmos instance;
-	
-	public static SimpleLoader loader;
-	
-	public static float accelRate;
-	
-	private String[] ctabBlacklist=ImmutableList.of("superFire","forestFire","invenswapperTop","redstoneWandBlock","arrowNova").toArray(new String[0]);
-	
-	//Callback from Forge
-	@EventHandler
-	public static void loadConfig(FMLPreInitializationEvent event) throws Exception{
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load();
-		loader=new SimpleLoader(config);
-		config.save();
-	}
-	
-	@EventHandler
-	public void load(FMLInitializationEvent ignored) throws Exception{
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-        loader.finishLoading();
-	}
-	
-	@EventHandler
-	public final void postInit(FMLPostInitializationEvent e){
-        loader.setupCreativeTab("tabGizmos",ctabBlacklist,
-        		new ItemStack(GravityBomb,1,1),
-        		new ItemStack(Blocks.tnt));
-	}
 
-
+	@Instance(Properties.modID)
+	public static Object instance;
+	
+	HashMap<String, IGizmosItem> content=new HashMap<String, IGizmosItem>();
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent pie){
+		Properties.configFile=new Configuration(pie.getSuggestedConfigurationFile());
+		Properties.update();
+		
+		GEventHandler.init();
+		
+		load(ItemLuncher.class);
+		
+		load(BlockAccelerator.class);
+		
+		load(BlockLauncher.class);
+		
+		load(BlockDynamicWool.class);
+		
+		load(BlockTimeBomb.class);
+		
+		load(ItemRedstoneActivator.class);
+		
+		load(ItemFireExtinguisher.class);
+		
+		load(BlockGravityBomb.class);
+		
+		load(BlockInserter.class);
+		
+		load(BlockTelekinesisCatalyst.class);
+		load(BlockInvenswapperBase.class);
+		
+		load(ItemBuildTool.class);
+		load(ItemTemporalDislocator.class);
+		load(ItemBombDefuser.class);
+		
+		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
+		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent ie){
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		CreativeTabs tab=new CreativeTabPrefab("gizmosTab", new ItemStack((Block) content.get("gravityBomb"), 1, 1));
+		for(IGizmosItem item:content.values()){
+			item.setCreativeTab(tab);
+		}
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent pie){
+		for(IGizmosItem item:content.values()){
+			item.loadCrafting();
+		}
+	}
+	
+	private void load(Class c){
+		if(ItemBase.class.isAssignableFrom(c)){
+			ItemBase.load(c, content);
+		}else if(BlockBase.class.isAssignableFrom(c)){
+			BlockBase.load(c, content);
+		}else if(BlockContainerBase.class.isAssignableFrom(c)){
+			BlockContainerBase.load(c, content);
+		}else{
+			throw new RuntimeException("Failed to load "+c+": Not a legal class type!");
+		}
+	}
+	
+	
+	
+	
+	
 }

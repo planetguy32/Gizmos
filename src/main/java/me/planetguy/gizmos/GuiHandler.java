@@ -1,13 +1,13 @@
 package me.planetguy.gizmos;
 
 
-import me.planetguy.gizmos.inserter.ContainerInserter;
-import me.planetguy.gizmos.inserter.GuiInserter;
-import me.planetguy.gizmos.inserter.InventoryInserter;
-import me.planetguy.gizmos.invUtils.BlockInvenswapperBase;
-import me.planetguy.gizmos.invUtils.ContainerInvenswapper;
-import me.planetguy.gizmos.invUtils.GuiInvenswapper;
-import me.planetguy.gizmos.invUtils.TileEntityInvenswapper;
+import me.planetguy.gizmos.content.inserter.ContainerInserter;
+import me.planetguy.gizmos.content.inserter.GuiInserter;
+import me.planetguy.gizmos.content.inserter.InventoryInserter;
+import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
+import me.planetguy.gizmos.content.inventory.ContainerInvenswapper;
+import me.planetguy.gizmos.content.inventory.GuiInvenswapper;
+import me.planetguy.gizmos.content.inventory.TileEntityInvenswapper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
