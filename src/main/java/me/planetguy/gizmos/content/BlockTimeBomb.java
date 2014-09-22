@@ -3,11 +3,8 @@ package me.planetguy.gizmos.content;
 import java.util.List;
 import java.util.Random;
 
-import me.planetguy.gizmos.Gizmos;
 import me.planetguy.gizmos.Properties;
-import me.planetguy.gizmos.base.BlockBase;
-import me.planetguy.remaininmotion.util.general.Debug;
-import net.minecraft.block.Block;
+import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,7 +19,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 /**

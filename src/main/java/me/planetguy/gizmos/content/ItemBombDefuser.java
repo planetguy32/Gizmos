@@ -1,14 +1,12 @@
 package me.planetguy.gizmos.content;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import me.planetguy.gizmos.base.ItemBase;
+import me.planetguy.lib.prefab.ItemBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemBombDefuser extends ItemBase{
 

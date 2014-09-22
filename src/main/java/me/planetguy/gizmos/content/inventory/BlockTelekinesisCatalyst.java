@@ -2,7 +2,7 @@ package me.planetguy.gizmos.content.inventory;
 
 import me.planetguy.gizmos.Gizmos;
 import me.planetguy.gizmos.Properties;
-import me.planetguy.gizmos.base.BlockBase;
+import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

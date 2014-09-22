@@ -4,8 +4,7 @@ import java.util.List;
 
 import me.planetguy.gizmos.Gizmos;
 import me.planetguy.gizmos.Properties;
-import me.planetguy.gizmos.base.ItemBase;
-import me.planetguy.gizmos.util.Lang;
+import me.planetguy.lib.prefab.ItemBase;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

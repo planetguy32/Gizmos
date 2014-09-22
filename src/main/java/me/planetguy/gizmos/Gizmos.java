@@ -3,11 +3,6 @@ package me.planetguy.gizmos;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.planetguy.gizmos.base.BlockBase;
-import me.planetguy.gizmos.base.BlockContainerBase;
-import me.planetguy.gizmos.base.CreativeTabPrefab;
-import me.planetguy.gizmos.base.IGizmosItem;
-import me.planetguy.gizmos.base.ItemBase;
 import me.planetguy.gizmos.content.BlockAccelerator;
 import me.planetguy.gizmos.content.BlockDynamicWool;
 import me.planetguy.gizmos.content.BlockLauncher;
@@ -24,6 +19,12 @@ import me.planetguy.gizmos.content.inserter.ItemBuildTool;
 import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
+import me.planetguy.lib.prefab.BlockBase;
+import me.planetguy.lib.prefab.BlockContainerBase;
+import me.planetguy.lib.prefab.CreativeTabPrefab;
+import me.planetguy.lib.prefab.IPrefabItem;
+import me.planetguy.lib.prefab.ItemBase;
+import me.planetguy.lib.prefab.Prefabs;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -44,7 +45,7 @@ public class Gizmos {
 	@Instance(Properties.modID)
 	public static Object instance;
 	
-	HashMap<String, IGizmosItem> content=new HashMap<String, IGizmosItem>();
+	HashMap<String, IPrefabItem> content=new HashMap<String, IPrefabItem>();
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent pie){
@@ -52,6 +53,8 @@ public class Gizmos {
 		Properties.update();
 		
 		GEventHandler.init();
+		
+		Prefabs.initialize(Properties.modID);
 		
 		load(ItemLuncher.class);
 		
@@ -86,14 +89,14 @@ public class Gizmos {
 	public void init(FMLInitializationEvent ie){
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		CreativeTabs tab=new CreativeTabPrefab("gizmosTab", new ItemStack((Block) content.get("gravityBomb"), 1, 1));
-		for(IGizmosItem item:content.values()){
+		for(IPrefabItem item:content.values()){
 			item.setCreativeTab(tab);
 		}
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent pie){
-		for(IGizmosItem item:content.values()){
+		for(IPrefabItem item:content.values()){
 			item.loadCrafting();
 		}
 	}

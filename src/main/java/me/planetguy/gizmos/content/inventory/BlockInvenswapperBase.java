@@ -5,7 +5,7 @@ import java.util.Random;
 
 import me.planetguy.gizmos.Gizmos;
 import me.planetguy.gizmos.Properties;
-import me.planetguy.gizmos.base.BlockContainerBase;
+import me.planetguy.lib.prefab.BlockContainerBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

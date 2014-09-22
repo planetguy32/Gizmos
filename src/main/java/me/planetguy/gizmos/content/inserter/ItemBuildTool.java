@@ -3,6 +3,8 @@ package me.planetguy.gizmos.content.inserter;
 import java.util.List;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import me.planetguy.lib.prefab.ItemBase;
+import me.planetguy.lib.util.Lang;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,8 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import me.planetguy.gizmos.base.ItemBase;
-import me.planetguy.gizmos.util.Lang;
 
 public class ItemBuildTool extends ItemBase{
 

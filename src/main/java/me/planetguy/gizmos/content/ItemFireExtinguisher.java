@@ -1,26 +1,15 @@
 package me.planetguy.gizmos.content;
 
-import java.util.List;
-
-import me.planetguy.gizmos.Gizmos;
-import me.planetguy.gizmos.base.ItemBase;
+import me.planetguy.lib.prefab.ItemBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFireExtinguisher extends ItemBase{
 	

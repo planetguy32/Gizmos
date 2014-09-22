@@ -1,7 +1,7 @@
 package me.planetguy.gizmos.content.inserter;
 
 import me.planetguy.gizmos.Properties;
-import me.planetguy.remaininmotion.util.general.Debug;
+import me.planetguy.lib.util.Debug;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

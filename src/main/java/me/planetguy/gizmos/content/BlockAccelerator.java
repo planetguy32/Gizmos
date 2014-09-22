@@ -1,11 +1,7 @@
 package me.planetguy.gizmos.content;
 
-import me.planetguy.gizmos.Gizmos;
-import me.planetguy.gizmos.base.BlockBase;
-import net.minecraft.block.Block;
+import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class BlockAccelerator extends BlockBase{
 	

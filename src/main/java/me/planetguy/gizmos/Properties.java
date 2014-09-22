@@ -11,10 +11,6 @@ public class Properties {
 	public static final String modID= "planetguy_Gizmos";
 	
 	public static final String version="3.0-TEST";
-
-	public static final String instructionsShowTooltip=modID+".misc.pressShift";
-	
-	
 	
 	/*
 	 * Run-time properties

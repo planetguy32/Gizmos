@@ -2,14 +2,14 @@ package me.planetguy.gizmos.content;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import me.planetguy.lib.prefab.ItemBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import me.planetguy.gizmos.base.ItemBase;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemTemporalDislocator extends ItemBase{
 	

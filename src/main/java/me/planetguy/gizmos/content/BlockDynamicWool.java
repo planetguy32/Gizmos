@@ -1,16 +1,13 @@
 package me.planetguy.gizmos.content;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import me.planetguy.gizmos.base.BlockBase;
-import me.planetguy.gizmos.util.Reflection;
+import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRedstoneDiode;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;

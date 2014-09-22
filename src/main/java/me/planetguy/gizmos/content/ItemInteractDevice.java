@@ -1,6 +1,6 @@
 package me.planetguy.gizmos.content;
 
-import me.planetguy.gizmos.base.ItemBase;
+import me.planetguy.lib.prefab.ItemBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

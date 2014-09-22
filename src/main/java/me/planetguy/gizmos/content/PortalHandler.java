@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import me.planetguy.gizmos.Properties;
-import me.planetguy.gizmos.util.Debug;
+import me.planetguy.lib.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PortalHandler {
 

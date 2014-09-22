@@ -2,7 +2,7 @@ package me.planetguy.gizmos.content.inserter;
 
 import java.util.Random;
 
-import me.planetguy.remaininmotion.util.general.Debug;
+import me.planetguy.lib.util.Debug;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

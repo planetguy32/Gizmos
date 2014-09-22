@@ -1,15 +1,10 @@
 package me.planetguy.gizmos.content;
 
-import me.planetguy.gizmos.Gizmos;
-import me.planetguy.gizmos.base.BlockBase;
-import me.planetguy.gizmos.base.ItemBlockBase;
-import net.minecraft.block.Block;
+import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class BlockLauncher extends BlockBase{
 
