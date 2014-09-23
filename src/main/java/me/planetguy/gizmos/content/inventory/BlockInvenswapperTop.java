@@ -10,7 +10,9 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -78,11 +80,12 @@ public class BlockInvenswapperTop extends Block {
 		if(!(e instanceof EntityPlayer)){
 			return;
 		}
-		TileEntityInvenswapper tileEntity =(TileEntityInvenswapper) w.getTileEntity(x, y-1, z);
-		if(tileEntity==null){
+		TileEntity tileEntityRaw = w.getTileEntity(x, y-1, z);
+		if(!(tileEntityRaw instanceof TileEntityInvenswapper)){
 			w.setBlockToAir(x, y, z);
 			return;
 		}
+		TileEntityInvenswapper tileEntity=(TileEntityInvenswapper)tileEntityRaw;
 		EntityPlayer player=(EntityPlayer) e;
 		if(!e.isSneaking()){
 			return;

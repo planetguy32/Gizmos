@@ -88,7 +88,7 @@ public class BlockInvenswapperBase extends BlockContainerBase{
     
     @Override
 	public void onBlockAdded(World w, int x, int y, int z){
-    	if(w.getBlock(x, y+1, z).getMaterial()==Material.air){
+    	if(w.isAirBlock(x, y+1, z)){
     		w.setBlock(x, y+1, z, swapperTop,w.getBlockMetadata(x, y, z), 0x02);
     	}
     }
