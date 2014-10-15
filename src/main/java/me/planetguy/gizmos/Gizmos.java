@@ -6,8 +6,10 @@ import java.util.HashMap;
 import me.planetguy.gizmos.content.BlockAccelerator;
 import me.planetguy.gizmos.content.BlockDynamicWool;
 import me.planetguy.gizmos.content.BlockLauncher;
+import me.planetguy.gizmos.content.BlockLogger;
 import me.planetguy.gizmos.content.BlockTimeBomb;
 import me.planetguy.gizmos.content.ItemBombDefuser;
+import me.planetguy.gizmos.content.ItemDebugWand;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
@@ -80,6 +82,10 @@ public class Gizmos {
 		load(ItemBuildTool.class);
 		load(ItemTemporalDislocator.class);
 		load(ItemBombDefuser.class);
+		
+		load(BlockLogger.class);
+		
+		load(ItemDebugWand.class);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
