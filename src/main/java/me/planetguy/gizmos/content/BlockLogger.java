@@ -13,7 +13,7 @@ import me.planetguy.lib.util.Debug;
  */
 public class BlockLogger extends BlockBase{
 
-	protected BlockLogger() {
+	public BlockLogger() {
 		super(Material.rock, "loggingBlock");
 	}
 	
