@@ -34,6 +34,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import me.planetguy.gizmos.Gizmos;
 import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.ItemBase;
+import me.planetguy.lib.prefab.IPrefabItem;
 import me.planetguy.lib.util.BlockRecord;
 import me.planetguy.lib.util.Debug;
 
