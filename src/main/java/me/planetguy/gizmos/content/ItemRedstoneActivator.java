@@ -2,13 +2,16 @@ package me.planetguy.gizmos.content;
 
 import java.util.Random;
 
+import me.planetguy.lib.util.Debug;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneOre;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -26,6 +29,7 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 	public boolean doEffect(int x, int y, int z, World w,
 			ItemStack me, EntityPlayer thePlayer) {
 		w.setBlock(x,y,z, rsWand);
+		w.scheduleBlockUpdate(x, y, z, rsWand, 20);
 		return false;
 	}
 	
@@ -47,10 +51,11 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 			Character.valueOf('s'),new ItemStack(Items.stick),});
 	}
 	
-	public class BlockRedstoneWand extends BlockRedstoneOre{
+	public class BlockRedstoneWand extends Block{
 
 		public BlockRedstoneWand() {
-			super(true);	
+			super(Material.circuits);
+			this.setTickRandomly(true);
 		}
 		
 		public void onBlockAdded(World w, int x, int y, int z){
@@ -78,8 +83,8 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 			return true;
 		}
 		
-		public void registerIcons(IIconRegister ir){
-			this.blockIcon=Blocks.wool.getIcon(0, 14); //Snarf the icon from red wool.
+	    public IIcon getIcon(int p_149691_1_, int p_149691_2_){
+			return Blocks.wool.getIcon(0, 14); //Snarf the icon from red wool.
 		}
 	}
 

@@ -11,6 +11,8 @@ import me.planetguy.gizmos.content.BlockTimeBomb;
 import me.planetguy.gizmos.content.ItemBombDefuser;
 import me.planetguy.gizmos.content.ItemDebugWand;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
+import me.planetguy.gizmos.content.ItemFlashlight;
+import me.planetguy.gizmos.content.ItemFlashlight.BlockLightRay;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
 import me.planetguy.gizmos.content.gravitybomb.BlockGravityBomb;
@@ -41,7 +43,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version="3.0")
+@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version="3.0", dependencies="required-after:planetguyLib")
 public class Gizmos {
 
 	@Instance(Properties.modID)
@@ -87,6 +89,10 @@ public class Gizmos {
 		
 		load(ItemDebugWand.class);
 		
+		load(BlockLightRay.class);
+		
+		load(ItemFlashlight.class);
+		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
 	}
@@ -107,7 +113,7 @@ public class Gizmos {
 		}
 	}
 	
-	private void load(Class c){
+	public void load(Class c){
 		if(ItemBase.class.isAssignableFrom(c)){
 			ItemBase.load(c, content);
 		}else if(BlockBase.class.isAssignableFrom(c)){

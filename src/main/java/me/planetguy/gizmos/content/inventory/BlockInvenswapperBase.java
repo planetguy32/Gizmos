@@ -32,7 +32,7 @@ public class BlockInvenswapperBase extends BlockContainerBase{
 	private IIcon[] icons=new IIcon[3];
 
 	public BlockInvenswapperBase() {
-		super(Material.iron, "invenswapper");
+		super(Material.iron, "invenswapper",TileEntityInvenswapper.class);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		//SLItemBlock.registerString(this, 0, "Invenswapper (in)", new String[] {"Sneak while on top of it to","put items into it."});
