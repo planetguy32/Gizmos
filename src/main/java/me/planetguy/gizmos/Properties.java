@@ -28,6 +28,8 @@ public class Properties {
 
 	public static int telekinesisRange=10;
 
+	public static String[] whitelist;
+
 	public static boolean noStackingHiddenItems;
 	
 	public static void update() {

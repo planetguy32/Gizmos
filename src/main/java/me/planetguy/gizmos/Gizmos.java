@@ -89,8 +89,6 @@ public class Gizmos {
 		
 		load(ItemDebugWand.class);
 		
-		load(BlockLightRay.class);
-		
 		load(ItemFlashlight.class);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);

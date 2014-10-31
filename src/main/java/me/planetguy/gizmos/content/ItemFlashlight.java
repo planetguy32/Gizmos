@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.HashMap;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -42,26 +43,35 @@ public class ItemFlashlight extends ItemBase{
 
 	public ItemFlashlight() {
 		super("flashlight");
+		BlockBase.load(BlockLightRay.class, new HashMap<String, IPrefabItem>());
 	}
 
 
 	public void onUpdate(ItemStack stk, World w, Entity e, int p_77663_4_, boolean p_77663_5_){
-		if(e instanceof EntityLivingBase&&w instanceof WorldServer){ //run only on server side - fix non-ticking light beams?
+		if(e instanceof EntityLivingBase && active(stk)){ //only EntityLivingBases have look directions, check if itemstack should be active
 			if(e instanceof EntityPlayer && (((EntityLivingBase) e).getHeldItem() == null || ((EntityLivingBase) e).getHeldItem().getItem() != this))
 				return; //if player is not holding this
 			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, 20);
 			if(pos==null)return;
 			ForgeDirection dir=ForgeDirection.getOrientation(pos.sideHit);
-			if(w.isAirBlock(pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ)){
-				w.setBlock(pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ, block, 1, 0x02);
-				w.scheduleBlockUpdate(pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ, block, block.tickRate(w));
-			}
+			placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
 		}
 	}
 
-	/* ================================================
-	 * Server-side ray-tracing code - from EntityPlayer
-	 * ================================================
+	public void placeLightBlock(World w, int x, int y, int z){
+		if(w.isAirBlock(x,y,z)){
+			w.setBlock(x,y,z,block,1,0x02); //set to light ray with meta 1
+			w.scheduleBlockUpdate(x,y,z,block, block.tickRate(w));
+		}
+	}
+	
+	public boolean active(ItemStack stk){
+		return true;
+	}
+
+	/* =============================================================================
+	 * Ray-tracing code based on EntityPlayer - included here so available on server
+	 * =============================================================================
 	 */
 
 	public Vec3 getPosition(Entity p)
@@ -76,16 +86,22 @@ public class ItemFlashlight extends ItemBase{
 		Vec3 adjustedLook = position.addVector(look.xCoord * distance, look.yCoord * distance, look.zCoord * distance);
 		return p.worldObj.func_147447_a(position, adjustedLook, false, false, true);
 	}
+	
+	/*
+	 * The actual light ray block. Works much like air.
+	 * To avoid blinking, place it with metadata 1 - it sets its meta to 0 automatically if not refreshed, and if it updates while its meta is 0 it disappears.
+	 */
 
 	public static class BlockLightRay extends BlockBase{
 
 		public BlockLightRay(){
+			//can't use Material.air - MC drops your scheduled ticks
 			super(new Material(Material.air.getMaterialMapColor()), "lightRay");
 			this.setLightLevel(1.0f);
 			this.setTickRandomly(true);
-			block=this;
 		}
 
+		//pretty fast - faster can be hard on performance, slower can lead to light sticking around after you turn away
 		public int tickRate(World w){
 			return 2;
 		}
@@ -99,6 +115,7 @@ public class ItemFlashlight extends ItemBase{
 			}
 		}
 
+		//request callback when placed
 		public void onBlockAdded(World w, int x, int y, int z){
 			w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
 		}
@@ -119,7 +136,7 @@ public class ItemFlashlight extends ItemBase{
 		}
 
 		//no drops
-		public void dropBlockAsItemWithChance(World p_149690_1_, int p_149690_2_, int p_149690_3_, int p_149690_4_, int p_149690_5_, float p_149690_6_, int p_149690_7_) {}
+		public void dropBlockAsItemWithChance(World w, int x, int y, int z, int idk, float what, int thisis) {}
 
 		//no collisions
 		public boolean canCollideCheck(int p_149678_1_, boolean p_149678_2_){

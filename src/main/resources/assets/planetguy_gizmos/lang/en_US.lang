@@ -1,4 +1,4 @@
-itemGroup.gizmosTab=Gizmos
+﻿itemGroup.gizmosTab=Gizmos
 
 
 tile.accelerator.name=Accelerator
@@ -67,3 +67,7 @@ item.redstoneActivator.tooltip.2=Inspired by similar item by Emasher.
 item.temporalDislocator.name=§5Temporal Dislocator
 item.temporalDislocator.tooltip.1=Dislocates blocks' future state
 item.temporalDislocator.tooltip.2=into the present.
+
+item.flashlight.name=Glowstone Flashlight
+item.flashlight.tooltip.1=Casts a beam of
+item.flashlight.tooltip.2=light while held.
