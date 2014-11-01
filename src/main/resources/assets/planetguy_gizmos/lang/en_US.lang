@@ -69,8 +69,8 @@ item.temporalDislocator.tooltip.1=Dislocates blocks' future state
 item.temporalDislocator.tooltip.2=into the present.
 
 item.flashlightGlowstone.name=Glowstone Flashlight
-item.flashlightGlowstone.tooltip.1=Casts a beam of light. R-click to
-item.flashlightGlowstone.tooltip.2=toggle. Craft w. glowstone to recharge.
+item.flashlightGlowstone.tooltip.1=Casts a beam of light. R-click to toggle.
+item.flashlightGlowstone.tooltip.2=Craft with glowstone dust to recharge.
 
 item.flashlightRF.name=Redstone Flux Flashlight
 item.flashlightRF.tooltip.1=Casts a beam of light. R-click to
