@@ -11,10 +11,11 @@ import me.planetguy.gizmos.content.BlockTimeBomb;
 import me.planetguy.gizmos.content.ItemBombDefuser;
 import me.planetguy.gizmos.content.ItemDebugWand;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
-import me.planetguy.gizmos.content.ItemFlashlight;
-import me.planetguy.gizmos.content.ItemFlashlight.BlockLightRay;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightGlowstone;
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightRF;
 import me.planetguy.gizmos.content.gravitybomb.BlockGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityTunnelBomb;
@@ -47,9 +48,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class Gizmos {
 
 	@Instance(Properties.modID)
-	public static Object instance;
+	public static Gizmos instance;
 	
-	HashMap<String, IPrefabItem> content=new HashMap<String, IPrefabItem>();
+	public static HashMap<String, IPrefabItem> content=new HashMap<String, IPrefabItem>();
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent pie){
@@ -89,7 +90,8 @@ public class Gizmos {
 		
 		load(ItemDebugWand.class);
 		
-		load(ItemFlashlight.class);
+		load(ItemFlashlightGlowstone.class);
+		load(ItemFlashlightRF.class);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);

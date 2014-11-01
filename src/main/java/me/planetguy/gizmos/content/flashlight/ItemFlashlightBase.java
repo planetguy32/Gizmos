@@ -1,11 +1,10 @@
-package me.planetguy.gizmos.content;
+package me.planetguy.gizmos.content.flashlight;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.HashMap;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -16,17 +15,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -38,18 +34,28 @@ import me.planetguy.lib.prefab.IPrefabItem;
 import me.planetguy.lib.util.BlockRecord;
 import me.planetguy.lib.util.Debug;
 
-public class ItemFlashlight extends ItemBase{
+public abstract class ItemFlashlightBase extends ItemBase{
 
+	public static final int updateFlags=0x03;
+	
 	public static Block block;
 
-	public ItemFlashlight() {
-		super("flashlight");
-		block=(Block) BlockBase.load(BlockLightRay.class, new HashMap<String, IPrefabItem>());
+	public static final int maxDamage=1000;
+
+	public ItemFlashlightBase(String type) {
+		super("flashlight"+type);
+		if(block==null)
+			block=(Block) BlockBase.load(BlockLightRay.class, new HashMap<String, IPrefabItem>());
+		this.setMaxStackSize(1);
+		this.setMaxDamage(maxDamage);
 	}
 
 
 	public void onUpdate(ItemStack stk, World w, Entity e, int p_77663_4_, boolean p_77663_5_){
-		if(e instanceof EntityLivingBase && active(stk)){ //only EntityLivingBases have look directions, check if itemstack should be active
+		if(e instanceof EntityLivingBase  //only EntityLivingBases have look directions - cannot otherwise aim light beam
+				&& active(stk, (EntityLivingBase) e) //cast is checked
+				&& w instanceof WorldServer){ //do not run placement code on client - cleanup code is server-side-only
+			
 			if(e instanceof EntityPlayer && (((EntityLivingBase) e).getHeldItem() == null || ((EntityLivingBase) e).getHeldItem().getItem() != this))
 				return; //if player is not holding this
 			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, 20);
@@ -61,14 +67,52 @@ public class ItemFlashlight extends ItemBase{
 
 	public void placeLightBlock(World w, int x, int y, int z){
 		if(w.isAirBlock(x,y,z)){
-			w.setBlock(x,y,z,block,1,0x02); //set to light ray with meta 1
+			w.setBlock(x,y,z,block,1,updateFlags); //set to light ray with meta 1
 			w.scheduleBlockUpdate(x,y,z,block, block.tickRate(w));
 		}
 	}
 	
-	public boolean active(ItemStack stk){
-		return true;
+	public boolean active(ItemStack stk, EntityLivingBase e) {
+		if(stk.hasTagCompound()&&stk.getItemDamage() < this.getMaxDamage()){
+			NBTTagCompound tag=stk.getTagCompound();
+			if(tag.hasKey("active")){
+				if(tag.getBoolean("active")){
+					use(stk, e);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
+	
+	public ItemStack onItemRightClick(ItemStack stk, World w, EntityPlayer p){
+		if(stk.hasTagCompound()){
+			NBTTagCompound tag=stk.getTagCompound();
+			if(tag.hasKey("active")){
+				if(tag.getBoolean("active")){
+					tag.setBoolean("active", false);
+				}else{
+					tag.setBoolean("active", true);
+				}
+			}
+			
+		}else{
+			NBTTagCompound tag=new NBTTagCompound();
+			tag.setBoolean("active", true);
+			stk.setTagCompound(tag);
+		}
+		return stk;
+	}
+	
+	public boolean use(ItemStack stk, EntityLivingBase e){
+		if(stk.getItemDamage()<this.getMaxDamage()){
+			stk.damageItem(1, e);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 
 	/* =============================================================================
 	 * Ray-tracing code based on EntityPlayer - included here so available on server
@@ -82,7 +126,7 @@ public class ItemFlashlight extends ItemBase{
 
 	public MovingObjectPosition rayTrace(EntityLivingBase p, double distance)
 	{
-		Vec3 position = getPosition(p);
+		Vec3 position = getPosition(p).addVector(0, p.getEyeHeight()/2, 0);
 		Vec3 look = p.getLook(1);
 		Vec3 adjustedLook = position.addVector(look.xCoord * distance, look.yCoord * distance, look.zCoord * distance);
 		return p.worldObj.func_147447_a(position, adjustedLook, false, false, true);
@@ -92,72 +136,4 @@ public class ItemFlashlight extends ItemBase{
 	 * The actual light ray block. Works much like air.
 	 * To avoid blinking, place it with metadata 1 - it sets its meta to 0 automatically if not refreshed, and if it updates while its meta is 0 it disappears.
 	 */
-
-	public static class BlockLightRay extends BlockBase{
-
-		public BlockLightRay(){
-			//can't use Material.air - MC drops your scheduled ticks
-			super(
-					new Material(Material.air.getMaterialMapColor()){
-						public boolean getCanBlockGrass(){return false;}
-						public boolean blocksMovement(){return false;}
-					}.setReplaceable()
-					, "lightRay");
-			this.setLightLevel(1.0f);
-			this.setTickRandomly(true);
-		}
-
-		//pretty fast - faster can be hard on performance, slower can lead to light sticking around after you turn away
-		public int tickRate(World w){
-			return 2;
-		}
-
-		public void updateTick(World w, int x, int y, int z, Random rand){
-			if(w.getBlockMetadata(x,y,z)!=0){
-				w.setBlockMetadataWithNotify(x, y, z, 0, 0x02);
-				w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
-			}else{
-				w.setBlock(x, y, z, Blocks.air, 0, 0x03);
-			}
-		}
-
-		//request callback when placed
-		public void onBlockAdded(World w, int x, int y, int z){
-			w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
-		}
-
-		//same as air
-		public int getRenderType(){
-			return -1;
-		}
-
-		//not opaque cube
-		public boolean isOpaqueCube(){
-			return false;
-		}
-
-		//no AABB
-		public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z){
-			return null;
-		}
-
-		//no drops
-		public void dropBlockAsItemWithChance(World w, int x, int y, int z, int idk, float what, int thisis) {}
-
-		//no collisions
-		public boolean canCollideCheck(int p_149678_1_, boolean p_149678_2_){
-			return false;
-		}
-
-		//update on neighbour change
-		public void onNeighborBlockChange(World w, int x, int y, int z, Block b){
-			w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
-		}
-
-		//is air
-		public boolean isAir(IBlockAccess world, int x, int y, int z){
-			return false;
-		}
-
-	}
 }

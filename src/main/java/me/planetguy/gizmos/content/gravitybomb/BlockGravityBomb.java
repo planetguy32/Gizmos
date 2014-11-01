@@ -81,7 +81,7 @@ public class BlockGravityBomb extends BlockBase{
 		par1World.scheduleBlockUpdate(x, par3, par4, this, tickRate());
 	}
 
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5) {
+	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, Block par5) {
 		par1World.scheduleBlockUpdate(par2, par3, par4, this, tickRate());
 	}
 

@@ -1,5 +1,6 @@
 package me.planetguy.gizmos;
 
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
 import net.minecraftforge.common.config.Configuration;
 
 public class Properties {
@@ -31,12 +32,16 @@ public class Properties {
 	public static String[] whitelist;
 
 	public static boolean noStackingHiddenItems;
+
+	public static int flashlightRechargePerGlowstone=25;
+
+	public static int rfPerFlashlightRecharge=1000;
 	
 	public static void update() {
 		enableMinecartTweaks=configFile.getBoolean("enablePullingOnFurnaceCart", Configuration.CATEGORY_GENERAL, enableMinecartTweaks, "Should sneaking while right-clicking a minecart start it moving towards you?");
 		enableSpecialPortals=configFile.getBoolean("enableSpecialPortals", Configuration.CATEGORY_GENERAL, enableSpecialPortals, "Should free-form portals be allowed? (Note: Slightly buggy)");
 		maxPortalSize=configFile.getInt("maxPortalSize", Configuration.CATEGORY_GENERAL, maxPortalSize, 0, Integer.MAX_VALUE, "Maximum size of freeform portals");
-		
+		flashlightRechargePerGlowstone=configFile.getInt("flashlightRechargePerGlowstone", Configuration.CATEGORY_GENERAL, flashlightRechargePerGlowstone, 0, ItemFlashlightBase.maxDamage, "How much use should glowstone repair on a flashlight?");
 		if(configFile.hasChanged()){
 			configFile.save();
 		}
