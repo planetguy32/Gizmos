@@ -68,6 +68,10 @@ item.temporalDislocator.name=§5时间转位器
 item.temporalDislocator.tooltip.1=将方块的未来状态
 item.temporalDislocator.tooltip.2=转至当前时间.
 
-item.flashlight.name=萤石手电筒
-item.flashlight.tooltip.1=手持它就能投射
-item.flashlight.tooltip.2=出一束光线.
+item.flashlightGlowstone.name=萤石手电筒
+item.flashlightGlowstone.tooltip.1=发出一道光.右击开关
+item.flashlightGlowstone.tooltip.2=与萤石合成来充能.
+
+item.flashlightRF.name=RF手电筒
+item.flashlightRF.tooltip.1=发出一道光.右击
+item.flashlightRF.tooltip.2=开关.可用RF充能.
