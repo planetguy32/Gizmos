@@ -44,7 +44,7 @@ public class ItemFlashlight extends ItemBase{
 
 	public ItemFlashlight() {
 		super("flashlight");
-		BlockBase.load(BlockLightRay.class, new HashMap<String, IPrefabItem>());
+		block=(Block) BlockBase.load(BlockLightRay.class, new HashMap<String, IPrefabItem>());
 	}
 
 
@@ -97,7 +97,12 @@ public class ItemFlashlight extends ItemBase{
 
 		public BlockLightRay(){
 			//can't use Material.air - MC drops your scheduled ticks
-			super(new Material(Material.air.getMaterialMapColor()), "lightRay");
+			super(
+					new Material(Material.air.getMaterialMapColor()){
+						public boolean getCanBlockGrass(){return false;}
+						public boolean blocksMovement(){return false;}
+					}.setReplaceable()
+					, "lightRay");
 			this.setLightLevel(1.0f);
 			this.setTickRandomly(true);
 		}
@@ -112,7 +117,7 @@ public class ItemFlashlight extends ItemBase{
 				w.setBlockMetadataWithNotify(x, y, z, 0, 0x02);
 				w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
 			}else{
-				w.setBlockToAir(x, y, z);
+				w.setBlock(x, y, z, Blocks.air, 0, 0x03);
 			}
 		}
 
@@ -151,7 +156,7 @@ public class ItemFlashlight extends ItemBase{
 
 		//is air
 		public boolean isAir(IBlockAccess world, int x, int y, int z){
-			return true;
+			return false;
 		}
 
 	}
