@@ -9,11 +9,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-@Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHCore")
 public class ItemFlashlightRF extends ItemFlashlightBase implements IEnergyContainerItem{
 	
 	public ItemFlashlightRF(){
 		super("RF");
+		this.setMaxDamage(this.getMaxDamage()*2);
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package me.planetguy.gizmos.content;
 
 import java.lang.reflect.Field;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -19,17 +20,7 @@ public class ItemDebugWand extends ItemBase{
 	
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World w, int x, int y, int z, int par7, float par8, float par9, float par10){
 		TileEntity te=w.getTileEntity(x, y, z);
-		Debug.dbg(w.getTileEntity(x,y,z));
-		if(te!=null)
-			for(Field f:te.getClass().getDeclaredFields()){
-				try {
-					Debug.dbg("   "+f.getName()+"     "+f.get(te));
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
-			}
+		Debug.details(te);
 		return true;
 	}
 	

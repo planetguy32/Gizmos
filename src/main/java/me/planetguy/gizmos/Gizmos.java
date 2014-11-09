@@ -24,6 +24,7 @@ import me.planetguy.gizmos.content.inserter.ItemBuildTool;
 import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
+import me.planetguy.lib.PLHelper;
 import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.BlockContainerBase;
 import me.planetguy.lib.prefab.CreativeTabPrefab;
@@ -50,6 +51,8 @@ public class Gizmos {
 	@Instance(Properties.modID)
 	public static Gizmos instance;
 	
+	public static PLHelper helper=new PLHelper(Properties.modID);
+	
 	public static HashMap<String, IPrefabItem> content=new HashMap<String, IPrefabItem>();
 	
 	@EventHandler
@@ -61,37 +64,37 @@ public class Gizmos {
 		
 		Prefabs.initialize(Properties.modID);
 		
-		load(ItemLuncher.class);
+		helper.load(ItemLuncher.class, content);
 		
-		load(BlockAccelerator.class);
+		helper.load(BlockAccelerator.class, content);
 		
-		load(BlockLauncher.class);
+		helper.load(BlockLauncher.class, content);
 		
-		load(BlockDynamicWool.class);
+		helper.load(BlockDynamicWool.class, content);
 		
-		load(BlockTimeBomb.class);
+		helper.load(BlockTimeBomb.class, content);
 		
-		load(ItemRedstoneActivator.class);
+		helper.load(ItemRedstoneActivator.class, content);
 		
-		load(ItemFireExtinguisher.class);
+		helper.load(ItemFireExtinguisher.class, content);
 		
-		load(BlockGravityBomb.class);
+		helper.load(BlockGravityBomb.class, content);
 		
-		load(BlockInserter.class);
+		helper.load(BlockInserter.class, content);
 		
-		load(BlockTelekinesisCatalyst.class);
-		load(BlockInvenswapperBase.class);
+		helper.load(BlockTelekinesisCatalyst.class, content);
+		helper.load(BlockInvenswapperBase.class, content);
 		
-		load(ItemBuildTool.class);
-		load(ItemTemporalDislocator.class);
-		load(ItemBombDefuser.class);
+		helper.load(ItemBuildTool.class, content);
+		helper.load(ItemTemporalDislocator.class, content);
+		helper.load(ItemBombDefuser.class, content);
 		
-		load(BlockLogger.class);
+		helper.load(BlockLogger.class, content);
 		
-		load(ItemDebugWand.class);
+		helper.load(ItemDebugWand.class, content);
 		
-		load(ItemFlashlightGlowstone.class);
-		load(ItemFlashlightRF.class);
+		helper.load(ItemFlashlightGlowstone.class, content);
+		helper.load(ItemFlashlightRF.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
@@ -112,21 +115,5 @@ public class Gizmos {
 			item.loadCrafting();
 		}
 	}
-	
-	public void load(Class c){
-		if(ItemBase.class.isAssignableFrom(c)){
-			ItemBase.load(c, content);
-		}else if(BlockBase.class.isAssignableFrom(c)){
-			BlockBase.load(c, content);
-		}else if(BlockContainerBase.class.isAssignableFrom(c)){
-			BlockContainerBase.load(c, content);
-		}else{
-			throw new RuntimeException("Failed to load "+c+": Not a legal class type!");
-		}
-	}
-	
-	
-	
-	
 	
 }
