@@ -74,7 +74,7 @@ item.flashlightGlowstone.tooltip.2=Craft with glowstone dust to recharge.
 
 item.flashlightRF.name=Redstone Flux Flashlight
 item.flashlightRF.tooltip.1=Casts a beam of light. R-click to
-item.flashlightRF.tooltip.2=toggle. Power with RF to recharge.
+item.flashlightRF.tooltip.2=toggle. Power with RF to recharge!
 
 item.flashlightHeadlampRF.name=Redstone Flux Headlamp
 item.flashlightHeadlampRF.tooltip.1=Now in hands-free form. R-click to toggle,

@@ -56,7 +56,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 				&& active(stk, (EntityLivingBase) e) //cast is checked
 				&& w instanceof WorldServer){ //do not run placement code on client - cleanup code is server-side-only
 			
-			if(e instanceof EntityPlayer && (((EntityLivingBase) e).getHeldItem() == null || ((EntityLivingBase) e).getHeldItem().getItem() != this))
+			if(isNotActuallyUsing(e))
 				return; //if player is not holding this
 			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, 20);
 			if(pos==null)return;
@@ -86,6 +86,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 	}
 	
 	public ItemStack onItemRightClick(ItemStack stk, World w, EntityPlayer p){
+		Gizmos.helper.playSound(w, p.posX, p.posY, p.posZ, "switch", 1.0f, 1.0f);
 		if(stk.hasTagCompound()){
 			NBTTagCompound tag=stk.getTagCompound();
 			if(tag.hasKey("active")){
@@ -111,6 +112,14 @@ public abstract class ItemFlashlightBase extends ItemBase{
 		}else{
 			return false;
 		}
+	}
+	
+	public boolean isNotActuallyUsing(Entity e){
+		return (
+				e instanceof EntityPlayer 
+				&& (((EntityLivingBase) e).getHeldItem() == null 
+					|| ((EntityLivingBase) e).getHeldItem().getItem() != this)
+				);
 	}
 	
 

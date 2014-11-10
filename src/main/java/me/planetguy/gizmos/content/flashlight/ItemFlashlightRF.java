@@ -16,6 +16,10 @@ public class ItemFlashlightRF extends ItemFlashlightBase implements IEnergyConta
 		this.setMaxDamage(this.getMaxDamage()*2);
 	}
 	
+	public ItemFlashlightRF(String s){
+		super(s);
+	}
+	
 	@Override
 	public int receiveEnergy(ItemStack container, int maxReceive,
 			boolean simulate) {

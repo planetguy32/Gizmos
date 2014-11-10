@@ -16,6 +16,8 @@ import me.planetguy.gizmos.content.ItemTemporalDislocator;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightGlowstone;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightRF;
+import me.planetguy.gizmos.content.flashlight.ItemHeadlampGlowstone;
+import me.planetguy.gizmos.content.flashlight.ItemHeadlampRF;
 import me.planetguy.gizmos.content.gravitybomb.BlockGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityTunnelBomb;
@@ -95,6 +97,10 @@ public class Gizmos {
 		
 		helper.load(ItemFlashlightGlowstone.class, content);
 		helper.load(ItemFlashlightRF.class, content);
+		
+		helper.load(ItemHeadlampRF.class, content);
+		
+		helper.load(ItemHeadlampGlowstone.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
