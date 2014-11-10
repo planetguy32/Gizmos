@@ -75,3 +75,11 @@ item.flashlightGlowstone.tooltip.2=与萤石合成来充能.
 item.flashlightRF.name=RF手电筒
 item.flashlightRF.tooltip.1=发出一道光.右击
 item.flashlightRF.tooltip.2=开关.可用RF充能.
+
+item.flashlightHeadlampRF.name=RF头灯
+item.flashlightHeadlampRF.tooltip.1=从此解放你的双手.右击开关
+item.flashlightHeadlampRF.tooltip.2=将它戴在头上,使用RF充能.
+
+item.flashlightHeadlampGlowstone.name=RF头灯
+item.flashlightHeadlampGlowstone.tooltip.1=从此解放你的双手.右击开关
+item.flashlightHeadlampGlowstone.tooltip.2=将它戴在头上,使用RF充能.
