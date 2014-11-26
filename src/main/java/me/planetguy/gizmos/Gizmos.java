@@ -13,6 +13,8 @@ import me.planetguy.gizmos.content.ItemDebugWand;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
+import me.planetguy.gizmos.content.admin.ItemCreativeEnderPearl;
+import me.planetguy.gizmos.content.admin.ItemStickOfWhacking;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightGlowstone;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightRF;
@@ -53,12 +55,15 @@ public class Gizmos {
 	@Instance(Properties.modID)
 	public static Gizmos instance;
 	
-	public static PLHelper helper=new PLHelper(Properties.modID);
+	public static PLHelper helper;
 	
 	public static HashMap<String, IPrefabItem> content=new HashMap<String, IPrefabItem>();
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent pie){
+		
+		helper=new PLHelper(Properties.modID);
+		
 		Properties.configFile=new Configuration(pie.getSuggestedConfigurationFile());
 		Properties.update();
 		
@@ -101,6 +106,9 @@ public class Gizmos {
 		helper.load(ItemHeadlampRF.class, content);
 		
 		helper.load(ItemHeadlampGlowstone.class, content);
+		
+		helper.load(ItemStickOfWhacking.class, content);
+		helper.load(ItemCreativeEnderPearl.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);

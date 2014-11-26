@@ -45,7 +45,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 	public ItemFlashlightBase(String type) {
 		super("flashlight"+type);
 		if(block==null)
-			block=(Block) BlockBase.load(BlockLightRay.class, new HashMap<String, IPrefabItem>());
+			block=(Block) Gizmos.helper.loadBlock(BlockLightRay.class, new HashMap<String, IPrefabItem>());
 		this.setMaxStackSize(1);
 		this.setMaxDamage(maxDamage);
 	}
