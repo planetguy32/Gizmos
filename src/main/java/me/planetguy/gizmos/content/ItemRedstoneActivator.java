@@ -4,7 +4,9 @@ import java.util.Random;
 
 import me.planetguy.lib.util.Debug;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCompressedPowered;
 import net.minecraft.block.BlockRedstoneOre;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +31,7 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 	public boolean doEffect(int x, int y, int z, World w,
 			ItemStack me, EntityPlayer thePlayer) {
 		w.setBlock(x,y,z, rsWand);
+		w.notifyBlockChange(x, y, z, rsWand);
 		w.scheduleBlockUpdate(x, y, z, rsWand, 20);
 		return false;
 	}
@@ -51,10 +54,10 @@ public class ItemRedstoneActivator extends ItemInteractDevice{
 			Character.valueOf('s'),new ItemStack(Items.stick),});
 	}
 	
-	public class BlockRedstoneWand extends Block{
+	public class BlockRedstoneWand extends BlockCompressedPowered{
 
 		public BlockRedstoneWand() {
-			super(Material.circuits);
+			super(MapColor.redColor);
 			this.setTickRandomly(true);
 		}
 		

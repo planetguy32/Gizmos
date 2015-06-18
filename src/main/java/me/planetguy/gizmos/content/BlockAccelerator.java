@@ -1,6 +1,7 @@
 package me.planetguy.gizmos.content;
 
 import me.planetguy.lib.prefab.BlockBase;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 public class BlockAccelerator extends BlockBase{

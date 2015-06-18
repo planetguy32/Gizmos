@@ -5,13 +5,20 @@ import net.minecraftforge.common.config.Configuration;
 
 public class Properties {
 	
-	
 	/*
 	 * Compile-time properties...
 	 */
 	public static final String modID= "planetguy_Gizmos";
 	
-	public static final String version="3.2";
+	public static final String version="3.3";
+	
+	/*
+	 * Class-name properties, for annotations that require strings.
+	 */
+	
+	public static final String clientProxy="me.planetguy.gizmos.ClientProxy";
+
+	public static final String commonProxy="me.planetguy.gizmos.CommonProxy";
 	
 	/*
 	 * Run-time properties

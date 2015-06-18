@@ -67,7 +67,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 
 	public void placeLightBlock(World w, int x, int y, int z){
 		if(w.isAirBlock(x,y,z)){
-			w.setBlock(x,y,z,block,1,updateFlags); //set to light ray with meta 1
+			w.setBlock(x,y,z,block,BlockLightRay.LIFESPAN,updateFlags); //set to light ray with meta 1
 			w.scheduleBlockUpdate(x,y,z,block, block.tickRate(w));
 		}
 	}

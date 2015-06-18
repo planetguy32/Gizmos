@@ -5,6 +5,7 @@ import java.util.Random;
 import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -12,8 +13,11 @@ import net.minecraft.world.World;
 
 public class BlockLightRay extends BlockBase{
 
+	//Must be 0-15, since it's used as metadata
+	public static final byte LIFESPAN=3;
+	
 	public BlockLightRay(){
-		//can't use Material.air - MC drops your scheduled ticks
+		//can't use Material.air - MC drops your scheduled ticks (!!)
 		super(
 				new MaterialLightRay(Material.air.getMaterialMapColor())
 				, "lightRay");
@@ -27,8 +31,9 @@ public class BlockLightRay extends BlockBase{
 	}
 
 	public void updateTick(World w, int x, int y, int z, Random rand){
-		if(w.getBlockMetadata(x,y,z)!=0){
-			w.setBlockMetadataWithNotify(x, y, z, 0, ItemFlashlightBase.updateFlags);
+		int meta=w.getBlockMetadata(x,y,z);
+		if(meta>0){
+			w.setBlockMetadataWithNotify(x, y, z, meta-1, ItemFlashlightBase.updateFlags);
 		}else{
 			w.setBlock(x, y, z, Blocks.air, 0, 0x03);
 		}
@@ -72,5 +77,7 @@ public class BlockLightRay extends BlockBase{
 	public boolean isAir(IBlockAccess world, int x, int y, int z){
 		return false;
 	}
+	
+	public void registerIcons(IIconRegister ir) {}
 
 }

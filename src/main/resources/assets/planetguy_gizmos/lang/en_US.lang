@@ -83,3 +83,15 @@ item.flashlightHeadlampRF.tooltip.2=wear on your head. Power with RF to recharge
 item.flashlightHeadlampGlowstone.name=Redstone Flux Headlamp
 item.flashlightHeadlampGlowstone.tooltip.1=Now in hands-free form. R-click to toggle,
 item.flashlightHeadlampGlowstone.tooltip.2=wear on your head. Craft with glowstone to charge.
+
+item.debugWand.name=Field Debug Wand
+item.nbtDebugWand.tooltip.1=Peeks into all fields of the target block
+item.nbtDebugWand.tooltip.2=and logs their values to the console.
+
+item.nbtDebugWand.name=NBT Debug Wand
+item.nbtDebugWand.tooltip.1=Asks the target block to save its state,
+item.nbtDebugWand.tooltip.2=and logs that NBT tag to the console.
+
+item.reloadDebugWand.name=Loading Debug Wand
+item.reloadDebugWand.tooltip.1=Saves and loads the target tile entity, and
+item.reloadDebugWand.tooltip.2=logs the values of its fields to the console.

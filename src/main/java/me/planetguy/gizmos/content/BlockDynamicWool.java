@@ -9,6 +9,7 @@ import java.util.Random;
 import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -50,6 +51,8 @@ public class BlockDynamicWool extends BlockBase{
 		//notifyNeighbors(w,x,y,z);
 		w.scheduleBlockUpdate(x, y, z, this, 1);
 	}
+	
+	public void registerIcons(IIconRegister ir) {}
 
 	@Override
 	public IIcon getIcon(int side, int meta){
