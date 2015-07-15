@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class BlockLightRay extends BlockBase{
 
 	//Must be 0-15, since it's used as metadata
-	public static final byte LIFESPAN=10;
+	public static final byte LIFESPAN=1;
 	
 	public BlockLightRay(){
 		//can't use Material.air - MC drops your scheduled ticks (!!)
@@ -27,7 +27,7 @@ public class BlockLightRay extends BlockBase{
 
 	//pretty fast - faster can be hard on performance, slower can lead to light sticking around after you turn away
 	public int tickRate(World w){
-		return 3;
+		return 4;
 	}
 
 	public void updateTick(World w, int x, int y, int z, Random rand){
@@ -75,7 +75,7 @@ public class BlockLightRay extends BlockBase{
 
 	//is air
 	public boolean isAir(IBlockAccess world, int x, int y, int z){
-		return false;
+		return true;
 	}
 	
 	public void registerIcons(IIconRegister ir) {}
