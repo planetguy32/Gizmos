@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class BlockLightRay extends BlockBase{
 
 	//Must be 0-15, since it's used as metadata
-	public static final byte LIFESPAN=3;
+	public static final byte LIFESPAN=10;
 	
 	public BlockLightRay(){
 		//can't use Material.air - MC drops your scheduled ticks (!!)
@@ -79,5 +79,12 @@ public class BlockLightRay extends BlockBase{
 	}
 	
 	public void registerIcons(IIconRegister ir) {}
+
+	public static void placeLightBlock(World w, int x, int y, int z){
+		if(w.isAirBlock(x,y,z)){
+			w.setBlock(x,y,z,ItemFlashlightBase.block,LIFESPAN,ItemFlashlightBase.updateFlags); //set to light ray with meta 1
+			w.scheduleBlockUpdate(x,y,z,ItemFlashlightBase.block, ItemFlashlightBase.block.tickRate(w));
+		}
+	}
 
 }

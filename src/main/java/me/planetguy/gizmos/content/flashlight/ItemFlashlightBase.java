@@ -61,17 +61,10 @@ public abstract class ItemFlashlightBase extends ItemBase{
 			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, 20);
 			if(pos==null)return;
 			ForgeDirection dir=ForgeDirection.getOrientation(pos.sideHit);
-			placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
+			BlockLightRay.placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
 		}
 	}
 
-	public void placeLightBlock(World w, int x, int y, int z){
-		if(w.isAirBlock(x,y,z)){
-			w.setBlock(x,y,z,block,BlockLightRay.LIFESPAN,updateFlags); //set to light ray with meta 1
-			w.scheduleBlockUpdate(x,y,z,block, block.tickRate(w));
-		}
-	}
-	
 	public boolean active(ItemStack stk, EntityLivingBase e) {
 		if(stk.hasTagCompound()&&stk.getItemDamage() < this.getMaxDamage()){
 			NBTTagCompound tag=stk.getTagCompound();
