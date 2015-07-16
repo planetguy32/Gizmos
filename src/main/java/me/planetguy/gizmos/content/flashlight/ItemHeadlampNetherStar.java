@@ -14,7 +14,6 @@ public class ItemHeadlampNetherStar extends ItemFlashlightNetherStar{
 	
 	public ItemHeadlampNetherStar(){
 		super("HeadlampNether");
-		this.setMaxDamage(this.getMaxDamage()/2);
 	}
 	
 	//runs from head slot

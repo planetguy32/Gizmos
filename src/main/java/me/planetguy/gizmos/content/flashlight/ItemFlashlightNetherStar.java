@@ -35,5 +35,9 @@ public class ItemFlashlightNetherStar extends ItemFlashlightBase {
 			Character.valueOf('l'), new ItemStack(Blocks.glass)
 		});
 	}
+	
+	public double getRaycastRange(){
+		return 40d;
+	}
 
 }

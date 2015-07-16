@@ -58,7 +58,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 			
 			if(isNotActuallyUsing(e))
 				return; //if player is not holding this
-			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, 20);
+			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, getRaycastRange());
 			if(pos==null)return;
 			ForgeDirection dir=ForgeDirection.getOrientation(pos.sideHit);
 			BlockLightRay.placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
@@ -138,8 +138,8 @@ public abstract class ItemFlashlightBase extends ItemBase{
 		return p.worldObj.func_147447_a(position, adjustedLook, false, false, true);
 	}
 	
-	/*
-	 * The actual light ray block. Works much like air.
-	 * To avoid blinking, place it with metadata 1 - it sets its meta to 0 automatically if not refreshed, and if it updates while its meta is 0 it disappears.
-	 */
+	public double getRaycastRange(){
+		return 20d;
+	}
+	
 }
