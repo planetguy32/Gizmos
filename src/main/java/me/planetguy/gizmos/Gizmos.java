@@ -9,18 +9,20 @@ import me.planetguy.gizmos.content.BlockLauncher;
 import me.planetguy.gizmos.content.BlockLogger;
 import me.planetguy.gizmos.content.BlockTimeBomb;
 import me.planetguy.gizmos.content.ItemBombDefuser;
-import me.planetguy.gizmos.content.ItemDebugWandFieldwise;
-import me.planetguy.gizmos.content.ItemDebugWandNBT;
-import me.planetguy.gizmos.content.ItemDebugWandReloading;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
 import me.planetguy.gizmos.content.admin.ItemCreativeEnderPearl;
 import me.planetguy.gizmos.content.admin.ItemStickOfWhacking;
+import me.planetguy.gizmos.content.devtools.ItemDebugWandFieldwise;
+import me.planetguy.gizmos.content.devtools.ItemDebugWandNBT;
+import me.planetguy.gizmos.content.devtools.ItemDebugWandReloading;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightGlowstone;
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightNetherStar;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightRF;
 import me.planetguy.gizmos.content.flashlight.ItemHeadlampGlowstone;
+import me.planetguy.gizmos.content.flashlight.ItemHeadlampNetherStar;
 import me.planetguy.gizmos.content.flashlight.ItemHeadlampRF;
 import me.planetguy.gizmos.content.gravitybomb.BlockGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityGravityBomb;
@@ -112,10 +114,11 @@ public class Gizmos {
 		
 		helper.load(ItemFlashlightGlowstone.class, content);
 		helper.load(ItemFlashlightRF.class, content);
+		helper.load(ItemFlashlightNetherStar.class, content);
 		
 		helper.load(ItemHeadlampRF.class, content);
-		
 		helper.load(ItemHeadlampGlowstone.class, content);
+		helper.load(ItemHeadlampNetherStar.class, content);
 		
 		helper.load(ItemStickOfWhacking.class, content);
 		helper.load(ItemCreativeEnderPearl.class, content);

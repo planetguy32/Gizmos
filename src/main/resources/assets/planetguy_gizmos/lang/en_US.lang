@@ -72,6 +72,10 @@ item.flashlightGlowstone.name=Glowstone Flashlight
 item.flashlightGlowstone.tooltip.1=Casts a beam of light. R-click to toggle.
 item.flashlightGlowstone.tooltip.2=Craft with glowstone dust to recharge.
 
+item.flashlightNether.name=Nether Star Flashlight
+item.flashlightNether.tooltip.1=Casts a beam of light. R-click to toggle.
+item.flashlightNether.tooltip.2=No recharging is necessary.
+
 item.flashlightRF.name=Redstone Flux Flashlight
 item.flashlightRF.tooltip.1=Casts a beam of light. R-click to
 item.flashlightRF.tooltip.2=toggle. Power with RF to recharge.
@@ -80,7 +84,11 @@ item.flashlightHeadlampRF.name=Redstone Flux Headlamp
 item.flashlightHeadlampRF.tooltip.1=Now in hands-free form. R-click to toggle,
 item.flashlightHeadlampRF.tooltip.2=wear on your head. Power with RF to recharge.
 
-item.flashlightHeadlampGlowstone.name=Redstone Flux Headlamp
+item.flashlightHeadlampNether.name=Nether Star Headlamp
+item.flashlightHeadlampNether.tooltip.1=Now in hands-free form. R-click to toggle,
+item.flashlightHeadlampNether.tooltip.2=wear on your head. No recharging is necessary.
+
+item.flashlightHeadlampGlowstone.name=Glowstone Headlamp
 item.flashlightHeadlampGlowstone.tooltip.1=Now in hands-free form. R-click to toggle,
 item.flashlightHeadlampGlowstone.tooltip.2=wear on your head. Craft with glowstone to charge.
 
@@ -95,3 +103,12 @@ item.nbtDebugWand.tooltip.2=and logs that NBT tag to the console.
 item.reloadDebugWand.name=Loading Debug Wand
 item.reloadDebugWand.tooltip.1=Saves and loads the target tile entity, and
 item.reloadDebugWand.tooltip.2=logs the values of its fields to the console.
+
+item.stickOfWhacking.name=Stick of Whacking
+item.stickOfWhacking.tooltip.1=Whacks things for tons of damage.
+item.stickOfWhacking.tooltip.2=Creative mode only.
+
+item.creativeEnderPearl.name=Creative Ender Pearl
+item.creativeEnderPearl.tooltip.1=Unbreakable ender pearl,
+item.creativeEnderPearl.tooltip.2=usable on creative.
+

@@ -100,11 +100,15 @@ public abstract class ItemFlashlightBase extends ItemBase{
 	
 	public boolean use(ItemStack stk, EntityLivingBase e){
 		if(stk.getItemDamage()<this.getMaxDamage()){
-			stk.damageItem(1, e);
+			damageItem(stk,e);
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	public void damageItem(ItemStack stk, EntityLivingBase e){
+		stk.damageItem(1, e);
 	}
 	
 	public boolean isNotActuallyUsing(Entity e){

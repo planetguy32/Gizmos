@@ -1,4 +1,4 @@
-package me.planetguy.gizmos.content;
+package me.planetguy.gizmos.content.devtools;
 
 import java.lang.reflect.Field;
 
