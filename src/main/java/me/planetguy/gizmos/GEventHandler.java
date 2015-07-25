@@ -7,11 +7,15 @@ import me.planetguy.lib.util.Debug;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartFurnace;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
 public class GEventHandler {
 	
@@ -44,12 +48,20 @@ public class GEventHandler {
 			Properties.update();
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent pie){
-		ItemStack i=pie.entityPlayer.getCurrentEquippedItem();
-		if(i!=null && i.getItem().equals(Items.flint_and_steel)){
-			PortalHandler.establishPortal(pie.world, pie.x, pie.y, pie.z, pie.face);
+		if(pie.action==Action.RIGHT_CLICK_BLOCK) {
+			ItemStack i=pie.entityPlayer.getCurrentEquippedItem();
+			if(i!=null && i.getItem().equals(Items.flint_and_steel)){
+				PortalHandler.establishPortal(pie.world, pie.x, pie.y, pie.z, pie.face);
+			}
+			if(Properties.enableSimpleSetSpawn 
+					&& pie.world.getBlock(pie.x, pie.y, pie.z).isBed(pie.world, pie.x, pie.y, pie.z, pie.entityPlayer)) {
+				ChunkCoordinates bedPosition=new ChunkCoordinates(pie.x, pie.y, pie.z);
+				pie.entityPlayer.setSpawnChunk(bedPosition, false);
+				pie.entityPlayer.addChatComponentMessage(new ChatComponentText("Spawn reset to "+bedPosition));
+			}
 		}
 	}
 

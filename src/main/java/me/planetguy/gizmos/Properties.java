@@ -44,10 +44,13 @@ public class Properties {
 
 	public static int rfPerFlashlightRecharge=1000;
 	
+	public static boolean enableSimpleSetSpawn=true;
+	
 	public static void update() {
 		enableMinecartTweaks=configFile.getBoolean("enablePullingOnFurnaceCart", Configuration.CATEGORY_GENERAL, enableMinecartTweaks, "Should sneaking while right-clicking a minecart start it moving towards you?");
 		enableSpecialPortals=configFile.getBoolean("enableSpecialPortals", Configuration.CATEGORY_GENERAL, enableSpecialPortals, "Should free-form portals be allowed? (Note: Slightly buggy)");
 		maxPortalSize=configFile.getInt("maxPortalSize", Configuration.CATEGORY_GENERAL, maxPortalSize, 0, Integer.MAX_VALUE, "Maximum size of freeform portals");
+		enableSimpleSetSpawn=configFile.getBoolean("enableSimpleSetSpawn", Configuration.CATEGORY_GENERAL, enableSimpleSetSpawn, "Let players set their spawn point at a bed without sleeping?");
 		flashlightRechargePerGlowstone=configFile.getInt("flashlightRechargePerGlowstone", Configuration.CATEGORY_GENERAL, flashlightRechargePerGlowstone, 0, ItemFlashlightBase.maxDamage, "How much use should glowstone repair on a flashlight?");
 		if(configFile.hasChanged()){
 			configFile.save();
