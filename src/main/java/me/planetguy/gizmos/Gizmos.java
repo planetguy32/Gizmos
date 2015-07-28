@@ -55,7 +55,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version=Properties.version, dependencies="required-after:planetguyLib")
+@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version=Properties.version, dependencies="required-after:planetguyLib@[1.7,)")
 public class Gizmos {
 
 	@Instance(Properties.modID)
