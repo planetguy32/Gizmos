@@ -17,15 +17,11 @@ public class EntityTunnelBomb extends EntityGravityBomb {
 	public void onUpdate() {
 
 		this.prevPosY=posY;
-		this.prevPosY2=prevPosY;
-		this.prevPosY3=prevPosY2;
-		//FMLLog.log(Level.SEVERE, "Tunnel bomb alive!");
 		this.lifeSpan --;
 		if (canFallFrom(this.posX, this.posY, this.posZ,this)) {
 			this.motionY -= 0.03999999910593033D;
 			moveEntity(this.motionX, this.motionY, this.motionZ);
 		} else {
-			//this.motionY=0D;
 			if(this.lifeSpan>0){
 				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 4, true);
 			}else
