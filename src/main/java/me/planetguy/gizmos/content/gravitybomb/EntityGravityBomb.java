@@ -12,7 +12,7 @@ public class EntityGravityBomb extends Entity
 	protected double prevPosY3;
 
 	public static boolean canFallFrom(double x, double y, double z,Entity e) {
-		return e.worldObj.isAirBlock((int)x, (int)y - 1, (int)z);
+		return e.worldObj.isAirBlock((int)(x-0.5), (int)(y - 1), (int)(z-0.5));
 
 	}
 
