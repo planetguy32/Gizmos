@@ -10,7 +10,7 @@ public class Properties {
 	 */
 	public static final String modID= "planetguy_Gizmos";
 	
-	public static final String version="3.4";
+	public static final String version="${version}";
 	
 	/*
 	 * Class-name properties, for annotations that require strings.
