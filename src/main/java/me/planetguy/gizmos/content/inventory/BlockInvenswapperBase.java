@@ -35,8 +35,6 @@ public class BlockInvenswapperBase extends BlockContainerBase{
 		super(Material.iron, "invenswapper",TileEntityInvenswapper.class);
 		setHardness(2.0F);
 		setResistance(5.0F);
-		//SLItemBlock.registerString(this, 0, "Invenswapper (in)", new String[] {"Sneak while on top of it to","put items into it."});
-		//SLItemBlock.registerString(this, 1, "Invenswapper (out)", new String[] {"Sneak while on top of it to","take all the items inside it."});
 		GameRegistry.registerTileEntity(TileEntityInvenswapper.class, "Gizmos.invenswapper");
 		GameRegistry.registerBlock(swapperTop, "invenswapperTop");
 	}

@@ -31,6 +31,7 @@ import me.planetguy.gizmos.content.hologram.BlockHologramProjector;
 import me.planetguy.gizmos.content.inserter.BlockInserter;
 import me.planetguy.gizmos.content.inserter.ItemBuildTool;
 import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
+import me.planetguy.gizmos.content.inventory.BlockInventoryMultiplexer;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
 import me.planetguy.lib.PLHelper;
@@ -111,7 +112,6 @@ public class Gizmos {
 		helper.load(ItemDebugWandNBT.class, content);
 		helper.load(ItemDebugWandReloading.class, content);
 
-		
 		helper.load(ItemFlashlightGlowstone.class, content);
 		helper.load(ItemFlashlightRF.class, content);
 		helper.load(ItemFlashlightNetherStar.class, content);
@@ -124,6 +124,7 @@ public class Gizmos {
 		helper.load(ItemCreativeEnderPearl.class, content);
 		
 		helper.load(BlockHologramProjector.class, content);
+		helper.load(BlockInventoryMultiplexer.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);

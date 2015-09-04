@@ -1,6 +1,5 @@
 ﻿itemGroup.gizmosTab=Gizmos
 
-
 tile.accelerator.name=Accelerator
 tile.accelerator.tooltip.1=Anything on top speeds up.
 
@@ -27,6 +26,11 @@ tile.invenswapper.tooltip.2=put items into it.
 tile.invenswapper.1.name=Invenswapper (out)
 tile.invenswapper.1.tooltip.1=Sneak while on top of it to
 tile.invenswapper.1.tooltip.2=take items out of it
+
+tile.inventoryMultiplexer.name=Inventory Multiplexer
+tile.inventoryMultiplexer.tooltip.1=Provides view of neighbouring
+tile.inventoryMultiplexer.tooltip.2=inventories to the marked side
+
 
 tile.launcher.name=Launcher
 tile.launcher.tooltip.1=Anything inside goes up, fast.

@@ -92,10 +92,22 @@ public class BlockLightRay extends BlockBase{
 	
 	public void registerIcons(IIconRegister ir) {}
 
+	public static boolean canUseFMP=true;
+	
 	public static void placeLightBlock(World w, int x, int y, int z){
 		if(w.isAirBlock(x,y,z)){
 			w.setBlock(x,y,z,ItemFlashlightBase.block,LIFESPAN,ItemFlashlightBase.updateFlags);
 			w.scheduleBlockUpdate(x,y,z,ItemFlashlightBase.block, ItemFlashlightBase.block.tickRate(w));
+		}else if(canUseFMP){
+			try { 
+				TileEntity te=w.getTileEntity(x, y, z);
+				if(te instanceof TileMultipart) {
+					((TileMultipart) te).addPart(w, new BlockCoord(x,y,z), new FMPLightRay());
+				}
+			}catch(Error e) {
+				canUseFMP=false;
+			}
+			
 		}
 	}
 
