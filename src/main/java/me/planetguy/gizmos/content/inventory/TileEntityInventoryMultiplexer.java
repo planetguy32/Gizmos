@@ -44,7 +44,7 @@ public class TileEntityInventoryMultiplexer extends TileEntity implements ISided
 	}
 	
 	public void updateCachedData() {
-		ArrayList<InvInt> invs=new ArrayList<>(6);
+		ArrayList<InvInt> invs=new ArrayList<InvInt>(6);
 		for(ForgeDirection dir:ForgeDirection.VALID_DIRECTIONS) {
 			if(dir.ordinal() != worldObj.getBlockMetadata(xCoord, yCoord, zCoord)) {
 				InvInt ii=new InvInt();
@@ -176,7 +176,7 @@ public class TileEntityInventoryMultiplexer extends TileEntity implements ISided
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		if(side == worldObj.getBlockMetadata(xCoord, yCoord, zCoord)) {
-			ArrayList<Integer> ints=new ArrayList<>();
+			ArrayList<Integer> ints=new ArrayList<Integer>();
 			int slotOffset=0;
 			for(InvInt inv:getConnectedInventories()) {
 				//add that inv's getAccessibleSlotsFromSide(), shifted with an offset
