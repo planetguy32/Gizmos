@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -57,6 +58,7 @@ public class GEventHandler {
 				PortalHandler.establishPortal(pie.world, pie.x, pie.y, pie.z, pie.face);
 			}
 			if(Properties.enableSimpleSetSpawn 
+					&& pie.world instanceof WorldServer
 					&& pie.world.getBlock(pie.x, pie.y, pie.z).isBed(pie.world, pie.x, pie.y, pie.z, pie.entityPlayer)) {
 				ChunkCoordinates bedPosition=new ChunkCoordinates(pie.x, pie.y, pie.z);
 				pie.entityPlayer.setSpawnChunk(bedPosition, false);
