@@ -2,6 +2,7 @@ package me.planetguy.gizmos.content.pvpparts;
 
 import cofh.api.energy.IEnergyHandler;
 import me.planetguy.gizmos.Properties;
+import me.planetguy.lib.util.Debug;
 import net.minecraft.block.BlockBed;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -27,6 +28,12 @@ public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyH
     }
 
     public void updateEnergy() {
+    	//check if world time changes, so we don't get stuck
+    	if(worldObj.getTotalWorldTime() < lastTouchedTick) {
+    		lastTouchedTick=0;
+    		Debug.dbg("Time change detected!");
+    	}
+    	
     	long ticksPassed=worldObj.getWorldTime()-lastTouchedTick;
     	energy=Math.max(0, energy-Properties.ESP_RF_config[1]);
     }
