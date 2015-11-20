@@ -34,6 +34,7 @@ import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
 import me.planetguy.gizmos.content.inventory.BlockInventoryMultiplexer;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
+import me.planetguy.gizmos.content.pvpparts.BlockElectricSpawnpoint;
 import me.planetguy.lib.PLHelper;
 import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.BlockContainerBase;
@@ -125,6 +126,8 @@ public class Gizmos {
 		
 		helper.load(BlockHologramProjector.class, content);
 		helper.load(BlockInventoryMultiplexer.class, content);
+		
+		helper.load(BlockElectricSpawnpoint.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);

@@ -46,6 +46,8 @@ public class Properties {
 	
 	public static boolean enableSimpleSetSpawn=true;
 	
+	public static int[] ESP_RF_config = {50000, 5, 49000};
+	
 	public static void update() {
 		enableMinecartTweaks=configFile.getBoolean("enablePullingOnFurnaceCart", Configuration.CATEGORY_GENERAL, enableMinecartTweaks, "Should sneaking while right-clicking a minecart start it moving towards you?");
 		enableSpecialPortals=configFile.getBoolean("enableSpecialPortals", Configuration.CATEGORY_GENERAL, enableSpecialPortals, "Should free-form portals be allowed? (Note: Slightly buggy)");

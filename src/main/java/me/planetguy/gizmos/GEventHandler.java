@@ -54,9 +54,11 @@ public class GEventHandler {
 	public void onInteract(PlayerInteractEvent pie){
 		if(pie.action==Action.RIGHT_CLICK_BLOCK) {
 			ItemStack i=pie.entityPlayer.getCurrentEquippedItem();
+			
 			if(i!=null && i.getItem().equals(Items.flint_and_steel)){
 				PortalHandler.establishPortal(pie.world, pie.x, pie.y, pie.z, pie.face);
 			}
+			
 			if(Properties.enableSimpleSetSpawn 
 					&& pie.world instanceof WorldServer
 					&& pie.world.getBlock(pie.x, pie.y, pie.z).isBed(pie.world, pie.x, pie.y, pie.z, pie.entityPlayer)) {
