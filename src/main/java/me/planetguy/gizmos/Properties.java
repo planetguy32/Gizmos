@@ -49,16 +49,13 @@ public class Properties {
 	//TODO configurable
 	public static int[] ESP_RF_config = {50000, 5, 49000};
 	
-	//TODO configurable
-	//60 sec * 20 TPS
-	public static int cacheCooldown=1200;
-	
 	public static void update() {
 		enableMinecartTweaks=configFile.getBoolean("enablePullingOnFurnaceCart", Configuration.CATEGORY_GENERAL, enableMinecartTweaks, "Should sneaking while right-clicking a minecart start it moving towards you?");
 		enableSpecialPortals=configFile.getBoolean("enableSpecialPortals", Configuration.CATEGORY_GENERAL, enableSpecialPortals, "Should free-form portals be allowed? (Note: Slightly buggy)");
 		maxPortalSize=configFile.getInt("maxPortalSize", Configuration.CATEGORY_GENERAL, maxPortalSize, 0, Integer.MAX_VALUE, "Maximum size of freeform portals");
 		enableSimpleSetSpawn=configFile.getBoolean("enableSimpleSetSpawn", Configuration.CATEGORY_GENERAL, enableSimpleSetSpawn, "Let players set their spawn point at a bed without sleeping?");
 		flashlightRechargePerGlowstone=configFile.getInt("flashlightRechargePerGlowstone", Configuration.CATEGORY_GENERAL, flashlightRechargePerGlowstone, 0, ItemFlashlightBase.maxDamage, "How much use should glowstone repair on a flashlight?");
+		ESP_RF_config=configFile.get(Configuration.CATEGORY_GENERAL, "electricSpawnPointRFCharacteristics",ESP_RF_config, "Array of 3 integers: first is max capacity, second is RF/t loss, third is RF required to respawn player").getIntList();
 		if(configFile.hasChanged()){
 			configFile.save();
 		}

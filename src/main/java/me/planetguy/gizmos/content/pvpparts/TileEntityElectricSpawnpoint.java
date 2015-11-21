@@ -34,7 +34,8 @@ public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyH
     		Debug.dbg("Time change detected!");
     	}
     	
-    	long ticksPassed=worldObj.getWorldTime()-lastTouchedTick;
+    	long ticksPassed=worldObj.getTotalWorldTime()-lastTouchedTick;
+    	lastTouchedTick=worldObj.getTotalWorldTime();
     	energy=Math.max(0, energy-Properties.ESP_RF_config[1]);
     }
 	
