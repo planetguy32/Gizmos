@@ -46,7 +46,12 @@ public class Properties {
 	
 	public static boolean enableSimpleSetSpawn=true;
 	
+	//TODO configurable
 	public static int[] ESP_RF_config = {50000, 5, 49000};
+	
+	//TODO configurable
+	//60 sec * 20 TPS
+	public static int cacheCooldown=1200;
 	
 	public static void update() {
 		enableMinecartTweaks=configFile.getBoolean("enablePullingOnFurnaceCart", Configuration.CATEGORY_GENERAL, enableMinecartTweaks, "Should sneaking while right-clicking a minecart start it moving towards you?");

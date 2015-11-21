@@ -64,8 +64,7 @@ public class GEventHandler {
 					&& pie.world.getBlock(pie.x, pie.y, pie.z).isBed(pie.world, pie.x, pie.y, pie.z, pie.entityPlayer)) {
 				ChunkCoordinates bedPosition=new ChunkCoordinates(pie.x, pie.y, pie.z);
 				pie.entityPlayer.setSpawnChunk(bedPosition, false);
-				pie.entityPlayer.addChatComponentMessage(new ChatComponentText("Spawn reset to "+bedPosition));
-			}
+				pie.entityPlayer.addChatComponentMessage(new ChatComponentText("Spawn reset to ("+pie.x+", "+pie.y+", "+pie.z+")"));			}
 		}
 	}
 

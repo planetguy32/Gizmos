@@ -47,6 +47,15 @@ tile.timeBomb.1.tooltip.1=Counts down to destruction
 tile.timeBomb.1.tooltip.2=Copies itself if punched
 
 
+tile.pvpParts.name=Electric Spawnpoint
+tile.pvpParts.tooltip.1=Right-click to instantly set your spawn.
+tile.pvpParts.tooltip.2=You only respawn there when this has power.
+
+tile.pvpParts.1.name=Weapons Cache
+tile.pvpParts.1.tooltip.1=Caches weapons.
+tile.pvpParts.1.tooltip.2=Has a cooldown
+
+
 item.bombDefuser.name=Bomb Defuser
 item.bombDefuser.tooltip.1=Removes explosives painlessly.
 item.bombDefuser.tooltip.2=*NOTE* Sneak if using on fork bombs
