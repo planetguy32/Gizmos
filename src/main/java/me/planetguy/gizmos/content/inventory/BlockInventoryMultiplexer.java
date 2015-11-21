@@ -14,7 +14,6 @@ import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.BlockContainerBase;
 import me.planetguy.lib.util.SidedIcons;
 import me.planetguy.lib.util.transformations.Rotator;
-import me.planetguy.remaininmotion.base.TileEntityRiM;
 
 public class BlockInventoryMultiplexer extends BlockContainerBase {
 
