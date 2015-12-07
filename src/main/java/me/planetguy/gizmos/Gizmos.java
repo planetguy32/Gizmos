@@ -9,25 +9,32 @@ import me.planetguy.gizmos.content.BlockLauncher;
 import me.planetguy.gizmos.content.BlockLogger;
 import me.planetguy.gizmos.content.BlockTimeBomb;
 import me.planetguy.gizmos.content.ItemBombDefuser;
-import me.planetguy.gizmos.content.ItemDebugWand;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
 import me.planetguy.gizmos.content.admin.ItemCreativeEnderPearl;
 import me.planetguy.gizmos.content.admin.ItemStickOfWhacking;
+import me.planetguy.gizmos.content.devtools.ItemDebugWandFieldwise;
+import me.planetguy.gizmos.content.devtools.ItemDebugWandNBT;
+import me.planetguy.gizmos.content.devtools.ItemDebugWandReloading;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightGlowstone;
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightNetherStar;
 import me.planetguy.gizmos.content.flashlight.ItemFlashlightRF;
 import me.planetguy.gizmos.content.flashlight.ItemHeadlampGlowstone;
+import me.planetguy.gizmos.content.flashlight.ItemHeadlampNetherStar;
 import me.planetguy.gizmos.content.flashlight.ItemHeadlampRF;
 import me.planetguy.gizmos.content.gravitybomb.BlockGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityGravityBomb;
 import me.planetguy.gizmos.content.gravitybomb.EntityTunnelBomb;
+import me.planetguy.gizmos.content.hologram.BlockHologramProjector;
 import me.planetguy.gizmos.content.inserter.BlockInserter;
 import me.planetguy.gizmos.content.inserter.ItemBuildTool;
 import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
+import me.planetguy.gizmos.content.inventory.BlockInventoryMultiplexer;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
+import me.planetguy.gizmos.content.pvpparts.BlockPVPParts;
 import me.planetguy.lib.PLHelper;
 import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.BlockContainerBase;
@@ -42,6 +49,7 @@ import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -49,11 +57,14 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version="3.0", dependencies="required-after:planetguyLib")
+@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version=Properties.version, dependencies="required-after:planetguyLib@[1.7,)")
 public class Gizmos {
 
 	@Instance(Properties.modID)
 	public static Gizmos instance;
+	
+	@SidedProxy(clientSide=Properties.clientProxy, serverSide=Properties.commonProxy )
+	public static CommonProxy proxy;
 	
 	public static PLHelper helper;
 	
@@ -98,17 +109,25 @@ public class Gizmos {
 		
 		helper.load(BlockLogger.class, content);
 		
-		helper.load(ItemDebugWand.class, content);
-		
+		helper.load(ItemDebugWandFieldwise.class, content);
+		helper.load(ItemDebugWandNBT.class, content);
+		helper.load(ItemDebugWandReloading.class, content);
+
 		helper.load(ItemFlashlightGlowstone.class, content);
 		helper.load(ItemFlashlightRF.class, content);
+		helper.load(ItemFlashlightNetherStar.class, content);
 		
 		helper.load(ItemHeadlampRF.class, content);
-		
 		helper.load(ItemHeadlampGlowstone.class, content);
+		helper.load(ItemHeadlampNetherStar.class, content);
 		
 		helper.load(ItemStickOfWhacking.class, content);
 		helper.load(ItemCreativeEnderPearl.class, content);
+		
+		helper.load(BlockHologramProjector.class, content);
+		helper.load(BlockInventoryMultiplexer.class, content);
+		
+		helper.load(BlockPVPParts.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
@@ -116,6 +135,7 @@ public class Gizmos {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent ie){
+		proxy.loadRendering();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		CreativeTabs tab=new CreativeTabPrefab("gizmosTab", new ItemStack((Block) content.get("gravityBomb"), 1, 1));
 		for(IPrefabItem item:content.values()){

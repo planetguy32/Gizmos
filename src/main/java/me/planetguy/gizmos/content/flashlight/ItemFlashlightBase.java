@@ -58,20 +58,13 @@ public abstract class ItemFlashlightBase extends ItemBase{
 			
 			if(isNotActuallyUsing(e))
 				return; //if player is not holding this
-			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, 20);
+			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, getRaycastRange());
 			if(pos==null)return;
 			ForgeDirection dir=ForgeDirection.getOrientation(pos.sideHit);
-			placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
+			BlockLightRay.placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
 		}
 	}
 
-	public void placeLightBlock(World w, int x, int y, int z){
-		if(w.isAirBlock(x,y,z)){
-			w.setBlock(x,y,z,block,1,updateFlags); //set to light ray with meta 1
-			w.scheduleBlockUpdate(x,y,z,block, block.tickRate(w));
-		}
-	}
-	
 	public boolean active(ItemStack stk, EntityLivingBase e) {
 		if(stk.hasTagCompound()&&stk.getItemDamage() < this.getMaxDamage()){
 			NBTTagCompound tag=stk.getTagCompound();
@@ -107,11 +100,15 @@ public abstract class ItemFlashlightBase extends ItemBase{
 	
 	public boolean use(ItemStack stk, EntityLivingBase e){
 		if(stk.getItemDamage()<this.getMaxDamage()){
-			stk.damageItem(1, e);
+			damageItem(stk,e);
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	public void damageItem(ItemStack stk, EntityLivingBase e){
+		stk.damageItem(1, e);
 	}
 	
 	public boolean isNotActuallyUsing(Entity e){
@@ -141,8 +138,8 @@ public abstract class ItemFlashlightBase extends ItemBase{
 		return p.worldObj.func_147447_a(position, adjustedLook, false, false, true);
 	}
 	
-	/*
-	 * The actual light ray block. Works much like air.
-	 * To avoid blinking, place it with metadata 1 - it sets its meta to 0 automatically if not refreshed, and if it updates while its meta is 0 it disappears.
-	 */
+	public double getRaycastRange(){
+		return 20d;
+	}
+	
 }

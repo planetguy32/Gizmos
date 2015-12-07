@@ -32,8 +32,6 @@ public class BlockGravityBomb extends BlockBase{
 
 	public BlockGravityBomb(){
 		super(Material.tnt, "gravityBomb");
-		//SLItemBlock.registerString(this, 0, "Gravity Bomb", new String[] {"Falls as far as it can,","explodes where it lands"});
-		//SLItemBlock.registerString(this, 1, "Excavator Bomb", new String[] {"Falls for a set time,","explodes each time it lands"});
 	}
 
 	@Override
@@ -71,11 +69,6 @@ public class BlockGravityBomb extends BlockBase{
 		}
 	}
 
-
-
-
-	//Explosion code follows
-
 	public void onBlockAdded(World par1World, int x, int par3, int par4)
 	{
 		par1World.scheduleBlockUpdate(x, par3, par4, this, tickRate());
@@ -105,8 +98,6 @@ public class BlockGravityBomb extends BlockBase{
 	public void updateTick(World par1World, int par2, int par3, int par4, Random randomThingy)
 	{
 		int metadata=par1World.getBlockMetadata(par2, par3, par4);
-		// FMLLog.log(Level.SEVERE, "My metadata: "+metadata, "");
-
 
 		if ((canFallBelow(par1World, par2, par3 - 1, par4)) && (par3 >= 0))
 		{

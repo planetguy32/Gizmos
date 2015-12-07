@@ -1,5 +1,6 @@
 package me.planetguy.gizmos.content.inventory;
 
+import me.planetguy.lib.util.Debug;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -160,4 +161,15 @@ public class TileEntityInvenswapper extends TileEntity implements ISidedInventor
 
 	@Override
 	public void closeInventory() {}
+	
+	public void validate() {
+		super.validate();
+		Debug.dbg("Validated");
+	}
+	
+	public void invalidate() {
+		super.invalidate();
+		Debug.dbg("Invalidated");
+	}
+	
 }

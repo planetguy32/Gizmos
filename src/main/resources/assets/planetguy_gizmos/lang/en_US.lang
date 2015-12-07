@@ -1,4 +1,5 @@
 ﻿itemGroup.tabGizmos=Gizmos
+﻿itemGroup.gizmosTab=Gizmos
 
 tile.accelerator.name=Accelerator
 tile.accelerator.tooltip.1=Anything on top speeds up.
@@ -29,6 +30,10 @@ tile.invenswapper.1.tooltip.2=take items out of it
 
 invenswapper.gui.label=Invenswapper
 
+tile.inventoryMultiplexer.name=Inventory Multiplexer
+tile.inventoryMultiplexer.tooltip.1=Provides view of neighbouring
+tile.inventoryMultiplexer.tooltip.2=inventories to the marked side
+
 tile.launcher.name=Launcher
 tile.launcher.tooltip.1=Anything inside goes up, fast.
 
@@ -42,6 +47,15 @@ tile.timeBomb.tooltip.1=Counts down to destruction
 tile.timeBomb.1.name=Fork Bomb
 tile.timeBomb.1.tooltip.1=Counts down to destruction
 tile.timeBomb.1.tooltip.2=Copies itself if punched
+
+
+tile.pvpParts.name=Electric Spawnpoint
+tile.pvpParts.tooltip.1=Right-click to instantly set your spawn.
+tile.pvpParts.tooltip.2=You only respawn there when this has power.
+
+tile.pvpParts.1.name=Weapons Cache
+tile.pvpParts.1.tooltip.1=Caches weapons.
+tile.pvpParts.1.tooltip.2=Has a cooldown
 
 
 item.bombDefuser.name=Bomb Defuser
@@ -73,6 +87,10 @@ item.flashlightGlowstone.name=Glowstone Flashlight
 item.flashlightGlowstone.tooltip.1=Casts a beam of light. R-click to toggle.
 item.flashlightGlowstone.tooltip.2=Craft with glowstone dust to recharge.
 
+item.flashlightNether.name=Nether Star Flashlight
+item.flashlightNether.tooltip.1=Casts a beam of light. R-click to toggle.
+item.flashlightNether.tooltip.2=No recharging is necessary.
+
 item.flashlightRF.name=Redstone Flux Flashlight
 item.flashlightRF.tooltip.1=Casts a beam of light. R-click to
 item.flashlightRF.tooltip.2=toggle. Power with RF to recharge.
@@ -81,6 +99,31 @@ item.flashlightHeadlampRF.name=Redstone Flux Headlamp
 item.flashlightHeadlampRF.tooltip.1=Now in hands-free form. R-click to toggle,
 item.flashlightHeadlampRF.tooltip.2=wear on your head. Power with RF to recharge.
 
-item.flashlightHeadlampGlowstone.name=Redstone Flux Headlamp
+item.flashlightHeadlampNether.name=Nether Star Headlamp
+item.flashlightHeadlampNether.tooltip.1=Now in hands-free form. R-click to toggle,
+item.flashlightHeadlampNether.tooltip.2=wear on your head. No recharging is necessary.
+
+item.flashlightHeadlampGlowstone.name=Glowstone Headlamp
 item.flashlightHeadlampGlowstone.tooltip.1=Now in hands-free form. R-click to toggle,
 item.flashlightHeadlampGlowstone.tooltip.2=wear on your head. Craft with glowstone to charge.
+
+item.debugWand.name=Field Debug Wand
+item.nbtDebugWand.tooltip.1=Peeks into all fields of the target block
+item.nbtDebugWand.tooltip.2=and logs their values to the console.
+
+item.nbtDebugWand.name=NBT Debug Wand
+item.nbtDebugWand.tooltip.1=Asks the target block to save its state,
+item.nbtDebugWand.tooltip.2=and logs that NBT tag to the console.
+
+item.reloadDebugWand.name=Loading Debug Wand
+item.reloadDebugWand.tooltip.1=Saves and loads the target tile entity, and
+item.reloadDebugWand.tooltip.2=logs the values of its fields to the console.
+
+item.stickOfWhacking.name=Stick of Whacking
+item.stickOfWhacking.tooltip.1=Whacks things for tons of damage.
+item.stickOfWhacking.tooltip.2=Creative mode only.
+
+item.creativeEnderPearl.name=Creative Ender Pearl
+item.creativeEnderPearl.tooltip.1=Unbreakable ender pearl,
+item.creativeEnderPearl.tooltip.2=usable on creative.
+
