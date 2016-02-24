@@ -31,7 +31,6 @@ public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyH
     	//check if world time changes, so we don't get stuck
     	if(worldObj.getTotalWorldTime() < lastTouchedTick) {
     		lastTouchedTick=0;
-    		Debug.dbg("Time change detected!");
     	}
     	
     	long ticksPassed=worldObj.getTotalWorldTime()-lastTouchedTick;
@@ -76,13 +75,13 @@ public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyH
 		return false;
 	}
 
-	public ChunkCoordinates getBedSpawnPosition() {
+	public boolean isValidSpawnPosition() {
 		updateEnergy();
 		if(energy>=Properties.ESP_RF_config[2]) {
 			energy-=Properties.ESP_RF_config[2];
-			return BlockBed.func_149977_a(worldObj, xCoord, yCoord, zCoord, 0);
+			return true;
 		}else {
-			return null;
+			return false;
 		}
 	}
 

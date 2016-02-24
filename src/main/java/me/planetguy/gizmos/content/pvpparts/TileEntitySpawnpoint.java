@@ -1,5 +1,7 @@
 package me.planetguy.gizmos.content.pvpparts;
 
-public class TileEntitySpawnpoint {
+import net.minecraft.tileentity.TileEntity;
+
+public class TileEntitySpawnpoint extends TileEntity {
 
 }
