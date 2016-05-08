@@ -6,6 +6,8 @@ import codechicken.lib.vec.BlockCoord;
 import codechicken.multipart.TileMultipart;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import me.planetguy.gizmos.util.BlockAiry;
+import me.planetguy.gizmos.util.MaterialSolidAir;
 import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,13 +18,14 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockLightRay extends BlockBase{
+public class BlockLightRay extends BlockAiry{
 
 	//Must be 0-15, since it's used as metadata
 	public static final byte LIFESPAN=1;
 	
 	public static final byte TICK_RATE=4;
 	
+	//We don't actually glow on the server, to avoid wrecking the server's CPU
 	public static final float LIGHT_VALUE = 
 			FMLCommonHandler.instance().getEffectiveSide()==Side.CLIENT 
 			? 1.0f
@@ -30,9 +33,7 @@ public class BlockLightRay extends BlockBase{
 	
 	public BlockLightRay(){
 		//can't use Material.air - MC drops your scheduled ticks (!!)
-		super(
-				new MaterialLightRay(Material.air.getMaterialMapColor())
-				, "lightRay");
+		super("lightRay");
 		this.setLightLevel(LIGHT_VALUE);
 		this.setTickRandomly(true);
 	}
@@ -57,42 +58,10 @@ public class BlockLightRay extends BlockBase{
 		w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
 	}
 
-	//same as air
-	public int getRenderType(){
-		return -1;
-	}
-
-	//not opaque cube
-	public boolean isOpaqueCube(){
-		return false;
-	}
-
-	//no AABB
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z){
-		return null;
-	}
-
-	//no drops
-	public void dropBlockAsItemWithChance(World w, int x, int y, int z, int idk, float what, int thisis) {}
-
-	//no collisions
-	public boolean canCollideCheck(int p_149678_1_, boolean p_149678_2_){
-		return false;
-	}
-
 	//update on neighbour change
 	public void onNeighborBlockChange(World w, int x, int y, int z, Block b){
 		w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
 	}
-
-	//is air
-	public boolean isAir(IBlockAccess world, int x, int y, int z){
-		return true;
-	}
-	
-	public void registerIcons(IIconRegister ir) {}
-
-	public static boolean canUseFMP=true;
 	
 	public static void placeLightBlock(World w, int x, int y, int z){
 		if(w.isAirBlock(x,y,z)){

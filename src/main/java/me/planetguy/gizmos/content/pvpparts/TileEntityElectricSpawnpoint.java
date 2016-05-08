@@ -10,7 +10,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyHandler {
+public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyHandler, ISpawnController {
 
 	int energy=0;
 	
@@ -75,7 +75,7 @@ public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyH
 		return false;
 	}
 
-	public boolean isValidSpawnPosition() {
+	public boolean spawnPlayerAt() {
 		updateEnergy();
 		if(energy>=Properties.ESP_RF_config[2]) {
 			energy-=Properties.ESP_RF_config[2];
@@ -83,6 +83,10 @@ public class TileEntityElectricSpawnpoint extends TileEntity implements IEnergyH
 		}else {
 			return false;
 		}
+	}
+	
+	public String getName(){
+		return "Base "+xCoord+", "+yCoord+", "+zCoord;
 	}
 
 }

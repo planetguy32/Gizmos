@@ -34,7 +34,10 @@ import me.planetguy.gizmos.content.inventory.BlockInvenswapperBase;
 import me.planetguy.gizmos.content.inventory.BlockInventoryMultiplexer;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
-import me.planetguy.gizmos.content.pvpparts.BlockPVPParts;
+import me.planetguy.gizmos.content.pvpparts.BlockMobAutoKiller;
+import me.planetguy.gizmos.content.pvpparts.BlockPersistentGlowingAir;
+import me.planetguy.gizmos.content.pvpparts.BlockSmoker;
+import me.planetguy.gizmos.content.pvpparts.BlockSpawner;
 import me.planetguy.lib.PLHelper;
 import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.BlockContainerBase;
@@ -57,7 +60,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version=Properties.version, dependencies="required-after:planetguyLib@[1.7,)")
+@Mod(modid = Properties.modID, guiFactory="me.planetguy.gizmos.ConfigGUI", version=Properties.version, dependencies="required-after:planetguyLib@[1.9,)")
 public class Gizmos {
 
 	@Instance(Properties.modID)
@@ -78,7 +81,8 @@ public class Gizmos {
 		Properties.configFile=new Configuration(pie.getSuggestedConfigurationFile());
 		Properties.update();
 		
-		GEventHandler.init();
+		ForgeEventHandler.init();
+		FMLEventHandler.init();
 		
 		Prefabs.initialize(Properties.modID);
 		
@@ -127,7 +131,10 @@ public class Gizmos {
 		helper.load(BlockHologramProjector.class, content);
 		helper.load(BlockInventoryMultiplexer.class, content);
 		
-		helper.load(BlockPVPParts.class, content);
+		helper.load(BlockSpawner.class, content);
+		helper.load(BlockPersistentGlowingAir.class, content);
+		helper.load(BlockMobAutoKiller.class, content);
+		helper.load(BlockSmoker.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);

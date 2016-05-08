@@ -49,17 +49,28 @@ tile.timeBomb.1.tooltip.1=Counts down to destruction
 tile.timeBomb.1.tooltip.2=Copies itself if punched
 
 
+
 tile.pvpParts.name=Electric Spawnpoint
-tile.pvpParts.tooltip.1=Right-click or walk through to set your spawn.
-tile.pvpParts.tooltip.2=You only respawn there when this has power.
+tile.pvpParts.tooltip.1=Right-click to set your spawn.
+tile.pvpParts.tooltip.2=Requires power to work.
 
 tile.pvpParts.1.name=Spawnpoint
-tile.pvpParts.1.tooltip.1=Use or walk through it
-tile.pvpParts.1.tooltip.2=to set your respawn point.
+tile.pvpParts.1.tooltip.1=Right-click to set your spawn.
+tile.pvpParts.1.tooltip.2=No power necessary.
 
-tile.pvpParts.2.name=Weapons Cache
-tile.pvpParts.2.tooltip.1=Caches weapons.
-tile.pvpParts.2.tooltip.2=Has a cooldown
+tile.pvpParts.2.name=Electric Waypoint
+tile.pvpParts.2.tooltip.1=Right-click to set your spawn.
+tile.pvpParts.2.tooltip.2=Requires power, and your base must work.
+
+tile.pvpParts.3.name=Waypoint
+tile.pvpParts.3.tooltip.1=Right-click to set your spawn.
+tile.pvpParts.3.tooltip.2=Your base must be active.
+
+messageSpawnerLost0=Base lost
+messageSpawnerLost1=Base lost
+messageSpawnerLost2=Control point lost
+messageSpawnerLost3=Control point lost
+
 
 
 item.bombDefuser.name=Bomb Defuser

@@ -2,11 +2,15 @@ package me.planetguy.gizmos;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import me.planetguy.gizmos.content.PortalHandler;
+import me.planetguy.gizmos.content.pvpparts.BlockSpawner;
 import me.planetguy.lib.util.Debug;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartFurnace;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,13 +22,13 @@ import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
-public class GEventHandler {
+public class ForgeEventHandler {
 	
 	public static void init(){
-		MinecraftForge.EVENT_BUS.register(new GEventHandler());
+		MinecraftForge.EVENT_BUS.register(new ForgeEventHandler());
 	}
 	
-	private GEventHandler(){}
+	private ForgeEventHandler(){}
 	
 	@SubscribeEvent
 	public void onMinecartEvent(MinecartInteractEvent ev){
@@ -61,11 +65,10 @@ public class GEventHandler {
 			
 			if(Properties.enableSimpleSetSpawn 
 					&& pie.world instanceof WorldServer
-					&& pie.world.getBlock(pie.x, pie.y, pie.z).isBed(pie.world, pie.x, pie.y, pie.z, pie.entityPlayer)) {
+					&& pie.world.getBlock(pie.x, pie.y, pie.z)==Blocks.bed) {
 				ChunkCoordinates bedPosition=new ChunkCoordinates(pie.x, pie.y, pie.z);
 				pie.entityPlayer.setSpawnChunk(bedPosition, false);
 				pie.entityPlayer.addChatComponentMessage(new ChatComponentText("Spawn reset to ("+pie.x+", "+pie.y+", "+pie.z+")"));			}
 		}
 	}
-
 }
