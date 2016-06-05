@@ -13,9 +13,7 @@ public class ItemStickOfWhacking extends ItemBase{
 	}
 	
     public boolean hitEntity(ItemStack stack, EntityLivingBase e1, EntityLivingBase e2){
-		if (e2 instanceof EntityPlayer && ((EntityPlayer)e2).capabilities.isCreativeMode){
-			e1.attackEntityFrom(DamageSource.outOfWorld, 9001.0f);
-		}
+    	e1.attackEntityFrom(DamageSource.outOfWorld, 9001.0f);
     	return true;
     }
 
