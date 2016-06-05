@@ -45,12 +45,12 @@ public class BlockLightRay extends BlockAiry{
 
 	public void updateTick(World w, int x, int y, int z, Random rand){
 		int meta=w.getBlockMetadata(x,y,z);
-		if(meta>0){
+		if(meta>0 && meta<=LIFESPAN){
 			w.setBlockMetadataWithNotify(x, y, z, meta-1, ItemFlashlightBase.updateFlags);
+			w.scheduleBlockUpdate(x, y, z, this, tickRate(w)); //No need to update air
 		}else{
 			w.setBlock(x, y, z, Blocks.air, 0, 0x03);
 		}
-		w.scheduleBlockUpdate(x, y, z, this, tickRate(w));
 	}
 
 	//request callback when placed
