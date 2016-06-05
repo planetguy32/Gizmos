@@ -1,4 +1,4 @@
-package me.planetguy.gizmos.content;
+package me.planetguy.gizmos.content.devtools;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

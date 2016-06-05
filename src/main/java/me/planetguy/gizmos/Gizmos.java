@@ -6,14 +6,19 @@ import java.util.HashMap;
 import me.planetguy.gizmos.content.BlockAccelerator;
 import me.planetguy.gizmos.content.BlockDynamicWool;
 import me.planetguy.gizmos.content.BlockLauncher;
-import me.planetguy.gizmos.content.BlockLogger;
 import me.planetguy.gizmos.content.BlockTimeBomb;
 import me.planetguy.gizmos.content.ItemBombDefuser;
 import me.planetguy.gizmos.content.ItemFireExtinguisher;
 import me.planetguy.gizmos.content.ItemRedstoneActivator;
+import me.planetguy.gizmos.content.ItemSprayPaintCan;
 import me.planetguy.gizmos.content.ItemTemporalDislocator;
 import me.planetguy.gizmos.content.admin.ItemCreativeEnderPearl;
 import me.planetguy.gizmos.content.admin.ItemStickOfWhacking;
+import me.planetguy.gizmos.content.clearblocks.BlockInvisibleWall;
+import me.planetguy.gizmos.content.clearblocks.BlockPersistentGlowingAir;
+import me.planetguy.gizmos.content.clearblocks.BlockSmoker;
+import me.planetguy.gizmos.content.clearblocks.ItemRevealer;
+import me.planetguy.gizmos.content.devtools.BlockLogger;
 import me.planetguy.gizmos.content.devtools.ItemDebugWandFieldwise;
 import me.planetguy.gizmos.content.devtools.ItemDebugWandNBT;
 import me.planetguy.gizmos.content.devtools.ItemDebugWandReloading;
@@ -35,8 +40,6 @@ import me.planetguy.gizmos.content.inventory.BlockInventoryMultiplexer;
 import me.planetguy.gizmos.content.inventory.BlockTelekinesisCatalyst;
 import me.planetguy.gizmos.content.inventory.ItemLuncher;
 import me.planetguy.gizmos.content.pvpparts.BlockMobAutoKiller;
-import me.planetguy.gizmos.content.pvpparts.BlockPersistentGlowingAir;
-import me.planetguy.gizmos.content.pvpparts.BlockSmoker;
 import me.planetguy.gizmos.content.pvpparts.BlockSpawner;
 import me.planetguy.lib.PLHelper;
 import me.planetguy.lib.prefab.BlockBase;
@@ -132,9 +135,14 @@ public class Gizmos {
 		helper.load(BlockInventoryMultiplexer.class, content);
 		
 		helper.load(BlockSpawner.class, content);
-		helper.load(BlockPersistentGlowingAir.class, content);
 		helper.load(BlockMobAutoKiller.class, content);
+		
+		helper.load(BlockPersistentGlowingAir.class, content);
 		helper.load(BlockSmoker.class, content);
+		helper.load(BlockInvisibleWall.class, content);
+		helper.load(ItemRevealer.class, content);
+		
+		helper.load(ItemSprayPaintCan.class, content);
 		
 		EntityRegistry.registerModEntity(EntityGravityBomb.class, "GBomb", 201, this, 80, 3, true);
 		EntityRegistry.registerModEntity(EntityTunnelBomb.class,  "TBomb", 202, this, 80, 3, true);
@@ -144,7 +152,7 @@ public class Gizmos {
 	public void init(FMLInitializationEvent ie){
 		proxy.loadRendering();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		CreativeTabs tab=new CreativeTabPrefab("gizmosTab", new ItemStack((Block) content.get("gravityBomb"), 1, 1));
+		CreativeTabs tab=new CreativeTabPrefab(Properties.modID+":gizmosTab", new ItemStack((Block) content.get("gravityBomb"), 1, 1));
 		for(IPrefabItem item:content.values()){
 			item.setCreativeTab(tab);
 		}

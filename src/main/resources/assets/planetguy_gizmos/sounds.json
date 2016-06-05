@@ -6,6 +6,15 @@
     [
         "switch1"
     ]
+},
+
+"spray": {
+    "category": "neutral" ,
+    "sounds": 
+    [
+        "spray1"
+    ]
 }
+
 
 }

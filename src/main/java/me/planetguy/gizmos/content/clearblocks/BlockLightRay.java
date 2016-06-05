@@ -1,4 +1,4 @@
-package me.planetguy.gizmos.content.flashlight;
+package me.planetguy.gizmos.content.clearblocks;
 
 import java.util.Random;
 
@@ -6,8 +6,7 @@ import codechicken.lib.vec.BlockCoord;
 import codechicken.multipart.TileMultipart;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
-import me.planetguy.gizmos.util.BlockAiry;
-import me.planetguy.gizmos.util.MaterialSolidAir;
+import me.planetguy.gizmos.content.flashlight.ItemFlashlightBase;
 import me.planetguy.lib.prefab.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -37,7 +36,7 @@ public class BlockLightRay extends BlockAiry{
 		this.setLightLevel(LIGHT_VALUE);
 		this.setTickRandomly(true);
 	}
-
+	
 	//pretty fast - faster can be hard on performance, slower can lead to light sticking around after you turn away
 	public int tickRate(World w){
 		return TICK_RATE;
@@ -45,7 +44,7 @@ public class BlockLightRay extends BlockAiry{
 
 	public void updateTick(World w, int x, int y, int z, Random rand){
 		int meta=w.getBlockMetadata(x,y,z);
-		if(meta>0 && meta<=LIFESPAN){
+		if(meta>0){
 			w.setBlockMetadataWithNotify(x, y, z, meta-1, ItemFlashlightBase.updateFlags);
 			w.scheduleBlockUpdate(x, y, z, this, tickRate(w)); //No need to update air
 		}else{

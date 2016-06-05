@@ -22,12 +22,13 @@ import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 import me.planetguy.gizmos.Gizmos;
+import me.planetguy.gizmos.content.clearblocks.BlockLightRay;
+import me.planetguy.gizmos.util.Raycast;
 import me.planetguy.lib.prefab.BlockBase;
 import me.planetguy.lib.prefab.ItemBase;
 import me.planetguy.lib.prefab.IPrefabItem;
@@ -58,7 +59,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 			
 			if(isNotActuallyUsing(e))
 				return; //if player is not holding this
-			MovingObjectPosition pos=rayTrace((EntityLivingBase) e, getRaycastRange());
+			MovingObjectPosition pos=Raycast.rayTrace((EntityLivingBase) e, getRaycastRange());
 			if(pos==null)return;
 			ForgeDirection dir=ForgeDirection.getOrientation(pos.sideHit);
 			BlockLightRay.placeLightBlock(w, pos.blockX+dir.offsetX, pos.blockY+dir.offsetY, pos.blockZ+dir.offsetZ);
@@ -118,26 +119,7 @@ public abstract class ItemFlashlightBase extends ItemBase{
 					|| ((EntityLivingBase) e).getHeldItem().getItem() != this)
 				);
 	}
-	
 
-	/* =============================================================================
-	 * Ray-tracing code based on EntityPlayer - included here so available on server
-	 * =============================================================================
-	 */
-
-	public Vec3 getPosition(Entity p)
-	{
-		return Vec3.createVectorHelper(p.posX, p.posY, p.posZ);
-	}
-
-	public MovingObjectPosition rayTrace(EntityLivingBase p, double distance)
-	{
-		Vec3 position = getPosition(p).addVector(0, p.getEyeHeight()/2, 0);
-		Vec3 look = p.getLook(1);
-		Vec3 adjustedLook = position.addVector(look.xCoord * distance, look.yCoord * distance, look.zCoord * distance);
-		return p.worldObj.func_147447_a(position, adjustedLook, false, false, true);
-	}
-	
 	public double getRaycastRange(){
 		return 20d;
 	}

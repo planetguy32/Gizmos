@@ -1,5 +1,4 @@
-﻿itemGroup.tabGizmos=Gizmos
-﻿itemGroup.gizmosTab=Gizmos
+gizmosTab=Gizmos
 
 tile.accelerator.name=Accelerator
 tile.accelerator.tooltip.1=Anything on top speeds up.
@@ -72,6 +71,34 @@ messageSpawnerLost2=Control point lost
 messageSpawnerLost3=Control point lost
 
 
+tile.smokeMaker.name=Smoke Maker (Critical Hit)
+tile.smokeMaker.1.name=Smoke Maker (Portal)
+tile.smokeMaker.2.name=Smoke Maker (Smoke 1)
+tile.smokeMaker.3.name=Smoke Maker (Flame)
+tile.smokeMaker.4.name=Smoke Maker (Hearts)
+tile.smokeMaker.5.name=Smoke Maker (Explosion 1)
+tile.smokeMaker.6.name=Smoke Maker (Explosion 2)
+tile.smokeMaker.7.name=Smoke Maker (Explosion 3)
+tile.smokeMaker.8.name=Smoke Maker (Void)
+tile.smokeMaker.9.name=Smoke Maker (Smoke 2)
+tile.smokeMaker.10.name=Smoke Maker (Snowball)
+tile.smokeMaker.11.name=Smoke Maker (Redstone)
+tile.smokeMaker.12.name=Smoke Maker (Plus)
+tile.smokeMaker.13.name=Smoke Maker (Notes)
+
+tile.persistentLightRay.name=Invisible Lamp
+tile.persistentLightRay.tooltip.1=Lights up an area, but
+tile.persistentLightRay.tooltip.2=cannot be seen itself.
+
+tile.invisibleWall.name=Invisible Wall
+tile.invisibleWall.tooltip.1=Can be felt, but not seen.
+tile.invisibleWall.tooltip.2=(Well, not without a revealer.)
+
+item.revealer.name=Revealer
+item.revealer.tooltip.1=Right-click to toggle all invisible
+item.revealer.tooltip.2=blocks' invisibility. Relog recommended.
+
+
 
 item.bombDefuser.name=Bomb Defuser
 item.bombDefuser.tooltip.1=Removes explosives painlessly.
@@ -142,3 +169,5 @@ item.creativeEnderPearl.name=Creative Ender Pearl
 item.creativeEnderPearl.tooltip.1=Unbreakable ender pearl,
 item.creativeEnderPearl.tooltip.2=usable on creative.
 
+item.sprayPaint.name=Spray Paint
+item.sprayPaint.tooltip.1=Paints things at moderate range.
